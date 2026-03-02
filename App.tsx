@@ -1,20 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { ActivityIndicator, SafeAreaView, StyleSheet } from 'react-native';
+import { AppQueryProvider } from './src/providers/AppQueryProvider';
+import { AuthProvider, useAuth } from './src/providers/AuthProvider';
+import { LoginScreen } from './src/modules/auth/screens/LoginScreen';
+import { DashboardShell } from './src/modules/dashboard/screens/DashboardShell';
+
+function AppContent() {
+  const { session, loading, signOut } = useAuth();
+
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.center}>
+        <ActivityIndicator />
+      </SafeAreaView>
+    );
+  }
+
+  if (!session) return <LoginScreen />;
+
+  return (
+    <DashboardShell
+      accessToken={session.accessToken}
+      email={session.user.email}
+      onSignOut={() => void signOut()}
+    />
+  );
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AppQueryProvider>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </AppQueryProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  center: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff' },
 });

@@ -30,6 +30,7 @@ You MUST NOT start the next phase until:
 
 - Mobile app must call **NestJS API only**.
 - **No Supabase SDK** and **no Supabase direct API calls** (hard-blocked).
+- Execution must follow `docs/product/mobile-waterfall-plan.md` phase order and phase gates. Do not skip phases.
 - All API contracts/types must come from **OpenAPI**: `docs/api/openapi.json`
   - Generated client/types are the source of truth.
 - Reuse-first architecture:
@@ -106,6 +107,19 @@ Add ESLint rules (or TS path rules) to prevent illegal imports and supabase usag
   - `Authorization: Bearer <token>`
   - `X-Trace-Id` (generated per request)
   - `Idempotency-Key` for command endpoints (create/confirm flows)
+
+---
+
+## API Reference Policy
+
+- Primary API contract: `docs/api/openapi.json`
+- Live reference (when backend is running):
+  - `http://127.0.0.1:3300/api/docs`
+  - `http://127.0.0.1:3300/api/docs-json`
+- Before implementing API changes, run:
+  - `npm run api:pull`
+  - `npm run api:generate`
+- Never create untyped API calls outside generated OpenAPI contracts.
 
 ---
 
@@ -270,3 +284,8 @@ At the end of each phase, produce a **Gate Report**:
 ---
 
 END OF RULES
+
+## UI Reuse Non-Negotiable
+- All screens must use shared page/layout/filter/pagination/skeleton components.
+- Do not build one-off filter bars, pagination blocks, or page skeletons inside feature modules.
+- If a new UI pattern is needed, add it in shared components first, then reuse it.

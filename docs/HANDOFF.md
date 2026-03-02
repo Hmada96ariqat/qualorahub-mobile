@@ -7,6 +7,7 @@ cat > docs/HANDOFF.md <<'EOF'
 - Name: QualoraHub Mobile
 - Stack: React Native + Expo + TypeScript
 - Scope: Backoffice-first
+- Authoritative execution plan: `docs/product/mobile-waterfall-plan.md`
 
 ## API source of truth
 
@@ -46,3 +47,7 @@ A phase is complete only when:
 - No crashes
 - UX is acceptable
 - Tests for that phase pass
+
+## Mandatory UI Reuse Reference
+- `docs/architecture/ui-reuse-contract.md` is required for all implementation phases.
+- Do not proceed with feature work unless this contract is followed.
