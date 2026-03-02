@@ -1,0 +1,3 @@
+node_modules
+docs/api/openapi.json
+src/api/generated/schema.ts
