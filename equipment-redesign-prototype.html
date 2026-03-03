@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>QualoraHub – Equipment Redesign</title>
+<style>
+  :root {
+    --primary: #248F36;
+    --primary-light: #59C06A;
+    --primary-dark: #136C22;
+    --primary-container: #D8EFDD;
+    --accent: #F0C442;
+    --secondary: #E2DACF;
+    --secondary-container: #F3EEE7;
+    --success: #2EB845;
+    --warning: #FFC61A;
+    --destructive: #EF4343;
+    --bg: #F9FBFA;
+    --fg: #17261F;
+    --surface: #FFFFFF;
+    --muted: #EDF2F0;
+    --muted-fg: #677E73;
+    --border: #DCE5E0;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Safe area top */
+  .safe-top { height: 48px; background: var(--surface); }
+
+  /* Header */
+  .header {
+    background: var(--surface);
+    padding: 0 16px 16px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--fg);
+  }
+  .header-actions { display: flex; gap: 8px; }
+  .icon-btn {
+    width: 40px; height: 40px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--fg);
+    transition: background 0.15s;
+  }
+  .icon-btn:hover { background: var(--muted); }
+  .icon-btn.primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+  .icon-btn.primary:hover { background: var(--primary-dark); }
+
+  /* Search */
+  .search-wrap {
+    position: relative;
+  }
+  .search-wrap input {
+    width: 100%;
+    height: 40px;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+    background: var(--muted);
+    padding: 0 16px 0 40px;
+    font-size: 14px;
+    color: var(--fg);
+    outline: none;
+    transition: border 0.2s, background 0.2s;
+  }
+  .search-wrap input:focus {
+    border-color: var(--primary);
+    background: var(--surface);
+  }
+  .search-wrap input::placeholder { color: var(--muted-fg); }
+  .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted-fg);
+    font-size: 16px;
+    pointer-events: none;
+  }
+
+  /* Content */
+  .content { padding: 12px 16px 100px; }
+
+  /* Summary Cards Row */
+  .summary-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .summary-row::-webkit-scrollbar { display: none; }
+  .summary-card {
+    flex: 1;
+    min-width: 95px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    border: 1px solid var(--border);
+  }
+  .summary-card .num {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1.1;
+  }
+  .summary-card .label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted-fg);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .summary-card.alert { border-left: 3px solid var(--destructive); }
+  .summary-card.alert .num { color: var(--destructive); }
+  .summary-card.warn { border-left: 3px solid var(--warning); }
+  .summary-card.warn .num { color: #B8860B; }
+  .summary-card.ok { border-left: 3px solid var(--success); }
+  .summary-card.ok .num { color: var(--primary-dark); }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 0;
+    background: var(--muted);
+    border-radius: var(--radius-xl);
+    padding: 3px;
+    margin-bottom: 12px;
+  }
+  .tab {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: var(--radius-xl);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--muted-fg);
+    border: none;
+    background: transparent;
+  }
+  .tab.active {
+    background: var(--surface);
+    color: var(--fg);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  /* Section header */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .section-count {
+    font-size: 12px;
+    color: var(--muted-fg);
+    background: var(--muted);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+
+  /* Maintenance Alert Banner */
+  .alert-banner {
+    background: linear-gradient(135deg, #FFF8E1, #FFF3CC);
+    border: 1px solid #F0C442;
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  .alert-banner:active { transform: scale(0.98); }
+  .alert-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--warning);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .alert-text { flex: 1; }
+  .alert-text .title { font-size: 13px; font-weight: 600; color: var(--fg); }
+  .alert-text .subtitle { font-size: 12px; color: var(--muted-fg); margin-top: 1px; }
+  .alert-chevron { color: var(--muted-fg); font-size: 16px; }
+
+  /* Equipment Card */
+  .equip-card {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    padding: 14px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.15s;
+  }
+  .equip-card:active { transform: scale(0.98); }
+  .equip-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .equip-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .equip-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .equip-avatar.operational { background: var(--primary-container); }
+  .equip-avatar.maintenance { background: #FFF3CC; }
+  .equip-avatar.inactive { background: var(--muted); }
+  .equip-info { flex: 1; min-width: 0; }
+  .equip-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--fg);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .equip-type {
+    font-size: 12px;
+    color: var(--muted-fg);
+    margin-top: 1px;
+  }
+  .equip-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .equip-badge.operational { background: var(--primary-container); color: var(--primary-dark); }
+  .equip-badge.maintenance { background: #FFF3CC; color: #8B6914; }
+  .equip-badge.inactive { background: var(--muted); color: var(--muted-fg); }
+  .equip-badge .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+  }
+  .equip-badge.operational .dot { background: var(--success); }
+  .equip-badge.maintenance .dot { background: var(--warning); }
+  .equip-badge.inactive .dot { background: var(--muted-fg); }
+
+  .equip-meta {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--muted-fg);
+  }
+  .meta-item .meta-icon { font-size: 13px; }
+  .meta-item .value { color: var(--fg); font-weight: 500; }
+
+  /* Detail Bottom Sheet */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .overlay.open { opacity: 1; pointer-events: auto; }
+
+  .sheet {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    width: 100%;
+    max-width: 430px;
+    max-height: 92vh;
+    background: var(--bg);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    z-index: 51;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .sheet.open { transform: translateX(-50%) translateY(0); }
+
+  .sheet-handle {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 6px;
+    flex-shrink: 0;
+  }
+  .sheet-handle div {
+    width: 36px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+  }
+  .sheet-header {
+    padding: 0 16px 14px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .sheet-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sheet-title { font-size: 18px; font-weight: 700; }
+  .sheet-close {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--muted);
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted-fg);
+  }
+  .sheet-body {
+    overflow-y: auto;
+    padding: 16px;
+    flex: 1;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Detail Profile */
+  .detail-profile {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .detail-profile-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .detail-avatar {
+    width: 56px; height: 56px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    background: var(--primary-container);
+  }
+  .detail-name { font-size: 18px; font-weight: 700; }
+  .detail-type { font-size: 13px; color: var(--muted-fg); }
+  .detail-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .detail-stat {
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+  }
+  .detail-stat .stat-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted-fg);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .detail-stat .stat-value {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 2px;
+    color: var(--fg);
+  }
+
+  /* Detail Quick Actions */
+  .quick-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .quick-action {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .quick-action:hover { background: var(--muted); }
+  .quick-action .qa-icon {
+    width: 36px; height: 36px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .quick-action .qa-label { font-size: 11px; font-weight: 600; color: var(--fg); }
+  .qa-icon.green { background: var(--primary-container); color: var(--primary-dark); }
+  .qa-icon.yellow { background: #FFF3CC; color: #8B6914; }
+  .qa-icon.blue { background: #E3F2FD; color: #1565C0; }
+  .qa-icon.red { background: #FFEBEE; color: var(--destructive); }
+
+  /* Detail Tabs */
+  .detail-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .detail-tab {
+    flex: 1;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--muted-fg);
+    border: none;
+    background: none;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .detail-tab.active {
+    color: var(--primary);
+  }
+  .detail-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0; right: 0;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 1px;
+  }
+
+  /* Log / Record Items */
+  .log-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+  .log-item:active { background: var(--muted); }
+  .log-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .log-purpose {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .log-date {
+    font-size: 12px;
+    color: var(--muted-fg);
+  }
+  .log-details {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .log-detail {
+    font-size: 12px;
+    color: var(--muted-fg);
+  }
+  .log-detail span { color: var(--fg); font-weight: 500; }
+
+  /* FAB */
+  .fab {
+    position: fixed;
+    bottom: 90px;
+    right: calc(50% - 195px);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(36, 143, 54, 0.35);
+    transition: transform 0.15s, background 0.15s;
+    z-index: 5;
+  }
+  .fab:hover { background: var(--primary-dark); }
+  .fab:active { transform: scale(0.92); }
+
+  /* Bottom Nav */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 430px;
+    height: 72px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 10;
+    padding-bottom: 8px;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+    padding: 6px 12px;
+    color: var(--muted-fg);
+    transition: color 0.2s;
+    border: none;
+    background: none;
+  }
+  .nav-item.active { color: var(--primary); }
+  .nav-item .nav-icon { font-size: 20px; }
+  .nav-item .nav-label { font-size: 10px; font-weight: 600; }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 32px 16px;
+  }
+  .empty-state .empty-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+  }
+  .empty-state .empty-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+  .empty-state .empty-msg {
+    font-size: 13px;
+    color: var(--muted-fg);
+  }
+
+  /* Add button in sheet */
+  .add-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 10px;
+    border: 1px dashed var(--primary);
+    border-radius: var(--radius-sm);
+    background: var(--primary-container);
+    color: var(--primary-dark);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: background 0.15s;
+  }
+  .add-btn:hover { background: #C4E8CA; }
+
+  /* Responsive fix */
+  @media (max-width: 430px) {
+    .fab { right: 20px; }
+  }
+
+  /* View annotation */
+  .view-label {
+    text-align: center;
+    padding: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted-fg);
+    background: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- VIEW 1: Equipment List -->
+<div id="listView">
+  <div class="view-label">Equipment List View</div>
+  <div class="safe-top"></div>
+
+  <div class="header">
+    <div class="header-row">
+      <h1>Equipment</h1>
+      <div class="header-actions">
+        <button class="icon-btn" title="Filter">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>
+        </button>
+        <button class="icon-btn primary" title="Add Equipment" onclick="showSheet('createSheet')">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <span class="search-icon">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      </span>
+      <input type="text" placeholder="Search equipment..." />
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Summary Cards -->
+    <div class="summary-row">
+      <div class="summary-card ok">
+        <div class="num">12</div>
+        <div class="label">Active</div>
+      </div>
+      <div class="summary-card warn">
+        <div class="num">3</div>
+        <div class="label">Maintenance</div>
+      </div>
+      <div class="summary-card alert">
+        <div class="num">2</div>
+        <div class="label">Overdue</div>
+      </div>
+    </div>
+
+    <!-- Maintenance Alert -->
+    <div class="alert-banner" onclick="showSheet('maintAlertSheet')">
+      <div class="alert-icon">&#9888;</div>
+      <div class="alert-text">
+        <div class="title">2 maintenance tasks overdue</div>
+        <div class="subtitle">John Deere 8R, Kubota M7 need attention</div>
+      </div>
+      <span class="alert-chevron">&#8250;</span>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab(this)">All (15)</button>
+      <button class="tab" onclick="switchTab(this)">Active (12)</button>
+      <button class="tab" onclick="switchTab(this)">Inactive (3)</button>
+    </div>
+
+    <!-- Section Header -->
+    <div class="section-header">
+      <span class="section-title">Equipment</span>
+      <span class="section-count">15 items</span>
+    </div>
+
+    <!-- Equipment Cards -->
+    <div class="equip-card" onclick="showSheet('detailSheet')">
+      <div class="equip-top">
+        <div class="equip-avatar operational">&#x1F69C;</div>
+        <div class="equip-info">
+          <div class="equip-name">John Deere 8R 410</div>
+          <div class="equip-type">Tractor &bull; SN-4892</div>
+        </div>
+        <span class="equip-badge operational"><span class="dot"></span>Operational</span>
+      </div>
+      <div class="equip-meta">
+        <div class="meta-item">
+          <span class="meta-icon">&#128337;</span>
+          <span>Next service: <span class="value">Mar 15</span></span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-icon">&#128100;</span>
+          <span>Ahmad R.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="equip-card" onclick="showSheet('detailSheet')">
+      <div class="equip-top">
+        <div class="equip-avatar maintenance">&#x1F6E0;</div>
+        <div class="equip-info">
+          <div class="equip-name">Kubota M7-172</div>
+          <div class="equip-type">Tractor &bull; SN-7731</div>
+        </div>
+        <span class="equip-badge maintenance"><span class="dot"></span>Maintenance</span>
+      </div>
+      <div class="equip-meta">
+        <div class="meta-item">
+          <span class="meta-icon" style="color:var(--destructive)">&#9888;</span>
+          <span style="color:var(--destructive);font-weight:600">Overdue 5 days</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-icon">&#128100;</span>
+          <span>Omar K.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="equip-card" onclick="showSheet('detailSheet')">
+      <div class="equip-top">
+        <div class="equip-avatar operational">&#127806;</div>
+        <div class="equip-info">
+          <div class="equip-name">CLAAS Lexion 8900</div>
+          <div class="equip-type">Harvester &bull; SN-2205</div>
+        </div>
+        <span class="equip-badge operational"><span class="dot"></span>Operational</span>
+      </div>
+      <div class="equip-meta">
+        <div class="meta-item">
+          <span class="meta-icon">&#128337;</span>
+          <span>Next service: <span class="value">Apr 02</span></span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-icon">&#128100;</span>
+          <span>Rami T.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="equip-card" onclick="showSheet('detailSheet')">
+      <div class="equip-top">
+        <div class="equip-avatar operational">&#128666;</div>
+        <div class="equip-info">
+          <div class="equip-name">Ford F-350 Utility</div>
+          <div class="equip-type">Transport &bull; SN-1190</div>
+        </div>
+        <span class="equip-badge operational"><span class="dot"></span>Operational</span>
+      </div>
+      <div class="equip-meta">
+        <div class="meta-item">
+          <span class="meta-icon">&#128337;</span>
+          <span>Next service: <span class="value">Apr 20</span></span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-icon">&#128100;</span>
+          <span>Ahmad R.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-top">
+        <div class="equip-avatar inactive">&#128683;</div>
+        <div class="equip-info">
+          <div class="equip-name">Yamaha Rhino 700</div>
+          <div class="equip-type">ATV &bull; SN-0043</div>
+        </div>
+        <span class="equip-badge inactive"><span class="dot"></span>Inactive</span>
+      </div>
+      <div class="equip-meta">
+        <div class="meta-item">
+          <span class="meta-icon">&#128337;</span>
+          <span>Deactivated: <span class="value">Jan 10</span></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FAB -->
+  <button class="fab" onclick="showSheet('createSheet')" title="Add Equipment">
+    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+  </button>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <button class="nav-item">
+      <span class="nav-icon">&#127968;</span>
+      <span class="nav-label">Home</span>
+    </button>
+    <button class="nav-item">
+      <span class="nav-icon">&#127793;</span>
+      <span class="nav-label">Fields</span>
+    </button>
+    <button class="nav-item active">
+      <span class="nav-icon">&#x1F69C;</span>
+      <span class="nav-label">Equipment</span>
+    </button>
+    <button class="nav-item">
+      <span class="nav-icon">&#128101;</span>
+      <span class="nav-label">Workers</span>
+    </button>
+    <button class="nav-item">
+      <span class="nav-icon">&#9776;</span>
+      <span class="nav-label">More</span>
+    </button>
+  </div>
+</div>
+
+<!-- DETAIL SHEET -->
+<div class="overlay" id="detailOverlay" onclick="hideSheet('detailSheet')"></div>
+<div class="sheet" id="detailSheet">
+  <div class="sheet-handle"><div></div></div>
+  <div class="sheet-header">
+    <div class="sheet-header-row">
+      <span class="sheet-title">John Deere 8R 410</span>
+      <button class="sheet-close" onclick="hideSheet('detailSheet')">&times;</button>
+    </div>
+  </div>
+  <div class="sheet-body">
+    <!-- Profile Card -->
+    <div class="detail-profile">
+      <div class="detail-profile-top">
+        <div class="detail-avatar">&#x1F69C;</div>
+        <div>
+          <div class="detail-name">John Deere 8R 410</div>
+          <div class="detail-type">Tractor &bull; Operational</div>
+        </div>
+      </div>
+      <div class="detail-stats">
+        <div class="detail-stat">
+          <div class="stat-label">Serial Number</div>
+          <div class="stat-value">SN-4892</div>
+        </div>
+        <div class="detail-stat">
+          <div class="stat-label">Next Service</div>
+          <div class="stat-value">Mar 15, 2026</div>
+        </div>
+        <div class="detail-stat">
+          <div class="stat-label">Total Hours</div>
+          <div class="stat-value">1,247 hrs</div>
+        </div>
+        <div class="detail-stat">
+          <div class="stat-label">Last Used</div>
+          <div class="stat-value">Feb 28, 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <div class="quick-action" onclick="showSheet('createSheet'); hideSheet('detailSheet')">
+        <div class="qa-icon green">&#9998;</div>
+        <span class="qa-label">Edit</span>
+      </div>
+      <div class="quick-action">
+        <div class="qa-icon yellow">&#x1F6E0;</div>
+        <span class="qa-label">Log Service</span>
+      </div>
+      <div class="quick-action">
+        <div class="qa-icon blue">&#128337;</div>
+        <span class="qa-label">Log Usage</span>
+      </div>
+      <div class="quick-action">
+        <div class="qa-icon red">&#10006;</div>
+        <span class="qa-label">Deactivate</span>
+      </div>
+    </div>
+
+    <!-- Detail Tabs -->
+    <div class="detail-tabs">
+      <button class="detail-tab active" onclick="switchDetailTab(this, 'usage')">Usage Logs</button>
+      <button class="detail-tab" onclick="switchDetailTab(this, 'maintenance')">Maintenance</button>
+    </div>
+
+    <!-- Usage Logs -->
+    <div id="usageTab">
+      <button class="add-btn">+ Add Usage Log</button>
+
+      <div class="log-item">
+        <div class="log-top">
+          <span class="log-purpose">Field Work</span>
+          <span class="log-date">Feb 28, 2026</span>
+        </div>
+        <div class="log-details">
+          <div class="log-detail">Operator: <span>Ahmad R.</span></div>
+          <div class="log-detail">Field: <span>North Plot A</span></div>
+          <div class="log-detail">Hours: <span>6.5h</span></div>
+        </div>
+      </div>
+
+      <div class="log-item">
+        <div class="log-top">
+          <span class="log-purpose">Transport</span>
+          <span class="log-date">Feb 25, 2026</span>
+        </div>
+        <div class="log-details">
+          <div class="log-detail">Operator: <span>Omar K.</span></div>
+          <div class="log-detail">Field: <span>South Ridge</span></div>
+          <div class="log-detail">Hours: <span>3h</span></div>
+        </div>
+      </div>
+
+      <div class="log-item">
+        <div class="log-top">
+          <span class="log-purpose">Harvest</span>
+          <span class="log-date">Feb 20, 2026</span>
+        </div>
+        <div class="log-details">
+          <div class="log-detail">Operator: <span>Ahmad R.</span></div>
+          <div class="log-detail">Field: <span>East Valley</span></div>
+          <div class="log-detail">Hours: <span>8h</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Maintenance Tab (hidden by default) -->
+    <div id="maintenanceTab" style="display:none">
+      <button class="add-btn">+ Add Maintenance Record</button>
+
+      <div class="log-item">
+        <div class="log-top">
+          <span class="log-purpose">Preventive Service</span>
+          <span class="log-date">Feb 15, 2026</span>
+        </div>
+        <div class="log-details">
+          <div class="log-detail">Type: <span style="color:var(--primary)">Preventive</span></div>
+          <div class="log-detail">By: <span>Ali M.</span></div>
+          <div class="log-detail">Next due: <span>Mar 15</span></div>
+        </div>
+      </div>
+
+      <div class="log-item">
+        <div class="log-top">
+          <span class="log-purpose">Oil Change & Filter</span>
+          <span class="log-date">Jan 10, 2026</span>
+        </div>
+        <div class="log-details">
+          <div class="log-detail">Type: <span style="color:var(--primary)">Preventive</span></div>
+          <div class="log-detail">By: <span>Ali M.</span></div>
+          <div class="log-detail">Parts: <span>3</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CREATE SHEET -->
+<div class="overlay" id="createOverlay" onclick="hideSheet('createSheet')"></div>
+<div class="sheet" id="createSheet">
+  <div class="sheet-handle"><div></div></div>
+  <div class="sheet-header">
+    <div class="sheet-header-row">
+      <span class="sheet-title">Add Equipment</span>
+      <button class="sheet-close" onclick="hideSheet('createSheet')">&times;</button>
+    </div>
+  </div>
+  <div class="sheet-body">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <label style="display:block;font-size:13px;font-weight:600;color:var(--fg);margin-bottom:5px">
+          Equipment Name <span style="color:var(--destructive)">*</span>
+        </label>
+        <input type="text" placeholder="e.g. John Deere 8R 410" style="width:100%;height:44px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 12px;font-size:14px;background:var(--surface);color:var(--fg);outline:none">
+      </div>
+      <div>
+        <label style="display:block;font-size:13px;font-weight:600;color:var(--fg);margin-bottom:5px">Type</label>
+        <input type="text" placeholder="Tractor, Harvester, Transport..." style="width:100%;height:44px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 12px;font-size:14px;background:var(--surface);color:var(--fg);outline:none">
+      </div>
+      <div>
+        <label style="display:block;font-size:13px;font-weight:600;color:var(--fg);margin-bottom:5px">
+          Status <span style="color:var(--destructive)">*</span>
+        </label>
+        <select style="width:100%;height:44px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 12px;font-size:14px;background:var(--surface);color:var(--fg);outline:none;appearance:auto">
+          <option>Operational</option>
+          <option>Maintenance</option>
+          <option>Inactive</option>
+        </select>
+      </div>
+      <div>
+        <label style="display:block;font-size:13px;font-weight:600;color:var(--fg);margin-bottom:5px">Serial Number</label>
+        <input type="text" placeholder="Optional" style="width:100%;height:44px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 12px;font-size:14px;background:var(--surface);color:var(--fg);outline:none">
+      </div>
+      <div>
+        <label style="display:block;font-size:13px;font-weight:600;color:var(--fg);margin-bottom:5px">Notes</label>
+        <textarea placeholder="Optional notes..." rows="3" style="width:100%;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-size:14px;background:var(--surface);color:var(--fg);outline:none;resize:vertical;font-family:inherit"></textarea>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:4px">
+        <button onclick="hideSheet('createSheet')" style="flex:1;height:44px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);font-size:14px;font-weight:600;cursor:pointer;color:var(--fg)">Cancel</button>
+        <button onclick="hideSheet('createSheet')" style="flex:1;height:44px;border:none;border-radius:var(--radius-sm);background:var(--primary);color:white;font-size:14px;font-weight:600;cursor:pointer">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Upcoming Maintenance Sheet -->
+<div class="overlay" id="maintAlertOverlay" onclick="hideSheet('maintAlertSheet')"></div>
+<div class="sheet" id="maintAlertSheet">
+  <div class="sheet-handle"><div></div></div>
+  <div class="sheet-header">
+    <div class="sheet-header-row">
+      <span class="sheet-title">Upcoming Maintenance</span>
+      <button class="sheet-close" onclick="hideSheet('maintAlertSheet')">&times;</button>
+    </div>
+  </div>
+  <div class="sheet-body">
+    <div class="log-item" style="border-left:3px solid var(--destructive)">
+      <div class="log-top">
+        <span class="log-purpose">John Deere 8R 410</span>
+        <span class="log-date" style="color:var(--destructive);font-weight:600">Overdue 5 days</span>
+      </div>
+      <div class="log-details">
+        <div class="log-detail">Service: <span>Oil Change</span></div>
+        <div class="log-detail">Due: <span>Feb 25, 2026</span></div>
+      </div>
+    </div>
+    <div class="log-item" style="border-left:3px solid var(--destructive)">
+      <div class="log-top">
+        <span class="log-purpose">Kubota M7-172</span>
+        <span class="log-date" style="color:var(--destructive);font-weight:600">Overdue 2 days</span>
+      </div>
+      <div class="log-details">
+        <div class="log-detail">Service: <span>Filter Replacement</span></div>
+        <div class="log-detail">Due: <span>Feb 28, 2026</span></div>
+      </div>
+    </div>
+    <div class="log-item" style="border-left:3px solid var(--warning)">
+      <div class="log-top">
+        <span class="log-purpose">CLAAS Lexion 8900</span>
+        <span class="log-date" style="color:#8B6914;font-weight:600">Due in 12 days</span>
+      </div>
+      <div class="log-details">
+        <div class="log-detail">Service: <span>Annual Checkup</span></div>
+        <div class="log-detail">Due: <span>Mar 15, 2026</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showSheet(id) {
+  document.getElementById(id).classList.add('open');
+  document.getElementById(id.replace('Sheet','Overlay')).classList.add('open');
+}
+function hideSheet(id) {
+  document.getElementById(id).classList.remove('open');
+  document.getElementById(id.replace('Sheet','Overlay')).classList.remove('open');
+}
+function switchTab(el) {
+  el.parentElement.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+function switchDetailTab(el, tab) {
+  el.parentElement.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('usageTab').style.display = tab === 'usage' ? 'block' : 'none';
+  document.getElementById('maintenanceTab').style.display = tab === 'maintenance' ? 'block' : 'none';
+}
+</script>
+
+</body>
+</html>

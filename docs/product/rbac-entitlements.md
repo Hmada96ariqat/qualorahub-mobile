@@ -8,6 +8,10 @@
 - `GET /subscriptions/me/entitlements`
 - `GET /subscriptions/me/menus`
 
+## Current OpenAPI Notes (March 2, 2026)
+- RBAC snapshot response (`GET /auth/rbac`) is now typed in OpenAPI.
+- Subscription entitlement/menu responses are still untyped (`content?: never`) in OpenAPI and currently parsed as temporary unknown snapshots in mobile.
+
 ## Roles
 - `super_admin`
 - `admin`

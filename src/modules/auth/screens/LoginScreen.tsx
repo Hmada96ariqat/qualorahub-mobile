@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  AppButton,
+  AppHeader,
+  AppInput,
+  AppPasswordInput,
+  AppScreen,
+  ErrorState,
+  FormField,
+  LoadingOverlay,
+  SectionCard,
+} from '../../../components';
 import { useAuth } from '../../../providers/AuthProvider';
+import { AuthRouteTabs } from '../components/AuthRouteTabs';
 
 export function LoginScreen() {
-  const { signIn } = useAuth();
+  const { signIn, sessionNotice, clearSessionNotice } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -12,7 +23,9 @@ export function LoginScreen() {
   async function onSubmit() {
     setError(null);
     setSubmitting(true);
+
     try {
+      clearSessionNotice();
       await signIn(email.trim(), password);
     } catch (e) {
       const message = e instanceof Error ? e.message : 'Login failed';
@@ -23,50 +36,69 @@ export function LoginScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safe}>
-      <View style={styles.container}>
-        <Text style={styles.title}>QualoraHub Mobile</Text>
-        <TextInput
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-          keyboardType="email-address"
-          placeholder="Email"
-          style={styles.input}
+    <AppScreen scroll>
+      <AppHeader
+        title="QualoraHub Mobile"
+        subtitle="Sign in to continue"
+      />
+
+      <AuthRouteTabs activeTab="login" />
+
+      <SectionCard>
+        {sessionNotice ? (
+          <ErrorState
+            title="Session Notice"
+            message={sessionNotice}
+          />
+        ) : null}
+
+        <FormField
+          label="Email"
+          required
+        >
+          <AppInput
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+            keyboardType="email-address"
+            placeholder="email@example.com"
+            accessibilityLabel="Email"
+            testID="auth.login.email"
+          />
+        </FormField>
+
+        <FormField
+          label="Password"
+          required
+        >
+          <AppPasswordInput
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Enter your password"
+            testID="auth.login.password"
+          />
+        </FormField>
+
+        {error ? (
+          <ErrorState
+            title="Login Failed"
+            message={error}
+          />
+        ) : null}
+
+        <AppButton
+          label="Sign In"
+          onPress={onSubmit}
+          loading={submitting}
+          disabled={submitting}
+          testID="auth.login.submit"
         />
-        <TextInput
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-          placeholder="Password"
-          style={styles.input}
-        />
-        {error ? <Text style={styles.error}>{error}</Text> : null}
-        <Pressable style={styles.button} onPress={onSubmit} disabled={submitting}>
-          {submitting ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Sign In</Text>}
-        </Pressable>
-      </View>
-    </SafeAreaView>
+      </SectionCard>
+
+      <LoadingOverlay
+        visible={submitting}
+        label="Signing in..."
+      />
+    </AppScreen>
   );
 }
-
-const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#fff' },
-  container: { flex: 1, justifyContent: 'center', padding: 20, gap: 12 },
-  title: { fontSize: 28, fontWeight: '700', marginBottom: 8 },
-  input: {
-    borderWidth: 1,
-    borderColor: '#d1d5db',
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-  },
-  button: {
-    backgroundColor: '#111827',
-    borderRadius: 10,
-    paddingVertical: 12,
-    alignItems: 'center',
-  },
-  buttonText: { color: '#fff', fontWeight: '600' },
-  error: { color: '#b91c1c' },
-});

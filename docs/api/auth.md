@@ -14,6 +14,21 @@
 - `GET /auth/context`
 - `GET /auth/rbac`
 
+## Current OpenAPI Notes (March 2, 2026)
+- Auth responses are typed for:
+  - `POST /auth/login`
+  - `POST /auth/refresh`
+  - `POST /auth/logout`
+  - `GET /auth/context`
+  - `GET /auth/rbac`
+- Auth request DTO schemas are still emitted as empty objects in OpenAPI for:
+  - `LoginDto`
+  - `RefreshTokenDto`
+  - `LogoutDto`
+  - `ForgotPasswordDto`
+  - `ResetPasswordDto`
+- Mobile auth wrappers use temporary fallback request fields with TODO markers until backend request schemas are typed.
+
 ## Token Policy
 - Access token TTL: `15 minutes`
 - Refresh token TTL: `14 days`
