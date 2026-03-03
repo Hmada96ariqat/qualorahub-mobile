@@ -10,6 +10,7 @@ Feature module implementation.
 - `import type {`
 - `import {`
 - `import { palette, spacing, typography } from '../../../theme/tokens';`
+- `import { toGeoJsonPolygon } from '../../../utils/geojson';`
 - `import {`
 - `import { useLivestockModule } from '../useLivestockModule.hook';`
 

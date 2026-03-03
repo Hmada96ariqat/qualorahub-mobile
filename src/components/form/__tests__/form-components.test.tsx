@@ -53,6 +53,32 @@ describe('form components', () => {
     expect(onChange).toHaveBeenCalledWith('open');
   });
 
+  it('supports searchable options and create action in AppSelect', () => {
+    const onChange = jest.fn();
+    const onCreateOption = jest.fn();
+    const { getByText, getByTestId, getByPlaceholderText } = renderWithProviders(
+      <AppSelect
+        value={null}
+        onChange={onChange}
+        searchable
+        onCreateOption={onCreateOption}
+        options={[
+          { label: 'Alpha option', value: 'alpha' },
+          { label: 'Beta option', value: 'beta' },
+        ]}
+      />,
+    );
+
+    fireEvent.press(getByText('Select an option'));
+    fireEvent.changeText(getByPlaceholderText('Search options'), 'Beta');
+    fireEvent.press(getByTestId('app-select-option-beta'));
+    expect(onChange).toHaveBeenCalledWith('beta');
+
+    fireEvent.press(getByText('Select an option'));
+    fireEvent.press(getByText('Create new'));
+    expect(onCreateOption).toHaveBeenCalledTimes(1);
+  });
+
   it('returns a date from AppDatePicker and supports clear', () => {
     const onChange = jest.fn();
     const { getByText } = renderWithProviders(

@@ -36,6 +36,37 @@
   - Phase 12: PASS (manual confirmation received)
   - Phase 13: PASS (manual gate waived by user)
 
+## Product parity update (March 3, 2026)
+
+- Product create/edit flow in inventory now follows web wizard parity:
+  - Step A: Basic Info (always visible)
+  - Step B: Regulatory & Agronomic (pesticide-family types only)
+  - Step C: Pricing & Stock (always visible)
+- Parity behaviors implemented in shared mapper logic (`src/modules/inventory/product-form.ts`):
+  - non-pesticide switch clears Step B data
+  - `usageType=FarmInput` forces `display_on_storefront=false`
+  - custom stored dose unit normalizes to `doseUnit=other` + `doseUnitOtherText` on edit
+  - submit drops crop guidance rows with empty `cropId`
+- Inventory API wrapper expanded for parity:
+  - product parser now includes regulatory/agronomic fields for edit form hydration
+  - contact and crop selector fetchers added with fallback parsing isolated in API layer:
+    - `GET /contacts` (supplier/manufacturer)
+    - `GET /crops/guidance`
+- Product quick-add hardening (March 3, 2026):
+  - relational selectors support create-in-place from product form (`category/tax/supplier/manufacturer/warehouse`).
+  - parent product form dismiss is blocked while a child quick-add sheet is open.
+  - quick-add contact auto-select now resolves with deterministic ID-diff matching before name fallback to avoid wrong selection when duplicate names exist.
+- New/updated tests:
+  - `src/modules/inventory/__tests__/product-form.test.ts`
+  - `src/modules/inventory/__tests__/inventory-api.test.ts`
+  - `src/modules/inventory/__tests__/contracts.test.ts`
+  - `src/modules/inventory/__tests__/contact-option-resolution.test.ts`
+- Validation snapshot:
+  - `npm run lint` => PASS
+  - `npm run typecheck` => PASS
+  - `npm run test:ci` => PASS
+  - `npm run check:boundaries` => PASS
+
 ## Phase 10 closure snapshot
 
 - Manual test confirmation received from user.
@@ -188,6 +219,55 @@
   - `npm run api:verify` => PASS
   - `npm run test:contracts` => PASS
   - `npm run test:smoke` => PASS
+  - `npm run lint` => PASS
+  - `npm run typecheck` => PASS
+  - `npm run test:ci` => PASS
+  - `npm run check:boundaries` => PASS
+  - `npm run docs:code-map` => PASS
+  - `npm run docs:check` => PASS
+
+## Fields/Lots parity hardening update (March 2, 2026)
+
+- Fields/Lots parity extensions landed after Phase 14 implementation:
+  - shared geometry utilities for polygon validation and area computation:
+    - `src/utils/geometry.ts`
+  - field area-unit preference persistence:
+    - `src/modules/fields/storage.ts` (`field_area_unit`)
+  - i18n namespace helper + hook:
+    - `src/i18n/mobile.ts`
+    - `src/hooks/useAppI18n.ts`
+  - action-level RBAC helper:
+    - `src/hooks/useModuleActionPermissions.ts`
+  - polygon map editor upgrades:
+    - overlays
+    - snap-to-close + complete behavior
+    - invalid-action callbacks
+    - map-unavailable fallback callback
+    - Google provider preference
+  - fields/lots API wrappers upgraded for status filters and split main/deactivated reactivation flows.
+  - fields/lots module hooks and screens upgraded to parity behaviors:
+    - pagination size 12
+    - required/optional boundary semantics
+    - lot boundary tab gating until a field is selected
+    - point-by-point lot draw blocking for outside-field and overlap attempts
+    - lot boundary reset on field switch in create/edit flows
+    - hidden lot payload defaults
+    - lot-inside-field and no-overlap rules
+    - reactivation guard behavior
+  - confirm dialog flow bug fixed in both modules:
+    - target record is preserved through confirmation.
+- Added parity-focused tests:
+  - `src/modules/fields/__tests__/fields-screen.integration.test.tsx`
+  - `src/modules/lots/__tests__/lots-screen.integration.test.tsx`
+  - `src/modules/fields/__tests__/validation.test.ts`
+  - `src/modules/lots/__tests__/validation.test.ts`
+  - `src/modules/lots/__tests__/geometry-rules.test.ts`
+  - `src/utils/__tests__/geometry.test.ts`
+  - `src/hooks/__tests__/useModuleActionPermissions.test.tsx`
+- Latest automated validation snapshot (March 2, 2026):
+  - `npm run api:pull` => PASS
+  - `npm run api:generate` => PASS
+  - `npm run api:verify` => PASS
   - `npm run lint` => PASS
   - `npm run typecheck` => PASS
   - `npm run test:ci` => PASS

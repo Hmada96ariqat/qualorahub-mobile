@@ -8,11 +8,9 @@ import type {
   CreateManagedNotificationRequest,
   CreateManagedRoleRequest,
   ManagedRole,
-  CreateStorefrontSettingsRequest,
   UpdateManagedContactRequest,
   UpdateManagedNotificationRequest,
   UpdateManagedRoleRequest,
-  UpdateStorefrontSettingsRequest,
 } from '../../../api/modules/management';
 import { useAuth } from '../../../providers/AuthProvider';
 import { ManagementScreen } from '../screens/ManagementScreen';
@@ -114,14 +112,6 @@ describe('ManagementScreen integration', () => {
         offset: 0,
       },
       notifications: [],
-      farmStorefront: {
-        farmId: 'farm-1',
-        farmName: 'Farm One',
-        previewDeliveryFee: 0,
-        previewShareToken: null,
-        hasSettings: false,
-      },
-      storefrontSettings: null,
       subscription: {
         farmId: 'farm-1',
         subscription: {
@@ -207,33 +197,6 @@ describe('ManagementScreen integration', () => {
           cityRegion: null,
           taxId: null,
           status: 'active',
-          createdAt: '2026-03-01T00:00:00.000Z',
-          updatedAt: '2026-03-01T00:00:00.000Z',
-        };
-      },
-      createStorefrontSettings: async (input: CreateStorefrontSettingsRequest) => {
-        void input;
-        return {
-          id: 'settings-1',
-          farmId: 'farm-1',
-          shareToken: null,
-          deliveryFee: 0,
-          includeDeliveryFee: true,
-          isActive: true,
-          createdAt: '2026-03-01T00:00:00.000Z',
-          updatedAt: '2026-03-01T00:00:00.000Z',
-        };
-      },
-      updateStorefrontSettings: async (settingsId: string, input: UpdateStorefrontSettingsRequest) => {
-        void settingsId;
-        void input;
-        return {
-          id: 'settings-1',
-          farmId: 'farm-1',
-          shareToken: null,
-          deliveryFee: 0,
-          includeDeliveryFee: true,
-          isActive: true,
           createdAt: '2026-03-01T00:00:00.000Z',
           updatedAt: '2026-03-01T00:00:00.000Z',
         };

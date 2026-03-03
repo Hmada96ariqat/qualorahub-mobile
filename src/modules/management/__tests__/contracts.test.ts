@@ -2,7 +2,6 @@ import {
   parseCsvValues,
   resolveAccessState,
   toContactFormValues,
-  toSettingsFormValues,
   toUserFormValues,
 } from '../contracts';
 
@@ -40,7 +39,7 @@ describe('management contracts', () => {
     expect(
       resolveAccessState({
         roleName: 'admin',
-        moduleKey: 'settings',
+        moduleKey: 'contacts',
         menuAllowed: false,
         entitlementsSnapshot: { readOnly: false },
       }),
@@ -91,23 +90,6 @@ describe('management contracts', () => {
       notes: 'memo',
       country: 'US',
       cityRegion: 'TX',
-    });
-
-    expect(
-      toSettingsFormValues({
-        id: 'settings-1',
-        farmId: 'farm-1',
-        shareToken: null,
-        deliveryFee: 1.5,
-        includeDeliveryFee: true,
-        isActive: true,
-        createdAt: '2026-03-01T00:00:00.000Z',
-        updatedAt: '2026-03-01T00:00:00.000Z',
-      }),
-    ).toEqual({
-      deliveryFee: '1.5',
-      includeDeliveryFee: true,
-      isActive: true,
     });
 
     expect(

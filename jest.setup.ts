@@ -13,5 +13,6 @@ jest.mock('react-native-maps', () => {
     default: MockMapView,
     Marker: MockMarker,
     Polygon: MockPolygon,
+    PROVIDER_GOOGLE: 'google',
   };
 });

@@ -24,6 +24,25 @@
 - Inventory helpers:
   - `GET /inventory/stock-adjustment/products`
   - `GET /fields` (warehouse field selector options)
+  - `GET /contacts?contactTypes=supplier` (supplier selector options)
+  - `GET /contacts?contactTypes=manufacturer` (manufacturer selector options)
+  - `GET /crops/guidance` (crop guidance selector options)
+
+## Product wizard payload parity (web-aligned)
+- Step A (`name`, `sku`, `description`, `productType`, `otherProductType`, `usageType`, category/supplier/tax/manufacturer identity, origin/barcode/images)
+- Step B (pesticide-family only: formulation, active ingredients, dose/PHI, target organisms, references, crop guidance rows)
+- Step C (pricing + inventory records)
+
+### Submit mapping rules
+- `product_type <- productType`
+- `other_product_type <- only when productType=other`
+- `usage_type <- usageType`
+- `manufacturer_id <- manufacturerId`
+- `manufacturer <- resolved manufacturer name`
+- `dose_unit <- doseUnitOtherText when doseUnit=other, else doseUnit`
+- `crop_guidance_rows <- rows with non-empty crop_id only`
+- `display_on_storefront <- forced false when usage_type=FarmInput`
+- `inventoryRecords <- row-mapped command payload`
 
 ## Runtime-verified payloads (March 2, 2026)
 
@@ -85,3 +104,5 @@
 - Typed 2xx response schemas are present for Phase 9 list/create/update endpoints.
 - Remaining gap:
   - `BulkHardDeleteProductsCommandDto` request schema is still empty in generated OpenAPI; fallback mapping remains isolated in API layer.
+  - `GET /contacts` and `GET /crops/guidance` responses remain untyped (`content?: never`); selector parsing fallback remains isolated in API layer.
+  - Product DTO array item schemas remain broad (`object[]`) for `images`, `active_ingredients`, `reference_urls`; mobile keeps web-compatible string array payloads in a single mapper.

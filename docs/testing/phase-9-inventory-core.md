@@ -23,7 +23,65 @@
 
 ## Unit tests added
 - `src/modules/inventory/__tests__/contracts.test.ts`
+- `src/modules/inventory/__tests__/product-form.test.ts`
 - `src/modules/inventory/__tests__/inventory-api.test.ts`
+
+## Product parity automated evidence (March 3, 2026)
+- Product wizard step visibility:
+  - pesticide-family product types => `A + B + C`
+  - non-pesticide product types => `A + C`
+- Validation rules covered:
+  - required: `name`, `productType`, `usageType`
+  - conditional: `doseUnitOtherText` when `doseUnit=other`
+  - conditional: `phiMaxDays >= phiMinDays`
+- Payload parity mapping covered:
+  - `usageType=FarmInput` forces `display_on_storefront=false`
+  - custom dose unit maps to `dose_unit` value from `doseUnitOtherText`
+  - `crop_guidance_rows` drops rows with empty `cropId`
+  - `other_product_type` only sent when `productType=other`
+
+## Product field-by-field parity checklist (web source of truth)
+
+### Step A — Basic Info
+- `name` (required): ✅
+- `sku`: ✅
+- `description`: ✅
+- `productType` (required): ✅
+- `otherProductType` (when `productType=other`): ✅
+- `usageType` (required): ✅ (`Both | Selling | FarmInput`)
+- `categoryId`: ✅
+- `supplierId`: ✅
+- `taxId`: ✅
+- `manufacturerId` + manufacturer name sync: ✅
+- `originCountry`: ✅
+- `barcode`: ✅
+- `images` (existing + new URL entries): ✅
+
+### Step B — Regulatory & Agronomic (pesticide-family only)
+- `productFormCode`: ✅
+- `activeIngredients[]` multi-select add/remove: ✅
+- `doseText`: ✅
+- `doseUnit`: ✅
+- `doseUnitOtherText` conditional requirement: ✅
+- `activeIngredientConcentrationPercent`: ✅
+- `phiMinDays`: ✅
+- `phiMaxDays` with `>= phiMinDays` rule: ✅
+- `targetOrganismsText` auto-generated read-only: ✅
+- `cropGuidanceRows[]` with full row fields and add/remove: ✅
+- `referenceUrls[]` add/remove: ✅
+
+### Step C — Pricing & Stock
+- `salePrice`: ✅
+- `wholesalePrice`: ✅
+- `threshold`: ✅
+- `inventoryRecords[]` add/remove and full row fields:
+  - `batchNumber`: ✅
+  - `warehouseId`: ✅
+  - `quantity`: ✅
+  - `manufacturingDate`: ✅
+  - `expiryDate`: ✅
+  - `expiryDays`: ✅
+  - `notes`: ✅
 
 ## API control verification (March 2, 2026)
 Trace set: `phase9-final2-1772477069362`

@@ -8,6 +8,10 @@ type ResolveApiBaseUrlOptions = {
   debugHost?: string | null;
 };
 
+type NativeLoopbackWarningOptions = {
+  isHostLoopbackContext?: boolean;
+};
+
 type ConstantsLike = {
   expoConfig?: { hostUri?: string } | null;
   expoGoConfig?: { debuggerHost?: string } | null;
@@ -60,6 +64,26 @@ function resolveExpoDebugHost(): string | null {
   return null;
 }
 
+function isLoopbackExpoHostContext(): boolean {
+  const constants = Constants as ConstantsLike;
+  const hostCandidates = [
+    constants.expoConfig?.hostUri,
+    constants.expoGoConfig?.debuggerHost,
+    constants.manifest2?.extra?.expoGo?.debuggerHost,
+    constants.manifest2?.extra?.expoClient?.hostUri,
+    constants.manifest?.debuggerHost,
+  ];
+
+  for (const candidate of hostCandidates) {
+    const parsed = parseHostCandidate(candidate);
+    if (parsed && isLoopbackHost(parsed)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 export function resolveApiBaseUrl(
   configuredValue: string | undefined = process.env.EXPO_PUBLIC_API_BASE_URL,
   options: ResolveApiBaseUrlOptions = {},
@@ -93,12 +117,18 @@ export function resolveApiBaseUrl(
 export function getNativeLoopbackWarning(
   apiBaseUrl: string,
   platform: string = Platform.OS,
+  options: NativeLoopbackWarningOptions = {},
 ): string | null {
   if (platform === 'web') return null;
 
   try {
     const parsed = new URL(apiBaseUrl);
     if (!isLoopbackHost(parsed.hostname)) {
+      return null;
+    }
+
+    const hostLoopbackContext = options.isHostLoopbackContext ?? isLoopbackExpoHostContext();
+    if (hostLoopbackContext) {
       return null;
     }
 

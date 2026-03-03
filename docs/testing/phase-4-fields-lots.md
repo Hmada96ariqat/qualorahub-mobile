@@ -4,20 +4,42 @@
 - Fields list/create/edit/deactivate/reactivate
 - Lots list/create/edit/deactivate/reactivate
 - Shared filter/list/form/retry/loading/empty/error patterns
+- Boundary parity hardening:
+  - field boundary required unless manual fallback
+  - lot boundary geometric guards (inside parent field + no overlap)
+  - lot boundary tab gated by field selection
+  - point-by-point outside-field blocking while drawing
+  - fail-closed boundary editor behavior when overlap context cannot be loaded
+  - field-change boundary reset in create/edit flow
+  - deactivated-flow reactivation guards
+  - map editor parity affordances (snap-to-close, complete, invalid-action handling)
 
 ## Automated checks (current cycle)
-- `npm run lint`
-- `npm run typecheck`
-- `npm run test:ci`
-- `npm run check:boundaries`
-- `npm run docs:code-map`
-- `npm run docs:check`
+- `npm run api:pull` => PASS
+- `npm run api:generate` => PASS
+- `npm run api:verify` => PASS
+- `npm run lint` => PASS
+- `npm run typecheck` => PASS
+- `npm run test:ci` => PASS
+- `npm run check:boundaries` => PASS
+- `npm run docs:code-map` => PASS
+- `npm run docs:check` => PASS
 
 ## Unit tests added
 - `src/modules/fields/__tests__/contracts.test.ts`
 - `src/modules/fields/__tests__/fields-api.test.ts`
+- `src/modules/fields/__tests__/validation.test.ts`
 - `src/modules/lots/__tests__/contracts.test.ts`
 - `src/modules/lots/__tests__/lots-api.test.ts`
+- `src/modules/lots/__tests__/validation.test.ts`
+- `src/modules/lots/__tests__/geometry-rules.test.ts`
+- `src/utils/__tests__/geometry.test.ts`
+- `src/hooks/__tests__/useModuleActionPermissions.test.tsx`
+
+## Integration tests added
+- `src/modules/fields/__tests__/fields-screen.integration.test.tsx`
+- `src/modules/lots/__tests__/lots-screen.integration.test.tsx`
+  - covers boundary-tab gating, field-change boundary clearing, outside-point rejection, and overlap rejection while drawing
 
 ## Notes
 - OpenAPI currently emits empty DTO/response schemas for Fields/Lots, so request/response fallback parsing is isolated in:
@@ -41,6 +63,9 @@
   - module switcher moved to top tab control (`Fields | Lots`) for faster navigation
   - list rows now keep status and metrics inside each record card footer
   - compact summary strip was removed per UX decision to reduce visual clutter
+- Parity hardening UX update:
+  - field/lot action confirmations now preserve target record correctly through confirm dialog flow
+  - action sheets and bottom sheets keep scrollable containers for long content/actions
 
 ## Manual QA
 - Transition accepted by user to continue to next phase.

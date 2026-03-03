@@ -5,6 +5,8 @@ Feature module implementation.
 
 ## Imports
 - `import type {`
+- `import type { MapCoordinate } from '../../utils/geojson';`
+- `import { fromGeoJsonPolygon } from '../../utils/geojson';`
 
 ## Exports
 - `export type LivestockTab = 'animals' | 'housing' | 'weather';`

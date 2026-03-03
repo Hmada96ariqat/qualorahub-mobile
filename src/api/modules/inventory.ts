@@ -2,6 +2,8 @@ import { apiClient } from '../client';
 import type { operations } from '../generated/schema';
 import {
   isRecord,
+  normalizeRows,
+  readArray,
   readBoolean,
   readNullableString,
   readString,
@@ -13,6 +15,8 @@ type CategoryCreateResponse =
   operations['CatalogWriteController_createCategory_v1']['responses'][201]['content']['application/json'];
 type CategoryUpdateResponse =
   operations['CatalogWriteController_updateCategory_v1']['responses'][200]['content']['application/json'];
+type EnableStorefrontCategoriesResponse =
+  operations['CatalogWriteController_enableStorefrontForActiveCategories_v1']['responses'][200]['content']['application/json'];
 
 type TaxCreateResponse =
   operations['CatalogWriteController_createTax_v1']['responses'][201]['content']['application/json'];
@@ -42,6 +46,17 @@ type ListProductsResponse =
   operations['CatalogReadController_getProducts_v1']['responses'][200]['content']['application/json'];
 type ListStockAdjustmentProductsResponse =
   operations['OrderWriteController_listProductsForStockAdjustment_v1']['responses'][200]['content']['application/json'];
+type ListContactsResponse = operations['CatalogReadController_getContacts_v1']['responses'][200] extends {
+  content: { 'application/json': infer TPayload };
+}
+  ? TPayload
+  : unknown;
+type ListCropsForGuidanceResponse =
+  operations['OrderWriteController_listCropsForGuidance_v1']['responses'][200] extends {
+    content: { 'application/json': infer TPayload };
+  }
+    ? TPayload
+    : unknown;
 
 type CreateCategoryRequestContract =
   operations['CatalogWriteController_createCategory_v1']['requestBody']['content']['application/json'];
@@ -55,6 +70,8 @@ type CreateWarehouseRequestContract =
   operations['CatalogWriteController_createWarehouse_v1']['requestBody']['content']['application/json'];
 type UpdateWarehouseRequestContract =
   operations['CatalogWriteController_updateWarehouse_v1']['requestBody']['content']['application/json'];
+type CreateContactRequestContract =
+  operations['CatalogWriteController_createContact_v1']['requestBody']['content']['application/json'];
 type CreateProductRequestContract =
   operations['OrderWriteController_createProduct_v1']['requestBody']['content']['application/json'];
 type UpdateProductRequestContract =
@@ -105,6 +122,19 @@ export type InventoryWarehouse = {
   fieldId: string | null;
   capacityValue: number | null;
   capacityUnit: string | null;
+  warehouseTypes: Array<
+    | 'cold_storage'
+    | 'seed_storage'
+    | 'fertilizer'
+    | 'packing_house'
+    | 'livestock_shelter'
+    | 'greenhouse'
+    | 'fuel_storage'
+    | 'other'
+  >;
+  temperatureMin: number | null;
+  temperatureMax: number | null;
+  safetyMeasures: string | null;
   status: InventoryStatus;
   notes: string | null;
   createdAt: string;
@@ -117,11 +147,17 @@ export type InventoryProduct = {
   description: string | null;
   categoryId: string | null;
   taxId: string | null;
+  supplierId: string | null;
+  manufacturerId: string | null;
+  manufacturer: string | null;
   productType: string | null;
+  otherProductType: string | null;
+  usageType: 'Both' | 'Selling' | 'FarmInput' | null;
   source: string | null;
   unit: string | null;
   sku: string | null;
   barcode: string | null;
+  originCountry: string | null;
   status: InventoryStatus;
   hasExpiry: boolean;
   displayOnStorefront: boolean;
@@ -129,6 +165,18 @@ export type InventoryProduct = {
   pricePerUnit: number | null;
   purchasePrice: number | null;
   wholesalePrice: number | null;
+  productFormCode: string | null;
+  activeIngredients: unknown;
+  doseText: string | null;
+  doseUnit: string | null;
+  activeIngredientConcentrationPercent: string | null;
+  phiMinDays: number | null;
+  phiMaxDays: number | null;
+  targetOrganismsText: string | null;
+  referenceUrls: unknown;
+  cropGuidanceRows: unknown;
+  inventoryRecords: unknown;
+  images: unknown;
   createdAt: string;
   updatedAt: string;
 };
@@ -143,14 +191,47 @@ export type StockAdjustmentProduct = {
   status: InventoryStatus;
 };
 
+export type InventoryContactOption = {
+  id: string;
+  name: string;
+  contactTypes: string[];
+};
+
+export type InventoryCropOption = {
+  id: string;
+  name: string;
+};
+
 export type CreateCategoryRequest = CreateCategoryRequestContract;
 export type UpdateCategoryRequest = UpdateCategoryRequestContract;
 export type CreateTaxRequest = CreateTaxRequestContract;
 export type UpdateTaxRequest = UpdateTaxRequestContract;
 export type CreateWarehouseRequest = CreateWarehouseRequestContract;
 export type UpdateWarehouseRequest = UpdateWarehouseRequestContract;
+export type CreateContactRequest = CreateContactRequestContract;
 export type CreateProductRequest = CreateProductRequestContract;
 export type UpdateProductRequest = UpdateProductRequestContract;
+
+type CreateInventoryContactFallbackRequest = {
+  name: string;
+  type: 'supplier' | 'manufacturer';
+  contact_types: string[];
+  company?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  address?: string | null;
+  country?: string | null;
+  city_region?: string | null;
+  tax_id?: string | null;
+  notes?: string | null;
+  status?: string;
+};
+
+// TODO(typed): OpenAPI still reports ContactCreateDto as an empty object, so fallback request
+// typing remains isolated in the API layer.
+export type CreateInventoryContactRequest =
+  | CreateContactRequest
+  | CreateInventoryContactFallbackRequest;
 
 type HardDeleteProductsFallbackRequest = {
   ids: string[];
@@ -215,12 +296,38 @@ function parseWarehouse(payload: unknown): InventoryWarehouse | null {
   const id = readString(payload, 'id');
   if (!id) return null;
 
+  const warehouseTypes = readArray(payload, 'warehouse_types').filter(
+    (
+      item,
+    ): item is
+      | 'cold_storage'
+      | 'seed_storage'
+      | 'fertilizer'
+      | 'packing_house'
+      | 'livestock_shelter'
+      | 'greenhouse'
+      | 'fuel_storage'
+      | 'other' =>
+      item === 'cold_storage' ||
+      item === 'seed_storage' ||
+      item === 'fertilizer' ||
+      item === 'packing_house' ||
+      item === 'livestock_shelter' ||
+      item === 'greenhouse' ||
+      item === 'fuel_storage' ||
+      item === 'other',
+  );
+
   return {
     id,
     name: readString(payload, 'name'),
     fieldId: readNullableString(payload, 'field_id'),
     capacityValue: readNullableNumber(payload.capacity_value),
     capacityUnit: readNullableString(payload, 'capacity_unit'),
+    warehouseTypes,
+    temperatureMin: readNullableNumber(payload.temperature_min),
+    temperatureMax: readNullableNumber(payload.temperature_max),
+    safetyMeasures: readNullableString(payload, 'safety_measures'),
     status: readString(payload, 'status', 'active'),
     notes: readNullableString(payload, 'notes'),
     createdAt: readString(payload, 'created_at'),
@@ -239,11 +346,24 @@ function parseProduct(payload: unknown): InventoryProduct | null {
     description: readNullableString(payload, 'description'),
     categoryId: readNullableString(payload, 'category_id'),
     taxId: readNullableString(payload, 'tax_id'),
+    supplierId: readNullableString(payload, 'supplier_id'),
+    manufacturerId: readNullableString(payload, 'manufacturer_id'),
+    manufacturer: readNullableString(payload, 'manufacturer'),
     productType: readNullableString(payload, 'product_type'),
+    otherProductType: readNullableString(payload, 'other_product_type'),
+    usageType:
+      readString(payload, 'usage_type') === 'Selling'
+        ? 'Selling'
+        : readString(payload, 'usage_type') === 'FarmInput'
+          ? 'FarmInput'
+          : readString(payload, 'usage_type') === 'Both'
+            ? 'Both'
+            : null,
     source: readNullableString(payload, 'source'),
     unit: readNullableString(payload, 'unit'),
     sku: readNullableString(payload, 'sku'),
     barcode: readNullableString(payload, 'barcode'),
+    originCountry: readNullableString(payload, 'origin_country'),
     status: readString(payload, 'status', 'active'),
     hasExpiry: readBoolean(payload, 'has_expiry'),
     displayOnStorefront: readBoolean(payload, 'display_on_storefront'),
@@ -251,6 +371,21 @@ function parseProduct(payload: unknown): InventoryProduct | null {
     pricePerUnit: readNullableNumber(payload.price_per_unit),
     purchasePrice: readNullableNumber(payload.purchase_price),
     wholesalePrice: readNullableNumber(payload.wholesale_price),
+    productFormCode: readNullableString(payload, 'product_form_code'),
+    activeIngredients: payload.active_ingredients,
+    doseText: readNullableString(payload, 'dose_text'),
+    doseUnit: readNullableString(payload, 'dose_unit'),
+    activeIngredientConcentrationPercent: readNullableString(
+      payload,
+      'active_ingredient_concentration_percent',
+    ),
+    phiMinDays: readNullableNumber(payload.phi_min_days),
+    phiMaxDays: readNullableNumber(payload.phi_max_days),
+    targetOrganismsText: readNullableString(payload, 'target_organisms_text'),
+    referenceUrls: payload.reference_urls,
+    cropGuidanceRows: payload.crop_guidance_rows,
+    inventoryRecords: payload.inventoryRecords,
+    images: payload.images,
     createdAt: readString(payload, 'created_at'),
     updatedAt: readString(payload, 'updated_at'),
   };
@@ -300,6 +435,76 @@ function parseMutationResult<T>(
   return parsed;
 }
 
+function parseContactOption(payload: unknown): InventoryContactOption | null {
+  if (!isRecord(payload)) return null;
+  const id = readString(payload, 'id');
+  if (!id) return null;
+
+  const contactTypes = readArray(payload, 'contact_types').filter(
+    (value): value is string => typeof value === 'string' && value.trim().length > 0,
+  );
+
+  return {
+    id,
+    name: readString(payload, 'name'),
+    contactTypes,
+  };
+}
+
+function parseCropOption(payload: unknown): InventoryCropOption | null {
+  if (!isRecord(payload)) return null;
+  const id = readString(payload, 'id');
+  if (!id) return null;
+
+  const name =
+    readString(payload, 'name') ||
+    readString(payload, 'crop_name') ||
+    readString(payload, 'label') ||
+    'Crop';
+
+  return {
+    id,
+    name,
+  };
+}
+
+function parseRows<T>(payload: unknown, parser: (item: unknown) => T | null): T[] {
+  const rows = isRecord(payload) && Array.isArray(payload.items) ? payload.items : normalizeRows(payload);
+
+  return rows
+    .map((row) => parser(row))
+    .filter((row): row is T => Boolean(row));
+}
+
+function normalizeContactCreateRequest(input: CreateInventoryContactRequest): UnknownRecord {
+  const record = isRecord(input) ? input : {};
+  const normalizedName = readString(record, 'name').trim();
+  if (!normalizedName) {
+    throw new Error('Contact name is required.');
+  }
+
+  const normalizedType = readString(record, 'type') === 'manufacturer' ? 'manufacturer' : 'supplier';
+  const providedTypes = readArray(record, 'contact_types').filter(
+    (value): value is string => typeof value === 'string' && value.trim().length > 0,
+  );
+  const contactTypes = providedTypes.length > 0 ? providedTypes : [normalizedType];
+
+  return {
+    name: normalizedName,
+    type: normalizedType,
+    contact_types: contactTypes,
+    company: readNullableString(record, 'company'),
+    phone: readNullableString(record, 'phone'),
+    email: readNullableString(record, 'email'),
+    address: readNullableString(record, 'address'),
+    country: readNullableString(record, 'country'),
+    city_region: readNullableString(record, 'city_region'),
+    tax_id: readNullableString(record, 'tax_id'),
+    notes: readNullableString(record, 'notes'),
+    status: readString(record, 'status', 'active'),
+  };
+}
+
 function buildCatalogQuery(options: CatalogListOptions = {}): string {
   const params = new URLSearchParams();
   if (typeof options.limit === 'number') params.set('limit', String(options.limit));
@@ -347,6 +552,16 @@ export async function updateCategory(
     },
   );
   return parseMutationResult(data, parseCategory, 'Categories API returned an empty update payload.');
+}
+
+export async function enableStorefrontForActiveCategories(token: string): Promise<number> {
+  const { data } = await apiClient.patch<EnableStorefrontCategoriesResponse>(
+    '/categories/bulk/enable-storefront',
+    {
+      token,
+    },
+  );
+  return typeof data.updated === 'number' ? data.updated : 0;
 }
 
 export async function listTaxes(
@@ -442,6 +657,40 @@ export async function listStockAdjustmentProducts(
   return data
     .map((item) => parseStockAdjustmentProduct(item))
     .filter((item): item is StockAdjustmentProduct => Boolean(item));
+}
+
+export async function listSupplierContacts(token: string): Promise<InventoryContactOption[]> {
+  const { data } = await apiClient.get<ListContactsResponse>(
+    '/contacts?limit=200&offset=0&status=active&contactTypes=supplier',
+    { token },
+  );
+
+  return parseRows(data, parseContactOption);
+}
+
+export async function listManufacturerContacts(token: string): Promise<InventoryContactOption[]> {
+  const { data } = await apiClient.get<ListContactsResponse>(
+    '/contacts?limit=200&offset=0&status=active&contactTypes=manufacturer',
+    { token },
+  );
+
+  return parseRows(data, parseContactOption);
+}
+
+export async function createInventoryContact(
+  token: string,
+  input: CreateInventoryContactRequest,
+): Promise<void> {
+  await apiClient.post<unknown, UnknownRecord>('/contacts', {
+    token,
+    body: normalizeContactCreateRequest(input),
+    idempotencyKey: `contacts-create-${Date.now()}`,
+  });
+}
+
+export async function listCropsForGuidance(token: string): Promise<InventoryCropOption[]> {
+  const { data } = await apiClient.get<ListCropsForGuidanceResponse>('/crops/guidance', { token });
+  return parseRows(data, parseCropOption);
 }
 
 export async function createProduct(

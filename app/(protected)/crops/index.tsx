@@ -1,23 +1,18 @@
 import React from 'react';
-import { Redirect } from 'expo-router';
 import { ModuleAccessGate } from '../../../src/components';
 import { usePermissionGate } from '../../../src/hooks/usePermissionGate';
-import { CropsScreen } from '../../../src/modules/crops/screens/CropsScreen';
 import { useAuth } from '../../../src/providers/AuthProvider';
+import { CropsScreen } from '../../../src/modules/crops/screens/CropsScreen';
 
-export default function CropsRoute() {
-  const { session, signOut } = useAuth();
-  const permission = usePermissionGate('crops');
-
-  if (!session) {
-    return <Redirect href="/(public)/auth/login" />;
-  }
+export default function CropsScreenRoute() {
+  const { loading, allowed } = usePermissionGate('crops');
+  const { signOut } = useAuth();
 
   return (
     <ModuleAccessGate
-      loading={permission.loading}
-      allowed={permission.allowed}
-      moduleLabel="Crops"
+      loading={loading}
+      allowed={allowed}
+      moduleLabel='Crops'
       onSignOut={() => void signOut()}
     >
       <CropsScreen />

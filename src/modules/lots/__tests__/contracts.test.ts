@@ -6,10 +6,14 @@ describe('lots contracts', () => {
       id: 'lot-1',
       fieldId: 'field-1',
       name: 'Lot A',
+      description: null,
       lotType: 'greenhouse',
+      lotTypeOther: null,
       cropRotationPlan: 'rotation',
+      cropRotationPlanOther: null,
       lightProfile: 'partial_shade',
       shapePolygon: null,
+      pastSeasonsCrops: [],
       weatherAlertsEnabled: false,
       notes: 'Keep shaded',
       status: 'active',
@@ -19,14 +23,12 @@ describe('lots contracts', () => {
       updatedAt: '2026-03-02T00:00:00.000Z',
     });
 
-    expect(values).toEqual({
-      fieldId: 'field-1',
-      name: 'Lot A',
-      lotType: 'greenhouse',
-      cropRotationPlan: 'rotation',
-      lightProfile: 'partial_shade',
-      boundaryPoints: [],
-      notes: 'Keep shaded',
-    });
+    expect(values.fieldId).toBe('field-1');
+    expect(values.name).toBe('Lot A');
+    expect(values.lotType).toBe('greenhouse');
+    expect(values.cropRotationPlan).toBe('monoculture');
+    expect(values.lightProfile).toBe('partial_shade');
+    expect(values.boundaryPoints).toEqual([]);
+    expect(values.notes).toBe('Keep shaded');
   });
 });

@@ -5,12 +5,9 @@ import {
   createManagedInvite,
   createManagedNotification,
   createManagedRole,
-  createStorefrontSettings,
   deleteManagedInvite,
   deleteManagedNotification,
   deleteManagedRole,
-  getFarmStorefrontContext,
-  getStorefrontSettingsByFarm,
   listManagedContacts,
   listManagedInvites,
   listManagedNotifications,
@@ -21,17 +18,14 @@ import {
   updateManagedNotification,
   updateManagedRole,
   updateManagedUser,
-  updateStorefrontSettings,
   type CreateManagedContactRequest,
   type CreateManagedInviteRequest,
   type CreateManagedNotificationRequest,
   type CreateManagedRoleRequest,
-  type CreateStorefrontSettingsRequest,
   type UpdateManagedContactRequest,
   type UpdateManagedNotificationRequest,
   type UpdateManagedRoleRequest,
   type UpdateManagedUserRequest,
-  type UpdateStorefrontSettingsRequest,
 } from '../../api/modules/management';
 import { getMySubscription } from '../../api/modules/subscriptions';
 import { useAuthSession } from '../../hooks/useAuthSession';
@@ -42,8 +36,6 @@ const PHASE13_ROLES_QUERY_KEY = ['phase13', 'roles'] as const;
 const PHASE13_ROLE_OPTIONS_QUERY_KEY = ['phase13', 'role-options'] as const;
 const PHASE13_INVITES_QUERY_KEY = ['phase13', 'invites'] as const;
 const PHASE13_CONTACTS_QUERY_KEY = ['phase13', 'contacts'] as const;
-const PHASE13_STORE_SETTINGS_QUERY_KEY = ['phase13', 'storefront-settings'] as const;
-const PHASE13_FARM_STORE_QUERY_KEY = ['phase13', 'farm-storefront'] as const;
 const PHASE13_NOTIFICATIONS_QUERY_KEY = ['phase13', 'notifications'] as const;
 const PHASE13_SUBSCRIPTION_QUERY_KEY = ['phase13', 'subscription'] as const;
 
@@ -65,9 +57,8 @@ export function useManagementModule({
   contactsPageSize,
   contactsSearch,
 }: UseManagementModuleParams) {
-  const { session, accessSnapshot } = useAuthSession();
+  const { session } = useAuthSession();
   const token = session?.accessToken ?? null;
-  const farmId = accessSnapshot.context?.farmId ?? null;
   const queryClient = useQueryClient();
 
   const usersQuery = useQuery({
@@ -103,18 +94,6 @@ export function useManagementModule({
         search: contactsSearch,
       }),
     enabled: Boolean(token),
-  });
-
-  const farmStorefrontQuery = useQuery({
-    queryKey: PHASE13_FARM_STORE_QUERY_KEY,
-    queryFn: () => getFarmStorefrontContext(token ?? ''),
-    enabled: Boolean(token),
-  });
-
-  const storefrontSettingsQuery = useQuery({
-    queryKey: [PHASE13_STORE_SETTINGS_QUERY_KEY, farmId],
-    queryFn: () => getStorefrontSettingsByFarm(token ?? '', farmId ?? ''),
-    enabled: Boolean(token && farmId),
   });
 
   const notificationsQuery = useQuery({
@@ -212,17 +191,6 @@ export function useManagementModule({
     onSuccess: invalidatePhase13Queries,
   });
 
-  const createStorefrontSettingsMutation = useMutation({
-    mutationFn: (input: CreateStorefrontSettingsRequest) => createStorefrontSettings(token ?? '', input),
-    onSuccess: invalidatePhase13Queries,
-  });
-
-  const updateStorefrontSettingsMutation = useMutation({
-    mutationFn: (payload: { settingsId: string; input: UpdateStorefrontSettingsRequest }) =>
-      updateStorefrontSettings(token ?? '', payload.settingsId, payload.input),
-    onSuccess: invalidatePhase13Queries,
-  });
-
   const createNotificationMutation = useMutation({
     mutationFn: (input: CreateManagedNotificationRequest) => createManagedNotification(token ?? '', input),
     onSuccess: async () => {
@@ -260,8 +228,6 @@ export function useManagementModule({
     deleteInviteMutation.isPending ||
     createContactMutation.isPending ||
     updateContactMutation.isPending ||
-    createStorefrontSettingsMutation.isPending ||
-    updateStorefrontSettingsMutation.isPending ||
     createNotificationMutation.isPending ||
     updateNotificationMutation.isPending ||
     deleteNotificationMutation.isPending;
@@ -278,8 +244,6 @@ export function useManagementModule({
       offset: (contactsPage - 1) * contactsPageSize,
     },
     notifications: useMemo(() => notificationsQuery.data ?? [], [notificationsQuery.data]),
-    farmStorefront: farmStorefrontQuery.data ?? null,
-    storefrontSettings: storefrontSettingsQuery.data ?? null,
     subscription: subscriptionQuery.data ?? null,
     isLoading:
       usersQuery.isLoading ||
@@ -287,8 +251,6 @@ export function useManagementModule({
       roleOptionsQuery.isLoading ||
       invitesQuery.isLoading ||
       contactsQuery.isLoading ||
-      farmStorefrontQuery.isLoading ||
-      storefrontSettingsQuery.isLoading ||
       notificationsQuery.isLoading ||
       subscriptionQuery.isLoading,
     isRefreshing:
@@ -297,8 +259,6 @@ export function useManagementModule({
       roleOptionsQuery.isFetching ||
       invitesQuery.isFetching ||
       contactsQuery.isFetching ||
-      farmStorefrontQuery.isFetching ||
-      storefrontSettingsQuery.isFetching ||
       notificationsQuery.isFetching ||
       subscriptionQuery.isFetching,
     isMutating,
@@ -312,18 +272,11 @@ export function useManagementModule({
             ? toErrorMessage(invitesQuery.error, 'Failed to load invites.')
             : contactsQuery.error
               ? toErrorMessage(contactsQuery.error, 'Failed to load contacts.')
-              : farmStorefrontQuery.error
-                ? toErrorMessage(farmStorefrontQuery.error, 'Failed to load farm settings context.')
-                : storefrontSettingsQuery.error
-                  ? toErrorMessage(
-                      storefrontSettingsQuery.error,
-                      'Failed to load storefront settings.',
-                    )
-                  : notificationsQuery.error
-                    ? toErrorMessage(notificationsQuery.error, 'Failed to load notifications.')
-                    : subscriptionQuery.error
-                      ? toErrorMessage(subscriptionQuery.error, 'Failed to load subscription snapshot.')
-                      : null,
+              : notificationsQuery.error
+                ? toErrorMessage(notificationsQuery.error, 'Failed to load notifications.')
+                : subscriptionQuery.error
+                  ? toErrorMessage(subscriptionQuery.error, 'Failed to load subscription snapshot.')
+                  : null,
     refresh: async () => {
       await invalidatePhase13Queries();
     },
@@ -339,10 +292,6 @@ export function useManagementModule({
       createContactMutation.mutateAsync(input),
     updateContact: async (contactId: string, input: UpdateManagedContactRequest) =>
       updateContactMutation.mutateAsync({ contactId, input }),
-    createStorefrontSettings: async (input: CreateStorefrontSettingsRequest) =>
-      createStorefrontSettingsMutation.mutateAsync(input),
-    updateStorefrontSettings: async (settingsId: string, input: UpdateStorefrontSettingsRequest) =>
-      updateStorefrontSettingsMutation.mutateAsync({ settingsId, input }),
     createNotification: async (input: CreateManagedNotificationRequest) =>
       createNotificationMutation.mutateAsync(input),
     updateNotification: async (notificationId: string, input: UpdateManagedNotificationRequest) =>

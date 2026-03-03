@@ -2,15 +2,13 @@ import type {
   ManagedContact,
   ManagedRole,
   ManagedUser,
-  StorefrontSettingsRecord,
 } from '../../api/modules/management';
 
-export type ManagementTab = 'users' | 'contacts' | 'settings' | 'notifications' | 'access';
+export type ManagementTab = 'users' | 'contacts' | 'notifications' | 'access';
 
 export const MANAGEMENT_TABS = [
   { value: 'users', label: 'Users' },
   { value: 'contacts', label: 'Contacts' },
-  { value: 'settings', label: 'Settings' },
   { value: 'notifications', label: 'Notifications' },
   { value: 'access', label: 'Access' },
 ] as const;
@@ -37,7 +35,7 @@ export const NOTIFICATION_TYPE_OPTIONS = [
   { value: 'low_stock', label: 'Low Stock' },
 ] as const;
 
-export type ManagementModuleKey = 'users' | 'contacts' | 'settings' | 'notifications';
+export type ManagementModuleKey = 'users' | 'contacts' | 'notifications';
 export type RoleCapability = 'full' | 'read-only' | 'none';
 export type AccessState = 'full' | 'read-only' | 'locked-role' | 'locked-subscription';
 
@@ -73,12 +71,6 @@ export type ContactFormValues = {
   country: string;
   cityRegion: string;
   taxId: string;
-};
-
-export type SettingsFormValues = {
-  deliveryFee: string;
-  includeDeliveryFee: boolean;
-  isActive: boolean;
 };
 
 export type NotificationFormValues = {
@@ -168,22 +160,6 @@ export function toContactFormValues(contact?: ManagedContact | null): ContactFor
   };
 }
 
-export function toSettingsFormValues(settings?: StorefrontSettingsRecord | null): SettingsFormValues {
-  if (!settings) {
-    return {
-      deliveryFee: '0',
-      includeDeliveryFee: true,
-      isActive: true,
-    };
-  }
-
-  return {
-    deliveryFee: settings.deliveryFee === null ? '0' : String(settings.deliveryFee),
-    includeDeliveryFee: settings.includeDeliveryFee,
-    isActive: settings.isActive,
-  };
-}
-
 export function toNotificationFormValues(): NotificationFormValues {
   return {
     title: '',
@@ -213,7 +189,7 @@ export function normalizeRoleCapability(
   }
 
   if (role === 'viewer') {
-    if (moduleKey === 'contacts' || moduleKey === 'settings' || moduleKey === 'notifications') {
+    if (moduleKey === 'contacts' || moduleKey === 'notifications') {
       return 'read-only';
     }
     return 'none';

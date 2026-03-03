@@ -64,4 +64,21 @@ describe('layout components', () => {
     fireEvent.press(getByText('Access'));
     expect(onValueChange).toHaveBeenCalledWith('access');
   });
+
+  it('does not fire AppTabs value change for disabled tab', () => {
+    const onValueChange = jest.fn();
+    const { getByText } = renderWithProviders(
+      <AppTabs
+        value="context"
+        onValueChange={onValueChange}
+        tabs={[
+          { value: 'context', label: 'Context' },
+          { value: 'access', label: 'Access', disabled: true },
+        ]}
+      />,
+    );
+
+    fireEvent.press(getByText('Access'));
+    expect(onValueChange).not.toHaveBeenCalled();
+  });
 });

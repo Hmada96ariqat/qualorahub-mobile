@@ -16,7 +16,7 @@
   - Phase 11 — Crop Planning + Production Cycles + Logbook (PASS)
   - Phase 12 — Livestock + Animal Housing + Weather (PASS; manual signoff confirmed)
   - Phase 13 — Users/Roles, Contacts, Settings, Notifications, Subscription Access UX (PASS; manual gate waived by user)
-- recent updates (March 2, 2026):
+- recent updates (March 3, 2026):
   - Phase 13 was approved and closed; Phase 14 started by user approval.
   - Phase 14 hardening implementation delivered:
     - app-shell observability and error boundary wiring.
@@ -30,6 +30,23 @@
     - `lint`, `typecheck`, `test:ci`
     - `check:boundaries`, `docs:code-map`, `docs:check`
   - Phase 14 is ready for signoff (manual checklist waived by user instruction).
+  - Fields/Lots post-phase parity hardening completed:
+    - field/lot map-boundary parity behavior upgraded (boundary validation + fallback payloads).
+    - lot form boundary tab is now field-gated and blocked until field selection.
+    - lot boundary drawing now validates point-by-point (inside-field + overlap) and rejects invalid points immediately.
+    - lot boundary state now clears immediately when switching field context in create/edit flow.
+    - action-level RBAC helper added for module action gating (`view/add/edit/delete`).
+    - i18n namespace bridge added for `fields/lots/units/soil/irrigation/map/validation/common`.
+    - reactivation confirmation flow fixed to preserve target record through confirm dialog.
+    - latest automated checks are green:
+      - `api:pull`, `api:generate`, `api:verify`
+      - `lint`, `typecheck`, `test:ci`
+      - `check:boundaries`, `docs:code-map`, `docs:check`
+  - Inventory Product module parity was upgraded to web-aligned wizard behavior:
+    - Step A / Step B (conditional) / Step C flow.
+    - Step B reset on non-pesticide product type switch.
+    - FarmInput storefront forcing, custom dose-unit normalization on edit, and crop-guidance row filtering on submit.
+    - automated parity tests added in `src/modules/inventory/__tests__/product-form.test.ts`.
 - blocked items:
   - `QH-OAPI-001`: auth request DTO schemas are empty in generated OpenAPI (`LoginDto`, `RefreshTokenDto`, `LogoutDto`, `ForgotPasswordDto`, `ResetPasswordDto`).
   - `QH-OAPI-002`: `/subscriptions/me`, `/subscriptions/me/entitlements`, `/subscriptions/me/menus` response schemas are empty in generated OpenAPI.

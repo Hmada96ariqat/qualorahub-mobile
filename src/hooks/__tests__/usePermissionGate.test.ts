@@ -10,6 +10,26 @@ describe('usePermissionGate helpers', () => {
     ]);
   });
 
+  it('resolves inventory aliases to inventory sub-menu keys', () => {
+    expect(resolvePermissionKeys('inventory')).toEqual([
+      'inventory',
+      'products',
+      'categories',
+      'taxes',
+      'warehouses',
+      'stock-adjustment',
+    ]);
+  });
+
+  it('resolves livestock aliases to livestock-related sub-menu keys', () => {
+    expect(resolvePermissionKeys('livestock')).toEqual([
+      'livestock',
+      'animal-housing',
+      'animal-profile',
+      'weather',
+    ]);
+  });
+
   it('returns only requested key when no alias exists', () => {
     expect(resolvePermissionKeys('finance')).toEqual(['finance']);
   });

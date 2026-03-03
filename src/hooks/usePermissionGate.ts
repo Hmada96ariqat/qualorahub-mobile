@@ -2,6 +2,8 @@ import { useAuth } from '../providers/AuthProvider';
 
 const MENU_KEY_ALIASES: Record<string, string[]> = {
   lots: ['fields', 'fields-lots', 'fields-&-lots'],
+  inventory: ['products', 'categories', 'taxes', 'warehouses', 'stock-adjustment'],
+  livestock: ['animal-housing', 'animal-profile', 'weather'],
 };
 
 export function resolvePermissionKeys(menuKey: string): string[] {

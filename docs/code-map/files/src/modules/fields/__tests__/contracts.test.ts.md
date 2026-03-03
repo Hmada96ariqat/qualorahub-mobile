@@ -4,7 +4,7 @@
 Feature module implementation.
 
 ## Imports
-- `import { toFieldFormValues } from '../contracts';`
+- `import {`
 
 ## Exports
 - none
