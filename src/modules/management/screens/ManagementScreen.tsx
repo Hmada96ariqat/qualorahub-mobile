@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import type {
@@ -46,7 +46,6 @@ import {
   toNotificationFormValues,
   toReadAtNow,
   toRoleFormValues,
-  toSettingsFormValues,
   toUserFormValues,
   type AccessState,
   type ContactFormValues,
@@ -55,7 +54,6 @@ import {
   type ManagementTab,
   type NotificationFormValues,
   type RoleFormValues,
-  type SettingsFormValues,
   type UserFormValues,
 } from '../contracts';
 import { useManagementModule } from '../useManagementModule.hook';
@@ -88,12 +86,6 @@ function makeAccessStateMap(
       menuAllowed: hasMenuAccess('contacts'),
       entitlementsSnapshot,
     }),
-    settings: resolveAccessState({
-      roleName,
-      moduleKey: 'settings',
-      menuAllowed: hasMenuAccess('settings'),
-      entitlementsSnapshot,
-    }),
     notifications: resolveAccessState({
       roleName,
       moduleKey: 'notifications',
@@ -114,7 +106,6 @@ function isVisible(state: AccessState): boolean {
 function moduleLabel(moduleKey: ManagementModuleKey): string {
   if (moduleKey === 'users') return 'Users';
   if (moduleKey === 'contacts') return 'Contacts';
-  if (moduleKey === 'settings') return 'Settings';
   return 'Notifications';
 }
 
@@ -157,8 +148,6 @@ export function ManagementScreen() {
   const [editingContact, setEditingContact] = useState<ManagedContact | null>(null);
   const [contactFormValues, setContactFormValues] = useState<ContactFormValues>(toContactFormValues());
 
-  const [settingsFormValues, setSettingsFormValues] = useState<SettingsFormValues>(toSettingsFormValues());
-
   const [notificationSheetVisible, setNotificationSheetVisible] = useState(false);
   const [notificationFormValues, setNotificationFormValues] = useState<NotificationFormValues>(
     toNotificationFormValues(),
@@ -173,8 +162,6 @@ export function ManagementScreen() {
     invites,
     contactsPage: contactsResult,
     notifications,
-    farmStorefront,
-    storefrontSettings,
     subscription,
     isLoading,
     isRefreshing,
@@ -189,8 +176,6 @@ export function ManagementScreen() {
     deleteInvite,
     createContact,
     updateContact,
-    createStorefrontSettings,
-    updateStorefrontSettings,
     createNotification,
     updateNotification,
     deleteNotification,
@@ -208,7 +193,6 @@ export function ManagementScreen() {
 
   const contactsTotalItems = contactsResult.total;
   const contactsItems = contactsResult.items;
-  const settingsId = storefrontSettings?.id ?? null;
 
   const roleOptionsForSelect = useMemo(
     () => roleOptions.map((item) => ({ value: item.id, label: item.name })),
@@ -229,12 +213,7 @@ export function ManagementScreen() {
 
   const canWriteUsers = isWritable(moduleAccessState.users);
   const canWriteContacts = isWritable(moduleAccessState.contacts);
-  const canWriteSettings = isWritable(moduleAccessState.settings);
   const canWriteNotifications = isWritable(moduleAccessState.notifications);
-
-  useEffect(() => {
-    setSettingsFormValues(toSettingsFormValues(storefrontSettings));
-  }, [storefrontSettings]);
 
   function showNotice(options: {
     title?: string;
@@ -522,61 +501,6 @@ export function ManagementScreen() {
       closeContactSheet();
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to save contact.';
-      showNotice({
-        title: 'Save Failed',
-        message,
-        tone: 'error',
-      });
-    }
-  }
-
-  async function saveSettings() {
-    if (!farmStorefront) {
-      showNotice({
-        title: 'Save Failed',
-        message: 'Farm settings context is unavailable.',
-        tone: 'error',
-      });
-      return;
-    }
-
-    const deliveryFeeValue = settingsFormValues.deliveryFee.trim();
-    const deliveryFee = deliveryFeeValue.length > 0 ? Number.parseFloat(deliveryFeeValue) : 0;
-    if (!Number.isFinite(deliveryFee)) {
-      showNotice({
-        title: 'Validation Error',
-        message: 'Delivery fee must be a valid number.',
-      });
-      return;
-    }
-
-    try {
-      if (!settingsId) {
-        await createStorefrontSettings({
-          farm_id: farmStorefront.farmId,
-          delivery_fee: deliveryFee,
-          include_delivery_fee: settingsFormValues.includeDeliveryFee,
-          is_active: settingsFormValues.isActive,
-        });
-        showNotice({
-          title: 'Settings Created',
-          message: 'Storefront settings were created.',
-          tone: 'success',
-        });
-      } else {
-        await updateStorefrontSettings(settingsId, {
-          delivery_fee: deliveryFee,
-          include_delivery_fee: settingsFormValues.includeDeliveryFee,
-          is_active: settingsFormValues.isActive,
-        });
-        showNotice({
-          title: 'Settings Updated',
-          message: 'Storefront settings were updated.',
-          tone: 'success',
-        });
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to save settings.';
       showNotice({
         title: 'Save Failed',
         message,
@@ -910,86 +834,6 @@ export function ManagementScreen() {
     );
   }
 
-  function renderSettingsTab() {
-    const guard = renderAccessGuard('settings');
-    if (guard) return guard;
-
-    return (
-      <>
-        {renderAccessBanner('settings')}
-
-        <SectionCard>
-          <AppSection
-            title="Farm Storefront Settings"
-            description="Essentials from integrations storefront settings APIs."
-          >
-            <AppListItem
-              title={farmStorefront?.farmName ?? 'Farm'}
-              description={`Farm ID: ${farmStorefront?.farmId ?? 'n/a'}`}
-            />
-            <FormField
-              label="Delivery Fee"
-              helperText="Numeric value sent as delivery_fee"
-            >
-              <AppInput
-                value={settingsFormValues.deliveryFee}
-                onChangeText={(value) =>
-                  setSettingsFormValues((prev) => ({
-                    ...prev,
-                    deliveryFee: value,
-                  }))
-                }
-                placeholder="0"
-                keyboardType="decimal-pad"
-                disabled={!canWriteSettings}
-              />
-            </FormField>
-
-            <FormField label="Include Delivery Fee">
-              <AppSelect
-                value={settingsFormValues.includeDeliveryFee ? 'yes' : 'no'}
-                options={[
-                  { value: 'yes', label: 'Yes' },
-                  { value: 'no', label: 'No' },
-                ]}
-                onChange={(value) =>
-                  setSettingsFormValues((prev) => ({
-                    ...prev,
-                    includeDeliveryFee: value === 'yes',
-                  }))
-                }
-                disabled={!canWriteSettings}
-              />
-            </FormField>
-
-            <FormField label="Active">
-              <AppSelect
-                value={settingsFormValues.isActive ? 'active' : 'inactive'}
-                options={[...CONTACT_STATUS_OPTIONS]}
-                onChange={(value) =>
-                  setSettingsFormValues((prev) => ({
-                    ...prev,
-                    isActive: value === 'active',
-                  }))
-                }
-                disabled={!canWriteSettings}
-              />
-            </FormField>
-
-            <View style={styles.rowActions}>
-              <AppButton
-                label={settingsId ? 'Update Settings' : 'Create Settings'}
-                onPress={() => void saveSettings()}
-                loading={isMutating}
-                disabled={!canWriteSettings}
-              />
-            </View>
-          </AppSection>
-        </SectionCard>
-      </>
-    );
-  }
-
   function renderNotificationsTab() {
     const guard = renderAccessGuard('notifications');
     if (guard) return guard;
@@ -1135,7 +979,6 @@ export function ManagementScreen() {
   function renderTabBody() {
     if (tab === 'users') return renderUsersTab();
     if (tab === 'contacts') return renderContactsTab();
-    if (tab === 'settings') return renderSettingsTab();
     if (tab === 'notifications') return renderNotificationsTab();
     return renderAccessTab();
   }
@@ -1224,7 +1067,7 @@ export function ManagementScreen() {
     <AppScreen padded={false}>
       <AppHeader
         title="Management"
-        subtitle="Phase 13: users, contacts, settings, notifications, and subscription access."
+        subtitle="Phase 13: users, contacts, notifications, and subscription access."
       />
 
       <PullToRefreshContainer

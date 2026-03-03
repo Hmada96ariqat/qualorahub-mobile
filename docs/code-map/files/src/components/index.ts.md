@@ -34,6 +34,7 @@ Source module.
 - `export { AppSelect } from './form/AppSelect';`
 - `export { AppDatePicker } from './form/AppDatePicker';`
 - `export { AppTextArea } from './form/AppTextArea';`
+- `export { AppPolygonMapEditor } from './form/AppPolygonMapEditor';`
 - `export type { SelectOption } from './form/AppSelect';`
 - `export { PullToRefreshContainer } from './lists/PullToRefreshContainer';`
 - `export { PaginationFooter } from './lists/PaginationFooter';`

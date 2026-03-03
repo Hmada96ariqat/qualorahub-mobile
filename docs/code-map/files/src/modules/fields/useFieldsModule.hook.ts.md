@@ -10,4 +10,4 @@ Feature module implementation.
 - `import { useAuthSession } from '../../hooks/useAuthSession';`
 
 ## Exports
-- `export function useFieldsModule() {`
+- `export function useFieldsModule(statusFilter: FieldStatusFilter) {`

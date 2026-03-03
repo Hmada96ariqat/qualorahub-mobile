@@ -10,19 +10,25 @@ Typed API module wrapper for backend endpoints.
 - `import {`
 
 ## Exports
-- `export type FieldStatus = 'active' | 'inactive' | string;`
+- `export type FieldStatus = 'active' | 'fallow' | 'maintenance' | 'inactive' | string;`
+- `export type FieldStatusFilter = 'active' | 'inactive' | 'fallow' | 'maintenance' | 'all';`
+- `export type ManualFieldBoundaryPayload = {`
 - `export type FieldSummary = {`
+- `export type FieldDetail = FieldSummary & {`
 - `export type InactiveFieldWithLots = FieldSummary & {`
 - `export type CreateFieldFallbackRequest = {`
 - `export type UpdateFieldFallbackRequest = Partial<CreateFieldFallbackRequest>;`
 - `export type CreateFieldRequest = CreateFieldRequestContract | CreateFieldFallbackRequest;`
 - `export type UpdateFieldRequest = UpdateFieldRequestContract | UpdateFieldFallbackRequest;`
-- `export async function listFields(token: string): Promise<FieldSummary[]> {`
+- `export async function listFields(`
 - `export async function listInactiveFieldsWithLots(token: string): Promise<InactiveFieldWithLots[]> {`
-- `export async function getFieldById(token: string, fieldId: string): Promise<FieldSummary> {`
+- `export async function getFieldById(token: string, fieldId: string): Promise<FieldDetail> {`
 - `export async function createField(token: string, input: CreateFieldRequest): Promise<FieldSummary> {`
 - `export async function updateField(`
+- `export async function setFieldStatus(`
 - `export async function deactivateField(token: string, fieldId: string): Promise<FieldSummary> {`
-- `export async function reactivateField(token: string, fieldId: string): Promise<FieldSummary> {`
+- `export async function reactivateFieldMain(token: string, fieldId: string): Promise<FieldSummary> {`
+- `export async function reactivateFieldFromDeactivated(`
+- `export const reactivateField = reactivateFieldFromDeactivated;`
 - `export const FIELDS_REQUEST_DTO_BLOCKER_ID = OPENAPI_BLOCKER_IDS.FIELDS_LOTS_REQUEST_DTOS;`
 - `export const FIELDS_RESPONSE_SCHEMA_BLOCKER_ID = OPENAPI_BLOCKER_IDS.FIELDS_LOTS_RESPONSE_SCHEMAS;`

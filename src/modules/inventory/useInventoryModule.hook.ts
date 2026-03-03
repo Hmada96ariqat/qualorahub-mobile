@@ -2,13 +2,18 @@ import { useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createCategory,
+  createInventoryContact,
+  enableStorefrontForActiveCategories,
   createProduct,
   createTax,
   createWarehouse,
   hardDeleteProducts,
   listCategories,
+  listCropsForGuidance,
+  listManufacturerContacts,
   listProducts,
   listStockAdjustmentProducts,
+  listSupplierContacts,
   listTaxes,
   listWarehouses,
   updateCategory,
@@ -16,11 +21,14 @@ import {
   updateTax,
   updateWarehouse,
   type CreateCategoryRequest,
+  type CreateInventoryContactRequest,
   type CreateProductRequest,
   type CreateTaxRequest,
   type CreateWarehouseRequest,
   type HardDeleteProductsRequest,
   type InventoryCategory,
+  type InventoryContactOption,
+  type InventoryCropOption,
   type InventoryProduct,
   type InventoryTax,
   type InventoryWarehouse,
@@ -30,7 +38,7 @@ import {
   type UpdateTaxRequest,
   type UpdateWarehouseRequest,
 } from '../../api/modules/inventory';
-import { listFields } from '../../api/modules/fields';
+import { createField, listFields } from '../../api/modules/fields';
 import { useAuthSession } from '../../hooks/useAuthSession';
 
 const CATEGORIES_QUERY_KEY = ['inventory', 'categories'] as const;
@@ -39,6 +47,64 @@ const WAREHOUSES_QUERY_KEY = ['inventory', 'warehouses'] as const;
 const PRODUCTS_QUERY_KEY = ['inventory', 'products'] as const;
 const STOCK_ADJUSTMENT_PRODUCTS_QUERY_KEY = ['inventory', 'stock-adjustment-products'] as const;
 const FIELDS_OPTIONS_QUERY_KEY = ['inventory', 'fields-options'] as const;
+const SUPPLIERS_QUERY_KEY = ['inventory', 'supplier-contacts'] as const;
+const MANUFACTURERS_QUERY_KEY = ['inventory', 'manufacturer-contacts'] as const;
+const CROPS_QUERY_KEY = ['inventory', 'crop-guidance-options'] as const;
+
+export type CreateContactOptionInput = {
+  name: string;
+  company?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  address?: string | null;
+  country?: string | null;
+  cityRegion?: string | null;
+  taxId?: string | null;
+  notes?: string | null;
+};
+
+function findBestContactOptionMatch(
+  options: InventoryContactOption[],
+  input: CreateContactOptionInput,
+): InventoryContactOption | null {
+  const targetName = input.name.trim().toLowerCase();
+  for (let index = options.length - 1; index >= 0; index -= 1) {
+    const option = options[index];
+    if (option.name.trim().toLowerCase() === targetName) {
+      return option;
+    }
+  }
+
+  return null;
+}
+
+export function resolveCreatedContactOption(input: {
+  previousOptions: InventoryContactOption[];
+  refreshedOptions: InventoryContactOption[];
+  draft: CreateContactOptionInput;
+}): InventoryContactOption | null {
+  const { previousOptions, refreshedOptions, draft } = input;
+  const previousIds = new Set(previousOptions.map((option) => option.id));
+  const nameMatches = refreshedOptions.filter(
+    (option) => option.name.trim().toLowerCase() === draft.name.trim().toLowerCase(),
+  );
+
+  const newNameMatch = nameMatches.find((option) => !previousIds.has(option.id));
+  if (newNameMatch) {
+    return newNameMatch;
+  }
+
+  const addedOptions = refreshedOptions.filter((option) => !previousIds.has(option.id));
+  if (addedOptions.length === 1) {
+    return addedOptions[0];
+  }
+
+  if (nameMatches.length > 0) {
+    return nameMatches[nameMatches.length - 1];
+  }
+
+  return findBestContactOptionMatch(refreshedOptions, draft);
+}
 
 function toErrorMessage(error: unknown, fallback: string): string {
   if (error instanceof Error && error.message) {
@@ -88,6 +154,24 @@ export function useInventoryModule() {
     enabled: Boolean(token),
   });
 
+  const supplierContactsQuery = useQuery({
+    queryKey: SUPPLIERS_QUERY_KEY,
+    queryFn: () => listSupplierContacts(token ?? ''),
+    enabled: Boolean(token),
+  });
+
+  const manufacturerContactsQuery = useQuery({
+    queryKey: MANUFACTURERS_QUERY_KEY,
+    queryFn: () => listManufacturerContacts(token ?? ''),
+    enabled: Boolean(token),
+  });
+
+  const cropsQuery = useQuery({
+    queryKey: CROPS_QUERY_KEY,
+    queryFn: () => listCropsForGuidance(token ?? ''),
+    enabled: Boolean(token),
+  });
+
   async function invalidateCatalogQueries() {
     await Promise.all([
       queryClient.invalidateQueries({ queryKey: CATEGORIES_QUERY_KEY }),
@@ -100,6 +184,11 @@ export function useInventoryModule() {
 
   const createCategoryMutation = useMutation({
     mutationFn: (input: CreateCategoryRequest) => createCategory(token ?? '', input),
+    onSuccess: invalidateCatalogQueries,
+  });
+
+  const enableStorefrontCategoriesMutation = useMutation({
+    mutationFn: () => enableStorefrontForActiveCategories(token ?? ''),
     onSuccess: invalidateCatalogQueries,
   });
 
@@ -147,8 +236,31 @@ export function useInventoryModule() {
     onSuccess: invalidateCatalogQueries,
   });
 
+  const createFieldOptionMutation = useMutation({
+    mutationFn: (input: { name: string; areaHectares: number }) =>
+      createField(token ?? '', {
+        name: input.name,
+        area_hectares: input.areaHectares,
+        status: 'active',
+      }),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: FIELDS_OPTIONS_QUERY_KEY });
+    },
+  });
+
+  const createContactOptionMutation = useMutation({
+    mutationFn: (input: CreateInventoryContactRequest) => createInventoryContact(token ?? '', input),
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: SUPPLIERS_QUERY_KEY }),
+        queryClient.invalidateQueries({ queryKey: MANUFACTURERS_QUERY_KEY }),
+      ]);
+    },
+  });
+
   const isMutating =
     createCategoryMutation.isPending ||
+    enableStorefrontCategoriesMutation.isPending ||
     updateCategoryMutation.isPending ||
     createTaxMutation.isPending ||
     updateTaxMutation.isPending ||
@@ -156,7 +268,9 @@ export function useInventoryModule() {
     updateWarehouseMutation.isPending ||
     createProductMutation.isPending ||
     updateProductMutation.isPending ||
-    hardDeleteProductsMutation.isPending;
+    hardDeleteProductsMutation.isPending ||
+    createFieldOptionMutation.isPending ||
+    createContactOptionMutation.isPending;
 
   const categories = useMemo<InventoryCategory[]>(
     () => categoriesQuery.data?.items ?? [],
@@ -179,6 +293,15 @@ export function useInventoryModule() {
     () => (fieldsOptionsQuery.data ?? []).map((field) => ({ label: field.name, value: field.id })),
     [fieldsOptionsQuery.data],
   );
+  const supplierOptions = useMemo<InventoryContactOption[]>(
+    () => supplierContactsQuery.data ?? [],
+    [supplierContactsQuery.data],
+  );
+  const manufacturerOptions = useMemo<InventoryContactOption[]>(
+    () => manufacturerContactsQuery.data ?? [],
+    [manufacturerContactsQuery.data],
+  );
+  const cropOptions = useMemo<InventoryCropOption[]>(() => cropsQuery.data ?? [], [cropsQuery.data]);
 
   return {
     categories,
@@ -187,6 +310,9 @@ export function useInventoryModule() {
     products,
     stockAdjustmentProducts,
     fieldOptions,
+    supplierOptions,
+    manufacturerOptions,
+    cropOptions,
     counts: {
       categories: categoriesQuery.data?.total ?? categories.length,
       taxes: taxesQuery.data?.total ?? taxes.length,
@@ -199,13 +325,21 @@ export function useInventoryModule() {
       taxesQuery.isLoading ||
       warehousesQuery.isLoading ||
       productsQuery.isLoading ||
-      stockAdjustmentProductsQuery.isLoading,
+      stockAdjustmentProductsQuery.isLoading ||
+      fieldsOptionsQuery.isLoading ||
+      supplierContactsQuery.isLoading ||
+      manufacturerContactsQuery.isLoading ||
+      cropsQuery.isLoading,
     isRefreshing:
       categoriesQuery.isFetching ||
       taxesQuery.isFetching ||
       warehousesQuery.isFetching ||
       productsQuery.isFetching ||
-      stockAdjustmentProductsQuery.isFetching,
+      stockAdjustmentProductsQuery.isFetching ||
+      fieldsOptionsQuery.isFetching ||
+      supplierContactsQuery.isFetching ||
+      manufacturerContactsQuery.isFetching ||
+      cropsQuery.isFetching,
     isMutating,
     errorMessage: categoriesQuery.error
       ? toErrorMessage(categoriesQuery.error, 'Failed to load categories.')
@@ -222,6 +356,18 @@ export function useInventoryModule() {
                 )
               : fieldsOptionsQuery.error
                 ? toErrorMessage(fieldsOptionsQuery.error, 'Failed to load field options.')
+                : supplierContactsQuery.error
+                  ? toErrorMessage(
+                      supplierContactsQuery.error,
+                      'Failed to load supplier contact options.',
+                    )
+                  : manufacturerContactsQuery.error
+                    ? toErrorMessage(
+                        manufacturerContactsQuery.error,
+                        'Failed to load manufacturer contact options.',
+                      )
+                    : cropsQuery.error
+                      ? toErrorMessage(cropsQuery.error, 'Failed to load crop guidance options.')
                 : null,
     refresh: async () => {
       await Promise.all([
@@ -231,9 +377,13 @@ export function useInventoryModule() {
         productsQuery.refetch(),
         stockAdjustmentProductsQuery.refetch(),
         fieldsOptionsQuery.refetch(),
+        supplierContactsQuery.refetch(),
+        manufacturerContactsQuery.refetch(),
+        cropsQuery.refetch(),
       ]);
     },
     createCategory: (input: CreateCategoryRequest) => createCategoryMutation.mutateAsync(input),
+    enableStorefrontForActiveCategories: () => enableStorefrontCategoriesMutation.mutateAsync(),
     updateCategory: (categoryId: string, input: UpdateCategoryRequest) =>
       updateCategoryMutation.mutateAsync({ categoryId, input }),
     createTax: (input: CreateTaxRequest) => createTaxMutation.mutateAsync(input),
@@ -247,5 +397,94 @@ export function useInventoryModule() {
       updateProductMutation.mutateAsync({ productId, input }),
     hardDeleteProducts: (input: HardDeleteProductsRequest) =>
       hardDeleteProductsMutation.mutateAsync(input),
+    createFieldOption: async (input: { name: string; areaHectares: number }) => {
+      const field = await createFieldOptionMutation.mutateAsync(input);
+      return {
+        label: field.name,
+        value: field.id,
+      };
+    },
+    createSupplierOption: async (input: CreateContactOptionInput) => {
+      const name = input.name.trim();
+      if (!name) {
+        throw new Error('Supplier name is required.');
+      }
+
+      const previousOptions = queryClient.getQueryData<InventoryContactOption[]>(SUPPLIERS_QUERY_KEY)
+        ?? supplierOptions;
+
+      await createContactOptionMutation.mutateAsync({
+        name,
+        type: 'supplier',
+        contact_types: ['supplier'],
+        company: input.company ?? null,
+        phone: input.phone ?? null,
+        email: input.email ?? null,
+        address: input.address ?? null,
+        country: input.country ?? null,
+        city_region: input.cityRegion ?? null,
+        tax_id: input.taxId ?? null,
+        notes: input.notes ?? null,
+        status: 'active',
+      });
+
+      const refreshed = await listSupplierContacts(token ?? '');
+      queryClient.setQueryData(SUPPLIERS_QUERY_KEY, refreshed);
+      const matched = resolveCreatedContactOption({
+        previousOptions,
+        refreshedOptions: refreshed,
+        draft: input,
+      });
+      if (!matched) {
+        throw new Error('Supplier created but could not be resolved in refreshed options.');
+      }
+
+      return {
+        label: matched.name,
+        value: matched.id,
+      };
+    },
+    createManufacturerOption: async (input: CreateContactOptionInput) => {
+      const name = input.name.trim();
+      if (!name) {
+        throw new Error('Manufacturer name is required.');
+      }
+
+      const previousOptions = queryClient.getQueryData<InventoryContactOption[]>(
+        MANUFACTURERS_QUERY_KEY,
+      )
+        ?? manufacturerOptions;
+
+      await createContactOptionMutation.mutateAsync({
+        name,
+        type: 'manufacturer',
+        contact_types: ['manufacturer'],
+        company: input.company ?? null,
+        phone: input.phone ?? null,
+        email: input.email ?? null,
+        address: input.address ?? null,
+        country: input.country ?? null,
+        city_region: input.cityRegion ?? null,
+        tax_id: input.taxId ?? null,
+        notes: input.notes ?? null,
+        status: 'active',
+      });
+
+      const refreshed = await listManufacturerContacts(token ?? '');
+      queryClient.setQueryData(MANUFACTURERS_QUERY_KEY, refreshed);
+      const matched = resolveCreatedContactOption({
+        previousOptions,
+        refreshedOptions: refreshed,
+        draft: input,
+      });
+      if (!matched) {
+        throw new Error('Manufacturer created but could not be resolved in refreshed options.');
+      }
+
+      return {
+        label: matched.name,
+        value: matched.id,
+      };
+    },
   };
 }

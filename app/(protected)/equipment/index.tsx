@@ -1,23 +1,18 @@
 import React from 'react';
-import { Redirect } from 'expo-router';
 import { ModuleAccessGate } from '../../../src/components';
 import { usePermissionGate } from '../../../src/hooks/usePermissionGate';
-import { EquipmentScreen } from '../../../src/modules/equipment/screens/EquipmentScreen';
 import { useAuth } from '../../../src/providers/AuthProvider';
+import { EquipmentScreen } from '../../../src/modules/equipment/screens/EquipmentScreen';
 
-export default function EquipmentRoute() {
-  const { session, signOut } = useAuth();
-  const permission = usePermissionGate('equipment');
-
-  if (!session) {
-    return <Redirect href="/(public)/auth/login" />;
-  }
+export default function EquipmentScreenRoute() {
+  const { loading, allowed } = usePermissionGate('equipment');
+  const { signOut } = useAuth();
 
   return (
     <ModuleAccessGate
-      loading={permission.loading}
-      allowed={permission.allowed}
-      moduleLabel="Equipment"
+      loading={loading}
+      allowed={allowed}
+      moduleLabel='Equipment'
       onSignOut={() => void signOut()}
     >
       <EquipmentScreen />

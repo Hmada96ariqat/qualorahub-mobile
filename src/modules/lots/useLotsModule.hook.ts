@@ -1,22 +1,26 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { listFields } from '../../api/modules/fields';
+import { listFields, type FieldStatusFilter, type FieldSummary } from '../../api/modules/fields';
 import {
   createLot,
   deactivateLot,
   listInactiveLotsWithFields,
   listLots,
-  reactivateLot,
+  reactivateLotFromDeactivated,
+  reactivateLotMain,
   updateLot,
   type CreateLotRequest,
+  type LotStatusFilter,
   type LotSummary,
   type UpdateLotRequest,
 } from '../../api/modules/lots';
 import { useAuthSession } from '../../hooks/useAuthSession';
 
-const LOTS_QUERY_KEY = ['lots', 'active'] as const;
-const LOTS_INACTIVE_QUERY_KEY = ['lots', 'inactive-with-fields'] as const;
-const LOT_FIELD_OPTIONS_QUERY_KEY = ['lots', 'field-options'] as const;
+type UseLotsModuleOptions = {
+  statusFilter: LotStatusFilter;
+  fieldContextStatusFilter: FieldStatusFilter;
+  fieldSearchText: string;
+};
 
 function toErrorMessage(error: unknown): string {
   if (error instanceof Error && error.message) {
@@ -25,106 +29,141 @@ function toErrorMessage(error: unknown): string {
   return 'Failed to load lots.';
 }
 
-export function useLotsModule() {
+function lotsQueryKey(status: LotStatusFilter) {
+  return ['lots', 'list', status] as const;
+}
+
+function fieldsContextQueryKey(status: FieldStatusFilter) {
+  return ['lots', 'field-context', status] as const;
+}
+
+const LOTS_INACTIVE_QUERY_KEY = ['lots', 'inactive-with-fields'] as const;
+
+function buildFieldSearchText(field: FieldSummary): string {
+  return [field.name, field.location, field.soilType]
+    .filter((value): value is string => typeof value === 'string' && value.trim().length > 0)
+    .join(' ')
+    .toLowerCase();
+}
+
+export function useLotsModule(options: UseLotsModuleOptions) {
   const { session } = useAuthSession();
   const token = session?.accessToken ?? null;
   const queryClient = useQueryClient();
 
-  const activeQuery = useQuery({
-    queryKey: LOTS_QUERY_KEY,
-    queryFn: () => listLots(token ?? ''),
+  const lotsQuery = useQuery({
+    queryKey: lotsQueryKey(options.statusFilter),
+    queryFn: () => listLots(token ?? '', { status: options.statusFilter }),
     enabled: Boolean(token),
   });
 
-  const inactiveQuery = useQuery({
+  const inactiveLotsQuery = useQuery({
     queryKey: LOTS_INACTIVE_QUERY_KEY,
     queryFn: () => listInactiveLotsWithFields(token ?? ''),
     enabled: Boolean(token),
   });
 
-  const fieldOptionsQuery = useQuery({
-    queryKey: LOT_FIELD_OPTIONS_QUERY_KEY,
-    queryFn: async () => {
-      const fields = await listFields(token ?? '');
-      return fields
-        .filter((field) => field.status === 'active')
-        .map((field) => ({
-          label: field.name,
-          value: field.id,
-        }));
-    },
+  const fieldsContextQuery = useQuery({
+    queryKey: fieldsContextQueryKey(options.fieldContextStatusFilter),
+    queryFn: () => listFields(token ?? '', { status: options.fieldContextStatusFilter }),
     enabled: Boolean(token),
   });
 
+  async function invalidateLotCaches() {
+    await Promise.all([
+      queryClient.invalidateQueries({ queryKey: ['fields'] }),
+      queryClient.invalidateQueries({ queryKey: ['lots'] }),
+      queryClient.invalidateQueries({ queryKey: ['dashboard', 'snapshot'] }),
+    ]);
+  }
+
   const createMutation = useMutation({
     mutationFn: (input: CreateLotRequest) => createLot(token ?? '', input),
-    onSuccess: async () => {
-      await Promise.all([
-        queryClient.invalidateQueries({ queryKey: LOTS_QUERY_KEY }),
-        queryClient.invalidateQueries({ queryKey: LOTS_INACTIVE_QUERY_KEY }),
-      ]);
-    },
+    onSuccess: invalidateLotCaches,
   });
 
   const updateMutation = useMutation({
     mutationFn: (payload: { lotId: string; input: UpdateLotRequest }) =>
       updateLot(token ?? '', payload.lotId, payload.input),
-    onSuccess: async () => {
-      await Promise.all([
-        queryClient.invalidateQueries({ queryKey: LOTS_QUERY_KEY }),
-        queryClient.invalidateQueries({ queryKey: LOTS_INACTIVE_QUERY_KEY }),
-      ]);
-    },
+    onSuccess: invalidateLotCaches,
   });
 
   const deactivateMutation = useMutation({
     mutationFn: (lotId: string) => deactivateLot(token ?? '', lotId),
-    onSuccess: async () => {
-      await Promise.all([
-        queryClient.invalidateQueries({ queryKey: LOTS_QUERY_KEY }),
-        queryClient.invalidateQueries({ queryKey: LOTS_INACTIVE_QUERY_KEY }),
-      ]);
-    },
+    onSuccess: invalidateLotCaches,
   });
 
-  const reactivateMutation = useMutation({
-    mutationFn: (lotId: string) => reactivateLot(token ?? '', lotId),
-    onSuccess: async () => {
-      await Promise.all([
-        queryClient.invalidateQueries({ queryKey: LOTS_QUERY_KEY }),
-        queryClient.invalidateQueries({ queryKey: LOTS_INACTIVE_QUERY_KEY }),
-      ]);
-    },
+  const reactivateMainMutation = useMutation({
+    mutationFn: (lotId: string) => reactivateLotMain(token ?? '', lotId),
+    onSuccess: invalidateLotCaches,
   });
 
-  const lots = useMemo<LotSummary[]>(() => activeQuery.data ?? [], [activeQuery.data]);
-  const inactiveLots = useMemo<LotSummary[]>(() => inactiveQuery.data ?? [], [inactiveQuery.data]);
-  const fieldOptions = useMemo(() => fieldOptionsQuery.data ?? [], [fieldOptionsQuery.data]);
+  const reactivateDeactivatedMutation = useMutation({
+    mutationFn: (lotId: string) => reactivateLotFromDeactivated(token ?? '', lotId),
+    onSuccess: invalidateLotCaches,
+  });
+
+  const lots = useMemo<LotSummary[]>(() => lotsQuery.data ?? [], [lotsQuery.data]);
+  const inactiveLots = useMemo<LotSummary[]>(() => inactiveLotsQuery.data ?? [], [inactiveLotsQuery.data]);
+
+  const fieldContextFields = useMemo<FieldSummary[]>(() => {
+    const source = fieldsContextQuery.data ?? [];
+    const search = options.fieldSearchText.trim().toLowerCase();
+    if (!search) {
+      return source;
+    }
+
+    return source.filter((field) => buildFieldSearchText(field).includes(search));
+  }, [fieldsContextQuery.data, options.fieldSearchText]);
+
+  const fieldOptions = useMemo(
+    () =>
+      fieldContextFields.map((field) => ({
+        label: field.name,
+        value: field.id,
+      })),
+    [fieldContextFields],
+  );
 
   const isMutating =
     createMutation.isPending ||
     updateMutation.isPending ||
     deactivateMutation.isPending ||
-    reactivateMutation.isPending;
+    reactivateMainMutation.isPending ||
+    reactivateDeactivatedMutation.isPending;
+
+  const listLotsByField = useCallback(
+    async (fieldId: string): Promise<LotSummary[]> =>
+      queryClient.fetchQuery({
+        queryKey: ['lots', 'field', fieldId],
+        queryFn: () => listLots(token ?? '', { fieldId, status: 'all' }),
+      }),
+    [queryClient, token],
+  );
 
   return {
     lots,
     inactiveLots,
+    fieldContextFields,
     fieldOptions,
-    isLoading: activeQuery.isLoading || inactiveQuery.isLoading,
-    isRefreshing: activeQuery.isFetching || inactiveQuery.isFetching,
+    isLoading: lotsQuery.isLoading || inactiveLotsQuery.isLoading || fieldsContextQuery.isLoading,
+    isRefreshing: lotsQuery.isFetching || inactiveLotsQuery.isFetching || fieldsContextQuery.isFetching,
     isMutating,
-    errorMessage: activeQuery.error
-      ? toErrorMessage(activeQuery.error)
-      : inactiveQuery.error
-        ? toErrorMessage(inactiveQuery.error)
-        : null,
+    errorMessage: lotsQuery.error
+      ? toErrorMessage(lotsQuery.error)
+      : inactiveLotsQuery.error
+        ? toErrorMessage(inactiveLotsQuery.error)
+        : fieldsContextQuery.error
+          ? toErrorMessage(fieldsContextQuery.error)
+          : null,
     refresh: async () => {
-      await Promise.all([activeQuery.refetch(), inactiveQuery.refetch(), fieldOptionsQuery.refetch()]);
+      await Promise.all([lotsQuery.refetch(), inactiveLotsQuery.refetch(), fieldsContextQuery.refetch()]);
     },
+    listLotsByField,
     createLot: (input: CreateLotRequest) => createMutation.mutateAsync(input),
     updateLot: (lotId: string, input: UpdateLotRequest) => updateMutation.mutateAsync({ lotId, input }),
     deactivateLot: (lotId: string) => deactivateMutation.mutateAsync(lotId),
-    reactivateLot: (lotId: string) => reactivateMutation.mutateAsync(lotId),
+    reactivateLotMain: (lotId: string) => reactivateMainMutation.mutateAsync(lotId),
+    reactivateLotFromDeactivated: (lotId: string) => reactivateDeactivatedMutation.mutateAsync(lotId),
   };
 }

@@ -7,4 +7,5 @@ Reusable cross-feature hook.
 - `import { useAuth } from '../providers/AuthProvider';`
 
 ## Exports
+- `export function resolvePermissionKeys(menuKey: string): string[] {`
 - `export function usePermissionGate(menuKey: string) {`

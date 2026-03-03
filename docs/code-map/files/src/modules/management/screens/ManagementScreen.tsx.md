@@ -4,7 +4,7 @@
 Feature module implementation.
 
 ## Imports
-- `import React, { useEffect, useMemo, useState } from 'react';`
+- `import React, { useMemo, useState } from 'react';`
 - `import { StyleSheet, View } from 'react-native';`
 - `import { Text } from 'react-native-paper';`
 - `import type {`

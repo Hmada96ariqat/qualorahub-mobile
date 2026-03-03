@@ -1,8 +1,7 @@
 import React from 'react';
-import { Redirect } from 'expo-router';
 import { ModuleAccessGate } from '../../../src/components';
-import { ManagementScreen } from '../../../src/modules/management/screens/ManagementScreen';
 import { useAuth } from '../../../src/providers/AuthProvider';
+import { ManagementScreen } from '../../../src/modules/management/screens/ManagementScreen';
 
 function hasRoleVisibility(roleName: string | null | undefined): boolean {
   const role = (roleName ?? '').trim().toLowerCase();
@@ -16,18 +15,12 @@ function hasRoleVisibility(roleName: string | null | undefined): boolean {
 }
 
 export default function ManagementRoute() {
-  const { session, signOut, accessLoading, accessSnapshot, hasMenuAccess } = useAuth();
-
-  if (!session) {
-    return <Redirect href="/(public)/auth/login" />;
-  }
-
+  const { signOut, accessLoading, accessSnapshot, hasMenuAccess } = useAuth();
   const menuAllowed =
     hasMenuAccess('users') ||
     hasMenuAccess('contacts') ||
     hasMenuAccess('settings') ||
     hasMenuAccess('notifications');
-
   const allowed = menuAllowed || hasRoleVisibility(accessSnapshot.context?.role);
 
   return (

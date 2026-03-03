@@ -37,13 +37,23 @@ describe('resolveApiBaseUrl', () => {
 
   it('returns warning for native loopback base URL', () => {
     expect(
-      getNativeLoopbackWarning('http://127.0.0.1:3300/api/v1', 'ios'),
+      getNativeLoopbackWarning('http://127.0.0.1:3300/api/v1', 'ios', {
+        isHostLoopbackContext: false,
+      }),
     ).toContain('EXPO_PUBLIC_API_BASE_URL');
   });
 
   it('does not return warning for non-loopback host', () => {
     expect(
       getNativeLoopbackWarning('http://192.168.1.10:3300/api/v1', 'ios'),
+    ).toBeNull();
+  });
+
+  it('suppresses warning when running in loopback host/simulator context', () => {
+    expect(
+      getNativeLoopbackWarning('http://127.0.0.1:3300/api/v1', 'ios', {
+        isHostLoopbackContext: true,
+      }),
     ).toBeNull();
   });
 });

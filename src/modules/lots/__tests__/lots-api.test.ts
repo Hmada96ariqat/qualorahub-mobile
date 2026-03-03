@@ -1,4 +1,4 @@
-import { createLot, listLots, reactivateLot } from '../../../api/modules/lots';
+import { createLot, listLots, reactivateLot, reactivateLotMain } from '../../../api/modules/lots';
 
 const originalFetch = global.fetch;
 
@@ -43,13 +43,17 @@ describe('lots api module', () => {
         id: 'lot-1',
         fieldId: 'field-1',
         name: 'Lot A',
+        description: null,
         lotType: 'open_lot',
+        lotTypeOther: null,
         cropRotationPlan: 'monoculture',
+        cropRotationPlanOther: null,
         lightProfile: 'full_sun',
         shapePolygon: {
           type: 'Polygon',
           coordinates: [[[35.91, 31.95], [35.912, 31.951], [35.91, 31.95]]],
         },
+        pastSeasonsCrops: [],
         weatherAlertsEnabled: true,
         notes: null,
         status: 'active',
@@ -119,6 +123,47 @@ describe('lots api module', () => {
       },
       notes: null,
     });
+  });
+
+  it('applies field and status query params when listing lots', async () => {
+    const fetchMock = jest.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      text: async () => JSON.stringify([]),
+      headers: { get: () => null },
+    });
+    global.fetch = fetchMock as unknown as typeof fetch;
+
+    await listLots('token', { fieldId: 'field-1', status: 'active' });
+    const [url] = fetchMock.mock.calls[0];
+    expect(url).toBe('http://127.0.0.1:3300/api/v1/lots?fieldId=field-1&status=active');
+  });
+
+  it('uses main-flow status patch for lot reactivation', async () => {
+    const fetchMock = jest.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      text: async () =>
+        JSON.stringify({
+          id: 'lot-4',
+          field_id: 'field-1',
+          name: 'Lot D',
+          lot_type: 'open_lot',
+          crop_rotation_plan: 'monoculture',
+          light_profile: 'full_sun',
+          status: 'active',
+          created_at: '2026-03-02T00:00:00.000Z',
+          updated_at: '2026-03-02T00:00:00.000Z',
+        }),
+      headers: { get: () => null },
+    });
+    global.fetch = fetchMock as unknown as typeof fetch;
+
+    await reactivateLotMain('token', 'lot-4');
+    const [url, options] = fetchMock.mock.calls[0];
+    expect(url).toBe('http://127.0.0.1:3300/api/v1/lots/lot-4');
+    expect(options.method).toBe('PATCH');
+    expect(JSON.parse(options.body as string)).toMatchObject({ status: 'active' });
   });
 
   it('parses nested reactivate response payload', async () => {

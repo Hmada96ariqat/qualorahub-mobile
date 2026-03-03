@@ -5,7 +5,7 @@ Source module.
 
 ## Imports
 - `import React from 'react';`
-- `import { StyleSheet, View } from 'react-native';`
+- `import { ScrollView, StyleSheet, View } from 'react-native';`
 - `import { Modal, Portal, Text } from 'react-native-paper';`
 - `import { AppButton } from '../primitives/AppButton';`
 - `import { palette, radius, spacing, typography } from '../../theme/tokens';`

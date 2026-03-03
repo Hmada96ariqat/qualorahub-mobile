@@ -4,7 +4,7 @@
 Feature module implementation.
 
 ## Imports
-- `import { createField, listFields, reactivateField } from '../../../api/modules/fields';`
+- `import { createField, listFields, reactivateField, reactivateFieldMain } from '../../../api/modules/fields';`
 
 ## Exports
 - none

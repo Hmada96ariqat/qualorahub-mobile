@@ -1,6 +1,5 @@
 import type {
   InventoryCategory,
-  InventoryProduct,
   InventoryTax,
   InventoryWarehouse,
 } from '../../api/modules/inventory';
@@ -9,6 +8,15 @@ export type InventoryTab = 'products' | 'categories' | 'taxes' | 'warehouses';
 export type InventoryFormMode = 'create' | 'edit';
 export type InventoryStatusFilter = 'all' | 'active' | 'inactive';
 export type InventoryRowStatus = 'active' | 'inactive';
+export type WarehouseTypeValue =
+  | 'cold_storage'
+  | 'seed_storage'
+  | 'fertilizer'
+  | 'packing_house'
+  | 'livestock_shelter'
+  | 'greenhouse'
+  | 'fuel_storage'
+  | 'other';
 
 export const INVENTORY_TAB_OPTIONS = [
   { value: 'products', label: 'Products' },
@@ -48,24 +56,46 @@ export type WarehouseFormValues = {
   name: string;
   fieldId: string;
   status: InventoryRowStatus;
+  capacityValue: string;
+  capacityUnit: string;
+  temperatureMin: string;
+  temperatureMax: string;
+  warehouseTypes: WarehouseTypeValue[];
+  safetyMeasures: string;
   notes: string;
 };
 
-export type ProductFormValues = {
-  name: string;
-  description: string;
-  categoryId: string;
-  taxId: string;
-  unit: string;
-  sku: string;
-  status: InventoryRowStatus;
-  hasExpiry: boolean;
-  displayOnStorefront: boolean;
-  threshold: string;
-  pricePerUnit: string;
-  purchasePrice: string;
-  wholesalePrice: string;
-};
+export const WAREHOUSE_TYPE_OPTIONS = [
+  { value: 'cold_storage', label: 'Cold Storage' },
+  { value: 'seed_storage', label: 'Seed Storage' },
+  { value: 'fertilizer', label: 'Fertilizer' },
+  { value: 'packing_house', label: 'Packing House' },
+  { value: 'livestock_shelter', label: 'Livestock Shelter' },
+  { value: 'greenhouse', label: 'Greenhouse' },
+  { value: 'fuel_storage', label: 'Fuel Storage' },
+  { value: 'other', label: 'Other' },
+] as const;
+
+export const CAPACITY_UNIT_OPTIONS = [
+  { value: 'kg', label: 'Kilograms (kg)' },
+  { value: 'ton', label: 'Tons' },
+  { value: 'lb', label: 'Pounds (lb)' },
+  { value: 'g', label: 'Grams (g)' },
+  { value: 'oz', label: 'Ounces (oz)' },
+  { value: 'liter', label: 'Liters (L)' },
+  { value: 'ml', label: 'Milliliters (ml)' },
+  { value: 'gallon', label: 'Gallons' },
+  { value: 'm3', label: 'Cubic meters (m3)' },
+  { value: 'ft3', label: 'Cubic feet (ft3)' },
+  { value: 'piece', label: 'Pieces' },
+  { value: 'box', label: 'Boxes' },
+  { value: 'pallet', label: 'Pallets' },
+  { value: 'container', label: 'Containers' },
+  { value: 'bag', label: 'Bags' },
+  { value: 'barrel', label: 'Barrels' },
+  { value: 'bushel', label: 'Bushels' },
+  { value: 'crate', label: 'Crates' },
+] as const;
 
 export function toCategoryFormValues(row?: InventoryCategory | null): CategoryFormValues {
   if (!row) {
@@ -113,6 +143,12 @@ export function toWarehouseFormValues(row?: InventoryWarehouse | null): Warehous
       name: '',
       fieldId: '',
       status: 'active',
+      capacityValue: '',
+      capacityUnit: '',
+      temperatureMin: '',
+      temperatureMax: '',
+      warehouseTypes: [],
+      safetyMeasures: '',
       notes: '',
     };
   }
@@ -121,43 +157,13 @@ export function toWarehouseFormValues(row?: InventoryWarehouse | null): Warehous
     name: row.name,
     fieldId: row.fieldId ?? '',
     status: row.status === 'inactive' ? 'inactive' : 'active',
+    capacityValue: row.capacityValue === null ? '' : row.capacityValue.toString(),
+    capacityUnit: row.capacityUnit ?? '',
+    temperatureMin: row.temperatureMin === null ? '' : row.temperatureMin.toString(),
+    temperatureMax: row.temperatureMax === null ? '' : row.temperatureMax.toString(),
+    warehouseTypes: row.warehouseTypes,
+    safetyMeasures: row.safetyMeasures ?? '',
     notes: row.notes ?? '',
-  };
-}
-
-export function toProductFormValues(row?: InventoryProduct | null): ProductFormValues {
-  if (!row) {
-    return {
-      name: '',
-      description: '',
-      categoryId: '',
-      taxId: '',
-      unit: '',
-      sku: '',
-      status: 'active',
-      hasExpiry: false,
-      displayOnStorefront: false,
-      threshold: '',
-      pricePerUnit: '',
-      purchasePrice: '',
-      wholesalePrice: '',
-    };
-  }
-
-  return {
-    name: row.name,
-    description: row.description ?? '',
-    categoryId: row.categoryId ?? '',
-    taxId: row.taxId ?? '',
-    unit: row.unit ?? '',
-    sku: row.sku ?? '',
-    status: row.status === 'inactive' ? 'inactive' : 'active',
-    hasExpiry: row.hasExpiry,
-    displayOnStorefront: row.displayOnStorefront,
-    threshold: row.threshold === null ? '' : row.threshold.toString(),
-    pricePerUnit: row.pricePerUnit === null ? '' : row.pricePerUnit.toString(),
-    purchasePrice: row.purchasePrice === null ? '' : row.purchasePrice.toString(),
-    wholesalePrice: row.wholesalePrice === null ? '' : row.wholesalePrice.toString(),
   };
 }
 

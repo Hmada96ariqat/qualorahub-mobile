@@ -4,7 +4,7 @@
 Feature module implementation.
 
 ## Imports
-- `import { createLot, listLots, reactivateLot } from '../../../api/modules/lots';`
+- `import { createLot, listLots, reactivateLot, reactivateLotMain } from '../../../api/modules/lots';`
 
 ## Exports
 - none

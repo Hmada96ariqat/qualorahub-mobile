@@ -26,8 +26,14 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~55.0.6",
+    "@expo/vector-icons": "^15.0.2",
     "@hookform/resolvers": "^5.2.2",
+    "@react-native-async-storage/async-storage": "^3.0.1",
     "@tanstack/react-query": "^5.90.21",
+    "@turf/area": "^7.3.4",
+    "@turf/boolean-intersects": "^7.3.4",
+    "@turf/boolean-within": "^7.3.4",
+    "@turf/helpers": "^7.3.4",
     "expo": "~55.0.4",
     "expo-constants": "~55.0.7",
     "expo-linking": "~55.0.7",
@@ -47,10 +53,10 @@
     "zustand": "^5.0.11"
   },
   "devDependencies": {
+    "@testing-library/react-native": "^13.3.3",
+    "@types/jest": "^29.5.14",
     "@types/node": "^25.3.3",
     "@types/react": "~19.2.2",
-    "@types/jest": "^29.5.14",
-    "@testing-library/react-native": "^13.3.3",
     "@typescript-eslint/eslint-plugin": "^8.56.1",
     "@typescript-eslint/parser": "^8.56.1",
     "eslint": "^10.0.2",
