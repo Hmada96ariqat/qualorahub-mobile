@@ -1,0 +1,91 @@
+# Code Map: `src/api/modules/orders.ts`
+
+## Purpose
+Typed API module wrapper for backend endpoints.
+
+## Imports
+- `import { apiClient } from '../client';`
+- `import type { operations } from '../generated/schema';`
+- `import {`
+
+## Exports
+- `export type ValidateInventoryRequest =`
+- `export type AllocateInventoryRequest =`
+- `export type CreateOrderRequest =`
+- `export type ConfirmOrderRequest =`
+- `export type UpdateOrderStatusRequest =`
+- `export type UpdateOrderRequest =`
+- `export type CreateStockVoucherRequest =`
+- `export type UpdateStockVoucherRequest =`
+- `export type UpdateStockVoucherStatusRequest =`
+- `export type InsertVoucherLineItemsRequest =`
+- `export type CreateInventoryRecordRequest =`
+- `export type ProductInventoryRowsLookupRequest =`
+- `export type InventoryQuantitiesLookupRequest =`
+- `export type FindInventoryEntryRequest =`
+- `export type UpdateInventoryRecordRequest =`
+- `export type UpdateInventoryQuantityRequest =`
+- `export type CreateSalesTransactionRequest =`
+- `export type UpdateSalesTransactionRequest =`
+- `export type CreateSalesTransactionLineRequest =`
+- `export type UpdateSalesTransactionLineRequest =`
+- `export type OrderStatus =`
+- `export type StockVoucherStatus = 'draft' | 'posted' | 'completed' | string;`
+- `export type StockVoucherType = 'entry' | 'out' | string;`
+- `export type SalesTransactionStatus =`
+- `export type FarmContext = {`
+- `export type OrderSummary = {`
+- `export type OrderItem = {`
+- `export type StockVoucher = {`
+- `export type StockVoucherLineItem = {`
+- `export type StockAdjustmentProductOption = {`
+- `export type StockAdjustmentContactOption = {`
+- `export type StockAdjustmentWarehouseOption = {`
+- `export type ProductInventoryRecord = {`
+- `export type InventoryRowSummary = {`
+- `export type InventoryQuantitySummary = {`
+- `export type SalesTransaction = {`
+- `export type SalesTransactionLine = {`
+- `export async function getOrdersFarmContext(token: string): Promise<FarmContext | null> {`
+- `export async function getUnreadOrdersCount(token: string): Promise<number> {`
+- `export async function listUnreadOrders(token: string): Promise<OrderSummary[]> {`
+- `export async function createOrder(token: string, input: CreateOrderRequest): Promise<OrderSummary> {`
+- `export async function getOrderDetails(token: string, orderId: string): Promise<OrderSummary | null> {`
+- `export async function getOrderItems(token: string, orderId: string): Promise<OrderItem[]> {`
+- `export async function hasOrderStockOut(token: string, orderId: string): Promise<boolean> {`
+- `export async function confirmOrder(token: string, orderId: string, input: ConfirmOrderRequest): Promise<OrderSummary> {`
+- `export async function updateOrderStatus(`
+- `export async function updateOrder(token: string, orderId: string, input: UpdateOrderRequest): Promise<OrderSummary> {`
+- `export async function markOrderAsRead(token: string, orderId: string): Promise<OrderSummary | null> {`
+- `export async function createStockOutForOrder(token: string, orderId: string): Promise<OrderSummary | null> {`
+- `export async function deleteOrder(token: string, orderId: string): Promise<boolean> {`
+- `export async function validateOrderInventory(token: string, input: ValidateInventoryRequest): Promise<void> {`
+- `export async function allocateOrderInventory(token: string, input: AllocateInventoryRequest): Promise<void> {`
+- `export async function listStockVouchers(token: string): Promise<StockVoucher[]> {`
+- `export async function createStockVoucher(`
+- `export async function updateStockVoucher(`
+- `export async function updateStockVoucherStatus(`
+- `export async function deleteStockVoucher(token: string, voucherId: string): Promise<boolean> {`
+- `export async function insertStockVoucherLineItems(`
+- `export async function deleteStockVoucherLineItems(token: string, voucherId: string): Promise<boolean> {`
+- `export async function listStockAdjustmentProducts(token: string): Promise<StockAdjustmentProductOption[]> {`
+- `export async function listStockAdjustmentContacts(token: string): Promise<StockAdjustmentContactOption[]> {`
+- `export async function listStockAdjustmentWarehouses(`
+- `export async function listProductInventory(token: string): Promise<ProductInventoryRecord[]> {`
+- `export async function createInventoryRecord(`
+- `export async function listProductInventoryRows(`
+- `export async function listInventoryQuantities(`
+- `export async function findInventoryEntry(`
+- `export async function getInventoryBatchById(`
+- `export async function updateInventoryRecord(`
+- `export async function updateInventoryQuantity(`
+- `export async function deleteInventoryRecord(token: string, inventoryId: string): Promise<boolean> {`
+- `export async function listSalesTransactions(token: string): Promise<SalesTransaction[]> {`
+- `export async function createSalesTransaction(`
+- `export async function getSalesTransactionById(`
+- `export async function updateSalesTransaction(`
+- `export async function completeSalesTransaction(`
+- `export async function listSalesTransactionLines(`
+- `export async function createSalesTransactionLine(`
+- `export async function updateSalesTransactionLine(`
+- `export async function deleteSalesTransactionLine(token: string, lineId: string): Promise<boolean> {`

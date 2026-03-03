@@ -22,7 +22,8 @@ You MUST NOT start the next phase until:
 
 1. All deliverables for the current phase are completed
 2. All checks for the phase are **GREEN**
-3. You provide a concise “Gate Report” and I confirm it is acceptable
+3. API + UI + Design + Testing + Docs gate checklist is fully passed
+4. You provide a concise “Gate Report” and I confirm it is acceptable
 
 ---
 
@@ -128,6 +129,11 @@ Add ESLint rules (or TS path rules) to prevent illegal imports and supabase usag
 - Mobile UX must feel native:
   - Tabs for main areas, stack for inner screens
   - Standard gestures, back behavior, safe areas
+- Default design direction for this repo is **Enterprise Dense (light SaaS)**:
+  - optimized for fast scanning of operational data
+  - clear title/subtitle/body/caption hierarchy
+  - primary action emphasis with neutral secondary actions
+  - list row metadata stays integrated with each row (avoid detached metric strips unless explicitly requested)
 - Every screen must implement ALL states:
   - Loading (skeleton or spinner)
   - Empty (EmptyState)
@@ -228,6 +234,25 @@ At end of each phase provide:
 - ✅ Manual test checklist results (API + UI + navigation)
 - ✅ Known issues list (must be empty for the gate, or explicitly accepted by me)
 
+## 8.1) Design Gate Rules (Per Phase, Mandatory)
+
+Every phase gate must include a **Design checklist** in addition to API/UI/testing checks.
+
+### Minimum design checklist
+
+- Layout is responsive on common phone widths (no clipped primary content/actions).
+- Typography hierarchy is clear (title/subtitle/body/caption are visually distinct).
+- Spacing and radii use shared tokens only (`src/theme/tokens.ts`).
+- Touch targets are at least 44px and interactive controls are not crowded.
+- Contrast/readability is acceptable and critical text is legible in normal lighting.
+- Component states are covered for primary interactions:
+  - default
+  - loading
+  - disabled
+  - error
+- No ad-hoc one-off visual patterns when shared components can handle the same behavior.
+- Design evidence is captured in phase docs (short checklist + screenshots or explicit notes).
+
 ---
 
 ## 9) Waterfall Phase Gate Format (Required Output)
@@ -237,13 +262,18 @@ At the end of each phase, produce a **Gate Report**:
 ### Phase X — Gate Report
 
 - Deliverables completed: (list)
+- API checklist: ✅/❌
+- UI checklist: ✅/❌
+- Design checklist: ✅/❌
 - Tests:
   - lint: ✅/❌
   - typecheck: ✅/❌
   - unit/integration tests: ✅/❌
+- Docs checklist: ✅/❌
 - Manual checks:
   - Auth/API calls: ✅/❌
   - UI states (loading/empty/error): ✅/❌
+  - Design acceptance (layout/spacing/typography/accessibility): ✅/❌
   - Navigation: ✅/❌
 - Risks / assumptions:
   - (must be empty or require my confirmation)

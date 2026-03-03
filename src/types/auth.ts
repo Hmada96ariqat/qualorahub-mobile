@@ -11,12 +11,3 @@ export type AuthSession = {
   expiresAt: number; // unix seconds
   user: AuthUser;
 };
-
-export type LoginRequest = {
-  email: string;
-  password: string;
-};
-
-export type RefreshRequest = {
-  refresh_token: string;
-};

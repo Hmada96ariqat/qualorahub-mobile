@@ -139,7 +139,49 @@ qualorahub-mobile/
 - Module contracts file per feature: `src/modules/<module>/contracts.ts`.
 - UI component prop contracts in each component folder.
 
+## 5.1) Design System Direction (Locked for upcoming phases)
+
+- Visual direction: **Enterprise Dense / Light SaaS**.
+- Primary objective: fast scanning for operations-heavy modules while preserving mobile touch accessibility.
+- Default screen composition for data modules:
+  - Header (title + concise subtitle)
+  - Top action row (primary action + neutral secondary action)
+  - Shared filter/search and state tabs
+  - Record list with status/metadata integrated inside each row card
+  - Shared empty/error/loading states
+- Interaction color policy:
+  - Primary green reserved for primary actions and positive statuses.
+  - Secondary/descriptive text uses muted foreground tokens.
+  - Destructive actions use destructive tone only on explicit risk actions.
+- Explicit UX decision:
+  - Detached summary-chip strips are not default; use only when approved for a module.
+
 ## 6) Waterfall Phases (Phase 0 → Phase 14)
+
+### 6.0) Mandatory Per-Phase Gate Checklist (applies to every phase)
+
+Every phase gate is blocked unless all of the following are green:
+
+- API checklist
+  - Endpoints integrated as scoped for the phase.
+  - Error handling + retry behavior implemented for failing calls.
+  - Contract/fallback typing remains isolated in API layer only.
+- UI checklist
+  - Required loading/empty/error/success states are present.
+  - Navigation and refresh behavior are stable.
+  - Reuse-first shared component rules are respected.
+- Design checklist
+  - Responsive layout on common phone widths with no clipped primary content/actions.
+  - Clear typography hierarchy and consistent spacing/radius tokens.
+  - Touch targets >= 44px and accessibility labels on key controls.
+  - No one-off visual patterns when shared components can cover the use case.
+  - Enterprise Dense pattern is respected on data modules (action hierarchy + integrated row metadata + shared state patterns).
+- Testing checklist
+  - `lint`, `typecheck`, tests, boundaries, and docs checks are green.
+  - Phase-specific unit/integration evidence exists.
+- Docs checklist
+  - Module/API/testing docs updated for the phase.
+  - `docs/product/current-phase.md` and `docs/HANDOFF.md` updated with gate status and blockers.
 
 ### Phase 0 — Discovery & Mapping (current repo, happens now)
 
@@ -153,6 +195,7 @@ qualorahub-mobile/
 
 #### Test Gate Checklist
 
+- Must pass the mandatory per-phase gate checklist (API + UI + Design + Testing + Docs) from Section 6.0.
 - API source verified reachable (`/api/docs-json`).
 - Each target module has mapped endpoints and acceptance scenarios.
 - No direct Supabase dependency in runtime path.
@@ -173,6 +216,7 @@ qualorahub-mobile/
 
 #### Test Gate Checklist
 
+- Must pass the mandatory per-phase gate checklist (API + UI + Design + Testing + Docs) from Section 6.0.
 - App launches on iOS and Android simulator without crash.
 - `lint`, `typecheck`, unit test green in CI.
 - `api:generate` produces compilable types.
@@ -192,6 +236,7 @@ qualorahub-mobile/
 
 #### Test Gate Checklist
 
+- Must pass the mandatory per-phase gate checklist (API + UI + Design + Testing + Docs) from Section 6.0.
 - Login/logout works against NestJS API.
 - Refresh flow works after forced token expiry.
 - App restart restores valid session and routes correctly.
@@ -211,6 +256,7 @@ qualorahub-mobile/
 
 #### Test Gate Checklist
 
+- Must pass the mandatory per-phase gate checklist (API + UI + Design + Testing + Docs) from Section 6.0.
 - All new screens use shared components only.
 - Visual consistency passes design checklist.
 - Accessibility smoke checks pass on key screens.
@@ -229,6 +275,7 @@ qualorahub-mobile/
 
 #### Test Gate Checklist
 
+- Must pass the mandatory per-phase gate checklist (API + UI + Design + Testing + Docs) from Section 6.0.
 - CRUD flows succeed against NestJS API.
 - UI updates correctly after mutations and refresh.
 - Empty/error/skeleton states validated.
@@ -246,6 +293,7 @@ qualorahub-mobile/
 
 #### Test Gate Checklist
 
+- Must pass the mandatory per-phase gate checklist (API + UI + Design + Testing + Docs) from Section 6.0.
 - Snapshot fetch stable and data rendered correctly.
 - Pull-to-refresh and screen return refresh behave correctly.
 - No NaN/invalid metric rendering.
@@ -263,6 +311,7 @@ qualorahub-mobile/
 
 #### Test Gate Checklist
 
+- Must pass the mandatory per-phase gate checklist (API + UI + Design + Testing + Docs) from Section 6.0.
 - Task lifecycle transitions work end-to-end.
 - Filter/search accuracy verified.
 - Error handling for failed updates is recoverable.
@@ -279,6 +328,7 @@ qualorahub-mobile/
 
 #### Test Gate Checklist
 
+- Must pass the mandatory per-phase gate checklist (API + UI + Design + Testing + Docs) from Section 6.0.
 - Equipment CRUD stable.
 - Usage and maintenance CRUD stable.
 - Deactivate/reactivate behavior matches backend state.
@@ -296,6 +346,7 @@ qualorahub-mobile/
 
 #### Test Gate Checklist
 
+- Must pass the mandatory per-phase gate checklist (API + UI + Design + Testing + Docs) from Section 6.0.
 - Income/expense create/edit/delete flows pass.
 - Reverse transaction flow behaves correctly.
 - Derived totals are correct and stable.
@@ -313,6 +364,7 @@ qualorahub-mobile/
 
 #### Test Gate Checklist
 
+- Must pass the mandatory per-phase gate checklist (API + UI + Design + Testing + Docs) from Section 6.0.
 - CRUD across all four entities passes.
 - Product forms reuse shared validation patterns.
 - Media upload/delete roundtrip works.
@@ -331,6 +383,7 @@ qualorahub-mobile/
 
 #### Test Gate Checklist
 
+- Must pass the mandatory per-phase gate checklist (API + UI + Design + Testing + Docs) from Section 6.0.
 - Order confirm path is idempotent and stable.
 - Stock updates are reflected correctly after order workflows.
 - Status transitions validated against backend rules.
@@ -348,6 +401,7 @@ qualorahub-mobile/
 
 #### Test Gate Checklist
 
+- Must pass the mandatory per-phase gate checklist (API + UI + Design + Testing + Docs) from Section 6.0.
 - Cycle creation/update/close behaves correctly.
 - Selected operation forms validate and submit correctly.
 - Logbook submit writes to expected backend operations.
@@ -364,6 +418,7 @@ qualorahub-mobile/
 
 #### Test Gate Checklist
 
+- Must pass the mandatory per-phase gate checklist (API + UI + Design + Testing + Docs) from Section 6.0.
 - Animal and housing CRUD paths stable.
 - Health/yield/maintenance/consumption subflows stable.
 - Weather rules create/edit/delete stable.
@@ -382,6 +437,7 @@ qualorahub-mobile/
 
 #### Test Gate Checklist
 
+- Must pass the mandatory per-phase gate checklist (API + UI + Design + Testing + Docs) from Section 6.0.
 - Role-based screen/actions enforced correctly.
 - Contacts/settings changes persist and rehydrate.
 - Notification state transitions are accurate.
@@ -401,6 +457,7 @@ qualorahub-mobile/
 
 #### Test Gate Checklist
 
+- Must pass the mandatory per-phase gate checklist (API + UI + Design + Testing + Docs) from Section 6.0.
 - Crash-free sessions meet release threshold in staging.
 - P0/P1 defects closed.
 - End-to-end smoke suite fully green.

@@ -1,9 +1,11 @@
 import React from 'react';
-import { ActivityIndicator, SafeAreaView, StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { AppQueryProvider } from './src/providers/AppQueryProvider';
 import { AuthProvider, useAuth } from './src/providers/AuthProvider';
 import { LoginScreen } from './src/modules/auth/screens/LoginScreen';
 import { DashboardShell } from './src/modules/dashboard/screens/DashboardShell';
+import { palette } from './src/theme/tokens';
 
 function AppContent() {
   const { session, loading, signOut } = useAuth();
@@ -20,7 +22,6 @@ function AppContent() {
 
   return (
     <DashboardShell
-      accessToken={session.accessToken}
       email={session.user.email}
       onSignOut={() => void signOut()}
     />
@@ -38,5 +39,10 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  center: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff' },
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: palette.background,
+  },
 });

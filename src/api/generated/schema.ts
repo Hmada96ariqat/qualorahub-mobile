@@ -1040,6 +1040,24 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/products": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List products (farm-scoped) */
+        get: operations["CatalogReadController_getProducts_v1"];
+        put?: never;
+        /** Create product with optional inventory + guidance rows */
+        post: operations["OrderWriteController_createProduct_v1"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/contacts": {
         parameters: {
             query?: never;
@@ -1761,7 +1779,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /** List finance transactions for authenticated farm */
+        get: operations["OrderWriteController_listTransactions_v1"];
         put?: never;
         /** Create finance transaction for authenticated farm */
         post: operations["OrderWriteController_createTransaction_v1"];
@@ -3248,23 +3267,6 @@ export interface paths {
         put?: never;
         /** List storefront validation snapshot by product ids */
         post: operations["OrderWriteController_listStorefrontValidationSnapshot_v1"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/products": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Create product with optional inventory + guidance rows */
-        post: operations["OrderWriteController_createProduct_v1"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4822,11 +4824,87 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        LoginDto: Record<string, never>;
-        RefreshTokenDto: Record<string, never>;
-        ForgotPasswordDto: Record<string, never>;
-        ResetPasswordDto: Record<string, never>;
-        LogoutDto: Record<string, never>;
+        LoginDto: {
+            /**
+             * Format: email
+             * @example admin@example.com
+             */
+            email: string;
+            /** @example StrongPassword123! */
+            password: string;
+        };
+        AuthSessionUserResponseDto: {
+            id: string;
+            email: string;
+            role: string;
+            type: string;
+            force_password_reset: boolean;
+        };
+        AuthSessionResponseDto: {
+            access_token: string;
+            refresh_token: string;
+            /** @example bearer */
+            token_type: string;
+            expires_in: number;
+            /** @description Access token expiry timestamp in ISO-8601 format */
+            expires_at: string;
+            user: components["schemas"]["AuthSessionUserResponseDto"];
+        };
+        RefreshTokenDto: {
+            /** @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9... */
+            refresh_token: string;
+        };
+        ForgotPasswordDto: {
+            /**
+             * Format: email
+             * @example admin@example.com
+             */
+            email: string;
+            /**
+             * Format: uri
+             * @example qualorahub://reset-password
+             */
+            redirect_to: string;
+        };
+        ResetPasswordDto: {
+            /** @example reset-token-value */
+            token: string;
+            /** @example NewStrongPassword123! */
+            password: string;
+        };
+        LogoutDto: {
+            /** @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9... */
+            refresh_token?: string;
+        };
+        AuthSimpleSuccessResponseDto: {
+            success: boolean;
+        };
+        AuthRbacSnapshotResponseDto: {
+            roleId: Record<string, never> | null;
+            roleName: Record<string, never> | null;
+            type: string;
+            permissions: {
+                [key: string]: unknown;
+            }[];
+        };
+        AuthContextUserResponseDto: {
+            id: string;
+            email: string;
+            role: string;
+            type: string;
+            status: string;
+        };
+        AuthContextRoleResponseDto: {
+            id: Record<string, never> | null;
+            name: Record<string, never> | null;
+        };
+        AuthContextResponseDto: {
+            user: components["schemas"]["AuthContextUserResponseDto"];
+            role: components["schemas"]["AuthContextRoleResponseDto"];
+            farm: {
+                [key: string]: unknown;
+            } | null;
+        };
         UpdateFarmDto: Record<string, never>;
         CreateFarmDto: Record<string, never>;
         CreateModuleDto: Record<string, never>;
@@ -4854,77 +4932,1436 @@ export interface components {
         CreateCheckoutIntentDto: Record<string, never>;
         ResumeCheckoutIntentDto: Record<string, never>;
         Object: Record<string, never>;
-        CategoryCreateDto: Record<string, never>;
-        CategoryUpdateDto: Record<string, never>;
-        TaxCreateDto: Record<string, never>;
-        TaxUpdateDto: Record<string, never>;
-        WarehouseCreateDto: Record<string, never>;
-        WarehouseUpdateDto: Record<string, never>;
+        CategoryCreateDto: {
+            /** @example Vegetables */
+            name: string;
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            parent_id?: string | null;
+            /** @example https://cdn.example.com/categories/vegetables.png */
+            image_url?: string | null;
+            /** @example true */
+            display_on_storefront?: boolean;
+            /** @example Primary produce category */
+            notes?: string | null;
+        };
+        CategoryUpdateDto: {
+            /** @example Vegetables */
+            name?: string;
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            parent_id?: string | null;
+            /** @example https://cdn.example.com/categories/vegetables.png */
+            image_url?: string | null;
+            /** @example true */
+            display_on_storefront?: boolean;
+            /** @example Primary produce category */
+            notes?: string | null;
+            /**
+             * @example active
+             * @enum {string}
+             */
+            status?: "active" | "inactive";
+        };
+        TaxCreateDto: {
+            /** @example VAT */
+            name: string;
+            /** @example 16 */
+            rate: number;
+            /** @example Standard VAT rate */
+            notes?: string | null;
+            /**
+             * @example active
+             * @enum {string}
+             */
+            status?: "active" | "inactive";
+        };
+        TaxUpdateDto: {
+            /** @example VAT */
+            name?: string;
+            /** @example 16 */
+            rate?: number;
+            /** @example Standard VAT rate */
+            notes?: string | null;
+            /**
+             * @example active
+             * @enum {string}
+             */
+            status?: "active" | "inactive";
+        };
+        WarehouseCreateDto: {
+            /** @example Main Warehouse */
+            name: string;
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            field_id: string;
+            /**
+             * @example active
+             * @enum {string}
+             */
+            status?: "active" | "inactive";
+            /** @example 5000 */
+            capacity_value?: number | null;
+            /** @example kg */
+            capacity_unit?: string | null;
+            /**
+             * @example [
+             *       "cold_storage"
+             *     ]
+             */
+            warehouse_types?: ("cold_storage" | "seed_storage" | "fertilizer" | "packing_house" | "livestock_shelter" | "greenhouse" | "fuel_storage" | "other")[];
+            /** @example 2 */
+            temperature_min?: number | null;
+            /** @example 8 */
+            temperature_max?: number | null;
+            /** @example Fire extinguisher, PPE zone, ventilation */
+            safety_measures?: string | null;
+            /** @example [] */
+            attachments?: {
+                [key: string]: unknown;
+            }[];
+            /** @example Primary storage for packaged products */
+            notes?: string | null;
+        };
+        WarehouseUpdateDto: {
+            /** @example Main Warehouse */
+            name?: string;
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            field_id?: string;
+            /**
+             * @example active
+             * @enum {string}
+             */
+            status?: "active" | "inactive";
+            /** @example 5000 */
+            capacity_value?: number | null;
+            /** @example kg */
+            capacity_unit?: string | null;
+            /**
+             * @example [
+             *       "cold_storage"
+             *     ]
+             */
+            warehouse_types?: ("cold_storage" | "seed_storage" | "fertilizer" | "packing_house" | "livestock_shelter" | "greenhouse" | "fuel_storage" | "other")[];
+            /** @example 2 */
+            temperature_min?: number | null;
+            /** @example 8 */
+            temperature_max?: number | null;
+            /** @example Fire extinguisher, PPE zone, ventilation */
+            safety_measures?: string | null;
+            /** @example [] */
+            attachments?: {
+                [key: string]: unknown;
+            }[];
+            /** @example Primary storage for packaged products */
+            notes?: string | null;
+        };
         ContactCreateDto: Record<string, never>;
         ContactUpdateDto: Record<string, never>;
-        CreateEquipmentCommandDto: Record<string, never>;
-        UpdateEquipmentCommandDto: Record<string, never>;
-        CreateEquipmentUsageLogCommandDto: Record<string, never>;
-        UpdateEquipmentUsageLogCommandDto: Record<string, never>;
-        CreateMaintenanceRecordCommandDto: Record<string, never>;
-        UpdateMaintenanceRecordCommandDto: Record<string, never>;
-        ReplaceMaintenancePartsCommandDto: Record<string, never>;
-        CreateTaskDto: Record<string, never>;
-        UpdateTaskDto: Record<string, never>;
-        CreateFieldDto: Record<string, never>;
-        UpdateFieldDto: Record<string, never>;
-        CreateLotDto: Record<string, never>;
-        UpdateLotDto: Record<string, never>;
-        CreateTransactionDto: Record<string, never>;
-        UpdateTransactionDto: Record<string, never>;
-        ClearFinanceGroupAssociationsDto: Record<string, never>;
-        ReverseTransactionCommandDto: Record<string, never>;
-        CreateSalesTransactionDto: Record<string, never>;
-        UpdateSalesTransactionDto: Record<string, never>;
-        CreateSalesTransactionLineDto: Record<string, never>;
-        UpdateSalesTransactionLineDto: Record<string, never>;
-        CreateProductionCycleDto: Record<string, never>;
-        CloseProductionCycleDto: Record<string, never>;
-        UpdateProductionCycleNotesDto: Record<string, never>;
-        CreateCulturalOperationDto: Record<string, never>;
-        UpdateCulturalOperationDto: Record<string, never>;
-        CreateProductionCycleOperationDto: Record<string, never>;
-        UpdateProductionCycleOperationDto: Record<string, never>;
-        CreateHarvestOperationDto: Record<string, never>;
-        UpdateHarvestOperationDto: Record<string, never>;
-        VerifyHarvestOperationDto: Record<string, never>;
-        ClassifyHarvestOperationDto: Record<string, never>;
-        ValidateInventoryCommandDto: Record<string, never>;
-        AllocateInventoryCommandDto: Record<string, never>;
+        CreateEquipmentCommandDto: {
+            /** @description Equipment create payload object forwarded to persistence layer */
+            payload: {
+                [key: string]: unknown;
+            };
+        };
+        UpdateEquipmentCommandDto: {
+            /** @description Equipment update payload object forwarded to persistence layer */
+            payload: {
+                [key: string]: unknown;
+            };
+        };
+        CreateEquipmentUsageLogCommandDto: {
+            /** @description Usage log create payload object forwarded to persistence layer */
+            payload: {
+                [key: string]: unknown;
+            };
+        };
+        UpdateEquipmentUsageLogCommandDto: {
+            /** @description Usage log update payload object forwarded to persistence layer */
+            payload: {
+                [key: string]: unknown;
+            };
+        };
+        CreateMaintenanceRecordCommandDto: {
+            /** @description Maintenance record create payload object forwarded to persistence layer */
+            payload: {
+                [key: string]: unknown;
+            };
+        };
+        UpdateMaintenanceRecordCommandDto: {
+            /** @description Maintenance record update payload object forwarded to persistence layer */
+            payload: {
+                [key: string]: unknown;
+            };
+        };
+        ReplaceMaintenancePartsCommandDto: {
+            /** @description Replacement parts payload list. Each part object supports dynamic fields. */
+            parts: {
+                [key: string]: unknown;
+            }[];
+        };
+        CreateTaskDto: {
+            /** @example Inspect greenhouse irrigation line */
+            title?: string;
+            description?: string | null;
+            /**
+             * @example pending
+             * @enum {string}
+             */
+            status?: "pending" | "in_progress" | "completed" | "cancelled" | "draft" | "to_do" | "archived";
+            /**
+             * @example medium
+             * @enum {string}
+             */
+            priority?: "low" | "medium" | "high" | "urgent";
+            /** Format: date-time */
+            start_date_time?: string | null;
+            /** Format: date-time */
+            due_date_time?: string | null;
+            estimated_hours?: number | null;
+            actual_hours?: number | null;
+            assigned_users?: string[];
+            /** Format: uuid */
+            assigned_to?: string | null;
+            /** Format: uuid */
+            field_id?: string | null;
+            /** Format: uuid */
+            livestock_id?: string | null;
+            /** Format: uuid */
+            equipment_id?: string | null;
+        };
+        UpdateTaskDto: {
+            /** @example Inspect greenhouse irrigation line */
+            title?: string;
+            description?: string | null;
+            /**
+             * @example pending
+             * @enum {string}
+             */
+            status?: "pending" | "in_progress" | "completed" | "cancelled" | "draft" | "to_do" | "archived";
+            /**
+             * @example medium
+             * @enum {string}
+             */
+            priority?: "low" | "medium" | "high" | "urgent";
+            /** Format: date-time */
+            start_date_time?: string | null;
+            /** Format: date-time */
+            due_date_time?: string | null;
+            estimated_hours?: number | null;
+            actual_hours?: number | null;
+            assigned_users?: string[];
+            /** Format: uuid */
+            assigned_to?: string | null;
+            /** Format: uuid */
+            field_id?: string | null;
+            /** Format: uuid */
+            livestock_id?: string | null;
+            /** Format: uuid */
+            equipment_id?: string | null;
+        };
+        CreateFieldDto: {
+            /** @example North Field */
+            name?: string;
+            /** @example 12.5 */
+            area_hectares?: number;
+            /**
+             * @example active
+             * @enum {string}
+             */
+            status?: "active" | "fallow" | "maintenance" | "inactive";
+            shape_polygon?: {
+                [key: string]: unknown;
+            } | null;
+        };
+        UpdateFieldDto: {
+            /** @example North Field */
+            name?: string;
+            /** @example 12.5 */
+            area_hectares?: number;
+            /**
+             * @example active
+             * @enum {string}
+             */
+            status?: "active" | "fallow" | "maintenance" | "inactive";
+            shape_polygon?: {
+                [key: string]: unknown;
+            } | null;
+        };
+        CreateLotDto: {
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            field_id?: string;
+            /** @example Lot A */
+            name?: string;
+            /**
+             * @example open_field
+             * @enum {string}
+             */
+            lot_type?: "open_lot" | "greenhouse" | "shade_house" | "tunnel_polytunnel" | "nursery" | "grow_area_planting_area" | "orchard" | "vineyard" | "livestock_barn" | "livestock_pasture_grazing" | "storage_pad_warehouse" | "other";
+            /**
+             * @example monoculture
+             * @enum {string}
+             */
+            crop_rotation_plan?: "monoculture" | "two_field_rotation" | "three_field_rotation" | "four_field_rotation" | "cover_cropping" | "fallow_periods" | "intercropping" | "other";
+            /**
+             * @example full_sun
+             * @enum {string}
+             */
+            light_profile?: "full_sun" | "partial_sun" | "partial_shade" | "dappled_shade" | "full_shade" | "indoor_controlled_light";
+            shape_polygon?: {
+                [key: string]: unknown;
+            } | null;
+            /**
+             * @example active
+             * @enum {string}
+             */
+            status?: "active" | "inactive";
+        };
+        UpdateLotDto: {
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            field_id?: string;
+            /** @example Lot A */
+            name?: string;
+            /**
+             * @example open_field
+             * @enum {string}
+             */
+            lot_type?: "open_lot" | "greenhouse" | "shade_house" | "tunnel_polytunnel" | "nursery" | "grow_area_planting_area" | "orchard" | "vineyard" | "livestock_barn" | "livestock_pasture_grazing" | "storage_pad_warehouse" | "other";
+            /**
+             * @example monoculture
+             * @enum {string}
+             */
+            crop_rotation_plan?: "monoculture" | "two_field_rotation" | "three_field_rotation" | "four_field_rotation" | "cover_cropping" | "fallow_periods" | "intercropping" | "other";
+            /**
+             * @example full_sun
+             * @enum {string}
+             */
+            light_profile?: "full_sun" | "partial_sun" | "partial_shade" | "dappled_shade" | "full_shade" | "indoor_controlled_light";
+            shape_polygon?: {
+                [key: string]: unknown;
+            } | null;
+            /**
+             * @example active
+             * @enum {string}
+             */
+            status?: "active" | "inactive";
+        };
+        CreateTransactionDto: {
+            /**
+             * @example income
+             * @enum {string}
+             */
+            type?: "income" | "expense";
+            /** @example 120.5 */
+            amount?: number;
+            /** @example Sales income */
+            description?: string;
+            /** @example Sales */
+            category?: string | null;
+            /** @example cash */
+            payment_method?: string | null;
+            /** @example INV-2026-001 */
+            reference_number?: string | null;
+            /**
+             * Format: date
+             * @example 2026-03-01
+             */
+            transaction_date?: string;
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            contact_id?: string | null;
+            /**
+             * Format: uuid
+             * @example 22222222-2222-4222-8222-222222222222
+             */
+            finance_group_id?: string | null;
+            /** @example [] */
+            attachments?: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * Format: uuid
+             * @example 33333333-3333-4333-8333-333333333333
+             */
+            original_transaction_id?: string | null;
+            /**
+             * Format: uuid
+             * @example 44444444-4444-4444-8444-444444444444
+             */
+            reversal_transaction_id?: string | null;
+            /** @example false */
+            is_reversal?: boolean;
+        };
+        UpdateTransactionDto: {
+            /**
+             * @example income
+             * @enum {string}
+             */
+            type?: "income" | "expense";
+            /** @example 120.5 */
+            amount?: number;
+            /** @example Sales income for weekly order */
+            description?: string;
+            /** @example Sales */
+            category?: string | null;
+            /** @example cash */
+            payment_method?: string | null;
+            /** @example INV-2026-001 */
+            reference_number?: string | null;
+            /**
+             * Format: date
+             * @example 2026-03-01
+             */
+            transaction_date?: string;
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            contact_id?: string | null;
+            /**
+             * Format: uuid
+             * @example 22222222-2222-4222-8222-222222222222
+             */
+            finance_group_id?: string | null;
+            /** @example [] */
+            attachments?: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * Format: uuid
+             * @example 33333333-3333-4333-8333-333333333333
+             */
+            original_transaction_id?: string | null;
+            /**
+             * Format: uuid
+             * @example 44444444-4444-4444-8444-444444444444
+             */
+            reversal_transaction_id?: string | null;
+            /** @example false */
+            is_reversal?: boolean;
+        };
+        CreateFinanceGroupDto: {
+            /** @example Income Sales */
+            name?: string;
+            /**
+             * @example income
+             * @enum {string}
+             */
+            type?: "income" | "expense";
+        };
+        UpdateFinanceGroupDto: {
+            /** @example Income Sales */
+            name?: string;
+            /**
+             * @example income
+             * @enum {string}
+             */
+            type?: "income" | "expense";
+        };
+        ClearFinanceGroupAssociationsDto: {
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            financeGroupId: string;
+        };
+        ReverseTransactionCommandDto: {
+            /** @example Incorrect amount entered by mistake */
+            reason: string;
+        };
+        CreateSalesTransactionLineDto: {
+            /** @example 1 */
+            line_number?: number;
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            product_id?: string;
+            /** @example Tomato Seeds */
+            product_name?: string;
+            /**
+             * Format: uuid
+             * @example 22222222-2222-4222-8222-222222222222
+             */
+            warehouse_id?: string | null;
+            /** @example 12.5 */
+            unit_price?: number;
+            /** @example Seasonal discount */
+            price_override_reason?: string | null;
+            /** @example 5 */
+            quantity?: number;
+            /** @example 62.5 */
+            subtotal?: number;
+            /** @example false */
+            is_locked?: boolean;
+        };
+        CreateSalesTransactionDto: {
+            /**
+             * @example sale_price
+             * @enum {string}
+             */
+            price_type?: "sale_price" | "wholesale_price";
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            contact_id?: string | null;
+            /**
+             * Format: date
+             * @example 2026-03-02
+             */
+            transaction_date?: string;
+            /** @example Customer order from mobile app */
+            notes?: string | null;
+            /** @example [] */
+            attachments?: {
+                [key: string]: unknown;
+            }[];
+            /** @example true */
+            affects_income?: boolean;
+            /**
+             * @example pending
+             * @enum {string}
+             */
+            status?: "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled";
+            /** @example 100 */
+            subtotal?: number;
+            /** @example 5 */
+            tax_amount?: number;
+            /** @example 105 */
+            total_amount?: number;
+            /**
+             * Format: uuid
+             * @example 22222222-2222-4222-8222-222222222222
+             */
+            expense_record_id?: string | null;
+            /**
+             * @example [
+             *       "33333333-3333-4333-8333-333333333333"
+             *     ]
+             */
+            out_voucher_ids?: string[];
+            lines?: components["schemas"]["CreateSalesTransactionLineDto"][];
+        };
+        UpdateSalesTransactionDto: {
+            /**
+             * @example sale_price
+             * @enum {string}
+             */
+            price_type?: "sale_price" | "wholesale_price";
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            contact_id?: string | null;
+            /**
+             * Format: date
+             * @example 2026-03-02
+             */
+            transaction_date?: string;
+            /** @example Customer order from mobile app */
+            notes?: string | null;
+            /** @example [] */
+            attachments?: {
+                [key: string]: unknown;
+            }[];
+            /** @example true */
+            affects_income?: boolean;
+            /**
+             * @example pending
+             * @enum {string}
+             */
+            status?: "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled";
+            /** @example 100 */
+            subtotal?: number;
+            /** @example 5 */
+            tax_amount?: number;
+            /** @example 105 */
+            total_amount?: number;
+            /**
+             * Format: uuid
+             * @example 22222222-2222-4222-8222-222222222222
+             */
+            expense_record_id?: string | null;
+            /**
+             * @example [
+             *       "33333333-3333-4333-8333-333333333333"
+             *     ]
+             */
+            out_voucher_ids?: string[];
+            lines?: components["schemas"]["CreateSalesTransactionLineDto"][];
+        };
+        UpdateSalesTransactionLineDto: {
+            /** @example 1 */
+            line_number?: number;
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            product_id?: string;
+            /** @example Tomato Seeds */
+            product_name?: string;
+            /**
+             * Format: uuid
+             * @example 22222222-2222-4222-8222-222222222222
+             */
+            warehouse_id?: string | null;
+            /** @example 12.5 */
+            unit_price?: number;
+            /** @example Seasonal discount */
+            price_override_reason?: string | null;
+            /** @example 5 */
+            quantity?: number;
+            /** @example 62.5 */
+            subtotal?: number;
+            /** @example false */
+            is_locked?: boolean;
+        };
+        CreateProductionCycleDto: {
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            field_id: string;
+            /**
+             * Format: uuid
+             * @example 22222222-2222-4222-8222-222222222222
+             */
+            lot_id: string;
+            /**
+             * Format: uuid
+             * @example 33333333-3333-4333-8333-333333333333
+             */
+            crop_id: string;
+            /**
+             * Format: date
+             * @example 2026-03-02
+             */
+            start_date: string;
+            /** @example 120 */
+            target_yield_value?: number | null;
+            /** @example kg */
+            target_yield_unit?: string | null;
+            /** @example 350 */
+            estimated_cost?: number | null;
+            /** @example Spring production cycle */
+            notes?: string | null;
+            /** @example [] */
+            attachments?: {
+                [key: string]: unknown;
+            }[] | null;
+        };
+        CloseProductionCycleDto: {
+            /**
+             * Format: date
+             * @example 2026-06-30
+             */
+            end_date: string;
+            /** @example 100 */
+            actual_yield_value?: number;
+            /** @example kg */
+            actual_yield_unit?: string;
+            /** @example 420 */
+            actual_cost?: number | null;
+            /** @example Closed after final harvest */
+            notes?: string | null;
+            /** @example [] */
+            attachments?: {
+                [key: string]: unknown;
+            }[] | null;
+        };
+        UpdateProductionCycleNotesDto: {
+            /** @example Note updated from mobile */
+            notes?: string | null;
+            /** @example [] */
+            attachments?: {
+                [key: string]: unknown;
+            }[] | null;
+        };
+        CreateCulturalOperationDto: {
+            /**
+             * Format: date
+             * @example 2026-03-10
+             */
+            operationDate: string;
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            practiceId: string;
+            /** @example user:22222222-2222-4222-8222-222222222222 */
+            performed_by_id?: string | null;
+            /** @example 3 */
+            quantity?: number | null;
+            /** @example kg */
+            unit?: string | null;
+            /** @example 25 */
+            cost?: number | null;
+            /** @example Applied canopy management */
+            notes?: string | null;
+            /** @example [] */
+            inputs?: {
+                [key: string]: unknown;
+            }[] | null;
+            /** @example [] */
+            attachments?: {
+                [key: string]: unknown;
+            }[] | null;
+            details?: {
+                [key: string]: unknown;
+            } | null;
+            /**
+             * @example DRAFT
+             * @enum {string}
+             */
+            status?: "DRAFT" | "APPLIED";
+        };
+        UpdateCulturalOperationDto: {
+            /**
+             * Format: date
+             * @example 2026-03-11
+             */
+            operationDate?: string;
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            practiceId?: string;
+            /** @example user:22222222-2222-4222-8222-222222222222 */
+            performed_by_id?: string | null;
+            /** @example 3 */
+            quantity?: number | null;
+            /** @example kg */
+            unit?: string | null;
+            /** @example 35 */
+            cost?: number | null;
+            /** @example Updated notes */
+            notes?: string | null;
+            /** @example [] */
+            inputs?: {
+                [key: string]: unknown;
+            }[] | null;
+            /** @example [] */
+            attachments?: {
+                [key: string]: unknown;
+            }[] | null;
+            details?: {
+                [key: string]: unknown;
+            } | null;
+            /**
+             * @example APPLIED
+             * @enum {string}
+             */
+            status?: "DRAFT" | "APPLIED";
+        };
+        ProductionCycleOperationInputItemDto: {
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            productId: string;
+            /** @example 2 */
+            qty: number;
+            /** @example kg */
+            unit: string;
+            /**
+             * Format: uuid
+             * @example 22222222-2222-4222-8222-222222222222
+             */
+            warehouseId: string;
+            /** @example 4.5 */
+            unitCost?: number | null;
+            /** @example BATCH-01 */
+            batchNumber?: string | null;
+        };
+        CreateProductionCycleOperationDto: {
+            /**
+             * Format: date
+             * @example 2026-03-15
+             */
+            date: string;
+            /**
+             * @example LAND_PREP
+             * @enum {string}
+             */
+            type: "LAND_PREP" | "PLANTING";
+            /** @example user:22222222-2222-4222-8222-222222222222 */
+            performed_by_id?: string | null;
+            /** @example 2 */
+            quantity?: number | null;
+            /** @example kg */
+            unit?: string | null;
+            /** @example 25 */
+            cost: number;
+            /** @example Applied operation note */
+            notes?: string | null;
+            /**
+             * @example draft
+             * @enum {string}
+             */
+            status?: "draft" | "applied";
+            /** @example [] */
+            attachments?: {
+                [key: string]: unknown;
+            }[] | null;
+            inputs?: components["schemas"]["ProductionCycleOperationInputItemDto"][] | null;
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            practiceId?: string | null;
+            details?: {
+                [key: string]: unknown;
+            } | null;
+        };
+        UpdateProductionCycleOperationDto: {
+            /**
+             * Format: date
+             * @example 2026-03-16
+             */
+            date?: string;
+            /**
+             * @example LAND_PREP
+             * @enum {string}
+             */
+            type?: "LAND_PREP" | "PLANTING";
+            /** @example user:22222222-2222-4222-8222-222222222222 */
+            performed_by_id?: string | null;
+            /** @example 3 */
+            quantity?: number | null;
+            /** @example kg */
+            unit?: string | null;
+            /** @example 30 */
+            cost?: number | null;
+            /** @example Updated operation notes */
+            notes?: string | null;
+            /**
+             * @example applied
+             * @enum {string}
+             */
+            status?: "draft" | "applied";
+            /** @example [] */
+            attachments?: {
+                [key: string]: unknown;
+            }[] | null;
+            inputs?: components["schemas"]["ProductionCycleOperationInputItemDto"][] | null;
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            practiceId?: string | null;
+            details?: {
+                [key: string]: unknown;
+            } | null;
+        };
+        HarvestWorkerDto: {
+            /** @example worker-1 */
+            workerId: string;
+            /** @example John Doe */
+            workerName: string;
+            /** @example 20 */
+            quantity: number;
+            /** @example kg */
+            unit: string;
+            /** @example 12 */
+            cost?: number;
+        };
+        CreateHarvestOperationDto: {
+            /**
+             * Format: date
+             * @example 2026-05-20
+             */
+            harvestDate: string;
+            workers: components["schemas"]["HarvestWorkerDto"][];
+            /** @example 120 */
+            totalHarvestedQuantity?: number | null;
+            /** @example kg */
+            totalHarvestedUnit?: string | null;
+            /** @example Morning harvest batch */
+            notes?: string | null;
+            /** @example [] */
+            attachments?: {
+                [key: string]: unknown;
+            }[] | null;
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            practiceId?: string | null;
+        };
+        UpdateHarvestOperationDto: {
+            /**
+             * Format: date
+             * @example 2026-05-21
+             */
+            harvestDate?: string;
+            workers?: components["schemas"]["HarvestWorkerDto"][];
+            /** @example 122 */
+            totalHarvestedQuantity?: number | null;
+            /** @example kg */
+            totalHarvestedUnit?: string | null;
+            /** @example Updated harvest note */
+            notes?: string | null;
+            /** @example [] */
+            attachments?: {
+                [key: string]: unknown;
+            }[] | null;
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            practiceId?: string | null;
+        };
+        VerifyHarvestOperationDto: {
+            /** @example 60 */
+            harvestingCost: number;
+        };
+        HarvestClassificationDto: {
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            productId: string;
+            /** @example Tomato */
+            productName: string;
+            /** @example 15 */
+            quantity: number;
+            /** @example kg */
+            unit: string;
+            /**
+             * Format: date
+             * @example 2026-05-20
+             */
+            productionDate?: string | null;
+            /**
+             * Format: date
+             * @example 2026-06-20
+             */
+            expirationDate?: string | null;
+            /**
+             * Format: uuid
+             * @example 22222222-2222-4222-8222-222222222222
+             */
+            warehouseId?: string | null;
+            /** @example Main Warehouse */
+            warehouseName?: string | null;
+            /**
+             * @example ADDED_TO_WAREHOUSE
+             * @enum {string}
+             */
+            outcome: "ADDED_TO_WAREHOUSE" | "SOLD_DIRECT" | "WASTE";
+            /** @example 3.25 */
+            salePrice?: number | null;
+        };
+        ClassifyHarvestOperationDto: {
+            classifications: components["schemas"]["HarvestClassificationDto"][];
+        };
+        InventoryValidationItemDto: {
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            product_id: string;
+            /** @example Tomato Seeds */
+            product_name: string;
+            /** @example 2.5 */
+            quantity: number;
+        };
+        ValidateInventoryCommandDto: {
+            items: components["schemas"]["InventoryValidationItemDto"][];
+        };
+        AllocateInventoryCommandDto: {
+            items: components["schemas"]["InventoryValidationItemDto"][];
+        };
         DecreaseInventoryCommandDto: Record<string, never>;
         CreateStockMovementCommandDto: Record<string, never>;
-        CreateOrderCommandDto: Record<string, never>;
-        ConfirmOrderCommandDto: Record<string, never>;
-        UpdateOrderStatusDto: Record<string, never>;
-        UpdateOrderDto: Record<string, never>;
-        CreateStockVoucherDto: Record<string, never>;
-        UpdateStockVoucherDto: Record<string, never>;
-        UpdateStockVoucherStatusDto: Record<string, never>;
-        InsertVoucherLineItemsDto: Record<string, never>;
-        ProductInventoryRowsLookupDto: Record<string, never>;
-        InventoryQuantitiesLookupDto: Record<string, never>;
-        FindInventoryEntryDto: Record<string, never>;
-        UpdateInventoryQuantityDto: Record<string, never>;
-        UpdateInventoryRecordDto: Record<string, never>;
-        CreateInventoryRecordDto: Record<string, never>;
+        OrderItemCommandDto: {
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            product_id: string;
+            /** @example Tomato Seeds */
+            product_name: string;
+            /** @example 3 */
+            quantity: number;
+            /** @example 12.5 */
+            unit_price: number;
+        };
+        CreateOrderCommandDto: {
+            /**
+             * @example pending
+             * @enum {string}
+             */
+            status?: "pending" | "confirmed";
+            /**
+             * Format: uuid
+             * @example 22222222-2222-4222-8222-222222222222
+             */
+            contact_id?: string;
+            /** @example 100 */
+            subtotal?: number;
+            /** @example 112.5 */
+            total_amount?: number;
+            /**
+             * Format: date
+             * @example 2026-03-02
+             */
+            order_date?: string;
+            /**
+             * Format: date
+             * @example 2026-03-05
+             */
+            delivery_date?: string;
+            /** @example Farm Road 12, Austin, TX */
+            shipping_address?: string;
+            /** @example John Doe */
+            customer_name?: string;
+            /** @example john@example.com */
+            customer_email?: string;
+            /** @example +1-555-555-0101 */
+            customer_phone?: string;
+            /** @example 123 Market St */
+            customer_address?: string;
+            /** @example Austin */
+            customer_city?: string;
+            /** @example 78701 */
+            customer_postal_code?: string;
+            /** @example pickup */
+            delivery_method?: string;
+            /** @example cash */
+            payment_method?: string;
+            /** @example sales_transaction */
+            source?: string;
+            /** @example Leave near loading dock */
+            notes?: string;
+            order_items: components["schemas"]["OrderItemCommandDto"][];
+        };
+        ConfirmOrderCommandDto: {
+            /** @example Confirmed by warehouse operator */
+            note?: string;
+        };
+        UpdateOrderStatusDto: {
+            /**
+             * @example confirmed
+             * @enum {string}
+             */
+            status: "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled";
+        };
+        UpdateOrderDto: {
+            /**
+             * @example processing
+             * @enum {string}
+             */
+            status?: "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled";
+            /**
+             * Format: uuid
+             * @example 22222222-2222-4222-8222-222222222222
+             */
+            contact_id?: Record<string, never> | null;
+            /** @example 100 */
+            subtotal?: number;
+            /** @example 110 */
+            total_amount?: number;
+            /**
+             * Format: date
+             * @example 2026-03-02
+             */
+            order_date?: string;
+            /**
+             * Format: date
+             * @example 2026-03-05
+             */
+            delivery_date?: string;
+            /** @example Farm Road 12, Austin, TX */
+            shipping_address?: string;
+            /** @example John Doe */
+            customer_name?: string;
+            /**
+             * Format: email
+             * @example john@example.com
+             */
+            customer_email?: string;
+            /** @example +1-555-555-0101 */
+            customer_phone?: string;
+            /** @example 123 Market St */
+            customer_address?: string;
+            /** @example Austin */
+            customer_city?: string;
+            /** @example 78701 */
+            customer_postal_code?: string;
+            /** @example pickup */
+            delivery_method?: string;
+            /** @example cash */
+            payment_method?: string;
+            /** @example sales_transaction */
+            source?: string;
+            /** @example Updated by manager */
+            notes?: string;
+        };
+        CreateStockVoucherDto: {
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            user_id?: string;
+            /**
+             * Format: uuid
+             * @example 22222222-2222-4222-8222-222222222222
+             */
+            farm_id?: string;
+            /**
+             * @example entry
+             * @enum {string}
+             */
+            type: "entry" | "out";
+            /**
+             * Format: uuid
+             * @example 33333333-3333-4333-8333-333333333333
+             */
+            contact_id?: string;
+            /**
+             * Format: date
+             * @example 2026-03-02
+             */
+            voucher_date?: string;
+            /** @example SV-2026-001 */
+            voucher_reference?: string;
+            /** @example Received from supplier */
+            notes?: string;
+            /**
+             * @example draft
+             * @enum {string}
+             */
+            status?: "draft" | "posted" | "completed";
+            /** @example purchase_order */
+            source_type?: string;
+            /** @example other-source */
+            source_type_other?: string;
+        };
+        UpdateStockVoucherDto: {
+            /**
+             * @example out
+             * @enum {string}
+             */
+            type?: "entry" | "out";
+            /**
+             * Format: uuid
+             * @example 33333333-3333-4333-8333-333333333333
+             */
+            contact_id?: string | null;
+            /**
+             * Format: date
+             * @example 2026-03-02
+             */
+            voucher_date?: string;
+            /** @example SV-2026-002 */
+            voucher_reference?: string | null;
+            /** @example Adjusted by warehouse operator */
+            notes?: string | null;
+            /**
+             * @example completed
+             * @enum {string}
+             */
+            status?: "draft" | "posted" | "completed";
+            /** @example manual_adjustment */
+            source_type?: string | null;
+            /** @example cycle-count */
+            source_type_other?: string | null;
+        };
+        UpdateStockVoucherStatusDto: {
+            /**
+             * @example posted
+             * @enum {string}
+             */
+            status: "draft" | "posted" | "completed";
+        };
+        StockVoucherLineItemDto: {
+            /**
+             * Format: uuid
+             * @example 44444444-4444-4444-8444-444444444444
+             */
+            id?: string;
+            /**
+             * Format: uuid
+             * @example 55555555-5555-4555-8555-555555555555
+             */
+            voucher_id?: string;
+            /**
+             * Format: uuid
+             * @example 66666666-6666-4666-8666-666666666666
+             */
+            product_id: string;
+            /**
+             * Format: uuid
+             * @example 77777777-7777-4777-8777-777777777777
+             */
+            warehouse_id: string;
+            /** @example 20 */
+            quantity: number;
+        };
+        InsertVoucherLineItemsDto: {
+            items: components["schemas"]["StockVoucherLineItemDto"][];
+        };
+        ProductInventoryRowsLookupDto: {
+            /**
+             * @example [
+             *       "11111111-1111-4111-8111-111111111111"
+             *     ]
+             */
+            productIds: string[];
+        };
+        InventoryQuantitiesLookupDto: {
+            /**
+             * @example [
+             *       "11111111-1111-4111-8111-111111111111"
+             *     ]
+             */
+            productIds: string[];
+            /**
+             * @example [
+             *       "22222222-2222-4222-8222-222222222222"
+             *     ]
+             */
+            warehouseIds: string[];
+        };
+        FindInventoryEntryDto: {
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            productId: string;
+            /**
+             * Format: uuid
+             * @example 22222222-2222-4222-8222-222222222222
+             */
+            warehouseId: string;
+            /**
+             * Format: date
+             * @example 2026-03-01
+             */
+            manufacturingDate?: string | null;
+            /**
+             * Format: date
+             * @example 2026-12-31
+             */
+            expiryDate?: string | null;
+        };
+        UpdateInventoryQuantityDto: {
+            /** @example 30 */
+            quantity: number;
+        };
+        UpdateInventoryRecordDto: {
+            /** @example BATCH-2026-001 */
+            batch_number?: string | null;
+            /**
+             * Format: date
+             * @example 2026-03-01
+             */
+            manufacturing_date?: string | null;
+            /**
+             * Format: date
+             * @example 2026-12-31
+             */
+            expiry_date?: string | null;
+            /** @example 30 */
+            expired_after_days?: number | null;
+            /** @example Relabeled during recount */
+            notes?: string | null;
+        };
+        CreateInventoryRecordDto: {
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            user_id?: string;
+            /**
+             * Format: uuid
+             * @example 22222222-2222-4222-8222-222222222222
+             */
+            farm_id?: string;
+            /**
+             * Format: uuid
+             * @example 33333333-3333-4333-8333-333333333333
+             */
+            product_id: string;
+            /**
+             * Format: uuid
+             * @example 44444444-4444-4444-8444-444444444444
+             */
+            warehouse_id: string;
+            /** @example 10 */
+            quantity: number;
+            /** @example BATCH-2026-001 */
+            batch_number?: string | null;
+            /**
+             * Format: date
+             * @example 2026-03-01
+             */
+            manufacturing_date?: string | null;
+            /**
+             * Format: date
+             * @example 2026-12-31
+             */
+            expiry_date?: string | null;
+            /** @example 30 */
+            expired_after_days?: number | null;
+            /** @example Initial stock intake */
+            notes?: string | null;
+        };
         CreateCropGroupDto: Record<string, never>;
         UpdateCropGroupDto: Record<string, never>;
         CreateOperationPracticeDto: Record<string, never>;
         UpdateOperationPracticeDto: Record<string, never>;
         ReplaceCropGroupPracticeMappingsDto: Record<string, never>;
         ReplaceCropPracticeMappingsDto: Record<string, never>;
-        CreateCropCommandDto: Record<string, never>;
-        UpdateCropCommandDto: Record<string, never>;
-        UpdateCropStatusCommandDto: Record<string, never>;
+        CreateCropCommandDto: {
+            /** @description Crop create payload forwarded to persistence layer */
+            payload: {
+                [key: string]: unknown;
+            };
+        };
+        UpdateCropCommandDto: {
+            /** @description Crop update payload forwarded to persistence layer */
+            payload: {
+                [key: string]: unknown;
+            };
+        };
+        UpdateCropStatusCommandDto: {
+            /**
+             * @example active
+             * @enum {string}
+             */
+            status: "active" | "inactive";
+        };
         CreateLivestockCommandDto: Record<string, never>;
-        BulkHardDeleteProductsCommandDto: Record<string, never>;
+        BulkHardDeleteProductsCommandDto: {
+            /**
+             * @example [
+             *       "11111111-1111-4111-8111-111111111111",
+             *       "22222222-2222-4222-8222-222222222222"
+             *     ]
+             */
+            ids: string[];
+        };
         StorefrontValidationLookupDto: Record<string, never>;
-        CreateProductDto: Record<string, never>;
+        CreateProductDto: {
+            /** @example Tomato Seeds */
+            name?: string;
+            /** @example High-yield hybrid tomato seeds */
+            description?: string | null;
+            /** Format: uuid */
+            category_id?: string | null;
+            /** Format: uuid */
+            tax_id?: string | null;
+            /** Format: uuid */
+            supplier_id?: string | null;
+            /** Format: uuid */
+            manufacturer_id?: string | null;
+            other_product_type?: string | null;
+            /** @example seed */
+            product_type?: string | null;
+            /**
+             * @example selling
+             * @enum {string}
+             */
+            selling_type?: "selling" | "buying" | "both";
+            /**
+             * @example Selling
+             * @enum {string}
+             */
+            usage_type?: "Selling" | "FarmInput" | "Both";
+            /** @example kg */
+            unit?: string | null;
+            /** @example 1 */
+            weight_per_unit?: number | null;
+            /**
+             * @example outside
+             * @enum {string}
+             */
+            source?: "farm" | "outside" | "from_farm";
+            /** @example 2.5 */
+            cost?: number | null;
+            /** @example 20 */
+            profit_margin?: number | null;
+            /** @example 3 */
+            price_per_unit?: number | null;
+            /** @example 2 */
+            purchase_price?: number | null;
+            /** @example 2.8 */
+            wholesale_price?: number | null;
+            /** @example 50 */
+            threshold?: number | null;
+            /**
+             * @example active
+             * @enum {string}
+             */
+            status?: "active" | "inactive";
+            /** @example true */
+            display_on_storefront?: boolean;
+            /** @example Jordan */
+            origin_country?: string | null;
+            /** @example Aqaba */
+            origin_port?: string | null;
+            barcode?: string | null;
+            /** @example PROD-001 */
+            sku?: string | null;
+            /**
+             * @example dry
+             * @enum {string|null}
+             */
+            storage_condition?: "dry" | "refrigerated" | "frozen" | "controlled_atmosphere" | "other" | null;
+            /** @example false */
+            has_expiry?: boolean;
+            /** @example [] */
+            images?: {
+                [key: string]: unknown;
+            }[];
+            product_form_code?: string | null;
+            /** @example [] */
+            active_ingredients?: {
+                [key: string]: unknown;
+            }[];
+            dose_text?: string | null;
+            dose_unit?: string | null;
+            /** @example 3 */
+            phi_min_days?: number | null;
+            /** @example 7 */
+            phi_max_days?: number | null;
+            active_ingredient_concentration_percent?: string | null;
+            general_use?: string | null;
+            manufacturer?: string | null;
+            target_organisms_text?: string | null;
+            /** @example [] */
+            reference_urls?: {
+                [key: string]: unknown;
+            }[];
+            /** @example [] */
+            inventoryRecords?: {
+                [key: string]: unknown;
+            }[];
+            /** @example [] */
+            crop_guidance_rows?: {
+                [key: string]: unknown;
+            }[];
+        };
         LowStockNotificationCommandDto: Record<string, never>;
         CreateDefaultAdminRoleCommandDto: Record<string, never>;
         ExecuteReportQueryCommandDto: Record<string, never>;
@@ -4933,7 +6370,106 @@ export interface components {
         ProductTypeMetaLookupDto: Record<string, never>;
         ProductSkuLookupDto: Record<string, never>;
         CropGuidanceLookupDto: Record<string, never>;
-        UpdateProductDto: Record<string, never>;
+        UpdateProductDto: {
+            /** @example Tomato Seeds */
+            name?: string;
+            /** @example High-yield hybrid tomato seeds */
+            description?: string | null;
+            /** Format: uuid */
+            category_id?: string | null;
+            /** Format: uuid */
+            tax_id?: string | null;
+            /** Format: uuid */
+            supplier_id?: string | null;
+            /** Format: uuid */
+            manufacturer_id?: string | null;
+            other_product_type?: string | null;
+            /** @example seed */
+            product_type?: string | null;
+            /**
+             * @example selling
+             * @enum {string}
+             */
+            selling_type?: "selling" | "buying" | "both";
+            /**
+             * @example Selling
+             * @enum {string}
+             */
+            usage_type?: "Selling" | "FarmInput" | "Both";
+            /** @example kg */
+            unit?: string | null;
+            /** @example 1 */
+            weight_per_unit?: number | null;
+            /**
+             * @example outside
+             * @enum {string}
+             */
+            source?: "farm" | "outside" | "from_farm";
+            /** @example 2.5 */
+            cost?: number | null;
+            /** @example 20 */
+            profit_margin?: number | null;
+            /** @example 3 */
+            price_per_unit?: number | null;
+            /** @example 2 */
+            purchase_price?: number | null;
+            /** @example 2.8 */
+            wholesale_price?: number | null;
+            /** @example 50 */
+            threshold?: number | null;
+            /**
+             * @example active
+             * @enum {string}
+             */
+            status?: "active" | "inactive";
+            /** @example true */
+            display_on_storefront?: boolean;
+            /** @example Jordan */
+            origin_country?: string | null;
+            /** @example Aqaba */
+            origin_port?: string | null;
+            barcode?: string | null;
+            /** @example PROD-001 */
+            sku?: string | null;
+            /**
+             * @example dry
+             * @enum {string|null}
+             */
+            storage_condition?: "dry" | "refrigerated" | "frozen" | "controlled_atmosphere" | "other" | null;
+            /** @example false */
+            has_expiry?: boolean;
+            /** @example [] */
+            images?: {
+                [key: string]: unknown;
+            }[];
+            product_form_code?: string | null;
+            /** @example [] */
+            active_ingredients?: {
+                [key: string]: unknown;
+            }[];
+            dose_text?: string | null;
+            dose_unit?: string | null;
+            /** @example 3 */
+            phi_min_days?: number | null;
+            /** @example 7 */
+            phi_max_days?: number | null;
+            active_ingredient_concentration_percent?: string | null;
+            general_use?: string | null;
+            manufacturer?: string | null;
+            target_organisms_text?: string | null;
+            /** @example [] */
+            reference_urls?: {
+                [key: string]: unknown;
+            }[];
+            /** @example [] */
+            inventoryRecords?: {
+                [key: string]: unknown;
+            }[];
+            /** @example [] */
+            crop_guidance_rows?: {
+                [key: string]: unknown;
+            }[];
+        };
         WeatherQueryCommandDto: Record<string, never>;
         MapsQueryCommandDto: Record<string, never>;
         GenerateInviteTokenCommandDto: Record<string, never>;
@@ -4950,7 +6486,48 @@ export interface components {
         ProductStorefrontDisplayDto: Record<string, never>;
         DiscountMutationDto: Record<string, never>;
         UpsertCustomizationSettingsDto: Record<string, never>;
-        LogbookSubmitDto: Record<string, never>;
+        LogbookSubmitDto: {
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            fieldId: string;
+            /**
+             * Format: date
+             * @example 2026-03-02
+             */
+            date: string;
+            /**
+             * @example CROP_OPERATION
+             * @enum {string}
+             */
+            category: "CROP_OPERATION" | "EQUIPMENT_USAGE" | "EQUIPMENT_MAINTENANCE" | "ANIMAL_FEED_WATER" | "ANIMAL_HOUSE_MAINTENANCE" | "ANIMAL_YIELD" | "LOT_MAINTENANCE";
+            /**
+             * @example CROP
+             * @enum {string}
+             */
+            entityType: "CROP" | "EQUIPMENT" | "HOUSING_UNIT" | "ANIMAL" | "LOT";
+            /**
+             * Format: uuid
+             * @example 22222222-2222-4222-8222-222222222222
+             */
+            entityId: string;
+            /**
+             * @example LAND_PREP
+             * @enum {string}
+             */
+            family?: "LAND_PREP" | "PLANTING" | "IRRIGATION" | "NUTRIENT" | "TREATMENT" | "WEED_MGMT" | "CULTURAL" | "HARVEST";
+            /**
+             * Format: uuid
+             * @example 33333333-3333-4333-8333-333333333333
+             */
+            practiceId?: string;
+            /** @example mobile-session-123 */
+            clientSessionId?: string;
+            payload: {
+                [key: string]: unknown;
+            };
+        };
         UploadMediaCommandDto: {
             /** @example contact-attachments */
             bucket: string;
@@ -5002,7 +6579,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AuthSessionResponseDto"];
+                };
             };
         };
     };
@@ -5023,7 +6602,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AuthSessionResponseDto"];
+                };
             };
         };
     };
@@ -5086,7 +6667,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AuthSimpleSuccessResponseDto"];
+                };
             };
         };
     };
@@ -5103,7 +6686,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AuthRbacSnapshotResponseDto"];
+                };
             };
         };
     };
@@ -5120,7 +6705,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AuthContextResponseDto"];
+                };
             };
         };
     };
@@ -5985,7 +7572,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -6002,7 +7593,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -6019,7 +7614,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -6335,7 +7934,26 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        items: {
+                            id?: string;
+                            user_id?: string;
+                            farm_id?: string;
+                            name?: string;
+                            parent_id?: string | null;
+                            image_url?: string | null;
+                            display_on_storefront?: boolean;
+                            notes?: string | null;
+                            status?: string;
+                            created_at?: string;
+                            updated_at?: string;
+                        }[];
+                        total: number;
+                        limit: number;
+                        offset: number;
+                    };
+                };
             };
         };
     };
@@ -6356,7 +7974,21 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        id?: string;
+                        user_id?: string;
+                        farm_id?: string;
+                        name?: string;
+                        parent_id?: string | null;
+                        image_url?: string | null;
+                        display_on_storefront?: boolean;
+                        notes?: string | null;
+                        status?: string;
+                        created_at?: string;
+                        updated_at?: string;
+                    };
+                };
             };
         };
     };
@@ -6380,7 +8012,24 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        items: {
+                            id?: string;
+                            user_id?: string;
+                            farm_id?: string;
+                            name?: string;
+                            rate?: number;
+                            notes?: string | null;
+                            status?: string;
+                            created_at?: string;
+                            updated_at?: string;
+                        }[];
+                        total: number;
+                        limit: number;
+                        offset: number;
+                    };
+                };
             };
         };
     };
@@ -6401,7 +8050,19 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        id?: string;
+                        user_id?: string;
+                        farm_id?: string;
+                        name?: string;
+                        rate?: number;
+                        notes?: string | null;
+                        status?: string;
+                        created_at?: string;
+                        updated_at?: string;
+                    };
+                };
             };
         };
     };
@@ -6425,7 +8086,33 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        items: {
+                            id?: string;
+                            user_id?: string;
+                            farm_id?: string;
+                            name?: string;
+                            field_id?: string;
+                            capacity_value?: number | null;
+                            capacity_unit?: string | null;
+                            warehouse_types?: string[];
+                            temperature_min?: number | null;
+                            temperature_max?: number | null;
+                            safety_measures?: string | null;
+                            attachments?: {
+                                [key: string]: unknown;
+                            }[];
+                            status?: string;
+                            notes?: string | null;
+                            created_at?: string;
+                            updated_at?: string;
+                        }[];
+                        total: number;
+                        limit: number;
+                        offset: number;
+                    };
+                };
             };
         };
     };
@@ -6446,7 +8133,130 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        id?: string;
+                        user_id?: string;
+                        farm_id?: string;
+                        name?: string;
+                        field_id?: string;
+                        status?: string;
+                        capacity_value?: number | null;
+                        capacity_unit?: string | null;
+                        warehouse_types?: string[];
+                        temperature_min?: number | null;
+                        temperature_max?: number | null;
+                        safety_measures?: string | null;
+                        attachments?: {
+                            [key: string]: unknown;
+                        }[];
+                        notes?: string | null;
+                        created_at?: string;
+                        updated_at?: string;
+                    };
+                };
+            };
+        };
+    };
+    CatalogReadController_getProducts_v1: {
+        parameters: {
+            query?: {
+                /** @description Maximum number of records to return */
+                limit?: components["schemas"]["Object"];
+                /** @description Number of records to skip */
+                offset?: components["schemas"]["Object"];
+                /** @description Optional status filter (e.g. active, inactive). Use all to disable filter. */
+                status?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: {
+                            id?: string;
+                            user_id?: string;
+                            farm_id?: string;
+                            name?: string;
+                            category_id?: string | null;
+                            tax_id?: string | null;
+                            product_type?: string | null;
+                            source?: string | null;
+                            unit?: string | null;
+                            sku?: string | null;
+                            barcode?: string | null;
+                            status?: string;
+                            has_expiry?: boolean;
+                            display_on_storefront?: boolean;
+                            threshold?: number | null;
+                            price_per_unit?: number | null;
+                            purchase_price?: number | null;
+                            wholesale_price?: number | null;
+                            created_at?: string;
+                            updated_at?: string;
+                        }[];
+                        total: number;
+                        limit: number;
+                        offset: number;
+                    };
+                };
+            };
+        };
+    };
+    OrderWriteController_createProduct_v1: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateProductDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        id?: string;
+                        user_id?: string;
+                        farm_id?: string;
+                        name?: string;
+                        description?: string | null;
+                        category_id?: string | null;
+                        tax_id?: string | null;
+                        product_type?: string | null;
+                        source?: string | null;
+                        unit?: string | null;
+                        sku?: string | null;
+                        barcode?: string | null;
+                        status?: string;
+                        has_expiry?: boolean;
+                        display_on_storefront?: boolean;
+                        threshold?: number | null;
+                        price_per_unit?: number | null;
+                        purchase_price?: number | null;
+                        wholesale_price?: number | null;
+                        images?: {
+                            [key: string]: unknown;
+                        }[];
+                        created_at?: string;
+                        updated_at?: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -6631,7 +8441,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        updated: number;
+                    };
+                };
             };
         };
     };
@@ -6639,7 +8453,9 @@ export interface operations {
         parameters: {
             query?: never;
             header?: never;
-            path?: never;
+            path: {
+                categoryId: string;
+            };
             cookie?: never;
         };
         requestBody: {
@@ -6652,7 +8468,21 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        id?: string;
+                        user_id?: string;
+                        farm_id?: string;
+                        name?: string;
+                        parent_id?: string | null;
+                        image_url?: string | null;
+                        display_on_storefront?: boolean;
+                        notes?: string | null;
+                        status?: string;
+                        created_at?: string;
+                        updated_at?: string;
+                    };
+                };
             };
         };
     };
@@ -6660,7 +8490,9 @@ export interface operations {
         parameters: {
             query?: never;
             header?: never;
-            path?: never;
+            path: {
+                taxId: string;
+            };
             cookie?: never;
         };
         requestBody: {
@@ -6673,7 +8505,19 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        id?: string;
+                        user_id?: string;
+                        farm_id?: string;
+                        name?: string;
+                        rate?: number;
+                        notes?: string | null;
+                        status?: string;
+                        created_at?: string;
+                        updated_at?: string;
+                    };
+                };
             };
         };
     };
@@ -6681,7 +8525,9 @@ export interface operations {
         parameters: {
             query?: never;
             header?: never;
-            path?: never;
+            path: {
+                warehouseId: string;
+            };
             cookie?: never;
         };
         requestBody: {
@@ -6694,7 +8540,28 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        id?: string;
+                        user_id?: string;
+                        farm_id?: string;
+                        name?: string;
+                        field_id?: string;
+                        status?: string;
+                        capacity_value?: number | null;
+                        capacity_unit?: string | null;
+                        warehouse_types?: string[];
+                        temperature_min?: number | null;
+                        temperature_max?: number | null;
+                        safety_measures?: string | null;
+                        attachments?: {
+                            [key: string]: unknown;
+                        }[];
+                        notes?: string | null;
+                        created_at?: string;
+                        updated_at?: string;
+                    };
+                };
             };
         };
     };
@@ -6711,7 +8578,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -6728,7 +8599,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -6745,7 +8620,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        count: number;
+                    };
+                };
             };
         };
     };
@@ -6762,13 +8641,20 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
     OrderWriteController_listUpcomingEquipmentMaintenance_v1: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description Number of days ahead to include in upcoming maintenance list */
+                daysAhead?: number;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -6779,7 +8665,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -6796,7 +8686,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -6813,7 +8707,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -6830,7 +8728,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -6847,7 +8749,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        deleted: boolean;
+                    };
+                };
             };
         };
     };
@@ -6868,7 +8774,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -6889,7 +8799,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -6906,7 +8820,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -6927,7 +8845,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -6944,7 +8866,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        deleted: boolean;
+                    };
+                };
             };
         };
     };
@@ -6965,7 +8891,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -6982,7 +8912,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -7003,7 +8937,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7020,7 +8958,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -7037,7 +8979,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        deleted: boolean;
+                    };
+                };
             };
         };
     };
@@ -7058,7 +9004,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7079,7 +9029,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        replacedCount: number;
+                    };
+                };
             };
         };
     };
@@ -7096,7 +9050,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -7117,7 +9075,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7134,7 +9096,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7236,7 +9202,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        deleted: boolean;
+                    };
+                };
             };
         };
     };
@@ -7257,7 +9227,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7274,7 +9248,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -7308,7 +9286,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -7325,7 +9307,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -7346,7 +9332,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7363,7 +9353,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -7380,7 +9374,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7401,7 +9399,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7418,7 +9420,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7435,7 +9441,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -7456,7 +9466,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7473,7 +9487,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -7494,7 +9512,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7511,7 +9533,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7528,7 +9554,32 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
+            };
+        };
+    };
+    OrderWriteController_listTransactions_v1: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -7549,7 +9600,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7557,7 +9612,9 @@ export interface operations {
         parameters: {
             query?: never;
             header?: never;
-            path?: never;
+            path: {
+                transactionId: string;
+            };
             cookie?: never;
         };
         requestBody?: never;
@@ -7566,7 +9623,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        deleted: boolean;
+                    };
+                };
             };
         };
     };
@@ -7574,7 +9635,9 @@ export interface operations {
         parameters: {
             query?: never;
             header?: never;
-            path?: never;
+            path: {
+                transactionId: string;
+            };
             cookie?: never;
         };
         requestBody: {
@@ -7587,7 +9650,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7604,7 +9671,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -7615,13 +9686,21 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateFinanceGroupDto"];
+            };
+        };
         responses: {
             201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7629,7 +9708,9 @@ export interface operations {
         parameters: {
             query?: never;
             header?: never;
-            path?: never;
+            path: {
+                financeGroupId: string;
+            };
             cookie?: never;
         };
         requestBody?: never;
@@ -7638,7 +9719,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        deleted: boolean;
+                    };
+                };
             };
         };
     };
@@ -7646,16 +9731,26 @@ export interface operations {
         parameters: {
             query?: never;
             header?: never;
-            path?: never;
+            path: {
+                financeGroupId: string;
+            };
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateFinanceGroupDto"];
+            };
+        };
         responses: {
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7676,7 +9771,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        updated: number;
+                    };
+                };
             };
         };
     };
@@ -7684,7 +9783,9 @@ export interface operations {
         parameters: {
             query?: never;
             header?: never;
-            path?: never;
+            path: {
+                transactionId: string;
+            };
             cookie?: never;
         };
         requestBody: {
@@ -7697,7 +9798,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7714,7 +9819,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -7735,7 +9844,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7743,7 +9856,9 @@ export interface operations {
         parameters: {
             query?: never;
             header?: never;
-            path?: never;
+            path: {
+                transactionId: string;
+            };
             cookie?: never;
         };
         requestBody?: never;
@@ -7752,7 +9867,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7760,7 +9879,9 @@ export interface operations {
         parameters: {
             query?: never;
             header?: never;
-            path?: never;
+            path: {
+                transactionId: string;
+            };
             cookie?: never;
         };
         requestBody: {
@@ -7773,7 +9894,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7781,7 +9906,9 @@ export interface operations {
         parameters: {
             query?: never;
             header?: never;
-            path?: never;
+            path: {
+                transactionId: string;
+            };
             cookie?: never;
         };
         requestBody?: never;
@@ -7790,7 +9917,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7798,7 +9929,9 @@ export interface operations {
         parameters: {
             query?: never;
             header?: never;
-            path?: never;
+            path: {
+                transactionId: string;
+            };
             cookie?: never;
         };
         requestBody?: never;
@@ -7807,7 +9940,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -7815,7 +9952,9 @@ export interface operations {
         parameters: {
             query?: never;
             header?: never;
-            path?: never;
+            path: {
+                transactionId: string;
+            };
             cookie?: never;
         };
         requestBody: {
@@ -7828,7 +9967,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7845,7 +9988,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        deleted: boolean;
+                    };
+                };
             };
         };
     };
@@ -7866,7 +10013,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7883,7 +10034,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -7904,7 +10059,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7938,7 +10097,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7955,7 +10118,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7976,7 +10143,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -7997,7 +10168,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -8014,7 +10189,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -8035,7 +10214,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -8052,7 +10235,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        deleted: boolean;
+                    };
+                };
             };
         };
     };
@@ -8073,7 +10260,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -8086,11 +10277,15 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            201: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -8107,7 +10302,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -8128,7 +10327,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -8145,7 +10348,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        deleted: boolean;
+                    };
+                };
             };
         };
     };
@@ -8166,7 +10373,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -8200,7 +10411,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -8221,7 +10436,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -8352,7 +10571,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -8369,7 +10592,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -8437,7 +10664,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -8454,7 +10685,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -8522,7 +10757,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -8539,7 +10778,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -8624,7 +10867,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -8641,7 +10888,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -8709,7 +10960,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -8726,7 +10981,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -8901,7 +11160,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -8918,7 +11181,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -8935,7 +11202,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        deleted: boolean;
+                    };
+                };
             };
         };
     };
@@ -8956,7 +11227,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -8973,7 +11248,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -8990,7 +11269,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        hasStockOut: boolean;
+                    };
+                };
             };
         };
     };
@@ -9013,7 +11296,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -9030,7 +11317,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -9051,7 +11342,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -9068,7 +11363,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -9085,7 +11384,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -9106,7 +11409,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -9123,7 +11430,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        deleted: boolean;
+                    };
+                };
             };
         };
     };
@@ -9144,7 +11455,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -9165,7 +11480,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -9186,7 +11505,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -9203,7 +11526,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        deleted: boolean;
+                    };
+                };
             };
         };
     };
@@ -9220,7 +11547,18 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        id?: string;
+                        name?: string;
+                        sku?: string | null;
+                        barcode?: string | null;
+                        unit?: string | null;
+                        has_expiry?: boolean;
+                        status?: string;
+                        farm_id?: string;
+                    }[];
+                };
             };
         };
     };
@@ -9237,7 +11575,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -9254,7 +11596,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -9271,7 +11617,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -9292,7 +11642,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -9313,7 +11667,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -9334,7 +11692,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -9351,7 +11713,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -9372,7 +11738,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -9389,7 +11759,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -9406,7 +11780,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        deleted: boolean;
+                    };
+                };
             };
         };
     };
@@ -9427,7 +11805,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -9448,7 +11830,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -9731,7 +12117,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -9752,7 +12142,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -9773,7 +12167,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -9815,7 +12213,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        deletedCount: number;
+                    };
+                };
             };
         };
     };
@@ -9829,27 +12231,6 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["StorefrontValidationLookupDto"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    OrderWriteController_createProduct_v1: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateProductDto"];
             };
         };
         responses: {
@@ -10284,7 +12665,36 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        id?: string;
+                        user_id?: string;
+                        farm_id?: string;
+                        name?: string;
+                        description?: string | null;
+                        category_id?: string | null;
+                        tax_id?: string | null;
+                        product_type?: string | null;
+                        source?: string | null;
+                        unit?: string | null;
+                        sku?: string | null;
+                        barcode?: string | null;
+                        status?: string;
+                        has_expiry?: boolean;
+                        display_on_storefront?: boolean;
+                        threshold?: number | null;
+                        price_per_unit?: number | null;
+                        purchase_price?: number | null;
+                        wholesale_price?: number | null;
+                        images?: {
+                            [key: string]: unknown;
+                        }[];
+                        created_at?: string;
+                        updated_at?: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -10845,7 +13255,66 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": (({
+                        name?: string | null;
+                        species?: string;
+                        breed?: string | null;
+                        tag_number?: string | null;
+                        /** Format: date */
+                        birth_date?: string | null;
+                        sex_class?: string | null;
+                        gender?: string | null;
+                        weight?: number | null;
+                        health_status?: string | null;
+                        reproductive_status?: string | null;
+                        tracking_mode?: string | null;
+                        active_status?: string | null;
+                        quantity?: number | null;
+                        cost?: number | null;
+                        purchase_price?: number | null;
+                        sale_price?: number | null;
+                        wholesale_price?: number | null;
+                        profit_margin?: number | null;
+                        display_on_storefront?: boolean | null;
+                        description?: string | null;
+                        ownership_status?: string | null;
+                        source?: string | null;
+                        selling_type?: string | null;
+                        production_type?: string | null;
+                        genetic_info?: string | null;
+                        disease_history?: string | null;
+                        health_notes?: string | null;
+                        /** Format: uuid */
+                        current_housing_unit_id?: string | null;
+                        /** Format: uuid */
+                        group_id?: string | null;
+                        /** Format: date */
+                        last_vet_visit?: string | null;
+                        attachments?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                        images?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                        bulk_metadata?: {
+                            [key: string]: unknown;
+                        } | null;
+                    } & {
+                        [key: string]: unknown;
+                    }) & {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        user_id?: string | null;
+                        /** Format: uuid */
+                        farm_id?: string | null;
+                        /** Format: date-time */
+                        created_at?: string | null;
+                        /** Format: date-time */
+                        updated_at?: string | null;
+                    })[];
+                };
             };
         };
     };
@@ -10856,13 +13325,122 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    name?: string | null;
+                    species?: string;
+                    breed?: string | null;
+                    tag_number?: string | null;
+                    /** Format: date */
+                    birth_date?: string | null;
+                    sex_class?: string | null;
+                    gender?: string | null;
+                    weight?: number | null;
+                    health_status?: string | null;
+                    reproductive_status?: string | null;
+                    tracking_mode?: string | null;
+                    active_status?: string | null;
+                    quantity?: number | null;
+                    cost?: number | null;
+                    purchase_price?: number | null;
+                    sale_price?: number | null;
+                    wholesale_price?: number | null;
+                    profit_margin?: number | null;
+                    display_on_storefront?: boolean | null;
+                    description?: string | null;
+                    ownership_status?: string | null;
+                    source?: string | null;
+                    selling_type?: string | null;
+                    production_type?: string | null;
+                    genetic_info?: string | null;
+                    disease_history?: string | null;
+                    health_notes?: string | null;
+                    /** Format: uuid */
+                    current_housing_unit_id?: string | null;
+                    /** Format: uuid */
+                    group_id?: string | null;
+                    /** Format: date */
+                    last_vet_visit?: string | null;
+                    attachments?: {
+                        [key: string]: unknown;
+                    }[] | null;
+                    images?: {
+                        [key: string]: unknown;
+                    }[] | null;
+                    bulk_metadata?: {
+                        [key: string]: unknown;
+                    } | null;
+                } & {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": ({
+                        name?: string | null;
+                        species?: string;
+                        breed?: string | null;
+                        tag_number?: string | null;
+                        /** Format: date */
+                        birth_date?: string | null;
+                        sex_class?: string | null;
+                        gender?: string | null;
+                        weight?: number | null;
+                        health_status?: string | null;
+                        reproductive_status?: string | null;
+                        tracking_mode?: string | null;
+                        active_status?: string | null;
+                        quantity?: number | null;
+                        cost?: number | null;
+                        purchase_price?: number | null;
+                        sale_price?: number | null;
+                        wholesale_price?: number | null;
+                        profit_margin?: number | null;
+                        display_on_storefront?: boolean | null;
+                        description?: string | null;
+                        ownership_status?: string | null;
+                        source?: string | null;
+                        selling_type?: string | null;
+                        production_type?: string | null;
+                        genetic_info?: string | null;
+                        disease_history?: string | null;
+                        health_notes?: string | null;
+                        /** Format: uuid */
+                        current_housing_unit_id?: string | null;
+                        /** Format: uuid */
+                        group_id?: string | null;
+                        /** Format: date */
+                        last_vet_visit?: string | null;
+                        attachments?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                        images?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                        bulk_metadata?: {
+                            [key: string]: unknown;
+                        } | null;
+                    } & {
+                        [key: string]: unknown;
+                    }) & {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        user_id?: string | null;
+                        /** Format: uuid */
+                        farm_id?: string | null;
+                        /** Format: date-time */
+                        created_at?: string | null;
+                        /** Format: date-time */
+                        updated_at?: string | null;
+                    };
+                };
             };
         };
     };
@@ -10879,7 +13457,66 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": (({
+                        name?: string | null;
+                        species?: string;
+                        breed?: string | null;
+                        tag_number?: string | null;
+                        /** Format: date */
+                        birth_date?: string | null;
+                        sex_class?: string | null;
+                        gender?: string | null;
+                        weight?: number | null;
+                        health_status?: string | null;
+                        reproductive_status?: string | null;
+                        tracking_mode?: string | null;
+                        active_status?: string | null;
+                        quantity?: number | null;
+                        cost?: number | null;
+                        purchase_price?: number | null;
+                        sale_price?: number | null;
+                        wholesale_price?: number | null;
+                        profit_margin?: number | null;
+                        display_on_storefront?: boolean | null;
+                        description?: string | null;
+                        ownership_status?: string | null;
+                        source?: string | null;
+                        selling_type?: string | null;
+                        production_type?: string | null;
+                        genetic_info?: string | null;
+                        disease_history?: string | null;
+                        health_notes?: string | null;
+                        /** Format: uuid */
+                        current_housing_unit_id?: string | null;
+                        /** Format: uuid */
+                        group_id?: string | null;
+                        /** Format: date */
+                        last_vet_visit?: string | null;
+                        attachments?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                        images?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                        bulk_metadata?: {
+                            [key: string]: unknown;
+                        } | null;
+                    } & {
+                        [key: string]: unknown;
+                    }) & {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        user_id?: string | null;
+                        /** Format: uuid */
+                        farm_id?: string | null;
+                        /** Format: date-time */
+                        created_at?: string | null;
+                        /** Format: date-time */
+                        updated_at?: string | null;
+                    })[];
+                };
             };
         };
     };
@@ -10896,7 +13533,66 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": ({
+                        name?: string | null;
+                        species?: string;
+                        breed?: string | null;
+                        tag_number?: string | null;
+                        /** Format: date */
+                        birth_date?: string | null;
+                        sex_class?: string | null;
+                        gender?: string | null;
+                        weight?: number | null;
+                        health_status?: string | null;
+                        reproductive_status?: string | null;
+                        tracking_mode?: string | null;
+                        active_status?: string | null;
+                        quantity?: number | null;
+                        cost?: number | null;
+                        purchase_price?: number | null;
+                        sale_price?: number | null;
+                        wholesale_price?: number | null;
+                        profit_margin?: number | null;
+                        display_on_storefront?: boolean | null;
+                        description?: string | null;
+                        ownership_status?: string | null;
+                        source?: string | null;
+                        selling_type?: string | null;
+                        production_type?: string | null;
+                        genetic_info?: string | null;
+                        disease_history?: string | null;
+                        health_notes?: string | null;
+                        /** Format: uuid */
+                        current_housing_unit_id?: string | null;
+                        /** Format: uuid */
+                        group_id?: string | null;
+                        /** Format: date */
+                        last_vet_visit?: string | null;
+                        attachments?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                        images?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                        bulk_metadata?: {
+                            [key: string]: unknown;
+                        } | null;
+                    } & {
+                        [key: string]: unknown;
+                    }) & {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        user_id?: string | null;
+                        /** Format: uuid */
+                        farm_id?: string | null;
+                        /** Format: date-time */
+                        created_at?: string | null;
+                        /** Format: date-time */
+                        updated_at?: string | null;
+                    };
+                };
             };
         };
     };
@@ -10913,7 +13609,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -10924,13 +13624,122 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    name?: string | null;
+                    species?: string;
+                    breed?: string | null;
+                    tag_number?: string | null;
+                    /** Format: date */
+                    birth_date?: string | null;
+                    sex_class?: string | null;
+                    gender?: string | null;
+                    weight?: number | null;
+                    health_status?: string | null;
+                    reproductive_status?: string | null;
+                    tracking_mode?: string | null;
+                    active_status?: string | null;
+                    quantity?: number | null;
+                    cost?: number | null;
+                    purchase_price?: number | null;
+                    sale_price?: number | null;
+                    wholesale_price?: number | null;
+                    profit_margin?: number | null;
+                    display_on_storefront?: boolean | null;
+                    description?: string | null;
+                    ownership_status?: string | null;
+                    source?: string | null;
+                    selling_type?: string | null;
+                    production_type?: string | null;
+                    genetic_info?: string | null;
+                    disease_history?: string | null;
+                    health_notes?: string | null;
+                    /** Format: uuid */
+                    current_housing_unit_id?: string | null;
+                    /** Format: uuid */
+                    group_id?: string | null;
+                    /** Format: date */
+                    last_vet_visit?: string | null;
+                    attachments?: {
+                        [key: string]: unknown;
+                    }[] | null;
+                    images?: {
+                        [key: string]: unknown;
+                    }[] | null;
+                    bulk_metadata?: {
+                        [key: string]: unknown;
+                    } | null;
+                } & {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": ({
+                        name?: string | null;
+                        species?: string;
+                        breed?: string | null;
+                        tag_number?: string | null;
+                        /** Format: date */
+                        birth_date?: string | null;
+                        sex_class?: string | null;
+                        gender?: string | null;
+                        weight?: number | null;
+                        health_status?: string | null;
+                        reproductive_status?: string | null;
+                        tracking_mode?: string | null;
+                        active_status?: string | null;
+                        quantity?: number | null;
+                        cost?: number | null;
+                        purchase_price?: number | null;
+                        sale_price?: number | null;
+                        wholesale_price?: number | null;
+                        profit_margin?: number | null;
+                        display_on_storefront?: boolean | null;
+                        description?: string | null;
+                        ownership_status?: string | null;
+                        source?: string | null;
+                        selling_type?: string | null;
+                        production_type?: string | null;
+                        genetic_info?: string | null;
+                        disease_history?: string | null;
+                        health_notes?: string | null;
+                        /** Format: uuid */
+                        current_housing_unit_id?: string | null;
+                        /** Format: uuid */
+                        group_id?: string | null;
+                        /** Format: date */
+                        last_vet_visit?: string | null;
+                        attachments?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                        images?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                        bulk_metadata?: {
+                            [key: string]: unknown;
+                        } | null;
+                    } & {
+                        [key: string]: unknown;
+                    }) & {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        user_id?: string | null;
+                        /** Format: uuid */
+                        farm_id?: string | null;
+                        /** Format: date-time */
+                        created_at?: string | null;
+                        /** Format: date-time */
+                        updated_at?: string | null;
+                    };
+                };
             };
         };
     };
@@ -10941,13 +13750,127 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    quantity: number;
+                    animalData: {
+                        name?: string | null;
+                        species?: string;
+                        breed?: string | null;
+                        tag_number?: string | null;
+                        /** Format: date */
+                        birth_date?: string | null;
+                        sex_class?: string | null;
+                        gender?: string | null;
+                        weight?: number | null;
+                        health_status?: string | null;
+                        reproductive_status?: string | null;
+                        tracking_mode?: string | null;
+                        active_status?: string | null;
+                        quantity?: number | null;
+                        cost?: number | null;
+                        purchase_price?: number | null;
+                        sale_price?: number | null;
+                        wholesale_price?: number | null;
+                        profit_margin?: number | null;
+                        display_on_storefront?: boolean | null;
+                        description?: string | null;
+                        ownership_status?: string | null;
+                        source?: string | null;
+                        selling_type?: string | null;
+                        production_type?: string | null;
+                        genetic_info?: string | null;
+                        disease_history?: string | null;
+                        health_notes?: string | null;
+                        /** Format: uuid */
+                        current_housing_unit_id?: string | null;
+                        /** Format: uuid */
+                        group_id?: string | null;
+                        /** Format: date */
+                        last_vet_visit?: string | null;
+                        attachments?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                        images?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                        bulk_metadata?: {
+                            [key: string]: unknown;
+                        } | null;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                    tag_prefix?: string | null;
+                    tag_start_number?: number | null;
+                };
+            };
+        };
         responses: {
             201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": (({
+                        name?: string | null;
+                        species?: string;
+                        breed?: string | null;
+                        tag_number?: string | null;
+                        /** Format: date */
+                        birth_date?: string | null;
+                        sex_class?: string | null;
+                        gender?: string | null;
+                        weight?: number | null;
+                        health_status?: string | null;
+                        reproductive_status?: string | null;
+                        tracking_mode?: string | null;
+                        active_status?: string | null;
+                        quantity?: number | null;
+                        cost?: number | null;
+                        purchase_price?: number | null;
+                        sale_price?: number | null;
+                        wholesale_price?: number | null;
+                        profit_margin?: number | null;
+                        display_on_storefront?: boolean | null;
+                        description?: string | null;
+                        ownership_status?: string | null;
+                        source?: string | null;
+                        selling_type?: string | null;
+                        production_type?: string | null;
+                        genetic_info?: string | null;
+                        disease_history?: string | null;
+                        health_notes?: string | null;
+                        /** Format: uuid */
+                        current_housing_unit_id?: string | null;
+                        /** Format: uuid */
+                        group_id?: string | null;
+                        /** Format: date */
+                        last_vet_visit?: string | null;
+                        attachments?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                        images?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                        bulk_metadata?: {
+                            [key: string]: unknown;
+                        } | null;
+                    } & {
+                        [key: string]: unknown;
+                    }) & {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        user_id?: string | null;
+                        /** Format: uuid */
+                        farm_id?: string | null;
+                        /** Format: date-time */
+                        created_at?: string | null;
+                        /** Format: date-time */
+                        updated_at?: string | null;
+                    })[];
+                };
             };
         };
     };
@@ -10964,7 +13887,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -10975,13 +13902,23 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -10998,7 +13935,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11009,13 +13950,23 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11028,11 +13979,15 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            201: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11049,7 +14004,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -11060,13 +14019,23 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11083,7 +14052,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11094,13 +14067,23 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11117,7 +14100,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -11128,13 +14115,23 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11151,7 +14148,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11162,13 +14163,23 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11185,7 +14196,46 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": (({
+                        barn_name?: string | null;
+                        unit_code?: string | null;
+                        /** Format: uuid */
+                        field_id?: string | null;
+                        shape_polygon?: {
+                            [key: string]: unknown;
+                        } | null;
+                        capacity?: number | null;
+                        /** Format: date */
+                        date_built?: string | null;
+                        animal_types?: string[] | null;
+                        animal_type_other?: string | null;
+                        current_status?: string | null;
+                        biosecurity_level?: string | null;
+                        floor_type?: string | null;
+                        drainage_system?: string | null;
+                        ventilation_type?: string | null;
+                        attached_equipment?: string[] | null;
+                        attached_equipment_other?: string | null;
+                        notes?: string | null;
+                        attachments?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                    } & {
+                        [key: string]: unknown;
+                    }) & {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        user_id?: string | null;
+                        /** Format: uuid */
+                        farm_id?: string | null;
+                        /** Format: date-time */
+                        created_at?: string | null;
+                        /** Format: date-time */
+                        updated_at?: string | null;
+                    })[];
+                };
             };
         };
     };
@@ -11196,13 +14246,82 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    barn_name?: string | null;
+                    unit_code?: string | null;
+                    /** Format: uuid */
+                    field_id?: string | null;
+                    shape_polygon?: {
+                        [key: string]: unknown;
+                    } | null;
+                    capacity?: number | null;
+                    /** Format: date */
+                    date_built?: string | null;
+                    animal_types?: string[] | null;
+                    animal_type_other?: string | null;
+                    current_status?: string | null;
+                    biosecurity_level?: string | null;
+                    floor_type?: string | null;
+                    drainage_system?: string | null;
+                    ventilation_type?: string | null;
+                    attached_equipment?: string[] | null;
+                    attached_equipment_other?: string | null;
+                    notes?: string | null;
+                    attachments?: {
+                        [key: string]: unknown;
+                    }[] | null;
+                } & {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": ({
+                        barn_name?: string | null;
+                        unit_code?: string | null;
+                        /** Format: uuid */
+                        field_id?: string | null;
+                        shape_polygon?: {
+                            [key: string]: unknown;
+                        } | null;
+                        capacity?: number | null;
+                        /** Format: date */
+                        date_built?: string | null;
+                        animal_types?: string[] | null;
+                        animal_type_other?: string | null;
+                        current_status?: string | null;
+                        biosecurity_level?: string | null;
+                        floor_type?: string | null;
+                        drainage_system?: string | null;
+                        ventilation_type?: string | null;
+                        attached_equipment?: string[] | null;
+                        attached_equipment_other?: string | null;
+                        notes?: string | null;
+                        attachments?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                    } & {
+                        [key: string]: unknown;
+                    }) & {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        user_id?: string | null;
+                        /** Format: uuid */
+                        farm_id?: string | null;
+                        /** Format: date-time */
+                        created_at?: string | null;
+                        /** Format: date-time */
+                        updated_at?: string | null;
+                    };
+                };
             };
         };
     };
@@ -11219,7 +14338,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11236,7 +14359,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -11253,7 +14380,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11264,13 +14395,82 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    barn_name?: string | null;
+                    unit_code?: string | null;
+                    /** Format: uuid */
+                    field_id?: string | null;
+                    shape_polygon?: {
+                        [key: string]: unknown;
+                    } | null;
+                    capacity?: number | null;
+                    /** Format: date */
+                    date_built?: string | null;
+                    animal_types?: string[] | null;
+                    animal_type_other?: string | null;
+                    current_status?: string | null;
+                    biosecurity_level?: string | null;
+                    floor_type?: string | null;
+                    drainage_system?: string | null;
+                    ventilation_type?: string | null;
+                    attached_equipment?: string[] | null;
+                    attached_equipment_other?: string | null;
+                    notes?: string | null;
+                    attachments?: {
+                        [key: string]: unknown;
+                    }[] | null;
+                } & {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": ({
+                        barn_name?: string | null;
+                        unit_code?: string | null;
+                        /** Format: uuid */
+                        field_id?: string | null;
+                        shape_polygon?: {
+                            [key: string]: unknown;
+                        } | null;
+                        capacity?: number | null;
+                        /** Format: date */
+                        date_built?: string | null;
+                        animal_types?: string[] | null;
+                        animal_type_other?: string | null;
+                        current_status?: string | null;
+                        biosecurity_level?: string | null;
+                        floor_type?: string | null;
+                        drainage_system?: string | null;
+                        ventilation_type?: string | null;
+                        attached_equipment?: string[] | null;
+                        attached_equipment_other?: string | null;
+                        notes?: string | null;
+                        attachments?: {
+                            [key: string]: unknown;
+                        }[] | null;
+                    } & {
+                        [key: string]: unknown;
+                    }) & {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        user_id?: string | null;
+                        /** Format: uuid */
+                        farm_id?: string | null;
+                        /** Format: date-time */
+                        created_at?: string | null;
+                        /** Format: date-time */
+                        updated_at?: string | null;
+                    };
+                };
             };
         };
     };
@@ -11283,11 +14483,15 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            201: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11304,7 +14508,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11321,7 +14529,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -11332,13 +14544,23 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11349,13 +14571,23 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11372,7 +14604,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11389,7 +14625,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -11400,13 +14640,23 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11423,7 +14673,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11434,13 +14688,23 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11457,7 +14721,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -11468,13 +14736,23 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11491,7 +14769,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11508,7 +14790,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11525,7 +14811,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11536,13 +14826,23 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11559,7 +14859,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
             };
         };
     };
@@ -11570,13 +14874,23 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11593,7 +14907,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11604,13 +14922,23 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11629,7 +14957,38 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": (({
+                        /** Format: uuid */
+                        lot_id?: string | null;
+                        /** Format: uuid */
+                        field_id?: string | null;
+                        name?: string | null;
+                        condition?: string | null;
+                        operator?: string | null;
+                        value?: number | null;
+                        unit?: string | null;
+                        custom_message?: string | null;
+                        enabled?: boolean | null;
+                        severity?: string | null;
+                        notify_in_app?: boolean | null;
+                        notify_email?: boolean | null;
+                        notify_sms?: boolean | null;
+                    } & {
+                        [key: string]: unknown;
+                    }) & {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        user_id?: string | null;
+                        /** Format: uuid */
+                        farm_id?: string | null;
+                        /** Format: date-time */
+                        created_at?: string | null;
+                        /** Format: date-time */
+                        updated_at?: string | null;
+                    })[];
+                };
             };
         };
     };
@@ -11640,13 +14999,66 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    lot_id?: string | null;
+                    /** Format: uuid */
+                    field_id?: string | null;
+                    name?: string | null;
+                    condition?: string | null;
+                    operator?: string | null;
+                    value?: number | null;
+                    unit?: string | null;
+                    custom_message?: string | null;
+                    enabled?: boolean | null;
+                    severity?: string | null;
+                    notify_in_app?: boolean | null;
+                    notify_email?: boolean | null;
+                    notify_sms?: boolean | null;
+                } & {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": ({
+                        /** Format: uuid */
+                        lot_id?: string | null;
+                        /** Format: uuid */
+                        field_id?: string | null;
+                        name?: string | null;
+                        condition?: string | null;
+                        operator?: string | null;
+                        value?: number | null;
+                        unit?: string | null;
+                        custom_message?: string | null;
+                        enabled?: boolean | null;
+                        severity?: string | null;
+                        notify_in_app?: boolean | null;
+                        notify_email?: boolean | null;
+                        notify_sms?: boolean | null;
+                    } & {
+                        [key: string]: unknown;
+                    }) & {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        user_id?: string | null;
+                        /** Format: uuid */
+                        farm_id?: string | null;
+                        /** Format: date-time */
+                        created_at?: string | null;
+                        /** Format: date-time */
+                        updated_at?: string | null;
+                    };
+                };
             };
         };
     };
@@ -11665,7 +15077,38 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": (({
+                        /** Format: uuid */
+                        lot_id?: string | null;
+                        /** Format: uuid */
+                        field_id?: string | null;
+                        name?: string | null;
+                        condition?: string | null;
+                        operator?: string | null;
+                        value?: number | null;
+                        unit?: string | null;
+                        custom_message?: string | null;
+                        enabled?: boolean | null;
+                        severity?: string | null;
+                        notify_in_app?: boolean | null;
+                        notify_email?: boolean | null;
+                        notify_sms?: boolean | null;
+                    } & {
+                        [key: string]: unknown;
+                    }) & {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        user_id?: string | null;
+                        /** Format: uuid */
+                        farm_id?: string | null;
+                        /** Format: date-time */
+                        created_at?: string | null;
+                        /** Format: date-time */
+                        updated_at?: string | null;
+                    })[];
+                };
             };
         };
     };
@@ -11684,7 +15127,38 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": (({
+                        /** Format: uuid */
+                        lot_id?: string | null;
+                        /** Format: uuid */
+                        field_id?: string | null;
+                        name?: string | null;
+                        condition?: string | null;
+                        operator?: string | null;
+                        value?: number | null;
+                        unit?: string | null;
+                        custom_message?: string | null;
+                        enabled?: boolean | null;
+                        severity?: string | null;
+                        notify_in_app?: boolean | null;
+                        notify_email?: boolean | null;
+                        notify_sms?: boolean | null;
+                    } & {
+                        [key: string]: unknown;
+                    }) & {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        user_id?: string | null;
+                        /** Format: uuid */
+                        farm_id?: string | null;
+                        /** Format: date-time */
+                        created_at?: string | null;
+                        /** Format: date-time */
+                        updated_at?: string | null;
+                    })[];
+                };
             };
         };
     };
@@ -11701,7 +15175,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11712,13 +15190,66 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    lot_id?: string | null;
+                    /** Format: uuid */
+                    field_id?: string | null;
+                    name?: string | null;
+                    condition?: string | null;
+                    operator?: string | null;
+                    value?: number | null;
+                    unit?: string | null;
+                    custom_message?: string | null;
+                    enabled?: boolean | null;
+                    severity?: string | null;
+                    notify_in_app?: boolean | null;
+                    notify_email?: boolean | null;
+                    notify_sms?: boolean | null;
+                } & {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": ({
+                        /** Format: uuid */
+                        lot_id?: string | null;
+                        /** Format: uuid */
+                        field_id?: string | null;
+                        name?: string | null;
+                        condition?: string | null;
+                        operator?: string | null;
+                        value?: number | null;
+                        unit?: string | null;
+                        custom_message?: string | null;
+                        enabled?: boolean | null;
+                        severity?: string | null;
+                        notify_in_app?: boolean | null;
+                        notify_email?: boolean | null;
+                        notify_sms?: boolean | null;
+                    } & {
+                        [key: string]: unknown;
+                    }) & {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        user_id?: string | null;
+                        /** Format: uuid */
+                        farm_id?: string | null;
+                        /** Format: date-time */
+                        created_at?: string | null;
+                        /** Format: date-time */
+                        updated_at?: string | null;
+                    };
+                };
             };
         };
     };
@@ -11729,13 +15260,23 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
-            201: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11746,19 +15287,32 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
         responses: {
-            201: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
     LogbookController_getSession_v1: {
         parameters: {
-            query?: never;
+            query?: {
+                fieldId?: string;
+                date?: string;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -11769,13 +15323,20 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
     LogbookController_getPracticeCatalog_v1: {
         parameters: {
-            query?: never;
+            query: {
+                fieldId: string;
+                date?: string;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -11786,7 +15347,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };
@@ -11807,7 +15372,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
             };
         };
     };

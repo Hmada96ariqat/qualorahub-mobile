@@ -1,5 +1,46 @@
 # Current Phase Tracker
 
-- current phase: Phase 0 — Discovery & Mapping
-- completed phases: none
-- blocked items: none
+- current phase: Phase 14 — Hardening & Production Readiness
+- completed phases:
+  - Phase 0 — Discovery & Mapping
+  - Phase 1 — Foundation
+  - Phase 2 — Auth, Session, Guards
+  - Phase 3 — Shared UI Kit + UX System
+  - Phase 4 — First Full Module E2E: Fields & Lots
+  - Phase 5 — Dashboard Module
+  - Phase 6 — Tasks Module
+  - Phase 7 — Equipment Module (PASS)
+  - Phase 8 — Finance Module (PASS)
+  - Phase 9 — Inventory Core (PASS)
+  - Phase 10 — Stock Adjustment + Orders + Store Dashboard (+ Sales Tx) (PASS)
+  - Phase 11 — Crop Planning + Production Cycles + Logbook (PASS)
+  - Phase 12 — Livestock + Animal Housing + Weather (PASS; manual signoff confirmed)
+  - Phase 13 — Users/Roles, Contacts, Settings, Notifications, Subscription Access UX (PASS; manual gate waived by user)
+- recent updates (March 2, 2026):
+  - Phase 13 was approved and closed; Phase 14 started by user approval.
+  - Phase 14 hardening implementation delivered:
+    - app-shell observability and error boundary wiring.
+    - API request/error telemetry instrumentation.
+    - query client performance defaults.
+    - dedicated `test:contracts` and `test:smoke` suites.
+    - release pipeline/checklist/runbook docs + `eas.json` profiles.
+  - Phase 14 automated gate commands are green:
+    - `api:pull`, `api:generate`, `api:verify`
+    - `test:contracts`, `test:smoke`
+    - `lint`, `typecheck`, `test:ci`
+    - `check:boundaries`, `docs:code-map`, `docs:check`
+  - Phase 14 is ready for signoff (manual checklist waived by user instruction).
+- blocked items:
+  - `QH-OAPI-001`: auth request DTO schemas are empty in generated OpenAPI (`LoginDto`, `RefreshTokenDto`, `LogoutDto`, `ForgotPasswordDto`, `ResetPasswordDto`).
+  - `QH-OAPI-002`: `/subscriptions/me`, `/subscriptions/me/entitlements`, `/subscriptions/me/menus` response schemas are empty in generated OpenAPI.
+  - `QH-OAPI-003`: fields/lots request DTO schemas are empty in generated OpenAPI (`CreateFieldDto`, `UpdateFieldDto`, `CreateLotDto`, `UpdateLotDto`).
+  - `QH-OAPI-004`: fields/lots response schemas are untyped in generated OpenAPI (`content?: never`).
+  - `QH-OAPI-005`: dashboard snapshot response schema is untyped in generated OpenAPI (`content?: never`).
+  - `QH-OAPI-006`: task request DTO schemas are empty in generated OpenAPI (`CreateTaskDto`, `UpdateTaskDto`).
+  - `QH-OAPI-007`: task response schemas are untyped in generated OpenAPI (`content?: never`).
+  - `QH-OAPI-012`: `BulkHardDeleteProductsCommandDto` request schema is still empty in OpenAPI; fallback mapping is isolated in `src/api/modules/inventory.ts`.
+  - `QH-OAPI-019`: storefront validation endpoint is untyped (`POST /products/storefront-validation`) and intentionally deferred by scope.
+  - Phase 12 contract caveat (no blocker ID yet):
+    - animal groups, health checks, yield records, housing maintenance, and housing consumption endpoints remain `Record<string, unknown>` in generated OpenAPI responses/request DTOs; parsing/normalization is isolated in `src/api/modules/livestock.ts`.
+  - Phase 13 contract caveat (no blocker ID yet):
+    - user-management/contact/settings/notification request and response contracts remain mostly untyped (`Record<string, never>` or `content?: never`) and are normalized in `src/api/modules/management.ts`.
