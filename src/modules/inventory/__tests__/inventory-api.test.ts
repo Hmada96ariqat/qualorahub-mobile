@@ -4,7 +4,7 @@ import {
   createProduct,
   createWarehouse,
   enableStorefrontForActiveCategories,
-  hardDeleteProducts,
+  deactivateProducts,
   listCropsForGuidance,
   listManufacturerContacts,
   listCategories,
@@ -68,7 +68,7 @@ describe('inventory api module', () => {
     expect((options.headers as Record<string, string>).Authorization).toBe('Bearer token');
   });
 
-  it('builds create/update payloads and hard-delete command', async () => {
+  it('builds create/update payloads and deactivate command', async () => {
     const fetchMock = jest
       .fn()
       .mockResolvedValueOnce({
@@ -134,7 +134,7 @@ describe('inventory api module', () => {
       .mockResolvedValueOnce({
         ok: true,
         status: 200,
-        text: async () => JSON.stringify({ deletedCount: 1 }),
+        text: async () => JSON.stringify({ deactivatedCount: 1 }),
         headers: { get: () => null },
       });
     global.fetch = fetchMock as unknown as typeof fetch;
@@ -143,9 +143,9 @@ describe('inventory api module', () => {
     await updateCategory('token', 'category-2', { name: 'Fertilizers Updated', status: 'inactive' });
     await createProduct('token', { name: 'Tomato Seeds', unit: 'kg', sku: 'SKU-1', status: 'active' });
     await updateProduct('token', 'product-1', { name: 'Tomato Seeds Updated', status: 'inactive' });
-    const deletedCount = await hardDeleteProducts('token', { ids: ['product-1'] });
+    const deactivatedCount = await deactivateProducts('token', { ids: ['product-1'] });
 
-    expect(deletedCount).toBe(1);
+    expect(deactivatedCount).toBe(1);
 
     const [createCategoryUrl, createCategoryOptions] = fetchMock.mock.calls[0];
     expect(createCategoryUrl).toBe('http://127.0.0.1:3300/api/v1/categories');
@@ -174,10 +174,10 @@ describe('inventory api module', () => {
     expect(updateProductUrl).toBe('http://127.0.0.1:3300/api/v1/products/product-1');
     expect(updateProductOptions.method).toBe('PATCH');
 
-    const [hardDeleteUrl, hardDeleteOptions] = fetchMock.mock.calls[4];
-    expect(hardDeleteUrl).toBe('http://127.0.0.1:3300/api/v1/products/commands/hard-delete');
-    expect(hardDeleteOptions.method).toBe('POST');
-    expect(JSON.parse(hardDeleteOptions.body as string)).toEqual({ ids: ['product-1'] });
+    const [deactivateUrl, deactivateOptions] = fetchMock.mock.calls[4];
+    expect(deactivateUrl).toBe('http://127.0.0.1:3300/api/v1/products/commands/deactivate');
+    expect(deactivateOptions.method).toBe('POST');
+    expect(JSON.parse(deactivateOptions.body as string)).toEqual({ ids: ['product-1'] });
   });
 
   it('loads canonical products list and stock-adjustment products', async () => {

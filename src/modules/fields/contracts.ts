@@ -20,6 +20,7 @@ export const FIELD_STATUS_FILTER_OPTIONS = [
 
 export type FieldAreaUnit = (typeof FIELD_AREA_UNIT_OPTIONS)[number]['value'];
 export type FieldStatusFilter = (typeof FIELD_STATUS_FILTER_OPTIONS)[number]['value'];
+export type FieldListMode = 'all' | 'active' | 'inactive';
 export type FieldFormMode = 'create' | 'edit';
 
 export type ManualAreaFallback = {

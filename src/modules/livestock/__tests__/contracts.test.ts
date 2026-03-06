@@ -33,7 +33,6 @@ describe('livestock contracts', () => {
       healthStatus: 'healthy',
       activeStatus: 'active',
       quantity: '1',
-      groupId: 'group-1',
       housingUnitId: 'housing-1',
       lastVetVisit: '2026-03-01',
       notes: '',

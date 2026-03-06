@@ -1,5 +1,4 @@
 import type {
-  AnimalGroup,
   AnimalHealthCheck,
   AnimalRecord,
   AnimalYieldRecord,
@@ -53,16 +52,8 @@ export type AnimalFormValues = {
   healthStatus: string;
   activeStatus: string;
   quantity: string;
-  groupId: string;
   housingUnitId: string;
   lastVetVisit: string;
-  notes: string;
-};
-
-export type AnimalGroupFormValues = {
-  name: string;
-  species: string;
-  status: string;
   notes: string;
 };
 
@@ -138,7 +129,6 @@ export function toAnimalFormValues(animal?: AnimalRecord | null): AnimalFormValu
       healthStatus: '',
       activeStatus: 'active',
       quantity: '1',
-      groupId: '',
       housingUnitId: '',
       lastVetVisit: '',
       notes: '',
@@ -153,28 +143,9 @@ export function toAnimalFormValues(animal?: AnimalRecord | null): AnimalFormValu
     healthStatus: animal.healthStatus ?? '',
     activeStatus: (animal.activeStatus ?? 'active').toLowerCase(),
     quantity: animal.quantity === null ? '1' : String(animal.quantity),
-    groupId: animal.groupId ?? '',
     housingUnitId: animal.currentHousingUnitId ?? '',
     lastVetVisit: animal.lastVetVisit ?? '',
     notes: '',
-  };
-}
-
-export function toAnimalGroupFormValues(group?: AnimalGroup | null): AnimalGroupFormValues {
-  if (!group) {
-    return {
-      name: '',
-      species: '',
-      status: 'active',
-      notes: '',
-    };
-  }
-
-  return {
-    name: group.name,
-    species: group.species ?? '',
-    status: (group.status ?? 'active').toLowerCase(),
-    notes: group.notes ?? '',
   };
 }
 

@@ -64,8 +64,8 @@ export function useLotsModule(options: UseLotsModuleOptions) {
   });
 
   const fieldsContextQuery = useQuery({
-    queryKey: fieldsContextQueryKey(options.fieldContextStatusFilter),
-    queryFn: () => listFields(token ?? '', { status: options.fieldContextStatusFilter }),
+    queryKey: fieldsContextQueryKey('all'),
+    queryFn: () => listFields(token ?? '', { status: 'all' }),
     enabled: Boolean(token),
   });
 
@@ -105,24 +105,33 @@ export function useLotsModule(options: UseLotsModuleOptions) {
 
   const lots = useMemo<LotSummary[]>(() => lotsQuery.data ?? [], [lotsQuery.data]);
   const inactiveLots = useMemo<LotSummary[]>(() => inactiveLotsQuery.data ?? [], [inactiveLotsQuery.data]);
+  const allFields = useMemo<FieldSummary[]>(() => fieldsContextQuery.data ?? [], [fieldsContextQuery.data]);
 
   const fieldContextFields = useMemo<FieldSummary[]>(() => {
-    const source = fieldsContextQuery.data ?? [];
+    const source =
+      options.fieldContextStatusFilter === 'all'
+        ? allFields
+        : allFields.filter((field) => field.status === options.fieldContextStatusFilter);
     const search = options.fieldSearchText.trim().toLowerCase();
     if (!search) {
       return source;
     }
 
     return source.filter((field) => buildFieldSearchText(field).includes(search));
-  }, [fieldsContextQuery.data, options.fieldSearchText]);
+  }, [allFields, options.fieldContextStatusFilter, options.fieldSearchText]);
+
+  const workflowFields = useMemo<FieldSummary[]>(
+    () => allFields.filter((field) => field.status === 'active'),
+    [allFields],
+  );
 
   const fieldOptions = useMemo(
     () =>
-      fieldContextFields.map((field) => ({
+      workflowFields.map((field) => ({
         label: field.name,
         value: field.id,
       })),
-    [fieldContextFields],
+    [workflowFields],
   );
 
   const isMutating =
@@ -144,7 +153,9 @@ export function useLotsModule(options: UseLotsModuleOptions) {
   return {
     lots,
     inactiveLots,
+    allFields,
     fieldContextFields,
+    workflowFields,
     fieldOptions,
     isLoading: lotsQuery.isLoading || inactiveLotsQuery.isLoading || fieldsContextQuery.isLoading,
     isRefreshing: lotsQuery.isFetching || inactiveLotsQuery.isFetching || fieldsContextQuery.isFetching,

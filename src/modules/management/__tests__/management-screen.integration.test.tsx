@@ -3,13 +3,9 @@ import { fireEvent, waitFor } from '@testing-library/react-native';
 import { ToastProvider } from '../../../components';
 import { renderWithProviders } from '../../../components/__tests__/test-utils';
 import type {
-  CreateManagedContactRequest,
   CreateManagedInviteRequest,
-  CreateManagedNotificationRequest,
   CreateManagedRoleRequest,
   ManagedRole,
-  UpdateManagedContactRequest,
-  UpdateManagedNotificationRequest,
   UpdateManagedRoleRequest,
 } from '../../../api/modules/management';
 import { useAuth } from '../../../providers/AuthProvider';
@@ -57,9 +53,9 @@ describe('ManagementScreen integration', () => {
       id: 'profile-1',
       userId: 'user-1',
       email: 'admin@example.test',
-      fullName: 'Admin User',
-      nickName: 'Admin',
-      mobileNumber: null,
+      fullName: 'Updated Admin User',
+      nickName: 'Ops',
+      mobileNumber: '+1 555 100',
       status: 'active',
       roleId: 'role-1',
       roleName: 'Admin',
@@ -85,6 +81,20 @@ describe('ManagementScreen integration', () => {
           createdAt: '2026-03-01T00:00:00.000Z',
           updatedAt: '2026-03-01T00:00:00.000Z',
         },
+        {
+          id: 'profile-2',
+          userId: 'user-2',
+          email: 'inactive@example.test',
+          fullName: 'Inactive User',
+          nickName: null,
+          mobileNumber: null,
+          status: 'inactive',
+          roleId: 'role-1',
+          roleName: 'Admin',
+          userType: 'regular',
+          createdAt: '2026-03-01T00:00:00.000Z',
+          updatedAt: '2026-03-01T00:00:00.000Z',
+        },
       ],
       roles: [
         {
@@ -104,21 +114,17 @@ describe('ManagementScreen integration', () => {
           name: 'Admin',
         },
       ],
-      invites: [],
-      contactsPage: {
-        items: [],
-        total: 0,
-        limit: 10,
-        offset: 0,
-      },
-      notifications: [],
-      subscription: {
-        farmId: 'farm-1',
-        subscription: {
-          id: 'sub-1',
-          status: 'active',
+      invites: [
+        {
+          id: 'invite-1',
+          email: 'invite@example.test',
+          status: 'pending',
+          fullName: 'Invite User',
+          roleId: 'role-1',
+          expiresAt: '2026-03-03T00:00:00.000Z',
+          createdAt: '2026-03-01T00:00:00.000Z',
         },
-      },
+      ],
       isLoading: false,
       isRefreshing: false,
       isMutating: false,
@@ -160,82 +166,6 @@ describe('ManagementScreen integration', () => {
         void inviteId;
         return true;
       },
-      createContact: async (input: CreateManagedContactRequest) => {
-        void input;
-        return {
-          id: 'contact-1',
-          name: 'Supplier',
-          type: 'supplier',
-          contactTypes: ['supplier'],
-          company: null,
-          phone: null,
-          email: null,
-          address: null,
-          notes: null,
-          country: null,
-          cityRegion: null,
-          taxId: null,
-          status: 'active',
-          createdAt: '2026-03-01T00:00:00.000Z',
-          updatedAt: '2026-03-01T00:00:00.000Z',
-        };
-      },
-      updateContact: async (contactId: string, input: UpdateManagedContactRequest) => {
-        void contactId;
-        void input;
-        return {
-          id: 'contact-1',
-          name: 'Supplier',
-          type: 'supplier',
-          contactTypes: ['supplier'],
-          company: null,
-          phone: null,
-          email: null,
-          address: null,
-          notes: null,
-          country: null,
-          cityRegion: null,
-          taxId: null,
-          status: 'active',
-          createdAt: '2026-03-01T00:00:00.000Z',
-          updatedAt: '2026-03-01T00:00:00.000Z',
-        };
-      },
-      createNotification: async (input: CreateManagedNotificationRequest) => {
-        void input;
-        return {
-          id: 'notification-1',
-          type: 'task_due',
-          title: 'Task Due',
-          message: 'Check task',
-          readAt: null,
-          entityType: null,
-          entityId: null,
-          dedupeKey: null,
-          createdAt: '2026-03-01T00:00:00.000Z',
-          updatedAt: '2026-03-01T00:00:00.000Z',
-        };
-      },
-      updateNotification: async (notificationId: string, input: UpdateManagedNotificationRequest) => {
-        void notificationId;
-        void input;
-        return {
-          id: 'notification-1',
-          type: 'task_due',
-          title: 'Task Due',
-          message: 'Check task',
-          readAt: '2026-03-02T00:00:00.000Z',
-          entityType: null,
-          entityId: null,
-          dedupeKey: null,
-          createdAt: '2026-03-01T00:00:00.000Z',
-          updatedAt: '2026-03-01T00:00:00.000Z',
-        };
-      },
-      deleteNotification: async (notificationId: string) => {
-        void notificationId;
-        return true;
-      },
     };
   }
 
@@ -252,9 +182,11 @@ describe('ManagementScreen integration', () => {
         context: {
           userId: 'user-1',
           email: 'admin@example.test',
+          displayName: 'Admin User',
           role: 'admin',
           type: 'regular',
           farmId: 'farm-1',
+          farmName: 'Green Valley Farm',
         },
         rbac: null,
         entitlements: {
@@ -270,15 +202,31 @@ describe('ManagementScreen integration', () => {
     });
   });
 
-  it('creates a role via form submit', async () => {
-    const { getAllByText, getByPlaceholderText } = renderScreen();
+  it('uses inventory-style tabs and defaults to the active users view', async () => {
+    const { getByTestId, getByText, queryByText } = renderScreen();
+
+    expect(getByTestId('management-module-tabs')).toBeTruthy();
+    expect(getByText('Admin User')).toBeTruthy();
+    expect(queryByText('Inactive User')).toBeNull();
+    expect(queryByText('Invite User')).toBeNull();
+
+    fireEvent.press(getByText('Inactive (1)'));
+
+    await waitFor(() => {
+      expect(getByText('Inactive User')).toBeTruthy();
+    });
+  });
+
+  it('creates a role via the roles tab', async () => {
+    const { getAllByText, getByPlaceholderText, getByTestId } = renderScreen();
+
+    fireEvent.press(getByTestId('management-module-tabs.roles'));
 
     fireEvent.press(getAllByText('Create Role')[0]);
 
     await waitFor(() => expect(getByPlaceholderText('Role name')).toBeTruthy());
     fireEvent.changeText(getByPlaceholderText('Role name'), '  Supervisor  ');
-    const submitButton = getAllByText('Create Role').slice(-1)[0];
-    fireEvent.press(submitButton);
+    fireEvent.press(getAllByText('Create Role').slice(-1)[0]);
 
     await waitFor(() =>
       expect(createRoleMock).toHaveBeenCalledWith({
@@ -287,9 +235,12 @@ describe('ManagementScreen integration', () => {
     );
   });
 
-  it('updates a user via form submit', async () => {
-    const { getByText, getByPlaceholderText, getAllByText } = renderScreen();
+  it('updates a user through the detail and edit flow', async () => {
+    const { getByPlaceholderText, getByTestId, getByText, getAllByText } = renderScreen();
 
+    fireEvent.press(getByTestId('management-user-row-profile-1'));
+
+    await waitFor(() => expect(getByText('Edit User')).toBeTruthy());
     fireEvent.press(getByText('Edit User'));
 
     await waitFor(() => expect(getByPlaceholderText('Full name')).toBeTruthy());

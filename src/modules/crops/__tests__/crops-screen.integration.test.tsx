@@ -1,7 +1,9 @@
 import React from 'react';
-import { act, fireEvent, waitFor } from '@testing-library/react-native';
+import { act, fireEvent, waitFor, within } from '@testing-library/react-native';
 import { ToastProvider } from '../../../components';
 import { renderWithProviders } from '../../../components/__tests__/test-utils';
+import type { FieldSummary } from '../../../api/modules/fields';
+import type { LotSummary } from '../../../api/modules/lots';
 import type {
   CloseProductionCycleRequest,
   CreateCropRequest,
@@ -24,9 +26,13 @@ jest.mock('../useCropsModule.hook', () => ({
 }));
 
 function renderScreen() {
+  return renderScreenWithProps();
+}
+
+function renderScreenWithProps(props: React.ComponentProps<typeof CropsScreen> = {}) {
   return renderWithProviders(
     <ToastProvider>
-      <CropsScreen />
+      <CropsScreen {...props} />
     </ToastProvider>,
   );
 }
@@ -63,6 +69,14 @@ describe('CropsScreen integration', () => {
     updatedAt: '2026-03-01T00:00:00.000Z',
   };
 
+  const inactiveCycle: ProductionCycleSummary = {
+    ...sampleCycle,
+    id: 'cycle-2',
+    cropId: 'crop-2',
+    cropName: 'Pepper',
+    status: 'inactive',
+  };
+
   const sampleOperation: ProductionCycleOperationSummary = {
     id: 'operation-1',
     cycleId: 'cycle-1',
@@ -83,10 +97,114 @@ describe('CropsScreen integration', () => {
     .fn<Promise<CropSummary>, [CreateCropRequest]>()
     .mockResolvedValue(sampleCrop);
 
-  function buildHookResult(): ReturnType<typeof useCropsModule> {
+  const sampleFields: FieldSummary[] = [
+    {
+      id: 'field-1',
+      name: 'North Field',
+      areaHectares: '10',
+      areaUnit: 'hectares',
+      status: 'active',
+      shapePolygon: null,
+      location: null,
+      soilType: null,
+      notes: null,
+      soilTypeCategory: null,
+      soilTypeOther: null,
+      irrigationType: null,
+      irrigationTypeOther: null,
+      soilConditions: null,
+      activeCycleSummary: null,
+      createdAt: '2026-03-01T00:00:00.000Z',
+      updatedAt: '2026-03-01T00:00:00.000Z',
+    },
+    {
+      id: 'field-2',
+      name: 'South Field',
+      areaHectares: '8',
+      areaUnit: 'hectares',
+      status: 'inactive',
+      shapePolygon: null,
+      location: null,
+      soilType: null,
+      notes: null,
+      soilTypeCategory: null,
+      soilTypeOther: null,
+      irrigationType: null,
+      irrigationTypeOther: null,
+      soilConditions: null,
+      activeCycleSummary: null,
+      createdAt: '2026-03-01T00:00:00.000Z',
+      updatedAt: '2026-03-01T00:00:00.000Z',
+    },
+  ];
+
+  const sampleLots: LotSummary[] = [
+    {
+      id: 'lot-1',
+      fieldId: 'field-1',
+      name: 'Lot A',
+      description: null,
+      lotType: 'open_lot',
+      lotTypeOther: null,
+      cropRotationPlan: 'monoculture',
+      cropRotationPlanOther: null,
+      lightProfile: 'full_sun',
+      shapePolygon: null,
+      pastSeasonsCrops: [],
+      weatherAlertsEnabled: false,
+      notes: null,
+      status: 'active',
+      fieldName: 'North Field',
+      fieldStatus: 'active',
+      createdAt: '2026-03-01T00:00:00.000Z',
+      updatedAt: '2026-03-01T00:00:00.000Z',
+    },
+    {
+      id: 'lot-2',
+      fieldId: 'field-1',
+      name: 'Lot B',
+      description: null,
+      lotType: 'open_lot',
+      lotTypeOther: null,
+      cropRotationPlan: 'monoculture',
+      cropRotationPlanOther: null,
+      lightProfile: 'full_sun',
+      shapePolygon: null,
+      pastSeasonsCrops: [],
+      weatherAlertsEnabled: false,
+      notes: null,
+      status: 'inactive',
+      fieldName: 'North Field',
+      fieldStatus: 'active',
+      createdAt: '2026-03-01T00:00:00.000Z',
+      updatedAt: '2026-03-01T00:00:00.000Z',
+    },
+    {
+      id: 'lot-3',
+      fieldId: 'field-2',
+      name: 'Lot C',
+      description: null,
+      lotType: 'open_lot',
+      lotTypeOther: null,
+      cropRotationPlan: 'monoculture',
+      cropRotationPlanOther: null,
+      lightProfile: 'full_sun',
+      shapePolygon: null,
+      pastSeasonsCrops: [],
+      weatherAlertsEnabled: false,
+      notes: null,
+      status: 'active',
+      fieldName: 'South Field',
+      fieldStatus: 'inactive',
+      createdAt: '2026-03-01T00:00:00.000Z',
+      updatedAt: '2026-03-01T00:00:00.000Z',
+    },
+  ];
+
+  function buildHookResult(overrides: Partial<ReturnType<typeof useCropsModule>> = {}): ReturnType<typeof useCropsModule> {
     return {
-      fields: [],
-      lots: [],
+      fields: sampleFields,
+      lots: sampleLots,
       cycles: [],
       crops: [sampleCrop],
       cycleOperations: [],
@@ -160,12 +278,23 @@ describe('CropsScreen integration', () => {
           requiresFollowup: false,
         };
       },
+      ...overrides,
     };
   }
 
   beforeEach(() => {
     createCropMock.mockClear();
     useCropsModuleMock.mockReturnValue(buildHookResult());
+  });
+
+  it('opens on the requested initial tab when provided', async () => {
+    const { getByText, queryByText } = renderScreenWithProps({ initialTab: 'logbook' });
+
+    await waitFor(() => {
+      expect(getByText('Logbook submit')).toBeTruthy();
+    });
+
+    expect(queryByText('Crop catalog')).toBeNull();
   });
 
   it('submits create crop through the module hook with normalized payload fields', async () => {
@@ -193,5 +322,67 @@ describe('CropsScreen integration', () => {
     await act(async () => {
       await new Promise((resolve) => setTimeout(resolve, 350));
     });
+  });
+
+  it('filters cycle selectors to active records within the selected field', async () => {
+    useCropsModuleMock.mockReturnValue(
+      buildHookResult({
+        crops: [
+          sampleCrop,
+          {
+            ...sampleCrop,
+            id: 'crop-2',
+            name: 'Pepper',
+            status: 'inactive',
+            fieldId: 'field-1',
+          },
+          {
+            ...sampleCrop,
+            id: 'crop-3',
+            name: 'Cucumber',
+            fieldId: 'field-2',
+          },
+        ],
+      }),
+    );
+
+    const { getByTestId, getByText, queryByTestId } = renderScreen();
+
+    fireEvent.press(getByText('Cycles'));
+    fireEvent.press(getByText('Create Cycle'));
+
+    fireEvent.press(within(getByTestId('cycle-form-field-select')).getByTestId('button'));
+    expect(getByTestId('app-select-option-field-1')).toBeTruthy();
+    expect(queryByTestId('app-select-option-field-2')).toBeNull();
+    fireEvent.press(getByTestId('app-select-option-field-1'));
+
+    fireEvent.press(within(getByTestId('cycle-form-lot-select')).getByTestId('button'));
+    expect(getByTestId('app-select-option-lot-1')).toBeTruthy();
+    expect(queryByTestId('app-select-option-lot-2')).toBeNull();
+    expect(queryByTestId('app-select-option-lot-3')).toBeNull();
+    fireEvent.press(getByTestId('app-select-option-lot-1'));
+
+    fireEvent.press(within(getByTestId('cycle-form-crop-select')).getByTestId('button'));
+    expect(getByTestId('app-select-option-crop-1')).toBeTruthy();
+    expect(queryByTestId('app-select-option-crop-2')).toBeNull();
+    expect(queryByTestId('app-select-option-crop-3')).toBeNull();
+  });
+
+  it('defaults the cycle status filter to active records', async () => {
+    useCropsModuleMock.mockReturnValue(
+      buildHookResult({
+        cycles: [sampleCycle, inactiveCycle],
+      }),
+    );
+
+    const { getByText, queryByText } = renderScreen();
+
+    fireEvent.press(getByText('Cycles'));
+
+    await waitFor(() => {
+      expect(getByText('Tomato')).toBeTruthy();
+    });
+
+    expect(queryByText('Pepper')).toBeNull();
   });
 });

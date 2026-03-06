@@ -1,5 +1,5 @@
 import React from 'react';
-import type { ReactNode } from 'react';
+import type { ReactNode, RefObject } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -16,6 +16,7 @@ type AppScreenProps = {
   scroll?: boolean;
   padded?: boolean;
   contentContainerStyle?: StyleProp<ViewStyle>;
+  scrollViewRef?: RefObject<ScrollView | null>;
   testID?: string;
 };
 
@@ -24,6 +25,7 @@ export function AppScreen({
   scroll = false,
   padded = true,
   contentContainerStyle,
+  scrollViewRef,
   testID,
 }: AppScreenProps) {
   const theme = useAppTheme();
@@ -32,6 +34,7 @@ export function AppScreen({
     return (
       <SafeAreaView style={[styles.safe, { backgroundColor: theme.colors.background }]} testID={testID}>
         <ScrollView
+          ref={scrollViewRef}
           contentContainerStyle={[
             styles.scrollContent,
             padded ? styles.padded : null,

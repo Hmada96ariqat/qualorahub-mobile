@@ -1,5 +1,8 @@
 import {
   buildFinanceSummaryMetrics,
+  filterFinanceGroupsByType,
+  isReversalLinkedTransaction,
+  matchesTransactionListMode,
   parseAmountInput,
   toFinanceGroupFormValues,
   toTransactionFormValues,
@@ -80,9 +83,9 @@ describe('finance contracts', () => {
       }),
     ).toMatchObject({
       type: 'income',
+      transactionName: 'Coffee sale',
       amount: '11.50',
       financeGroupId: 'group-1',
-      description: 'Coffee sale',
       transactionDate: '2026-03-02',
     });
 
@@ -98,5 +101,87 @@ describe('finance contracts', () => {
       name: 'Sales',
       type: 'income',
     });
+  });
+
+  it('detects reversal-linked transactions across all lock fields', () => {
+    expect(
+      isReversalLinkedTransaction({
+        isReversal: true,
+        originalTransactionId: null,
+        reversalTransactionId: null,
+      }),
+    ).toBe(true);
+
+    expect(
+      isReversalLinkedTransaction({
+        isReversal: false,
+        originalTransactionId: 'orig-1',
+        reversalTransactionId: null,
+      }),
+    ).toBe(true);
+
+    expect(
+      isReversalLinkedTransaction({
+        isReversal: false,
+        originalTransactionId: null,
+        reversalTransactionId: 'rev-1',
+      }),
+    ).toBe(true);
+
+    expect(
+      isReversalLinkedTransaction({
+        isReversal: false,
+        originalTransactionId: null,
+        reversalTransactionId: null,
+      }),
+    ).toBe(false);
+  });
+
+  it('filters finance groups by transaction type', () => {
+    expect(
+      filterFinanceGroupsByType(
+        [
+          {
+            id: 'group-1',
+            name: 'Sales',
+            type: 'income',
+            createdAt: '2026-03-02T00:00:00.000Z',
+            updatedAt: '2026-03-02T00:00:00.000Z',
+          },
+          {
+            id: 'group-2',
+            name: 'Operations',
+            type: 'expense',
+            createdAt: '2026-03-02T00:00:00.000Z',
+            updatedAt: '2026-03-02T00:00:00.000Z',
+          },
+        ],
+        'income',
+      ).map((group) => group.id),
+    ).toEqual(['group-1']);
+  });
+
+  it('matches strict transaction list modes', () => {
+    const incomeRow = {
+      type: 'income',
+      isReversal: false,
+      originalTransactionId: null,
+      reversalTransactionId: null,
+    } as const;
+    const reversedExpenseRow = {
+      type: 'expense',
+      isReversal: false,
+      originalTransactionId: null,
+      reversalTransactionId: 'rev-1',
+    } as const;
+
+    expect(matchesTransactionListMode(incomeRow, 'all')).toBe(true);
+    expect(matchesTransactionListMode(incomeRow, 'income')).toBe(true);
+    expect(matchesTransactionListMode(incomeRow, 'expense')).toBe(false);
+    expect(matchesTransactionListMode(incomeRow, 'reversal')).toBe(false);
+
+    expect(matchesTransactionListMode(reversedExpenseRow, 'all')).toBe(true);
+    expect(matchesTransactionListMode(reversedExpenseRow, 'expense')).toBe(false);
+    expect(matchesTransactionListMode(reversedExpenseRow, 'reversal')).toBe(true);
   });
 });

@@ -111,9 +111,11 @@ describe('AuthProvider', () => {
     getAuthContextMock.mockResolvedValue({
       userId: 'u1',
       email: 'user@example.com',
+      displayName: 'User Example',
       role: 'admin',
       type: 'super_admin',
       farmId: 'farm-1',
+      farmName: 'Green Valley Farm',
     });
     getRbacSnapshotMock.mockResolvedValue({
       roleId: null,

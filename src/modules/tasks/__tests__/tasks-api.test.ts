@@ -4,6 +4,7 @@ import {
   listTaskAssetOptions,
   listTaskComments,
   listTasks,
+  updateTask,
   updateTaskStatus,
 } from '../../../api/modules/tasks';
 
@@ -49,6 +50,10 @@ describe('tasks api module', () => {
         dueDate: '2026-03-09',
         assetId: 'asset-1',
         assetLabel: 'Main Pump',
+        assignedTo: null,
+        fieldId: null,
+        livestockId: null,
+        equipmentId: null,
         createdAt: '2026-03-02T00:00:00.000Z',
         updatedAt: '2026-03-02T00:00:00.000Z',
       },
@@ -76,8 +81,8 @@ describe('tasks api module', () => {
       description: 'Use tool A',
       status: 'pending',
       priority: 'medium',
-      due_date: '2026-03-10',
-      asset_id: 'asset-2',
+      due_date_time: '2026-03-10T00:00:00.000Z',
+      equipment_id: 'asset-2',
     });
 
     const [url, options] = fetchMock.mock.calls[0];
@@ -93,9 +98,61 @@ describe('tasks api module', () => {
       description: 'Use tool A',
       status: 'pending',
       priority: 'medium',
-      due_date: '2026-03-10',
-      asset_id: 'asset-2',
+      due_date_time: '2026-03-10T00:00:00.000Z',
+      equipment_id: 'asset-2',
     });
+    expect(body).not.toHaveProperty('due_date');
+    expect(body).not.toHaveProperty('asset_id');
+  });
+
+  it('normalizes PATCH payload due date and avoids legacy keys', async () => {
+    const fetchMock = jest.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      text: async () =>
+        JSON.stringify({
+          id: 'task-2',
+          title: 'Calibrate Sensor',
+          status: 'pending',
+          created_at: '2026-03-02T00:00:00.000Z',
+          updated_at: '2026-03-02T00:00:00.000Z',
+        }),
+      headers: { get: () => null },
+    });
+    global.fetch = fetchMock as unknown as typeof fetch;
+
+    await updateTask('token', 'task-2', {
+      due_date: '2026-03-10',
+      field_id: 'field-2',
+      assigned_to: null,
+      equipment_id: null,
+      livestock_id: null,
+    });
+
+    const [url, options] = fetchMock.mock.calls[0];
+    const body = JSON.parse(options.body as string) as Record<string, unknown>;
+
+    expect(url).toBe('http://127.0.0.1:3300/api/v1/tasks/task-2');
+    expect(options.method).toBe('PATCH');
+    expect(body).toMatchObject({
+      due_date_time: '2026-03-10T00:00:00.000Z',
+      field_id: 'field-2',
+      assigned_to: null,
+      equipment_id: null,
+      livestock_id: null,
+    });
+    expect(body).not.toHaveProperty('due_date');
+    expect(body).not.toHaveProperty('asset_id');
+  });
+
+  it('rejects non-ISO due date strings in PATCH payload', async () => {
+    await expect(
+      updateTask('token', 'task-2', {
+        due_date: 'Thu Mar 05',
+      }),
+    ).rejects.toThrow('Invalid task due date');
+
+    expect(global.fetch).toBe(originalFetch);
   });
 
   it('updates task status via patch call', async () => {
@@ -165,9 +222,9 @@ describe('tasks api module', () => {
     const activity = await listTaskActivity('token', 'task-1');
 
     expect(assets).toEqual([
-      { value: 'field-1', label: 'Field: North Field' },
-      { value: 'asset-1', label: 'Equipment: Main Pump' },
-      { value: 'user-1', label: 'User: ops@example.com' },
+      { value: 'field-1', label: 'Field: North Field', binding: 'field_id' },
+      { value: 'asset-1', label: 'Equipment: Main Pump', binding: 'equipment_id' },
+      { value: 'user-1', label: 'User: ops@example.com', binding: 'assigned_to' },
     ]);
     expect(comments[0]?.message).toBe('Done');
     expect(activity[0]?.action).toBe('status_changed');

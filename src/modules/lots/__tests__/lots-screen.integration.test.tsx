@@ -6,6 +6,8 @@ import type { LotSummary } from '../../../api/modules/lots';
 import { LotsScreen } from '../screens/LotsScreen';
 import { useLotsModule } from '../useLotsModule.hook';
 
+const mockReplace = jest.fn();
+
 jest.mock('../useLotsModule.hook', () => ({
   useLotsModule: jest.fn(),
 }));
@@ -25,6 +27,7 @@ jest.mock('../../../hooks/useModuleActionPermissions', () => ({
 jest.mock('expo-router', () => ({
   useRouter: () => ({
     push: jest.fn(),
+    replace: mockReplace,
   }),
 }));
 
@@ -100,6 +103,7 @@ describe('LotsScreen integration', () => {
   const listLotsByFieldMock = jest.fn().mockResolvedValue([]);
 
   beforeEach(() => {
+    mockReplace.mockClear();
     createLotMock.mockClear();
     reactivateMainMock.mockClear();
     reactivateDeactivatedMock.mockClear();
@@ -109,7 +113,87 @@ describe('LotsScreen integration', () => {
     useLotsModuleMock.mockReturnValue({
       lots: [lotRecord],
       inactiveLots: [lotRecord],
+      allFields: [
+        {
+          id: fieldAId,
+          name: 'Field A',
+          areaHectares: '1.0',
+          areaUnit: 'hectares',
+          status: 'active',
+          shapePolygon: fieldPolygon,
+          location: null,
+          soilType: null,
+          notes: null,
+          soilTypeCategory: null,
+          soilTypeOther: null,
+          irrigationType: null,
+          irrigationTypeOther: null,
+          soilConditions: null,
+          activeCycleSummary: null,
+          createdAt: '2026-03-02T00:00:00.000Z',
+          updatedAt: '2026-03-02T00:00:00.000Z',
+        },
+        {
+          id: fieldBId,
+          name: 'Field B',
+          areaHectares: '2.0',
+          areaUnit: 'hectares',
+          status: 'active',
+          shapePolygon: fieldBPolygon,
+          location: null,
+          soilType: null,
+          notes: null,
+          soilTypeCategory: null,
+          soilTypeOther: null,
+          irrigationType: null,
+          irrigationTypeOther: null,
+          soilConditions: null,
+          activeCycleSummary: null,
+          createdAt: '2026-03-02T00:00:00.000Z',
+          updatedAt: '2026-03-02T00:00:00.000Z',
+        },
+      ],
       fieldContextFields: [
+        {
+          id: fieldAId,
+          name: 'Field A',
+          areaHectares: '1.0',
+          areaUnit: 'hectares',
+          status: 'active',
+          shapePolygon: fieldPolygon,
+          location: null,
+          soilType: null,
+          notes: null,
+          soilTypeCategory: null,
+          soilTypeOther: null,
+          irrigationType: null,
+          irrigationTypeOther: null,
+          soilConditions: null,
+          activeCycleSummary: null,
+          createdAt: '2026-03-02T00:00:00.000Z',
+          updatedAt: '2026-03-02T00:00:00.000Z',
+        },
+        {
+          id: fieldBId,
+          name: 'Field B',
+          areaHectares: '2.0',
+          areaUnit: 'hectares',
+          status: 'active',
+          shapePolygon: fieldBPolygon,
+          location: null,
+          soilType: null,
+          notes: null,
+          soilTypeCategory: null,
+          soilTypeOther: null,
+          irrigationType: null,
+          irrigationTypeOther: null,
+          soilConditions: null,
+          activeCycleSummary: null,
+          createdAt: '2026-03-02T00:00:00.000Z',
+          updatedAt: '2026-03-02T00:00:00.000Z',
+        },
+      ],
+      workflowFields: [
         {
           id: fieldAId,
           name: 'Field A',
@@ -168,9 +252,9 @@ describe('LotsScreen integration', () => {
   });
 
   it('submits create lot payload with hidden defaults', async () => {
-    const { getByText, getByPlaceholderText, getByTestId } = renderScreen();
+    const { getByPlaceholderText, getByTestId } = renderScreen();
 
-    fireEvent.press(getByText('Create Lot'));
+    fireEvent.press(getByTestId('lots-header-create'));
 
     const fieldSelect = getByTestId('lots-form-field-select');
     fireEvent.press(within(fieldSelect).getByText('Select field'));
@@ -196,18 +280,20 @@ describe('LotsScreen integration', () => {
     });
   });
 
-  it('disables deactivated-reactivate action when parent field is inactive', async () => {
-    const { getByTestId, getByText } = renderScreen();
+  it('hides reactivate action when parent field is inactive in both reactivation flows', async () => {
+    const { getByTestId, getByText, queryByText } = renderScreen();
 
     const statusFilter = getByTestId('lots-status-filter');
-    fireEvent.press(within(statusFilter).getByText('Active'));
-    fireEvent.press(getByTestId('app-select-option-inactive'));
+    fireEvent.press(within(statusFilter).getByText('Inactive'));
 
+    fireEvent.press(getByTestId(`lot-row-${lotRecord.id}`));
+    expect(queryByText('Reactivate')).toBeNull();
+
+    fireEvent.press(getByText('Main flow'));
     fireEvent.press(getByText('Deactivated flow'));
-    fireEvent.press(getByText('Lot A'));
+    fireEvent.press(getByTestId(`lot-row-${lotRecord.id}`));
 
-    const reactivateButton = getByTestId('action-sheet.reactivate');
-    expect(reactivateButton.props.accessibilityState.disabled).toBe(true);
+    expect(queryByText('Reactivate')).toBeNull();
 
     expect(reactivateMainMock).not.toHaveBeenCalled();
     expect(reactivateDeactivatedMock).not.toHaveBeenCalled();
@@ -216,7 +302,7 @@ describe('LotsScreen integration', () => {
   it('keeps boundary tab gated until field is selected', async () => {
     const { getByText, getByTestId, getByPlaceholderText, queryByText } = renderScreen();
 
-    fireEvent.press(getByText('Create Lot'));
+    fireEvent.press(getByTestId('lots-header-create'));
     fireEvent.press(getByText('Boundary'));
 
     expect(getByPlaceholderText('Lot name')).toBeTruthy();
@@ -235,7 +321,7 @@ describe('LotsScreen integration', () => {
   it('clears boundary points when field changes in form', async () => {
     const { getByText, getByTestId, getByPlaceholderText } = renderScreen();
 
-    fireEvent.press(getByText('Create Lot'));
+    fireEvent.press(getByTestId('lots-header-create'));
     const fieldSelect = getByTestId('lots-form-field-select');
     fireEvent.press(within(fieldSelect).getByText('Select field'));
     fireEvent.press(getByTestId(`app-select-option-${fieldAId}`));
@@ -270,7 +356,7 @@ describe('LotsScreen integration', () => {
   it('rejects point additions outside selected field boundary', async () => {
     const { getByText, getByTestId } = renderScreen();
 
-    fireEvent.press(getByText('Create Lot'));
+    fireEvent.press(getByTestId('lots-header-create'));
     const fieldSelect = getByTestId('lots-form-field-select');
     fireEvent.press(within(fieldSelect).getByText('Select field'));
     fireEvent.press(getByTestId(`app-select-option-${fieldAId}`));
@@ -319,7 +405,7 @@ describe('LotsScreen integration', () => {
 
     const { getByText, getByTestId } = renderScreen();
 
-    fireEvent.press(getByText('Create Lot'));
+    fireEvent.press(getByTestId('lots-header-create'));
     const fieldSelect = getByTestId('lots-form-field-select');
     fireEvent.press(within(fieldSelect).getByText('Select field'));
     fireEvent.press(getByTestId(`app-select-option-${fieldAId}`));
@@ -343,7 +429,7 @@ describe('LotsScreen integration', () => {
     listLotsByFieldMock.mockRejectedValueOnce(new Error('network fail'));
     const { getByText, getByTestId } = renderScreen();
 
-    fireEvent.press(getByText('Create Lot'));
+    fireEvent.press(getByTestId('lots-header-create'));
     const fieldSelect = getByTestId('lots-form-field-select');
     fireEvent.press(within(fieldSelect).getByText('Select field'));
     fireEvent.press(getByTestId(`app-select-option-${fieldAId}`));
@@ -352,5 +438,14 @@ describe('LotsScreen integration', () => {
     await waitFor(() => {
       expect(getByText('Unable to validate lot overlap right now. Re-select the field to retry.')).toBeTruthy();
     });
+  });
+
+  it('switches to fields from the shared section tabs', () => {
+    const { getByTestId, getByText } = renderScreen();
+
+    fireEvent.press(getByText('Fields'));
+
+    expect(getByTestId('lots-module-switch')).toBeTruthy();
+    expect(mockReplace).toHaveBeenCalledWith('/(protected)/fields');
   });
 });

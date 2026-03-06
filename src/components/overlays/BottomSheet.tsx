@@ -1,5 +1,5 @@
 import React from 'react';
-import type { ReactNode } from 'react';
+import type { ReactNode, RefObject } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { Modal, Portal, Text } from 'react-native-paper';
 import { palette, radius, spacing, typography } from '../../theme/tokens';
@@ -10,6 +10,10 @@ type BottomSheetProps = {
   children: ReactNode;
   footer?: ReactNode;
   onDismiss: () => void;
+  heightRatio?: number;
+  dismissable?: boolean;
+  dismissableBackButton?: boolean;
+  scrollViewRef?: RefObject<ScrollView | null>;
   testID?: string;
 };
 
@@ -19,23 +23,34 @@ export function BottomSheet({
   children,
   footer,
   onDismiss,
+  heightRatio = 0.92,
+  dismissable = true,
+  dismissableBackButton = true,
+  scrollViewRef,
   testID,
 }: BottomSheetProps) {
+  const maxHeightRatio = Number.isFinite(heightRatio)
+    ? Math.max(0.25, Math.min(heightRatio, 0.98))
+    : 0.92;
+
   return (
     <Portal>
       <Modal
         visible={visible}
         onDismiss={onDismiss}
         contentContainerStyle={styles.modal}
+        dismissable={dismissable}
+        dismissableBackButton={dismissableBackButton}
         testID={testID}
       >
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           keyboardVerticalOffset={16}
         >
-          <View style={styles.sheet}>
+          <View style={[styles.sheet, { maxHeight: `${Math.round(maxHeightRatio * 100)}%` }]}>
             {title ? <Text style={styles.title}>{title}</Text> : null}
             <ScrollView
+              ref={scrollViewRef}
               style={styles.contentScroll}
               contentContainerStyle={styles.content}
               keyboardShouldPersistTaps="handled"
@@ -59,7 +74,6 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   sheet: {
-    maxHeight: '92%',
     borderTopLeftRadius: radius.lg,
     borderTopRightRadius: radius.lg,
     backgroundColor: palette.surface,

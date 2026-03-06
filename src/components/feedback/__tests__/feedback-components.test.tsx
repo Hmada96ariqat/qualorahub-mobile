@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'react-native';
 import { fireEvent } from '@testing-library/react-native';
+import { Snackbar } from 'react-native-paper';
 import { EmptyState } from '../EmptyState';
 import { ErrorState } from '../ErrorState';
 import { LoadingOverlay } from '../LoadingOverlay';
@@ -82,7 +83,7 @@ describe('feedback components', () => {
   });
 
   it('shows toast message through ToastProvider', () => {
-    const { getByText } = renderWithProviders(
+    const { UNSAFE_getByType, getByText } = renderWithProviders(
       <ToastProvider>
         <ToastProbe />
       </ToastProvider>,
@@ -90,5 +91,6 @@ describe('feedback components', () => {
 
     fireEvent.press(getByText('Show toast'));
     expect(getByText('Saved')).toBeTruthy();
+    expect(UNSAFE_getByType(Snackbar).props.duration).toBe(5000);
   });
 });

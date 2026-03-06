@@ -3,6 +3,7 @@ import { ActivityIndicator, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Redirect, Stack } from 'expo-router';
 import { useAuth } from '../../src/providers/AuthProvider';
+import { ProtectedDrawerProvider } from '../../src/providers/ProtectedDrawerProvider';
 import { palette } from '../../src/theme/tokens';
 import { resolveProtectedRouteGuard } from '../../src/utils/route-guards';
 
@@ -22,7 +23,11 @@ export default function ProtectedLayout() {
     return <Redirect href="/(public)/auth/login" />;
   }
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <ProtectedDrawerProvider>
+      <Stack screenOptions={{ headerShown: false }} />
+    </ProtectedDrawerProvider>
+  );
 }
 
 const styles = StyleSheet.create({

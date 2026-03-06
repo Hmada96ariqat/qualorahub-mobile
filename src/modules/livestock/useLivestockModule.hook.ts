@@ -3,7 +3,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { listFields } from '../../api/modules/fields';
 import {
   createAnimal,
-  createAnimalGroup,
   createAnimalHealthCheck,
   createAnimalYieldRecord,
   createHousingConsumptionLog,
@@ -11,14 +10,12 @@ import {
   createHousingUnit,
   createWeatherAlertRule,
   deactivateAnimal,
-  deactivateAnimalGroup,
   deactivateHousingUnit,
   deleteAnimalHealthCheck,
   deleteAnimalYieldRecord,
   deleteHousingConsumptionLog,
   deleteHousingMaintenanceRecord,
   deleteWeatherAlertRule,
-  listAnimalGroups,
   listAnimalHealthChecks,
   listAnimalYieldRecords,
   listAnimals,
@@ -29,14 +26,12 @@ import {
   listWeatherAlertRulesByLot,
   reactivateHousingUnit,
   updateAnimal,
-  updateAnimalGroup,
   updateAnimalHealthCheck,
   updateAnimalYieldRecord,
   updateHousingConsumptionLog,
   updateHousingMaintenanceRecord,
   updateHousingUnit,
   updateWeatherAlertRule,
-  type CreateAnimalGroupRequest,
   type CreateAnimalHealthCheckRequest,
   type CreateAnimalRequest,
   type CreateAnimalYieldRecordRequest,
@@ -44,7 +39,6 @@ import {
   type CreateHousingMaintenanceRecordRequest,
   type CreateHousingUnitRequest,
   type CreateWeatherAlertRuleRequest,
-  type UpdateAnimalGroupRequest,
   type UpdateAnimalHealthCheckRequest,
   type UpdateAnimalRequest,
   type UpdateAnimalYieldRecordRequest,
@@ -59,7 +53,6 @@ import { useAuthSession } from '../../hooks/useAuthSession';
 const PHASE12_FIELDS_QUERY_KEY = ['phase12', 'fields'] as const;
 const PHASE12_LOTS_QUERY_KEY = ['phase12', 'lots'] as const;
 const PHASE12_ANIMALS_QUERY_KEY = ['phase12', 'animals'] as const;
-const PHASE12_ANIMAL_GROUPS_QUERY_KEY = ['phase12', 'animal-groups'] as const;
 const PHASE12_HOUSING_UNITS_QUERY_KEY = ['phase12', 'housing-units'] as const;
 
 function toErrorMessage(error: unknown, fallback: string): string {
@@ -102,12 +95,6 @@ export function useLivestockModule({
   const animalsQuery = useQuery({
     queryKey: PHASE12_ANIMALS_QUERY_KEY,
     queryFn: () => listAnimals(token ?? ''),
-    enabled: Boolean(token),
-  });
-
-  const animalGroupsQuery = useQuery({
-    queryKey: PHASE12_ANIMAL_GROUPS_QUERY_KEY,
-    queryFn: () => listAnimalGroups(token ?? ''),
     enabled: Boolean(token),
   });
 
@@ -172,37 +159,6 @@ export function useLivestockModule({
     mutationFn: (animalId: string) => deactivateAnimal(token ?? '', animalId),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: PHASE12_ANIMALS_QUERY_KEY });
-    },
-  });
-
-  const createAnimalGroupMutation = useMutation({
-    mutationFn: (input: CreateAnimalGroupRequest) => createAnimalGroup(token ?? '', input),
-    onSuccess: async () => {
-      await Promise.all([
-        queryClient.invalidateQueries({ queryKey: PHASE12_ANIMAL_GROUPS_QUERY_KEY }),
-        queryClient.invalidateQueries({ queryKey: PHASE12_ANIMALS_QUERY_KEY }),
-      ]);
-    },
-  });
-
-  const updateAnimalGroupMutation = useMutation({
-    mutationFn: (payload: { groupId: string; input: UpdateAnimalGroupRequest }) =>
-      updateAnimalGroup(token ?? '', payload.groupId, payload.input),
-    onSuccess: async () => {
-      await Promise.all([
-        queryClient.invalidateQueries({ queryKey: PHASE12_ANIMAL_GROUPS_QUERY_KEY }),
-        queryClient.invalidateQueries({ queryKey: PHASE12_ANIMALS_QUERY_KEY }),
-      ]);
-    },
-  });
-
-  const deactivateAnimalGroupMutation = useMutation({
-    mutationFn: (groupId: string) => deactivateAnimalGroup(token ?? '', groupId),
-    onSuccess: async () => {
-      await Promise.all([
-        queryClient.invalidateQueries({ queryKey: PHASE12_ANIMAL_GROUPS_QUERY_KEY }),
-        queryClient.invalidateQueries({ queryKey: PHASE12_ANIMALS_QUERY_KEY }),
-      ]);
     },
   });
 
@@ -385,7 +341,6 @@ export function useLivestockModule({
   });
 
   const animals = useMemo(() => animalsQuery.data ?? [], [animalsQuery.data]);
-  const animalGroups = useMemo(() => animalGroupsQuery.data ?? [], [animalGroupsQuery.data]);
   const housingUnits = useMemo(() => housingUnitsQuery.data ?? [], [housingUnitsQuery.data]);
   const weatherRules = useMemo(() => weatherRulesQuery.data ?? [], [weatherRulesQuery.data]);
 
@@ -393,9 +348,6 @@ export function useLivestockModule({
     createAnimalMutation.isPending ||
     updateAnimalMutation.isPending ||
     deactivateAnimalMutation.isPending ||
-    createAnimalGroupMutation.isPending ||
-    updateAnimalGroupMutation.isPending ||
-    deactivateAnimalGroupMutation.isPending ||
     createHealthCheckMutation.isPending ||
     updateHealthCheckMutation.isPending ||
     deleteHealthCheckMutation.isPending ||
@@ -420,7 +372,6 @@ export function useLivestockModule({
     fields: fieldsQuery.data ?? [],
     lots: lotsQuery.data ?? [],
     animals,
-    animalGroups,
     housingUnits,
     weatherRules,
     weatherLocationRules: weatherLocationRulesQuery.data ?? [],
@@ -432,14 +383,12 @@ export function useLivestockModule({
       fieldsQuery.isLoading ||
       lotsQuery.isLoading ||
       animalsQuery.isLoading ||
-      animalGroupsQuery.isLoading ||
       housingUnitsQuery.isLoading ||
       weatherRulesQuery.isLoading,
     isRefreshing:
       fieldsQuery.isFetching ||
       lotsQuery.isFetching ||
       animalsQuery.isFetching ||
-      animalGroupsQuery.isFetching ||
       housingUnitsQuery.isFetching ||
       weatherRulesQuery.isFetching ||
       weatherLocationRulesQuery.isFetching,
@@ -460,13 +409,11 @@ export function useLivestockModule({
         ? toErrorMessage(lotsQuery.error, 'Failed to load lots for Phase 12.')
         : animalsQuery.error
           ? toErrorMessage(animalsQuery.error, 'Failed to load animals.')
-          : animalGroupsQuery.error
-            ? toErrorMessage(animalGroupsQuery.error, 'Failed to load animal groups.')
-            : housingUnitsQuery.error
-              ? toErrorMessage(housingUnitsQuery.error, 'Failed to load housing units.')
-              : weatherRulesQuery.error
-                ? toErrorMessage(weatherRulesQuery.error, 'Failed to load weather alert rules.')
-                : null,
+          : housingUnitsQuery.error
+            ? toErrorMessage(housingUnitsQuery.error, 'Failed to load housing units.')
+            : weatherRulesQuery.error
+              ? toErrorMessage(weatherRulesQuery.error, 'Failed to load weather alert rules.')
+              : null,
     detailsErrorMessage: healthChecksQuery.error
       ? toErrorMessage(healthChecksQuery.error, 'Failed to load animal health checks.')
       : yieldRecordsQuery.error
@@ -483,7 +430,6 @@ export function useLivestockModule({
         fieldsQuery.refetch(),
         lotsQuery.refetch(),
         animalsQuery.refetch(),
-        animalGroupsQuery.refetch(),
         housingUnitsQuery.refetch(),
         weatherRulesQuery.refetch(),
         selectedWeatherLocationId ? weatherLocationRulesQuery.refetch() : Promise.resolve(),
@@ -501,10 +447,6 @@ export function useLivestockModule({
     updateAnimal: (animalId: string, input: UpdateAnimalRequest) =>
       updateAnimalMutation.mutateAsync({ animalId, input }),
     deactivateAnimal: (animalId: string) => deactivateAnimalMutation.mutateAsync(animalId),
-    createAnimalGroup: (input: CreateAnimalGroupRequest) => createAnimalGroupMutation.mutateAsync(input),
-    updateAnimalGroup: (groupId: string, input: UpdateAnimalGroupRequest) =>
-      updateAnimalGroupMutation.mutateAsync({ groupId, input }),
-    deactivateAnimalGroup: (groupId: string) => deactivateAnimalGroupMutation.mutateAsync(groupId),
     createAnimalHealthCheck: (animalId: string, input: CreateAnimalHealthCheckRequest) =>
       createHealthCheckMutation.mutateAsync({ animalId, input }),
     updateAnimalHealthCheck: (healthCheckId: string, input: UpdateAnimalHealthCheckRequest) =>

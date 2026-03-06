@@ -1,6 +1,5 @@
-import React, { useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import React, { useMemo, useRef, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import type {
   OrderItem,
   OrderSummary,
@@ -9,32 +8,38 @@ import type {
   StockVoucher,
 } from '../../../api/modules/orders';
 import {
-  ActionSheet,
-  type ActionSheetAction,
-  AppBadge,
   AppButton,
-  AppCard,
   AppDatePicker,
-  AppHeader,
   AppInput,
-  AppListItem,
   AppScreen,
-  AppSection,
   AppSelect,
-  AppTabs,
   AppTextArea,
   BottomSheet,
   ConfirmDialog,
+  DotBadge,
   EmptyState,
   ErrorState,
-  FilterBar,
+  FormValidationProvider,
   FormField,
-  PaginationFooter,
+  HeaderIconButton,
+  HeaderMenuButton,
+  ListRow,
+  NotificationHeaderButton,
+  PillTabs,
+  ProfileCard,
   PullToRefreshContainer,
+  QuickActionGrid,
+  SearchBar,
+  SectionHeader,
   Skeleton,
+  StatStrip,
+  useFormValidation,
   useToast,
+  type DotBadgeVariant,
+  type InfoGridCell,
+  type QuickAction,
 } from '../../../components';
-import { palette, spacing, typography } from '../../../theme/tokens';
+import { palette } from '../../../theme/tokens';
 import {
   normalizeCreateOrderStatus,
   normalizeOrderStatus,
@@ -44,7 +49,6 @@ import {
   normalizeStockVoucherType,
   ORDER_STATUS_OPTIONS,
   parseOptionalNumber,
-  PHASE10_TAB_OPTIONS,
   SALES_PRICE_TYPE_OPTIONS,
   SALES_STATUS_OPTIONS,
   STOCK_VOUCHER_STATUS_OPTIONS,
@@ -67,7 +71,7 @@ import { useOrdersModule } from '../useOrdersModule.hook';
 
 type FormMode = 'create' | 'edit';
 
-type ActionTarget =
+type DetailTarget =
   | { type: 'order'; item: OrderSummary }
   | { type: 'voucher'; item: StockVoucher }
   | { type: 'sales'; item: SalesTransaction }
@@ -80,22 +84,15 @@ type ConfirmTarget =
   | { type: 'sales-complete'; item: SalesTransaction }
   | { type: 'sales-line-delete'; item: SalesTransactionLine };
 
-function statusBadgeVariant(
-  status: string,
-): 'success' | 'warning' | 'destructive' | 'neutral' {
-  const normalized = status.trim().toLowerCase();
-  if (normalized === 'delivered' || normalized === 'confirmed' || normalized === 'completed') {
-    return 'success';
-  }
+type OrderFormField = 'productId' | 'quantity' | 'unitPrice';
+type VoucherLineFormField = 'productId' | 'warehouseId' | 'quantity';
+type SalesLineFormField = 'productId' | 'warehouseId' | 'quantity' | 'unitPrice';
 
-  if (normalized === 'cancelled') {
-    return 'destructive';
-  }
-
-  if (normalized === 'pending' || normalized === 'draft') {
-    return 'warning';
-  }
-
+function statusDotBadgeVariant(status: string): DotBadgeVariant {
+  const n = status.trim().toLowerCase();
+  if (n === 'delivered' || n === 'confirmed' || n === 'completed' || n === 'posted') return 'success';
+  if (n === 'cancelled') return 'destructive';
+  if (n === 'pending' || n === 'draft') return 'warning';
   return 'neutral';
 }
 
@@ -169,7 +166,7 @@ export function OrdersScreen() {
 
   const [activeTab, setActiveTab] = useState<Phase10Tab>('orders');
   const [searchValue, setSearchValue] = useState('');
-  const [actionTarget, setActionTarget] = useState<ActionTarget | null>(null);
+  const [detailTarget, setDetailTarget] = useState<DetailTarget | null>(null);
   const [confirmTarget, setConfirmTarget] = useState<ConfirmTarget | null>(null);
 
   const [orderFormVisible, setOrderFormVisible] = useState(false);
@@ -222,6 +219,14 @@ export function OrdersScreen() {
   const [salesLineFormValues, setSalesLineFormValues] = useState<SalesTransactionLineFormValues>(
     toSalesTransactionLineFormValues(),
   );
+  const orderFormScrollRef = useRef<ScrollView | null>(null);
+  const voucherLineFormScrollRef = useRef<ScrollView | null>(null);
+  const salesLineFormScrollRef = useRef<ScrollView | null>(null);
+  const orderFormValidation = useFormValidation<OrderFormField>(orderFormScrollRef);
+  const voucherLineFormValidation =
+    useFormValidation<VoucherLineFormField>(voucherLineFormScrollRef);
+  const salesLineFormValidation =
+    useFormValidation<SalesLineFormField>(salesLineFormScrollRef);
 
   const productOptions = useMemo(
     () => stockProducts.map((item) => ({ label: item.name, value: item.id })),
@@ -281,37 +286,47 @@ export function OrdersScreen() {
     [salesTransactions, normalizedSearch],
   );
 
+  // ─── Form helpers ─────────────────────────────────────────────────────────
   function resetOrderForm() {
     setOrderFormMode('create');
     setEditingOrder(null);
     setOrderFormValues(toOrderFormValues());
+    orderFormValidation.reset();
   }
-
   function closeOrderForm() {
     setOrderFormVisible(false);
     resetOrderForm();
   }
-
   function resetVoucherForm() {
     setVoucherFormMode('create');
     setEditingVoucher(null);
     setVoucherFormValues(toStockVoucherFormValues());
   }
-
   function closeVoucherForm() {
     setVoucherFormVisible(false);
     resetVoucherForm();
   }
-
   function resetSalesForm() {
     setSalesFormMode('create');
     setEditingSales(null);
     setSalesFormValues(toSalesTransactionFormValues());
   }
-
   function closeSalesForm() {
     setSalesFormVisible(false);
     resetSalesForm();
+  }
+  function closeVoucherLineForm() {
+    setVoucherLineVisible(false);
+    setVoucherLineTarget(null);
+    setVoucherLineValues(toStockVoucherLineItemFormValues());
+    voucherLineFormValidation.reset();
+  }
+  function closeSalesLineForm() {
+    setSalesLineFormVisible(false);
+    setSalesLineFormMode('create');
+    setEditingSalesLine(null);
+    setSalesLineFormValues(toSalesTransactionLineFormValues());
+    salesLineFormValidation.reset();
   }
 
   function openCreateSheet() {
@@ -320,13 +335,11 @@ export function OrdersScreen() {
       setOrderFormVisible(true);
       return;
     }
-
     if (activeTab === 'stock') {
       resetVoucherForm();
       setVoucherFormVisible(true);
       return;
     }
-
     resetSalesForm();
     setSalesFormVisible(true);
   }
@@ -335,6 +348,7 @@ export function OrdersScreen() {
     setOrderFormMode('edit');
     setEditingOrder(order);
     setOrderFormValues(toOrderFormValues(order));
+    orderFormValidation.reset();
     setOrderFormVisible(true);
   }
 
@@ -362,15 +376,15 @@ export function OrdersScreen() {
     setOrderDetailsVisible(true);
     setOrderDetailsLoading(true);
     setOrderDetailsError(null);
-
     try {
       const details = await loadOrderDetails(order.id);
       setOrderDetailsOrder(details.order);
       setOrderDetailsItems(details.items);
       setOrderDetailsStockOut(details.stockOut);
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to load order details.';
-      setOrderDetailsError(message);
+      setOrderDetailsError(
+        error instanceof Error ? error.message : 'Failed to load order details.',
+      );
     } finally {
       setOrderDetailsLoading(false);
     }
@@ -382,19 +396,17 @@ export function OrdersScreen() {
     setSalesLinesRows([]);
     setSalesLinesError(null);
     setSalesLinesLoading(true);
-
     try {
       const [refreshedTransaction, lines] = await Promise.all([
         loadSalesTransaction(transaction.id),
         loadSalesTransactionLines(transaction.id),
       ]);
-      if (refreshedTransaction) {
-        setSalesLinesTarget(refreshedTransaction);
-      }
+      if (refreshedTransaction) setSalesLinesTarget(refreshedTransaction);
       setSalesLinesRows(lines);
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to load transaction lines.';
-      setSalesLinesError(message);
+      setSalesLinesError(
+        error instanceof Error ? error.message : 'Failed to load transaction lines.',
+      );
     } finally {
       setSalesLinesLoading(false);
     }
@@ -408,30 +420,48 @@ export function OrdersScreen() {
       const lines = await loadSalesTransactionLines(salesLinesTarget.id);
       setSalesLinesRows(lines);
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to refresh transaction lines.';
-      setSalesLinesError(message);
+      setSalesLinesError(
+        error instanceof Error ? error.message : 'Failed to refresh transaction lines.',
+      );
     } finally {
       setSalesLinesLoading(false);
     }
   }
 
+  // ─── Submit handlers ──────────────────────────────────────────────────────
   async function submitOrderForm() {
     const orderDate = orderFormValues.orderDate || new Date().toISOString().slice(0, 10);
-
     try {
       if (orderFormMode === 'create') {
         const productId = orderFormValues.productId.trim();
-        const selectedProduct = stockProducts.find((item) => item.id === productId);
-        const quantity = parseOptionalNumber(orderFormValues.quantity) ?? Number.NaN;
-        const unitPrice = parseOptionalNumber(orderFormValues.unitPrice) ?? Number.NaN;
-
-        if (!productId || !Number.isFinite(quantity) || quantity <= 0 || !Number.isFinite(unitPrice) || unitPrice <= 0) {
-          showToast({ message: 'Product, quantity, and unit price are required.', variant: 'error' });
+        const quantity = parseOptionalNumber(orderFormValues.quantity);
+        const unitPrice = parseOptionalNumber(orderFormValues.unitPrice);
+        const valid = orderFormValidation.validate([
+          {
+            field: 'productId',
+            message: 'Product is required.',
+            isValid: productId.length > 0,
+          },
+          {
+            field: 'quantity',
+            message: 'Enter a valid quantity greater than 0.',
+            isValid: quantity !== undefined && quantity > 0,
+          },
+          {
+            field: 'unitPrice',
+            message: 'Enter a valid unit price greater than 0.',
+            isValid: unitPrice !== undefined && unitPrice > 0,
+          },
+        ]);
+        if (!valid || quantity === undefined || unitPrice === undefined) {
+          showToast({
+            message: 'Complete the highlighted fields.',
+            variant: 'error',
+          });
           return;
         }
-
+        const selectedProduct = stockProducts.find((item) => item.id === productId);
         const subtotal = quantity * unitPrice;
-
         await createOrder({
           status: normalizeCreateOrderStatus(orderFormValues.status),
           contact_id: orderFormValues.contactId.trim() || undefined,
@@ -459,7 +489,6 @@ export function OrdersScreen() {
             },
           ],
         });
-
         showToast({ message: 'Order created.', variant: 'success' });
       } else if (editingOrder) {
         await updateOrder(editingOrder.id, {
@@ -477,20 +506,19 @@ export function OrdersScreen() {
           delivery_method: orderFormValues.deliveryMethod.trim() || undefined,
           notes: orderFormValues.notes.trim() || undefined,
         });
-
         showToast({ message: 'Order updated.', variant: 'success' });
       }
-
       closeOrderForm();
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Order mutation failed.';
-      showToast({ message, variant: 'error' });
+      showToast({
+        message: error instanceof Error ? error.message : 'Order mutation failed.',
+        variant: 'error',
+      });
     }
   }
 
   async function submitOrderStatusForm() {
     if (!orderStatusTarget) return;
-
     try {
       await updateOrderStatus(orderStatusTarget.id, {
         status: normalizeOrderStatus(orderStatusValues.status),
@@ -500,8 +528,10 @@ export function OrdersScreen() {
       setOrderStatusTarget(null);
       setOrderStatusValues(toOrderStatusFormValues());
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Order status update failed.';
-      showToast({ message, variant: 'error' });
+      showToast({
+        message: error instanceof Error ? error.message : 'Order status update failed.',
+        variant: 'error',
+      });
     }
   }
 
@@ -530,50 +560,61 @@ export function OrdersScreen() {
         });
         showToast({ message: 'Stock voucher updated.', variant: 'success' });
       }
-
       closeVoucherForm();
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Stock voucher mutation failed.';
-      showToast({ message, variant: 'error' });
+      showToast({
+        message: error instanceof Error ? error.message : 'Stock voucher mutation failed.',
+        variant: 'error',
+      });
     }
   }
 
   async function submitVoucherLineForm() {
     if (!voucherLineTarget) return;
-
     const productId = voucherLineValues.productId.trim();
     const warehouseId = voucherLineValues.warehouseId.trim();
-    const quantity = parseOptionalNumber(voucherLineValues.quantity) ?? Number.NaN;
-
-    if (!productId || !warehouseId || !Number.isFinite(quantity) || quantity <= 0) {
-      showToast({ message: 'Product, warehouse, and quantity are required.', variant: 'error' });
+    const quantity = parseOptionalNumber(voucherLineValues.quantity);
+    const valid = voucherLineFormValidation.validate([
+      {
+        field: 'productId',
+        message: 'Product is required.',
+        isValid: productId.length > 0,
+      },
+      {
+        field: 'warehouseId',
+        message: 'Warehouse is required.',
+        isValid: warehouseId.length > 0,
+      },
+      {
+        field: 'quantity',
+        message: 'Enter a valid quantity greater than 0.',
+        isValid: quantity !== undefined && quantity > 0,
+      },
+    ]);
+    if (!valid || quantity === undefined) {
+      showToast({
+        message: 'Complete the highlighted fields.',
+        variant: 'error',
+      });
       return;
     }
-
     try {
       await insertStockVoucherLineItems(voucherLineTarget.id, {
-        items: [
-          {
-            product_id: productId,
-            warehouse_id: warehouseId,
-            quantity,
-          },
-        ],
+        items: [{ product_id: productId, warehouse_id: warehouseId, quantity }],
       });
-
       showToast({ message: 'Voucher line item saved.', variant: 'success' });
-      setVoucherLineVisible(false);
-      setVoucherLineTarget(null);
-      setVoucherLineValues(toStockVoucherLineItemFormValues());
+      closeVoucherLineForm();
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Voucher line mutation failed.';
-      showToast({ message, variant: 'error' });
+      showToast({
+        message: error instanceof Error ? error.message : 'Voucher line mutation failed.',
+        variant: 'error',
+      });
     }
   }
 
   async function submitSalesForm() {
-    const transactionDate = salesFormValues.transactionDate || new Date().toISOString().slice(0, 10);
-
+    const transactionDate =
+      salesFormValues.transactionDate || new Date().toISOString().slice(0, 10);
     try {
       if (salesFormMode === 'create') {
         await createSalesTransaction({
@@ -587,7 +628,6 @@ export function OrdersScreen() {
           total_amount: parseOptionalNumber(salesFormValues.totalAmount),
           affects_income: toYesNo(salesFormValues.affectsIncome) === 'yes',
         });
-
         showToast({ message: 'Sales transaction created.', variant: 'success' });
       } else if (editingSales) {
         await updateSalesTransaction(editingSales.id, {
@@ -601,361 +641,415 @@ export function OrdersScreen() {
           total_amount: parseOptionalNumber(salesFormValues.totalAmount),
           affects_income: toYesNo(salesFormValues.affectsIncome) === 'yes',
         });
-
         showToast({ message: 'Sales transaction updated.', variant: 'success' });
       }
-
       closeSalesForm();
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Sales transaction mutation failed.';
-      showToast({ message, variant: 'error' });
+      showToast({
+        message: error instanceof Error ? error.message : 'Sales transaction mutation failed.',
+        variant: 'error',
+      });
     }
   }
 
   async function submitSalesLineForm() {
     if (!salesLinesTarget) return;
-
     const productId = salesLineFormValues.productId.trim();
     const warehouseId = salesLineFormValues.warehouseId.trim();
-    const quantity = parseOptionalNumber(salesLineFormValues.quantity) ?? Number.NaN;
-    const unitPrice = parseOptionalNumber(salesLineFormValues.unitPrice) ?? Number.NaN;
+    const quantity = parseOptionalNumber(salesLineFormValues.quantity);
+    const unitPrice = parseOptionalNumber(salesLineFormValues.unitPrice);
     const subtotal = parseOptionalNumber(salesLineFormValues.subtotal);
-
-    if (
-      !productId ||
-      !warehouseId ||
-      !Number.isFinite(quantity) ||
-      quantity <= 0 ||
-      !Number.isFinite(unitPrice) ||
-      unitPrice <= 0
-    ) {
+    const valid = salesLineFormValidation.validate([
+      {
+        field: 'productId',
+        message: 'Product is required.',
+        isValid: productId.length > 0,
+      },
+      {
+        field: 'warehouseId',
+        message: 'Warehouse is required.',
+        isValid: warehouseId.length > 0,
+      },
+      {
+        field: 'quantity',
+        message: 'Enter a valid quantity greater than 0.',
+        isValid: quantity !== undefined && quantity > 0,
+      },
+      {
+        field: 'unitPrice',
+        message: 'Enter a valid unit price greater than 0.',
+        isValid: unitPrice !== undefined && unitPrice > 0,
+      },
+    ]);
+    if (!valid || quantity === undefined || unitPrice === undefined) {
       showToast({
-        message: 'Product, warehouse, quantity, and unit price are required.',
+        message: 'Complete the highlighted fields.',
         variant: 'error',
       });
       return;
     }
-
     const selectedProduct = stockProducts.find((item) => item.id === productId);
     const nextLineNumber =
       salesLinesRows.reduce((max, row) => Math.max(max, row.lineNumber), 0) + 1;
-
     try {
       if (salesLineFormMode === 'create') {
         await createSalesTransactionLine(salesLinesTarget.id, {
           line_number: nextLineNumber,
           product_id: productId,
-          product_name: salesLineFormValues.productName.trim() || selectedProduct?.name || 'Product',
+          product_name:
+            salesLineFormValues.productName.trim() || selectedProduct?.name || 'Product',
           warehouse_id: warehouseId,
           quantity,
           unit_price: unitPrice,
           subtotal: subtotal ?? quantity * unitPrice,
         });
-
         showToast({ message: 'Sales line item created.', variant: 'success' });
       } else if (editingSalesLine) {
         await updateSalesTransactionLine(editingSalesLine.id, {
           line_number: editingSalesLine.lineNumber,
           product_id: productId,
-          product_name: salesLineFormValues.productName.trim() || selectedProduct?.name || 'Product',
+          product_name:
+            salesLineFormValues.productName.trim() || selectedProduct?.name || 'Product',
           warehouse_id: warehouseId,
           quantity,
           unit_price: unitPrice,
           subtotal: subtotal ?? quantity * unitPrice,
         });
-
         showToast({ message: 'Sales line item updated.', variant: 'success' });
       }
-
-      setSalesLineFormVisible(false);
-      setSalesLineFormMode('create');
-      setEditingSalesLine(null);
-      setSalesLineFormValues(toSalesTransactionLineFormValues());
+      closeSalesLineForm();
       await refreshSalesLines();
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Sales line mutation failed.';
-      showToast({ message, variant: 'error' });
+      showToast({
+        message: error instanceof Error ? error.message : 'Sales line mutation failed.',
+        variant: 'error',
+      });
     }
   }
 
   async function submitConfirmAction() {
     if (!confirmTarget) return;
-
     try {
       if (confirmTarget.type === 'order-delete') {
         await deleteOrder(confirmTarget.item.id);
         showToast({ message: 'Order deleted.', variant: 'success' });
       }
-
       if (confirmTarget.type === 'voucher-delete') {
         await deleteStockVoucher(confirmTarget.item.id);
         showToast({ message: 'Stock voucher deleted.', variant: 'success' });
       }
-
       if (confirmTarget.type === 'voucher-delete-lines') {
         await deleteStockVoucherLineItems(confirmTarget.item.id);
         showToast({ message: 'Voucher line items cleared.', variant: 'success' });
       }
-
       if (confirmTarget.type === 'sales-complete') {
         await completeSalesTransaction(confirmTarget.item.id);
         showToast({ message: 'Sales transaction completed.', variant: 'success' });
       }
-
       if (confirmTarget.type === 'sales-line-delete') {
         await deleteSalesTransactionLine(confirmTarget.item.id);
         showToast({ message: 'Sales line deleted.', variant: 'success' });
         await refreshSalesLines();
       }
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Action failed.';
-      showToast({ message, variant: 'error' });
+      showToast({
+        message: error instanceof Error ? error.message : 'Action failed.',
+        variant: 'error',
+      });
     } finally {
       setConfirmTarget(null);
     }
   }
 
-  function getActionSheetActions(): ActionSheetAction[] {
-    if (!actionTarget) return [];
-
-    if (actionTarget.type === 'order') {
-      return [
-        {
-          key: 'view-order-details',
-          label: 'View details',
-          onPress: () => {
-            void openOrderDetails(actionTarget.item);
-            setActionTarget(null);
-          },
-        },
-        {
-          key: 'edit-order',
-          label: 'Edit order',
-          onPress: () => {
-            openEditOrderSheet(actionTarget.item);
-            setActionTarget(null);
-          },
-        },
-        {
-          key: 'validate-order-inventory',
-          label: 'Validate inventory',
-          onPress: () => {
-            void loadOrderDetails(actionTarget.item.id)
-              .then((details) => {
-                const items = toInventoryItems(details.items);
-                if (items.length === 0) {
-                  throw new Error('Order has no valid product line items for inventory validation.');
-                }
-                return validateOrderInventory({ items });
-              })
-              .then(() => showToast({ message: 'Inventory validation succeeded.', variant: 'success' }))
-              .catch((error) =>
-                showToast({
-                  message: error instanceof Error ? error.message : 'Inventory validation failed.',
-                  variant: 'error',
-                }),
-              );
-            setActionTarget(null);
-          },
-        },
-        {
-          key: 'allocate-order-inventory',
-          label: 'Allocate inventory',
-          onPress: () => {
-            void loadOrderDetails(actionTarget.item.id)
-              .then((details) => {
-                const items = toInventoryItems(details.items);
-                if (items.length === 0) {
-                  throw new Error('Order has no valid product line items for allocation.');
-                }
-                return allocateOrderInventory({ items });
-              })
-              .then(() => showToast({ message: 'Inventory allocation succeeded.', variant: 'success' }))
-              .catch((error) =>
-                showToast({
-                  message: error instanceof Error ? error.message : 'Inventory allocation failed.',
-                  variant: 'error',
-                }),
-              );
-            setActionTarget(null);
-          },
-        },
-        {
-          key: 'confirm-order',
-          label: 'Confirm order',
-          onPress: () => {
-            void confirmOrder(actionTarget.item.id, { note: 'Confirmed from mobile Phase 10' })
-              .then(() => showToast({ message: 'Order confirmed.', variant: 'success' }))
-              .catch((error) =>
-                showToast({
-                  message: error instanceof Error ? error.message : 'Order confirmation failed.',
-                  variant: 'error',
-                }),
-              );
-            setActionTarget(null);
-          },
-        },
-        {
-          key: 'update-order-status',
-          label: 'Update status',
-          onPress: () => {
-            openOrderStatusSheet(actionTarget.item);
-            setActionTarget(null);
-          },
-        },
-        {
-          key: 'mark-order-read',
-          label: 'Mark as read',
-          onPress: () => {
-            void markOrderAsRead(actionTarget.item.id)
-              .then(() => showToast({ message: 'Order marked as read.', variant: 'success' }))
-              .catch((error) =>
-                showToast({
-                  message: error instanceof Error ? error.message : 'Mark as read failed.',
-                  variant: 'error',
-                }),
-              );
-            setActionTarget(null);
-          },
-        },
-        {
-          key: 'create-order-stock-out',
-          label: 'Create stock-out',
-          onPress: () => {
-            void createStockOutForOrder(actionTarget.item.id)
-              .then(() => showToast({ message: 'Stock-out ensured for order.', variant: 'success' }))
-              .catch((error) =>
-                showToast({
-                  message: error instanceof Error ? error.message : 'Create stock-out failed.',
-                  variant: 'error',
-                }),
-              );
-            setActionTarget(null);
-          },
-        },
-        {
-          key: 'delete-order',
-          label: 'Delete order',
-          destructive: true,
-          onPress: () => {
-            setConfirmTarget({ type: 'order-delete', item: actionTarget.item });
-            setActionTarget(null);
-          },
-        },
-      ];
-    }
-
-    if (actionTarget.type === 'voucher') {
-      return [
-        {
-          key: 'edit-voucher',
-          label: 'Edit voucher',
-          onPress: () => {
-            openEditVoucherSheet(actionTarget.item);
-            setActionTarget(null);
-          },
-        },
-        {
-          key: 'post-voucher',
-          label: 'Mark as posted',
-          onPress: () => {
-            void updateStockVoucherStatus(actionTarget.item.id, { status: 'posted' })
-              .then(() => showToast({ message: 'Voucher status updated.', variant: 'success' }))
-              .catch((error) =>
-                showToast({
-                  message: error instanceof Error ? error.message : 'Status update failed.',
-                  variant: 'error',
-                }),
-              );
-            setActionTarget(null);
-          },
-        },
-        {
-          key: 'add-voucher-line',
-          label: 'Add line item',
-          onPress: () => {
-            setVoucherLineTarget(actionTarget.item);
-            setVoucherLineValues(toStockVoucherLineItemFormValues());
-            setVoucherLineVisible(true);
-            setActionTarget(null);
-          },
-        },
-        {
-          key: 'delete-voucher-lines',
-          label: 'Delete line items',
-          destructive: true,
-          onPress: () => {
-            setConfirmTarget({ type: 'voucher-delete-lines', item: actionTarget.item });
-            setActionTarget(null);
-          },
-        },
-        {
-          key: 'delete-voucher',
-          label: 'Delete voucher',
-          destructive: true,
-          onPress: () => {
-            setConfirmTarget({ type: 'voucher-delete', item: actionTarget.item });
-            setActionTarget(null);
-          },
-        },
-      ];
-    }
-
-    if (actionTarget.type === 'sales') {
-      return [
-        {
-          key: 'manage-sales-lines',
-          label: 'Manage lines',
-          onPress: () => {
-            void openSalesLines(actionTarget.item);
-            setActionTarget(null);
-          },
-        },
-        {
-          key: 'edit-sales-transaction',
-          label: 'Edit transaction',
-          onPress: () => {
-            openEditSalesSheet(actionTarget.item);
-            setActionTarget(null);
-          },
-        },
-        {
-          key: 'complete-sales-transaction',
-          label: 'Complete transaction',
-          onPress: () => {
-            setConfirmTarget({ type: 'sales-complete', item: actionTarget.item });
-            setActionTarget(null);
-          },
-        },
-      ];
-    }
-
+  // ─── Quick action builders ────────────────────────────────────────────────
+  function buildOrderQuickActions(order: OrderSummary): QuickAction[] {
     return [
       {
-        key: 'edit-sales-line',
-        label: 'Edit line',
+        key: 'view-details',
+        icon: 'clipboard-text',
+        label: 'View Details',
+        color: 'green',
         onPress: () => {
-          setSalesLineFormMode('edit');
-          setEditingSalesLine(actionTarget.item);
-          setSalesLineFormValues({
-            productId: actionTarget.item.productId ?? '',
-            productName: actionTarget.item.productName,
-            warehouseId: actionTarget.item.warehouseId ?? '',
-            quantity: actionTarget.item.quantity.toString(),
-            unitPrice: actionTarget.item.unitPrice.toString(),
-            subtotal: actionTarget.item.subtotal.toString(),
-          });
-          setSalesLineFormVisible(true);
-          setActionTarget(null);
+          setDetailTarget(null);
+          void openOrderDetails(order);
         },
       },
       {
-        key: 'delete-sales-line',
-        label: 'Delete line',
-        destructive: true,
+        key: 'edit',
+        icon: 'pencil-outline',
+        label: 'Edit',
+        color: 'green',
         onPress: () => {
-          setConfirmTarget({ type: 'sales-line-delete', item: actionTarget.item });
-          setActionTarget(null);
+          setDetailTarget(null);
+          openEditOrderSheet(order);
+        },
+      },
+      {
+        key: 'validate-inv',
+        icon: 'check-circle-outline',
+        label: 'Validate Inv.',
+        color: 'amber',
+        onPress: () => {
+          setDetailTarget(null);
+          void loadOrderDetails(order.id)
+            .then((details) => {
+              const items = toInventoryItems(details.items);
+              if (items.length === 0) {
+                throw new Error(
+                  'Order has no valid product line items for inventory validation.',
+                );
+              }
+              return validateOrderInventory({ items });
+            })
+            .then(() =>
+              showToast({ message: 'Inventory validation succeeded.', variant: 'success' }),
+            )
+            .catch((error) =>
+              showToast({
+                message:
+                  error instanceof Error ? error.message : 'Inventory validation failed.',
+                variant: 'error',
+              }),
+            );
+        },
+      },
+      {
+        key: 'allocate-inv',
+        icon: 'package-variant',
+        label: 'Allocate Inv.',
+        color: 'amber',
+        onPress: () => {
+          setDetailTarget(null);
+          void loadOrderDetails(order.id)
+            .then((details) => {
+              const items = toInventoryItems(details.items);
+              if (items.length === 0) {
+                throw new Error(
+                  'Order has no valid product line items for allocation.',
+                );
+              }
+              return allocateOrderInventory({ items });
+            })
+            .then(() =>
+              showToast({ message: 'Inventory allocation succeeded.', variant: 'success' }),
+            )
+            .catch((error) =>
+              showToast({
+                message:
+                  error instanceof Error ? error.message : 'Inventory allocation failed.',
+                variant: 'error',
+              }),
+            );
+        },
+      },
+      {
+        key: 'confirm',
+        icon: 'check-bold',
+        label: 'Confirm',
+        color: 'green',
+        onPress: () => {
+          setDetailTarget(null);
+          void confirmOrder(order.id, { note: 'Confirmed from mobile Phase 10' })
+            .then(() => showToast({ message: 'Order confirmed.', variant: 'success' }))
+            .catch((error) =>
+              showToast({
+                message:
+                  error instanceof Error ? error.message : 'Order confirmation failed.',
+                variant: 'error',
+              }),
+            );
+        },
+      },
+      {
+        key: 'update-status',
+        icon: 'update',
+        label: 'Update Status',
+        color: 'blue',
+        onPress: () => {
+          setDetailTarget(null);
+          openOrderStatusSheet(order);
+        },
+      },
+      {
+        key: 'mark-read',
+        icon: 'email-open-outline',
+        label: 'Mark Read',
+        color: 'blue',
+        onPress: () => {
+          setDetailTarget(null);
+          void markOrderAsRead(order.id)
+            .then(() => showToast({ message: 'Order marked as read.', variant: 'success' }))
+            .catch((error) =>
+              showToast({
+                message: error instanceof Error ? error.message : 'Mark as read failed.',
+                variant: 'error',
+              }),
+            );
+        },
+      },
+      {
+        key: 'stock-out',
+        icon: 'warehouse',
+        label: 'Stock-Out',
+        color: 'amber',
+        onPress: () => {
+          setDetailTarget(null);
+          void createStockOutForOrder(order.id)
+            .then(() =>
+              showToast({ message: 'Stock-out ensured for order.', variant: 'success' }),
+            )
+            .catch((error) =>
+              showToast({
+                message: error instanceof Error ? error.message : 'Create stock-out failed.',
+                variant: 'error',
+              }),
+            );
+        },
+      },
+      {
+        key: 'delete',
+        icon: 'delete-outline',
+        label: 'Delete',
+        color: 'red',
+        onPress: () => {
+          setDetailTarget(null);
+          setConfirmTarget({ type: 'order-delete', item: order });
+        },
+      },
+    ];
+  }
+
+  function buildVoucherQuickActions(voucher: StockVoucher): QuickAction[] {
+    return [
+      {
+        key: 'edit',
+        icon: 'pencil-outline',
+        label: 'Edit',
+        color: 'green',
+        onPress: () => {
+          setDetailTarget(null);
+          openEditVoucherSheet(voucher);
+        },
+      },
+      {
+        key: 'post',
+        icon: 'send-check',
+        label: 'Mark Posted',
+        color: 'green',
+        onPress: () => {
+          setDetailTarget(null);
+          void updateStockVoucherStatus(voucher.id, { status: 'posted' })
+            .then(() => showToast({ message: 'Voucher status updated.', variant: 'success' }))
+            .catch((error) =>
+              showToast({
+                message: error instanceof Error ? error.message : 'Status update failed.',
+                variant: 'error',
+              }),
+            );
+        },
+      },
+      {
+        key: 'add-line',
+        icon: 'plus-box-outline',
+        label: 'Add Line',
+        color: 'amber',
+        onPress: () => {
+          setDetailTarget(null);
+          setVoucherLineTarget(voucher);
+          setVoucherLineValues(toStockVoucherLineItemFormValues());
+          voucherLineFormValidation.reset();
+          setVoucherLineVisible(true);
+        },
+      },
+      {
+        key: 'delete-lines',
+        icon: 'table-remove',
+        label: 'Delete Lines',
+        color: 'red',
+        onPress: () => {
+          setDetailTarget(null);
+          setConfirmTarget({ type: 'voucher-delete-lines', item: voucher });
+        },
+      },
+      {
+        key: 'delete',
+        icon: 'delete-outline',
+        label: 'Delete',
+        color: 'red',
+        onPress: () => {
+          setDetailTarget(null);
+          setConfirmTarget({ type: 'voucher-delete', item: voucher });
+        },
+      },
+    ];
+  }
+
+  function buildSalesQuickActions(transaction: SalesTransaction): QuickAction[] {
+    return [
+      {
+        key: 'manage-lines',
+        icon: 'format-list-bulleted',
+        label: 'Manage Lines',
+        color: 'green',
+        onPress: () => {
+          setDetailTarget(null);
+          void openSalesLines(transaction);
+        },
+      },
+      {
+        key: 'edit',
+        icon: 'pencil-outline',
+        label: 'Edit',
+        color: 'green',
+        onPress: () => {
+          setDetailTarget(null);
+          openEditSalesSheet(transaction);
+        },
+      },
+      {
+        key: 'complete',
+        icon: 'check-circle',
+        label: 'Complete',
+        color: 'amber',
+        onPress: () => {
+          setDetailTarget(null);
+          setConfirmTarget({ type: 'sales-complete', item: transaction });
+        },
+      },
+    ];
+  }
+
+  function buildSalesLineQuickActions(line: SalesTransactionLine): QuickAction[] {
+    return [
+      {
+        key: 'edit',
+        icon: 'pencil-outline',
+        label: 'Edit',
+        color: 'green',
+        onPress: () => {
+          setDetailTarget(null);
+          setSalesLineFormMode('edit');
+          setEditingSalesLine(line);
+          setSalesLineFormValues({
+            productId: line.productId ?? '',
+            productName: line.productName,
+            warehouseId: line.warehouseId ?? '',
+            quantity: line.quantity.toString(),
+            unitPrice: line.unitPrice.toString(),
+            subtotal: line.subtotal.toString(),
+          });
+          salesLineFormValidation.reset();
+          setSalesLineFormVisible(true);
+        },
+      },
+      {
+        key: 'delete',
+        icon: 'delete-outline',
+        label: 'Delete',
+        color: 'red',
+        onPress: () => {
+          setDetailTarget(null);
+          setConfirmTarget({ type: 'sales-line-delete', item: line });
         },
       },
     ];
@@ -964,75 +1058,130 @@ export function OrdersScreen() {
   const ordersCount = filteredOrders.length;
   const stockCount = filteredVouchers.length;
   const salesCount = filteredSales.length;
-
   const activeRowsCount =
     activeTab === 'orders' ? ordersCount : activeTab === 'stock' ? stockCount : salesCount;
 
-  const actionSheetActions = getActionSheetActions();
+  const pillTabOptions = [
+    {
+      label: unreadOrderCount > 0 ? `Orders (${unreadOrderCount})` : 'Orders',
+      value: 'orders' as Phase10Tab,
+    },
+    { label: `Stock (${stockVouchers.length})`, value: 'stock' as Phase10Tab },
+    { label: `Sales (${salesTransactions.length})`, value: 'sales' as Phase10Tab },
+  ];
 
+  // ─── Detail cell builders ──────────────────────────────────────────────────
+  const orderDetailCells: InfoGridCell[] | undefined =
+    detailTarget?.type === 'order'
+      ? [
+          { label: 'Status', value: detailTarget.item.status },
+          { label: 'Items', value: String(detailTarget.item.itemsCount) },
+          { label: 'Read', value: detailTarget.item.readAt ? 'Read' : 'Unread' },
+          { label: 'Payment', value: detailTarget.item.paymentMethod ?? 'N/A' },
+        ]
+      : undefined;
+
+  const voucherDetailCells: InfoGridCell[] | undefined =
+    detailTarget?.type === 'voucher'
+      ? [
+          { label: 'Type', value: detailTarget.item.type.toUpperCase() },
+          { label: 'Status', value: detailTarget.item.status },
+          { label: 'Lines', value: String(detailTarget.item.lineItemsCount) },
+          { label: 'Date', value: detailTarget.item.voucherDate ?? 'N/A' },
+        ]
+      : undefined;
+
+  const salesDetailCells: InfoGridCell[] | undefined =
+    detailTarget?.type === 'sales'
+      ? [
+          { label: 'Status', value: detailTarget.item.status },
+          { label: 'Price type', value: detailTarget.item.priceType ?? 'N/A' },
+          { label: 'Total', value: `${money(detailTarget.item.totalAmount)} USD` },
+          { label: 'Date', value: detailTarget.item.transactionDate ?? 'N/A' },
+        ]
+      : undefined;
+
+  const salesLineDetailCells: InfoGridCell[] | undefined =
+    detailTarget?.type === 'sales-line'
+      ? [
+          { label: 'Qty', value: String(detailTarget.item.quantity) },
+          { label: 'Unit price', value: money(detailTarget.item.unitPrice) },
+          { label: 'Subtotal', value: money(detailTarget.item.subtotal) },
+          { label: 'Line #', value: String(detailTarget.item.lineNumber) },
+        ]
+      : undefined;
+
+  // ─── Render ────────────────────────────────────────────────────────────────
   return (
-    <AppScreen scroll>
-      <AppHeader
-        title="Orders, Stock, and Sales"
-        subtitle="Phase 10 operations flows using generated OpenAPI contracts (storefront deferred)."
-      />
+    <AppScreen padded={false}>
+      {/* Sticky header */}
+      <View style={styles.header}>
+        <View style={styles.headerLead}>
+          <HeaderMenuButton testID="orders-header-menu" />
+          <Text style={styles.headerTitle}>Orders & Sales</Text>
+        </View>
+        <View style={styles.headerActions}>
+          <NotificationHeaderButton testID="orders-header-notifications" />
+          <HeaderIconButton icon="plus" filled onPress={openCreateSheet} />
+        </View>
+      </View>
 
-      <AppCard>
-        <AppSection
-          title="Store operations metrics"
-          description={
-            farmContext
-              ? `${farmContext.name} (${farmContext.subscriptionStatus ?? 'n/a'})`
-              : 'Farm context from orders module.'
-          }
-        >
-          <View style={styles.metricsRow}>
-            <MetricBadge label="Unread Orders" value={unreadOrderCount} variant="warning" />
-            <MetricBadge label="Stock Vouchers" value={stockVouchers.length} variant="neutral" />
-            <MetricBadge label="Sales Transactions" value={salesTransactions.length} variant="accent" />
-            <MetricBadge label="Inventory Rows" value={productInventory.length} variant="success" />
-          </View>
-        </AppSection>
-      </AppCard>
-
-      <AppTabs
-        value={activeTab}
-        onValueChange={(value) => setActiveTab(value as Phase10Tab)}
-        tabs={PHASE10_TAB_OPTIONS.map((tab) => ({ label: tab.label, value: tab.value }))}
-      />
-
-      <TopActions
-        createLabel={`Create ${toEntityLabel(activeTab)}`}
-        onCreate={openCreateSheet}
-        onRefresh={() => void refresh()}
-        loading={isRefreshing || isMutating}
-      />
-
-      <AppCard>
-        <FilterBar
-          searchValue={searchValue}
-          onSearchChange={setSearchValue}
-          searchPlaceholder={`Search ${activeTab}`}
+      {/* Tab switcher */}
+      <View style={styles.tabsWrap}>
+        <PillTabs
+          value={activeTab}
+          onValueChange={(v) => setActiveTab(v as Phase10Tab)}
+          tabs={pillTabOptions}
         />
-      </AppCard>
+      </View>
 
-      <AppCard>
-        <AppSection
-          title={`${toEntityLabel(activeTab)} records`}
-          description={
-            activeTab === 'orders'
-              ? 'Unread list + detail/status/confirm/create-stock-out workflows.'
-              : activeTab === 'stock'
-                ? 'Stock voucher + line-item flows for stock adjustment.'
-                : 'Sales transactions + line items + complete command.'
-          }
-        >
+      {/* Search */}
+      <View style={styles.searchWrap}>
+        <SearchBar
+          value={searchValue}
+          onChangeText={setSearchValue}
+          placeholder={`Search ${activeTab}`}
+        />
+      </View>
+
+      <PullToRefreshContainer refreshing={isRefreshing} onRefresh={() => void refresh()}>
+        <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+          {/* Stats strip */}
+          <StatStrip
+            items={[
+              {
+                label: 'Unread Orders',
+                value: String(unreadOrderCount),
+                color: unreadOrderCount > 0 ? 'amber' : 'green',
+              },
+              { label: 'Stock Vouchers', value: String(stockVouchers.length), color: 'green' },
+              { label: 'Sales', value: String(salesTransactions.length), color: 'green' },
+              { label: 'Inventory', value: String(productInventory.length), color: 'amber' },
+            ]}
+          />
+
+          {/* Farm context badge */}
+          {farmContext ? (
+            <View style={styles.farmBadge}>
+              <Text style={styles.farmBadgeText}>
+                {farmContext.name} · {farmContext.subscriptionStatus ?? 'active'}
+              </Text>
+            </View>
+          ) : null}
+
+          {/* Section header */}
+          <SectionHeader
+            title={`${toEntityLabel(activeTab)} records`}
+            trailing={String(activeRowsCount)}
+          />
+
+          {/* List */}
           {isLoading ? (
-            <>
+            <View style={styles.gap}>
               <Skeleton height={56} />
               <Skeleton height={56} />
               <Skeleton height={56} />
-            </>
+            </View>
           ) : errorMessage ? (
             <ErrorState message={errorMessage} onRetry={() => void refresh()} />
           ) : activeRowsCount === 0 ? (
@@ -1043,217 +1192,152 @@ export function OrdersScreen() {
               onAction={openCreateSheet}
             />
           ) : (
-            <PullToRefreshContainer refreshing={isRefreshing} onRefresh={() => void refresh()}>
-              <View style={styles.rows}>
-                {activeTab === 'orders'
-                  ? filteredOrders.map((order) => (
-                      <AppCard key={order.id}>
-                        <AppListItem
-                          title={order.orderNumber}
-                          description={
-                            order.customerName
-                              ? `${order.customerName} • ${money(order.totalAmount)} USD`
-                              : `${money(order.totalAmount)} USD`
+            <View style={styles.gap}>
+              {activeTab === 'orders'
+                ? filteredOrders.map((order) => (
+                    <ListRow
+                      key={order.id}
+                      icon="clipboard-list"
+                      title={order.orderNumber}
+                      subtitle={
+                        order.customerName
+                          ? `${order.customerName} · ${money(order.totalAmount)} USD`
+                          : `${money(order.totalAmount)} USD`
+                      }
+                      badge={
+                        <DotBadge
+                          label={order.readAt ? order.status : 'Unread'}
+                          variant={
+                            order.readAt ? statusDotBadgeVariant(order.status) : 'warning'
                           }
-                          leftIcon="clipboard-list"
-                          onPress={() => setActionTarget({ type: 'order', item: order })}
                         />
-                        <View style={styles.rowMeta}>
-                          <MetaBadge label="Status" value={order.status} variant={statusBadgeVariant(order.status)} />
-                          <MetaBadge label="Items" value={order.itemsCount} variant="neutral" />
-                          <MetaBadge
-                            label="Read"
-                            value={order.readAt ? 'Read' : 'Unread'}
-                            variant={order.readAt ? 'neutral' : 'warning'}
-                          />
-                        </View>
-                      </AppCard>
-                    ))
-                  : null}
+                      }
+                      onPress={() => setDetailTarget({ type: 'order', item: order })}
+                    />
+                  ))
+                : null}
 
-                {activeTab === 'stock'
-                  ? filteredVouchers.map((voucher) => (
-                      <AppCard key={voucher.id}>
-                        <AppListItem
-                          title={voucher.voucherReference || voucher.id.slice(0, 8)}
-                          description={`${voucher.type.toUpperCase()} • ${voucher.voucherDate ?? 'No date'}`}
-                          leftIcon="warehouse"
-                          onPress={() => setActionTarget({ type: 'voucher', item: voucher })}
+              {activeTab === 'stock'
+                ? filteredVouchers.map((voucher) => (
+                    <ListRow
+                      key={voucher.id}
+                      icon="warehouse"
+                      title={voucher.voucherReference || voucher.id.slice(0, 8)}
+                      subtitle={`${voucher.type.toUpperCase()} · ${voucher.voucherDate ?? 'No date'} · ${voucher.lineItemsCount} lines`}
+                      badge={
+                        <DotBadge
+                          label={voucher.status}
+                          variant={statusDotBadgeVariant(voucher.status)}
                         />
-                        <View style={styles.rowMeta}>
-                          <MetaBadge
-                            label="Status"
-                            value={voucher.status}
-                            variant={statusBadgeVariant(voucher.status)}
-                          />
-                          <MetaBadge label="Line items" value={voucher.lineItemsCount} variant="neutral" />
-                        </View>
-                      </AppCard>
-                    ))
-                  : null}
+                      }
+                      onPress={() => setDetailTarget({ type: 'voucher', item: voucher })}
+                    />
+                  ))
+                : null}
 
-                {activeTab === 'sales'
-                  ? filteredSales.map((transaction) => (
-                      <AppCard key={transaction.id}>
-                        <AppListItem
-                          title={transaction.id.slice(0, 12)}
-                          description={`${transaction.transactionDate ?? 'No date'} • ${money(
-                            transaction.totalAmount,
-                          )} USD`}
-                          leftIcon="cash-multiple"
-                          onPress={() => setActionTarget({ type: 'sales', item: transaction })}
+              {activeTab === 'sales'
+                ? filteredSales.map((transaction) => (
+                    <ListRow
+                      key={transaction.id}
+                      icon="cash-multiple"
+                      title={transaction.id.slice(0, 12)}
+                      subtitle={`${transaction.transactionDate ?? 'No date'} · ${money(transaction.totalAmount)} USD`}
+                      badge={
+                        <DotBadge
+                          label={transaction.status}
+                          variant={statusDotBadgeVariant(transaction.status)}
                         />
-                        <View style={styles.rowMeta}>
-                          <MetaBadge
-                            label="Status"
-                            value={transaction.status}
-                            variant={statusBadgeVariant(transaction.status)}
-                          />
-                          <MetaBadge
-                            label="Price type"
-                            value={transaction.priceType ?? 'n/a'}
-                            variant="neutral"
-                          />
-                        </View>
-                      </AppCard>
-                    ))
-                  : null}
-              </View>
-            </PullToRefreshContainer>
+                      }
+                      onPress={() => setDetailTarget({ type: 'sales', item: transaction })}
+                    />
+                  ))
+                : null}
+            </View>
           )}
-        </AppSection>
-      </AppCard>
+        </ScrollView>
+      </PullToRefreshContainer>
 
-      <PaginationFooter
-        page={1}
-        pageSize={Math.max(activeRowsCount, 1)}
-        totalItems={activeRowsCount}
-        onPageChange={() => undefined}
-      />
-
+      {/* ─── Order detail BottomSheet ────────────────────────────────── */}
       <BottomSheet
-        visible={orderFormVisible}
-        onDismiss={closeOrderForm}
-        title={orderFormMode === 'create' ? 'Create Order' : 'Edit Order'}
-        footer={
-          <SheetFooter
-            onCancel={closeOrderForm}
-            onSubmit={() => void submitOrderForm()}
-            submitLabel={orderFormMode === 'create' ? 'Create' : 'Save'}
-            loading={isMutating}
-            disabled={isMutating}
-          />
-        }
+        visible={detailTarget?.type === 'order'}
+        onDismiss={() => setDetailTarget(null)}
+        title="Order"
       >
-        <FormField label="Status">
-          <AppSelect
-            value={orderFormValues.status}
-            onChange={(value) => setOrderFormValues((prev) => ({ ...prev, status: value }))}
-            options={ORDER_STATUS_OPTIONS.map((item) => ({ label: item.label, value: item.value }))}
-          />
-        </FormField>
-        <FormField label="Order date">
-          <AppDatePicker
-            value={orderFormValues.orderDate || null}
-            onChange={(value) => setOrderFormValues((prev) => ({ ...prev, orderDate: value ?? '' }))}
-            placeholder="Select order date"
-          />
-        </FormField>
-        <FormField label="Delivery date">
-          <AppDatePicker
-            value={orderFormValues.deliveryDate || null}
-            onChange={(value) => setOrderFormValues((prev) => ({ ...prev, deliveryDate: value ?? '' }))}
-            placeholder="Optional delivery date"
-          />
-        </FormField>
-        <FormField label="Contact">
-          <AppSelect
-            value={orderFormValues.contactId || '__none__'}
-            onChange={(value) =>
-              setOrderFormValues((prev) => ({ ...prev, contactId: value === '__none__' ? '' : value }))
-            }
-            options={[{ label: 'No contact', value: '__none__' }, ...contactOptions]}
-          />
-        </FormField>
-        <FormField label="Customer name">
-          <AppInput
-            value={orderFormValues.customerName}
-            onChangeText={(value) => setOrderFormValues((prev) => ({ ...prev, customerName: value }))}
-            placeholder="Optional customer name"
-          />
-        </FormField>
-        <FormField label="Payment method">
-          <AppInput
-            value={orderFormValues.paymentMethod}
-            onChangeText={(value) => setOrderFormValues((prev) => ({ ...prev, paymentMethod: value }))}
-            placeholder="cash, card, transfer"
-          />
-        </FormField>
-        {orderFormMode === 'create' ? (
+        {detailTarget?.type === 'order' ? (
           <>
-            <FormField label="Product" required>
-              <AppSelect
-                value={orderFormValues.productId || '__none__'}
-                onChange={(value) =>
-                  setOrderFormValues((prev) => ({ ...prev, productId: value === '__none__' ? '' : value }))
-                }
-                options={[{ label: 'Select product', value: '__none__' }, ...productOptions]}
-              />
-            </FormField>
-            <FormField label="Quantity" required>
-              <AppInput
-                value={orderFormValues.quantity}
-                onChangeText={(value) => setOrderFormValues((prev) => ({ ...prev, quantity: value }))}
-                placeholder="1"
-              />
-            </FormField>
-            <FormField label="Unit price" required>
-              <AppInput
-                value={orderFormValues.unitPrice}
-                onChangeText={(value) => setOrderFormValues((prev) => ({ ...prev, unitPrice: value }))}
-                placeholder="1.00"
-              />
-            </FormField>
+            <ProfileCard
+              icon="clipboard-list"
+              name={detailTarget.item.orderNumber}
+              subtitle={
+                detailTarget.item.customerName
+                  ? `${detailTarget.item.customerName} · ${money(detailTarget.item.totalAmount)} USD`
+                  : `${money(detailTarget.item.totalAmount)} USD`
+              }
+              cells={orderDetailCells ?? []}
+            />
+            <QuickActionGrid actions={buildOrderQuickActions(detailTarget.item)} />
           </>
         ) : null}
-        <FormField label="Notes">
-          <AppTextArea
-            value={orderFormValues.notes}
-            onChangeText={(value) => setOrderFormValues((prev) => ({ ...prev, notes: value }))}
-            placeholder="Optional notes"
-          />
-        </FormField>
       </BottomSheet>
 
+      {/* ─── Voucher detail BottomSheet ──────────────────────────────── */}
       <BottomSheet
-        visible={orderStatusVisible}
-        onDismiss={() => {
-          setOrderStatusVisible(false);
-          setOrderStatusTarget(null);
-        }}
-        title="Update Order Status"
-        footer={
-          <SheetFooter
-            onCancel={() => {
-              setOrderStatusVisible(false);
-              setOrderStatusTarget(null);
-            }}
-            onSubmit={() => void submitOrderStatusForm()}
-            submitLabel="Save"
-            loading={isMutating}
-            disabled={isMutating || !orderStatusTarget}
-          />
-        }
+        visible={detailTarget?.type === 'voucher'}
+        onDismiss={() => setDetailTarget(null)}
+        title="Stock Voucher"
       >
-        <FormField label="Status">
-          <AppSelect
-            value={orderStatusValues.status}
-            onChange={(value) => setOrderStatusValues({ status: value })}
-            options={ORDER_STATUS_OPTIONS.map((item) => ({ label: item.label, value: item.value }))}
-          />
-        </FormField>
+        {detailTarget?.type === 'voucher' ? (
+          <>
+            <ProfileCard
+              icon="warehouse"
+              name={detailTarget.item.voucherReference || detailTarget.item.id.slice(0, 8)}
+              subtitle={`${detailTarget.item.type.toUpperCase()} · ${detailTarget.item.voucherDate ?? 'No date'}`}
+              cells={voucherDetailCells ?? []}
+            />
+            <QuickActionGrid actions={buildVoucherQuickActions(detailTarget.item)} />
+          </>
+        ) : null}
       </BottomSheet>
 
+      {/* ─── Sales detail BottomSheet ────────────────────────────────── */}
+      <BottomSheet
+        visible={detailTarget?.type === 'sales'}
+        onDismiss={() => setDetailTarget(null)}
+        title="Sales Transaction"
+      >
+        {detailTarget?.type === 'sales' ? (
+          <>
+            <ProfileCard
+              icon="cash-multiple"
+              name={detailTarget.item.id.slice(0, 12)}
+              subtitle={`${detailTarget.item.transactionDate ?? 'No date'} · ${money(detailTarget.item.totalAmount)} USD`}
+              cells={salesDetailCells ?? []}
+            />
+            <QuickActionGrid actions={buildSalesQuickActions(detailTarget.item)} />
+          </>
+        ) : null}
+      </BottomSheet>
+
+      {/* ─── Sales-line detail BottomSheet ───────────────────────────── */}
+      <BottomSheet
+        visible={detailTarget?.type === 'sales-line'}
+        onDismiss={() => setDetailTarget(null)}
+        title="Sales Line Item"
+      >
+        {detailTarget?.type === 'sales-line' ? (
+          <>
+            <ProfileCard
+              icon="barcode"
+              name={detailTarget.item.productName}
+              subtitle={`Qty ${detailTarget.item.quantity} · ${money(detailTarget.item.unitPrice)} / unit`}
+              cells={salesLineDetailCells ?? []}
+            />
+            <QuickActionGrid actions={buildSalesLineQuickActions(detailTarget.item)} />
+          </>
+        ) : null}
+      </BottomSheet>
+
+      {/* ─── Order details view ──────────────────────────────────────── */}
       <BottomSheet
         visible={orderDetailsVisible}
         onDismiss={() => {
@@ -1266,36 +1350,40 @@ export function OrdersScreen() {
         title="Order Details"
       >
         {orderDetailsLoading ? (
-          <>
+          <View style={styles.gap}>
             <Skeleton height={56} />
             <Skeleton height={56} />
-          </>
+          </View>
         ) : orderDetailsError ? (
-          <ErrorState message={orderDetailsError} onRetry={() => orderDetailsOrder && void openOrderDetails(orderDetailsOrder)} />
+          <ErrorState
+            message={orderDetailsError}
+            onRetry={() => orderDetailsOrder && void openOrderDetails(orderDetailsOrder)}
+          />
         ) : orderDetailsOrder ? (
           <>
-            <AppListItem
-              title={orderDetailsOrder.orderNumber}
-              description={`${orderDetailsOrder.status} • ${money(orderDetailsOrder.totalAmount)} USD`}
-              leftIcon="clipboard-text"
+            <ProfileCard
+              icon="clipboard-text"
+              name={orderDetailsOrder.orderNumber}
+              subtitle={`${orderDetailsOrder.status} · ${money(orderDetailsOrder.totalAmount)} USD`}
+              cells={[
+                { label: 'Stock-out', value: orderDetailsStockOut ? 'Yes' : 'No' },
+                { label: 'Items', value: String(orderDetailsItems.length) },
+              ]}
             />
-            <View style={styles.rowMeta}>
-              <MetaBadge label="Stock-out" value={orderDetailsStockOut ? 'Yes' : 'No'} variant={orderDetailsStockOut ? 'success' : 'warning'} />
-              <MetaBadge label="Items" value={orderDetailsItems.length} variant="neutral" />
-            </View>
             {orderDetailsItems.length === 0 ? (
               <EmptyState title="No order items" message="This order has no line items." />
             ) : (
-              orderDetailsItems.map((item) => (
-                <AppListItem
-                  key={item.id}
-                  title={item.productName}
-                  description={`Qty ${item.quantity} • Unit ${money(item.unitPrice)} • Total ${money(
-                    item.totalPrice,
-                  )}`}
-                  leftIcon="package-variant"
-                />
-              ))
+              <View style={styles.gap}>
+                {orderDetailsItems.map((item) => (
+                  <ListRow
+                    key={item.id}
+                    icon="package-variant"
+                    iconVariant="neutral"
+                    title={item.productName}
+                    subtitle={`Qty ${item.quantity} · Unit ${money(item.unitPrice)} · Total ${money(item.totalPrice)}`}
+                  />
+                ))}
+              </View>
             )}
           </>
         ) : (
@@ -1303,46 +1391,224 @@ export function OrdersScreen() {
         )}
       </BottomSheet>
 
+      {/* ─── Order form ──────────────────────────────────────────────── */}
+      <BottomSheet
+        visible={orderFormVisible}
+        onDismiss={closeOrderForm}
+        scrollViewRef={orderFormScrollRef}
+        title={orderFormMode === 'create' ? 'Create Order' : 'Edit Order'}
+        footer={
+          <View style={styles.formFooter}>
+            <View style={styles.formBtn}>
+              <AppButton
+                label="Cancel"
+                mode="outlined"
+                tone="neutral"
+                onPress={closeOrderForm}
+                disabled={isMutating}
+              />
+            </View>
+            <View style={styles.formBtn}>
+              <AppButton
+                label={orderFormMode === 'create' ? 'Create' : 'Save'}
+                onPress={() => void submitOrderForm()}
+                loading={isMutating}
+                disabled={isMutating}
+              />
+            </View>
+          </View>
+        }
+      >
+        <FormValidationProvider value={orderFormValidation.providerValue}>
+          <FormField label="Status">
+            <AppSelect
+              value={orderFormValues.status}
+              onChange={(v) => setOrderFormValues((p) => ({ ...p, status: v }))}
+              options={ORDER_STATUS_OPTIONS.map((o) => ({ label: o.label, value: o.value }))}
+            />
+          </FormField>
+          <FormField label="Order date">
+            <AppDatePicker
+              value={orderFormValues.orderDate || null}
+              onChange={(v) => setOrderFormValues((p) => ({ ...p, orderDate: v ?? '' }))}
+              placeholder="Select order date"
+            />
+          </FormField>
+          <FormField label="Delivery date">
+            <AppDatePicker
+              value={orderFormValues.deliveryDate || null}
+              onChange={(v) => setOrderFormValues((p) => ({ ...p, deliveryDate: v ?? '' }))}
+              placeholder="Optional delivery date"
+            />
+          </FormField>
+          <FormField label="Contact">
+            <AppSelect
+              value={orderFormValues.contactId || '__none__'}
+              onChange={(v) =>
+                setOrderFormValues((p) => ({ ...p, contactId: v === '__none__' ? '' : v }))
+              }
+              options={[{ label: 'No contact', value: '__none__' }, ...contactOptions]}
+            />
+          </FormField>
+          <FormField label="Customer name">
+            <AppInput
+              value={orderFormValues.customerName}
+              onChangeText={(v) => setOrderFormValues((p) => ({ ...p, customerName: v }))}
+              placeholder="Optional customer name"
+            />
+          </FormField>
+          <FormField label="Payment method">
+            <AppInput
+              value={orderFormValues.paymentMethod}
+              onChangeText={(v) => setOrderFormValues((p) => ({ ...p, paymentMethod: v }))}
+              placeholder="cash, card, transfer"
+            />
+          </FormField>
+          {orderFormMode === 'create' ? (
+            <>
+              <FormField label="Product" name="productId" required>
+                <AppSelect
+                  value={orderFormValues.productId || '__none__'}
+                  onChange={(v) => {
+                    orderFormValidation.clearFieldError('productId');
+                    setOrderFormValues((p) => ({
+                      ...p,
+                      productId: v === '__none__' ? '' : v,
+                    }));
+                  }}
+                  options={[{ label: 'Select product', value: '__none__' }, ...productOptions]}
+                />
+              </FormField>
+              <FormField label="Quantity" name="quantity" required>
+                <AppInput
+                  value={orderFormValues.quantity}
+                  onChangeText={(v) => {
+                    orderFormValidation.clearFieldError('quantity');
+                    setOrderFormValues((p) => ({ ...p, quantity: v }));
+                  }}
+                  placeholder="1"
+                />
+              </FormField>
+              <FormField label="Unit price" name="unitPrice" required>
+                <AppInput
+                  value={orderFormValues.unitPrice}
+                  onChangeText={(v) => {
+                    orderFormValidation.clearFieldError('unitPrice');
+                    setOrderFormValues((p) => ({ ...p, unitPrice: v }));
+                  }}
+                  placeholder="1.00"
+                />
+              </FormField>
+            </>
+          ) : null}
+          <FormField label="Notes">
+            <AppTextArea
+              value={orderFormValues.notes}
+              onChangeText={(v) => setOrderFormValues((p) => ({ ...p, notes: v }))}
+              placeholder="Optional notes"
+            />
+          </FormField>
+        </FormValidationProvider>
+      </BottomSheet>
+
+      {/* ─── Order status form ───────────────────────────────────────── */}
+      <BottomSheet
+        visible={orderStatusVisible}
+        onDismiss={() => {
+          setOrderStatusVisible(false);
+          setOrderStatusTarget(null);
+        }}
+        title="Update Order Status"
+        footer={
+          <View style={styles.formFooter}>
+            <View style={styles.formBtn}>
+              <AppButton
+                label="Cancel"
+                mode="outlined"
+                tone="neutral"
+                onPress={() => {
+                  setOrderStatusVisible(false);
+                  setOrderStatusTarget(null);
+                }}
+                disabled={isMutating}
+              />
+            </View>
+            <View style={styles.formBtn}>
+              <AppButton
+                label="Save"
+                onPress={() => void submitOrderStatusForm()}
+                loading={isMutating}
+                disabled={isMutating || !orderStatusTarget}
+              />
+            </View>
+          </View>
+        }
+      >
+        <FormField label="Status">
+          <AppSelect
+            value={orderStatusValues.status}
+            onChange={(v) => setOrderStatusValues({ status: v })}
+            options={ORDER_STATUS_OPTIONS.map((o) => ({ label: o.label, value: o.value }))}
+          />
+        </FormField>
+      </BottomSheet>
+
+      {/* ─── Voucher form ────────────────────────────────────────────── */}
       <BottomSheet
         visible={voucherFormVisible}
         onDismiss={closeVoucherForm}
         title={voucherFormMode === 'create' ? 'Create Stock Voucher' : 'Edit Stock Voucher'}
         footer={
-          <SheetFooter
-            onCancel={closeVoucherForm}
-            onSubmit={() => void submitVoucherForm()}
-            submitLabel={voucherFormMode === 'create' ? 'Create' : 'Save'}
-            loading={isMutating}
-            disabled={isMutating}
-          />
+          <View style={styles.formFooter}>
+            <View style={styles.formBtn}>
+              <AppButton
+                label="Cancel"
+                mode="outlined"
+                tone="neutral"
+                onPress={closeVoucherForm}
+                disabled={isMutating}
+              />
+            </View>
+            <View style={styles.formBtn}>
+              <AppButton
+                label={voucherFormMode === 'create' ? 'Create' : 'Save'}
+                onPress={() => void submitVoucherForm()}
+                loading={isMutating}
+                disabled={isMutating}
+              />
+            </View>
+          </View>
         }
       >
         <FormField label="Type" required>
           <AppSelect
             value={voucherFormValues.type}
-            onChange={(value) => setVoucherFormValues((prev) => ({ ...prev, type: value }))}
-            options={STOCK_VOUCHER_TYPE_OPTIONS.map((item) => ({ label: item.label, value: item.value }))}
+            onChange={(v) => setVoucherFormValues((p) => ({ ...p, type: v }))}
+            options={STOCK_VOUCHER_TYPE_OPTIONS.map((o) => ({ label: o.label, value: o.value }))}
           />
         </FormField>
         <FormField label="Status">
           <AppSelect
             value={voucherFormValues.status}
-            onChange={(value) => setVoucherFormValues((prev) => ({ ...prev, status: value }))}
-            options={STOCK_VOUCHER_STATUS_OPTIONS.map((item) => ({ label: item.label, value: item.value }))}
+            onChange={(v) => setVoucherFormValues((p) => ({ ...p, status: v }))}
+            options={STOCK_VOUCHER_STATUS_OPTIONS.map((o) => ({
+              label: o.label,
+              value: o.value,
+            }))}
           />
         </FormField>
         <FormField label="Voucher date">
           <AppDatePicker
             value={voucherFormValues.voucherDate || null}
-            onChange={(value) => setVoucherFormValues((prev) => ({ ...prev, voucherDate: value ?? '' }))}
+            onChange={(v) => setVoucherFormValues((p) => ({ ...p, voucherDate: v ?? '' }))}
             placeholder="Select voucher date"
           />
         </FormField>
         <FormField label="Contact">
           <AppSelect
             value={voucherFormValues.contactId || '__none__'}
-            onChange={(value) =>
-              setVoucherFormValues((prev) => ({ ...prev, contactId: value === '__none__' ? '' : value }))
+            onChange={(v) =>
+              setVoucherFormValues((p) => ({ ...p, contactId: v === '__none__' ? '' : v }))
             }
             options={[{ label: 'No contact', value: '__none__' }, ...contactOptions]}
           />
@@ -1350,139 +1616,166 @@ export function OrdersScreen() {
         <FormField label="Reference">
           <AppInput
             value={voucherFormValues.voucherReference}
-            onChangeText={(value) =>
-              setVoucherFormValues((prev) => ({ ...prev, voucherReference: value }))
-            }
+            onChangeText={(v) => setVoucherFormValues((p) => ({ ...p, voucherReference: v }))}
             placeholder="Optional reference"
           />
         </FormField>
         <FormField label="Source type">
           <AppInput
             value={voucherFormValues.sourceType}
-            onChangeText={(value) => setVoucherFormValues((prev) => ({ ...prev, sourceType: value }))}
+            onChangeText={(v) => setVoucherFormValues((p) => ({ ...p, sourceType: v }))}
             placeholder="manual_adjustment"
           />
         </FormField>
         <FormField label="Notes">
           <AppTextArea
             value={voucherFormValues.notes}
-            onChangeText={(value) => setVoucherFormValues((prev) => ({ ...prev, notes: value }))}
+            onChangeText={(v) => setVoucherFormValues((p) => ({ ...p, notes: v }))}
             placeholder="Optional notes"
           />
         </FormField>
       </BottomSheet>
 
+      {/* ─── Voucher line item form ──────────────────────────────────── */}
       <BottomSheet
         visible={voucherLineVisible}
-        onDismiss={() => {
-          setVoucherLineVisible(false);
-          setVoucherLineTarget(null);
-          setVoucherLineValues(toStockVoucherLineItemFormValues());
-        }}
+        onDismiss={closeVoucherLineForm}
+        scrollViewRef={voucherLineFormScrollRef}
         title="Add Voucher Line Item"
         footer={
-          <SheetFooter
-            onCancel={() => {
-              setVoucherLineVisible(false);
-              setVoucherLineTarget(null);
-            }}
-            onSubmit={() => void submitVoucherLineForm()}
-            submitLabel="Save"
-            loading={isMutating}
-            disabled={isMutating || !voucherLineTarget}
-          />
+          <View style={styles.formFooter}>
+            <View style={styles.formBtn}>
+              <AppButton
+                label="Cancel"
+                mode="outlined"
+                tone="neutral"
+                onPress={closeVoucherLineForm}
+                disabled={isMutating}
+              />
+            </View>
+            <View style={styles.formBtn}>
+              <AppButton
+                label="Save"
+                onPress={() => void submitVoucherLineForm()}
+                loading={isMutating}
+                disabled={isMutating || !voucherLineTarget}
+              />
+            </View>
+          </View>
         }
       >
-        <FormField label="Product" required>
-          <AppSelect
-            value={voucherLineValues.productId || '__none__'}
-            onChange={(value) =>
-              setVoucherLineValues((prev) => ({ ...prev, productId: value === '__none__' ? '' : value }))
-            }
-            options={[{ label: 'Select product', value: '__none__' }, ...productOptions]}
-          />
-        </FormField>
-        <FormField label="Warehouse" required>
-          <AppSelect
-            value={voucherLineValues.warehouseId || '__none__'}
-            onChange={(value) =>
-              setVoucherLineValues((prev) => ({ ...prev, warehouseId: value === '__none__' ? '' : value }))
-            }
-            options={[{ label: 'Select warehouse', value: '__none__' }, ...warehouseOptions]}
-          />
-        </FormField>
-        <FormField label="Quantity" required>
-          <AppInput
-            value={voucherLineValues.quantity}
-            onChangeText={(value) => setVoucherLineValues((prev) => ({ ...prev, quantity: value }))}
-            placeholder="1"
-          />
-        </FormField>
-        <FormField label="Batch number">
-          <AppInput
-            value={voucherLineValues.batchNumber}
-            onChangeText={(value) => setVoucherLineValues((prev) => ({ ...prev, batchNumber: value }))}
-            placeholder="Optional batch"
-          />
-        </FormField>
-        <FormField label="Manufacturing date">
-          <AppDatePicker
-            value={voucherLineValues.manufacturingDate || null}
-            onChange={(value) =>
-              setVoucherLineValues((prev) => ({ ...prev, manufacturingDate: value ?? '' }))
-            }
-            placeholder="Optional date"
-          />
-        </FormField>
-        <FormField label="Expiry date">
-          <AppDatePicker
-            value={voucherLineValues.expiryDate || null}
-            onChange={(value) => setVoucherLineValues((prev) => ({ ...prev, expiryDate: value ?? '' }))}
-            placeholder="Optional date"
-          />
-        </FormField>
+        <FormValidationProvider value={voucherLineFormValidation.providerValue}>
+          <FormField label="Product" name="productId" required>
+            <AppSelect
+              value={voucherLineValues.productId || '__none__'}
+              onChange={(v) => {
+                voucherLineFormValidation.clearFieldError('productId');
+                setVoucherLineValues((p) => ({ ...p, productId: v === '__none__' ? '' : v }));
+              }}
+              options={[{ label: 'Select product', value: '__none__' }, ...productOptions]}
+            />
+          </FormField>
+          <FormField label="Warehouse" name="warehouseId" required>
+            <AppSelect
+              value={voucherLineValues.warehouseId || '__none__'}
+              onChange={(v) => {
+                voucherLineFormValidation.clearFieldError('warehouseId');
+                setVoucherLineValues((p) => ({ ...p, warehouseId: v === '__none__' ? '' : v }));
+              }}
+              options={[{ label: 'Select warehouse', value: '__none__' }, ...warehouseOptions]}
+            />
+          </FormField>
+          <FormField label="Quantity" name="quantity" required>
+            <AppInput
+              value={voucherLineValues.quantity}
+              onChangeText={(v) => {
+                voucherLineFormValidation.clearFieldError('quantity');
+                setVoucherLineValues((p) => ({ ...p, quantity: v }));
+              }}
+              placeholder="1"
+            />
+          </FormField>
+          <FormField label="Batch number">
+            <AppInput
+              value={voucherLineValues.batchNumber}
+              onChangeText={(v) => setVoucherLineValues((p) => ({ ...p, batchNumber: v }))}
+              placeholder="Optional batch"
+            />
+          </FormField>
+          <FormField label="Manufacturing date">
+            <AppDatePicker
+              value={voucherLineValues.manufacturingDate || null}
+              onChange={(v) =>
+                setVoucherLineValues((p) => ({ ...p, manufacturingDate: v ?? '' }))
+              }
+              placeholder="Optional date"
+            />
+          </FormField>
+          <FormField label="Expiry date">
+            <AppDatePicker
+              value={voucherLineValues.expiryDate || null}
+              onChange={(v) => setVoucherLineValues((p) => ({ ...p, expiryDate: v ?? '' }))}
+              placeholder="Optional date"
+            />
+          </FormField>
+        </FormValidationProvider>
       </BottomSheet>
 
+      {/* ─── Sales transaction form ──────────────────────────────────── */}
       <BottomSheet
         visible={salesFormVisible}
         onDismiss={closeSalesForm}
-        title={salesFormMode === 'create' ? 'Create Sales Transaction' : 'Edit Sales Transaction'}
+        title={
+          salesFormMode === 'create' ? 'Create Sales Transaction' : 'Edit Sales Transaction'
+        }
         footer={
-          <SheetFooter
-            onCancel={closeSalesForm}
-            onSubmit={() => void submitSalesForm()}
-            submitLabel={salesFormMode === 'create' ? 'Create' : 'Save'}
-            loading={isMutating}
-            disabled={isMutating}
-          />
+          <View style={styles.formFooter}>
+            <View style={styles.formBtn}>
+              <AppButton
+                label="Cancel"
+                mode="outlined"
+                tone="neutral"
+                onPress={closeSalesForm}
+                disabled={isMutating}
+              />
+            </View>
+            <View style={styles.formBtn}>
+              <AppButton
+                label={salesFormMode === 'create' ? 'Create' : 'Save'}
+                onPress={() => void submitSalesForm()}
+                loading={isMutating}
+                disabled={isMutating}
+              />
+            </View>
+          </View>
         }
       >
         <FormField label="Status">
           <AppSelect
             value={salesFormValues.status}
-            onChange={(value) => setSalesFormValues((prev) => ({ ...prev, status: value }))}
-            options={SALES_STATUS_OPTIONS.map((item) => ({ label: item.label, value: item.value }))}
+            onChange={(v) => setSalesFormValues((p) => ({ ...p, status: v }))}
+            options={SALES_STATUS_OPTIONS.map((o) => ({ label: o.label, value: o.value }))}
           />
         </FormField>
         <FormField label="Transaction date">
           <AppDatePicker
             value={salesFormValues.transactionDate || null}
-            onChange={(value) => setSalesFormValues((prev) => ({ ...prev, transactionDate: value ?? '' }))}
+            onChange={(v) => setSalesFormValues((p) => ({ ...p, transactionDate: v ?? '' }))}
             placeholder="Select transaction date"
           />
         </FormField>
         <FormField label="Price type">
           <AppSelect
             value={salesFormValues.priceType}
-            onChange={(value) => setSalesFormValues((prev) => ({ ...prev, priceType: value }))}
-            options={SALES_PRICE_TYPE_OPTIONS.map((item) => ({ label: item.label, value: item.value }))}
+            onChange={(v) => setSalesFormValues((p) => ({ ...p, priceType: v }))}
+            options={SALES_PRICE_TYPE_OPTIONS.map((o) => ({ label: o.label, value: o.value }))}
           />
         </FormField>
         <FormField label="Contact">
           <AppSelect
             value={salesFormValues.contactId || '__none__'}
-            onChange={(value) =>
-              setSalesFormValues((prev) => ({ ...prev, contactId: value === '__none__' ? '' : value }))
+            onChange={(v) =>
+              setSalesFormValues((p) => ({ ...p, contactId: v === '__none__' ? '' : v }))
             }
             options={[{ label: 'No contact', value: '__none__' }, ...contactOptions]}
           />
@@ -1490,29 +1783,32 @@ export function OrdersScreen() {
         <FormField label="Subtotal">
           <AppInput
             value={salesFormValues.subtotal}
-            onChangeText={(value) => setSalesFormValues((prev) => ({ ...prev, subtotal: value }))}
+            onChangeText={(v) => setSalesFormValues((p) => ({ ...p, subtotal: v }))}
             placeholder="Optional subtotal"
           />
         </FormField>
         <FormField label="Tax amount">
           <AppInput
             value={salesFormValues.taxAmount}
-            onChangeText={(value) => setSalesFormValues((prev) => ({ ...prev, taxAmount: value }))}
+            onChangeText={(v) => setSalesFormValues((p) => ({ ...p, taxAmount: v }))}
             placeholder="Optional tax"
           />
         </FormField>
         <FormField label="Total amount">
           <AppInput
             value={salesFormValues.totalAmount}
-            onChangeText={(value) => setSalesFormValues((prev) => ({ ...prev, totalAmount: value }))}
+            onChangeText={(v) => setSalesFormValues((p) => ({ ...p, totalAmount: v }))}
             placeholder="Optional total"
           />
         </FormField>
         <FormField label="Affects income">
           <AppSelect
             value={salesFormValues.affectsIncome}
-            onChange={(value) =>
-              setSalesFormValues((prev) => ({ ...prev, affectsIncome: value === 'yes' ? 'yes' : 'no' }))
+            onChange={(v) =>
+              setSalesFormValues((p) => ({
+                ...p,
+                affectsIncome: v === 'yes' ? 'yes' : 'no',
+              }))
             }
             options={[
               { label: 'Yes', value: 'yes' },
@@ -1523,12 +1819,13 @@ export function OrdersScreen() {
         <FormField label="Notes">
           <AppTextArea
             value={salesFormValues.notes}
-            onChangeText={(value) => setSalesFormValues((prev) => ({ ...prev, notes: value }))}
+            onChangeText={(v) => setSalesFormValues((p) => ({ ...p, notes: v }))}
             placeholder="Optional notes"
           />
         </FormField>
       </BottomSheet>
 
+      {/* ─── Sales lines manager ─────────────────────────────────────── */}
       <BottomSheet
         visible={salesLinesVisible}
         onDismiss={() => {
@@ -1536,154 +1833,163 @@ export function OrdersScreen() {
           setSalesLinesTarget(null);
           setSalesLinesRows([]);
           setSalesLinesError(null);
-          setSalesLineFormVisible(false);
-          setEditingSalesLine(null);
-          setSalesLineFormValues(toSalesTransactionLineFormValues());
-          setActionTarget(null);
+          closeSalesLineForm();
+          setDetailTarget(null);
         }}
         title="Sales Transaction Lines"
         footer={
-          <SheetFooter
-            onCancel={() => {
-              setSalesLinesVisible(false);
-              setSalesLinesTarget(null);
-            }}
-            onSubmit={() => {
-              setSalesLineFormMode('create');
-              setEditingSalesLine(null);
-              setSalesLineFormValues(toSalesTransactionLineFormValues());
-              setSalesLineFormVisible(true);
-            }}
-            submitLabel="Add line"
-            loading={false}
-            disabled={!salesLinesTarget}
-          />
+          <View style={styles.formFooter}>
+            <View style={styles.formBtn}>
+              <AppButton
+                label="Close"
+                mode="outlined"
+                tone="neutral"
+                onPress={() => {
+                  setSalesLinesVisible(false);
+                  setSalesLinesTarget(null);
+                  closeSalesLineForm();
+                }}
+              />
+            </View>
+            <View style={styles.formBtn}>
+              <AppButton
+                label="Add Line"
+                onPress={() => {
+                    setSalesLineFormMode('create');
+                    setEditingSalesLine(null);
+                    setSalesLineFormValues(toSalesTransactionLineFormValues());
+                    salesLineFormValidation.reset();
+                    setSalesLineFormVisible(true);
+                  }}
+                disabled={!salesLinesTarget}
+              />
+            </View>
+          </View>
         }
       >
         {salesLinesTarget ? (
-          <AppListItem
-            title={salesLinesTarget.id.slice(0, 12)}
-            description={`${salesLinesTarget.status} • ${money(salesLinesTarget.totalAmount)} USD`}
-            leftIcon="receipt"
+          <ProfileCard
+            icon="receipt"
+            name={salesLinesTarget.id.slice(0, 12)}
+            subtitle={`${salesLinesTarget.status} · ${money(salesLinesTarget.totalAmount)} USD`}
+            cells={[
+              { label: 'Status', value: salesLinesTarget.status },
+              { label: 'Price type', value: salesLinesTarget.priceType ?? 'N/A' },
+            ]}
           />
         ) : null}
-
         {salesLinesLoading ? (
-          <>
+          <View style={styles.gap}>
             <Skeleton height={56} />
             <Skeleton height={56} />
-          </>
+          </View>
         ) : salesLinesError ? (
           <ErrorState message={salesLinesError} onRetry={() => void refreshSalesLines()} />
         ) : salesLinesRows.length === 0 ? (
           <EmptyState title="No lines" message="Add line items for this transaction." />
         ) : (
-          <View style={styles.rows}>
+          <View style={styles.gap}>
             {salesLinesRows.map((line) => (
-              <AppCard key={line.id}>
-                <AppListItem
-                  title={line.productName}
-                  description={`Qty ${line.quantity} • Unit ${money(line.unitPrice)} • Subtotal ${money(
-                    line.subtotal,
-                  )}`}
-                  leftIcon="barcode"
-                  onPress={() => setActionTarget({ type: 'sales-line', item: line })}
-                />
-              </AppCard>
+              <ListRow
+                key={line.id}
+                icon="barcode"
+                iconVariant="neutral"
+                title={line.productName}
+                subtitle={`Qty ${line.quantity} · Unit ${money(line.unitPrice)} · Sub ${money(line.subtotal)}`}
+                onPress={() => setDetailTarget({ type: 'sales-line', item: line })}
+              />
             ))}
           </View>
         )}
       </BottomSheet>
 
+      {/* ─── Sales line form ─────────────────────────────────────────── */}
       <BottomSheet
         visible={salesLineFormVisible}
-        onDismiss={() => {
-          setSalesLineFormVisible(false);
-          setSalesLineFormMode('create');
-          setEditingSalesLine(null);
-          setSalesLineFormValues(toSalesTransactionLineFormValues());
-        }}
+        onDismiss={closeSalesLineForm}
+        scrollViewRef={salesLineFormScrollRef}
         title={salesLineFormMode === 'create' ? 'Add Sales Line' : 'Edit Sales Line'}
         footer={
-          <SheetFooter
-            onCancel={() => {
-              setSalesLineFormVisible(false);
-              setSalesLineFormMode('create');
-              setEditingSalesLine(null);
-            }}
-            onSubmit={() => void submitSalesLineForm()}
-            submitLabel={salesLineFormMode === 'create' ? 'Create' : 'Save'}
-            loading={isMutating}
-            disabled={isMutating || !salesLinesTarget}
-          />
+          <View style={styles.formFooter}>
+            <View style={styles.formBtn}>
+              <AppButton
+                label="Cancel"
+                mode="outlined"
+                tone="neutral"
+                onPress={closeSalesLineForm}
+                disabled={isMutating}
+              />
+            </View>
+            <View style={styles.formBtn}>
+              <AppButton
+                label={salesLineFormMode === 'create' ? 'Create' : 'Save'}
+                onPress={() => void submitSalesLineForm()}
+                loading={isMutating}
+                disabled={isMutating || !salesLinesTarget}
+              />
+            </View>
+          </View>
         }
       >
-        <FormField label="Product" required>
-          <AppSelect
-            value={salesLineFormValues.productId || '__none__'}
-            onChange={(value) =>
-              setSalesLineFormValues((prev) => ({ ...prev, productId: value === '__none__' ? '' : value }))
-            }
-            options={[{ label: 'Select product', value: '__none__' }, ...productOptions]}
-          />
-        </FormField>
-        <FormField label="Product name">
-          <AppInput
-            value={salesLineFormValues.productName}
-            onChangeText={(value) => setSalesLineFormValues((prev) => ({ ...prev, productName: value }))}
-            placeholder="Optional override"
-          />
-        </FormField>
-        <FormField label="Warehouse">
-          <AppSelect
-            value={salesLineFormValues.warehouseId || '__none__'}
-            onChange={(value) =>
-              setSalesLineFormValues((prev) => ({ ...prev, warehouseId: value === '__none__' ? '' : value }))
-            }
-            options={[{ label: 'No warehouse', value: '__none__' }, ...warehouseOptions]}
-          />
-        </FormField>
-        <FormField label="Quantity" required>
-          <AppInput
-            value={salesLineFormValues.quantity}
-            onChangeText={(value) => setSalesLineFormValues((prev) => ({ ...prev, quantity: value }))}
-            placeholder="1"
-          />
-        </FormField>
-        <FormField label="Unit price" required>
-          <AppInput
-            value={salesLineFormValues.unitPrice}
-            onChangeText={(value) => setSalesLineFormValues((prev) => ({ ...prev, unitPrice: value }))}
-            placeholder="1.00"
-          />
-        </FormField>
-        <FormField label="Subtotal">
-          <AppInput
-            value={salesLineFormValues.subtotal}
-            onChangeText={(value) => setSalesLineFormValues((prev) => ({ ...prev, subtotal: value }))}
-            placeholder="Optional subtotal"
-          />
-        </FormField>
+        <FormValidationProvider value={salesLineFormValidation.providerValue}>
+          <FormField label="Product" name="productId" required>
+            <AppSelect
+              value={salesLineFormValues.productId || '__none__'}
+              onChange={(v) => {
+                salesLineFormValidation.clearFieldError('productId');
+                setSalesLineFormValues((p) => ({ ...p, productId: v === '__none__' ? '' : v }));
+              }}
+              options={[{ label: 'Select product', value: '__none__' }, ...productOptions]}
+            />
+          </FormField>
+          <FormField label="Product name">
+            <AppInput
+              value={salesLineFormValues.productName}
+              onChangeText={(v) => setSalesLineFormValues((p) => ({ ...p, productName: v }))}
+              placeholder="Optional override"
+            />
+          </FormField>
+          <FormField label="Warehouse" name="warehouseId" required>
+            <AppSelect
+              value={salesLineFormValues.warehouseId || '__none__'}
+              onChange={(v) => {
+                salesLineFormValidation.clearFieldError('warehouseId');
+                setSalesLineFormValues((p) => ({ ...p, warehouseId: v === '__none__' ? '' : v }));
+              }}
+              options={[{ label: 'Select warehouse', value: '__none__' }, ...warehouseOptions]}
+            />
+          </FormField>
+          <FormField label="Quantity" name="quantity" required>
+            <AppInput
+              value={salesLineFormValues.quantity}
+              onChangeText={(v) => {
+                salesLineFormValidation.clearFieldError('quantity');
+                setSalesLineFormValues((p) => ({ ...p, quantity: v }));
+              }}
+              placeholder="1"
+            />
+          </FormField>
+          <FormField label="Unit price" name="unitPrice" required>
+            <AppInput
+              value={salesLineFormValues.unitPrice}
+              onChangeText={(v) => {
+                salesLineFormValidation.clearFieldError('unitPrice');
+                setSalesLineFormValues((p) => ({ ...p, unitPrice: v }));
+              }}
+              placeholder="1.00"
+            />
+          </FormField>
+          <FormField label="Subtotal">
+            <AppInput
+              value={salesLineFormValues.subtotal}
+              onChangeText={(v) => setSalesLineFormValues((p) => ({ ...p, subtotal: v }))}
+              placeholder="Optional subtotal"
+            />
+          </FormField>
+        </FormValidationProvider>
       </BottomSheet>
 
-      <ActionSheet
-        visible={Boolean(actionTarget) && !confirmTarget}
-        onDismiss={() => setActionTarget(null)}
-        title={
-          actionTarget?.type === 'order'
-            ? actionTarget.item.orderNumber
-            : actionTarget?.type === 'voucher'
-              ? actionTarget.item.voucherReference || actionTarget.item.id.slice(0, 8)
-              : actionTarget?.type === 'sales'
-                ? actionTarget.item.id.slice(0, 12)
-                : actionTarget?.type === 'sales-line'
-                  ? actionTarget.item.productName
-                  : undefined
-        }
-        message="Select an action"
-        actions={actionSheetActions}
-      />
-
+      {/* ─── Confirm dialogs ──────────────────────────────────────────── */}
       <ConfirmDialog
         visible={Boolean(confirmTarget)}
         title={
@@ -1708,9 +2014,7 @@ export function OrdersScreen() {
                   ? 'Complete this sales transaction now?'
                   : 'Delete this sales line item?'
         }
-        confirmLabel={
-          confirmTarget?.type === 'sales-complete' ? 'Complete' : 'Confirm'
-        }
+        confirmLabel={confirmTarget?.type === 'sales-complete' ? 'Complete' : 'Confirm'}
         confirmTone={confirmTarget?.type === 'sales-complete' ? 'primary' : 'destructive'}
         confirmLoading={isMutating}
         confirmDisabled={isMutating}
@@ -1721,140 +2025,69 @@ export function OrdersScreen() {
   );
 }
 
-function MetricBadge({
-  label,
-  value,
-  variant,
-}: {
-  label: string;
-  value: string | number;
-  variant: 'neutral' | 'accent' | 'success' | 'warning';
-}) {
-  return (
-    <View style={styles.metricItem}>
-      <Text style={styles.metricLabel}>{label}</Text>
-      <AppBadge value={value} variant={variant} />
-    </View>
-  );
-}
-
-function MetaBadge({
-  label,
-  value,
-  variant,
-}: {
-  label: string;
-  value: string | number;
-  variant: 'neutral' | 'accent' | 'success' | 'warning' | 'destructive';
-}) {
-  return (
-    <View style={styles.metaGroup}>
-      <Text style={styles.metaText}>{label}</Text>
-      <AppBadge value={value} variant={variant} />
-    </View>
-  );
-}
-
-function TopActions({
-  createLabel,
-  onCreate,
-  onRefresh,
-  loading,
-}: {
-  createLabel: string;
-  onCreate: () => void;
-  onRefresh: () => void;
-  loading: boolean;
-}) {
-  return (
-    <View style={styles.topActions}>
-      <View style={styles.primaryAction}>
-        <AppButton label={createLabel} onPress={onCreate} disabled={loading} />
-      </View>
-      <View style={styles.secondaryAction}>
-        <AppButton
-          label="Refresh"
-          mode="outlined"
-          tone="neutral"
-          onPress={onRefresh}
-          loading={loading}
-          disabled={loading}
-        />
-      </View>
-    </View>
-  );
-}
-
-function SheetFooter({
-  onCancel,
-  onSubmit,
-  submitLabel,
-  loading,
-  disabled,
-}: {
-  onCancel: () => void;
-  onSubmit: () => void;
-  submitLabel: string;
-  loading: boolean;
-  disabled: boolean;
-}) {
-  return (
-    <View style={styles.sheetFooter}>
-      <AppButton label="Cancel" mode="text" tone="neutral" onPress={onCancel} disabled={loading} />
-      <AppButton label={submitLabel} onPress={onSubmit} loading={loading} disabled={disabled} />
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
-  metricsRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: spacing.sm,
-  },
-  metricItem: {
+  header: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.xs,
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 4,
+    backgroundColor: palette.background,
   },
-  metricLabel: {
-    ...typography.caption,
-    color: palette.mutedForeground,
+  headerTitle: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: palette.foreground,
   },
-  topActions: {
+  headerLead: {
     flexDirection: 'row',
-    gap: spacing.sm,
     alignItems: 'center',
-  },
-  primaryAction: {
+    gap: 8,
     flex: 1,
+    minWidth: 0,
   },
-  secondaryAction: {
-    minWidth: 132,
-  },
-  rows: {
-    gap: spacing.sm,
-  },
-  rowMeta: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: spacing.sm,
-    marginTop: spacing.xs,
-    paddingLeft: spacing.sm,
-    alignItems: 'center',
-  },
-  metaGroup: {
+  headerActions: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.xs,
+    gap: 8,
   },
-  metaText: {
-    ...typography.caption,
-    color: palette.mutedForeground,
+  tabsWrap: {
+    paddingHorizontal: 16,
+    paddingTop: 8,
+    paddingBottom: 2,
+    backgroundColor: palette.background,
   },
-  sheetFooter: {
+  searchWrap: {
+    paddingHorizontal: 16,
+    paddingBottom: 10,
+    backgroundColor: palette.background,
+  },
+  scroll: {
+    paddingHorizontal: 16,
+    paddingBottom: 32,
+  },
+  farmBadge: {
+    marginBottom: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    backgroundColor: palette.muted,
+    borderRadius: 8,
+    alignSelf: 'flex-start',
+  },
+  farmBadgeText: {
+    fontSize: 12,
+    color: palette.primaryDark,
+    fontWeight: '500',
+  },
+  gap: {
+    gap: 8,
+  },
+  formFooter: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    gap: spacing.sm,
+    gap: 10,
+  },
+  formBtn: {
+    flex: 1,
   },
 });

@@ -483,10 +483,15 @@ function parseStorefrontSettings(payload: unknown): StorefrontSettingsRecord | n
   };
 }
 
-function toQuery(params: Record<string, string | number | undefined>): string {
+function toQuery(params: Record<string, string | number | string[] | undefined>): string {
   const query = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {
     if (value === undefined) continue;
+    if (Array.isArray(value)) {
+      if (value.length === 0) continue;
+      query.set(key, value.join(','));
+      continue;
+    }
     query.set(key, String(value));
   }
   return query.toString();
@@ -598,12 +603,24 @@ export async function deleteManagedInvite(token: string, inviteId: string): Prom
 
 export async function listManagedContacts(
   token: string,
-  params: { limit: number; offset: number; search?: string },
+  params: {
+    limit: number;
+    offset: number;
+    search?: string;
+    status?: string[];
+    contactTypes?: string[];
+    country?: string;
+    cityRegion?: string;
+  },
 ): Promise<ManagedContactsPage> {
   const query = toQuery({
     limit: params.limit,
     offset: params.offset,
     search: params.search && params.search.trim().length > 0 ? params.search.trim() : undefined,
+    status: params.status?.length ? params.status : undefined,
+    contactTypes: params.contactTypes?.length ? params.contactTypes : undefined,
+    country: params.country?.trim() ? params.country.trim() : undefined,
+    cityRegion: params.cityRegion?.trim() ? params.cityRegion.trim() : undefined,
   });
 
   const { data } = await apiClient.get<ListContactsResponse>(`/contacts?${query}`, { token });

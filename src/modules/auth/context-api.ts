@@ -6,6 +6,8 @@ export type AuthContextResponse = {
   role: string;
   type: string;
   farmId: string | null;
+  farmName: string | null;
+  displayName: string | null;
 };
 
 export async function getAuthContext(token: string): Promise<AuthContextResponse> {

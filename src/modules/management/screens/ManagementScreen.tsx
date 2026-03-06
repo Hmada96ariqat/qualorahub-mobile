@@ -1,99 +1,68 @@
-import React, { useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
-import type {
-  ManagedContact,
-  ManagedInvite,
-  ManagedNotification,
-  ManagedRole,
-  ManagedUser,
-} from '../../../api/modules/management';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { StyleSheet, Text, View, type ScrollView } from 'react-native';
+import type { ManagedInvite, ManagedRole, ManagedUser } from '../../../api/modules/management';
 import {
-  AppBadge,
+  ActionSheet,
+  AlertStrip,
   AppButton,
   AppHeader,
   AppInput,
-  AppListItem,
   AppScreen,
-  AppSection,
   AppSelect,
-  AppTabs,
-  AppTextArea,
   BottomSheet,
   ConfirmDialog,
+  DetailSectionCard,
+  DotBadge,
   EmptyState,
   ErrorState,
-  FilterBar,
   FormField,
-  PaginationFooter,
+  FormValidationProvider,
+  HeaderActionGroup,
+  ListRow,
+  ModuleTabs,
+  NotificationHeaderButton,
+  PillTabs,
+  ProfileCard,
   PullToRefreshContainer,
-  SectionCard,
+  SearchBar,
+  SectionHeader,
   Skeleton,
+  StatStrip,
+  useFormValidation,
   useToast,
 } from '../../../components';
 import { useAuth } from '../../../providers/AuthProvider';
 import { palette, spacing, typography } from '../../../theme/tokens';
 import {
-  CONTACT_STATUS_OPTIONS,
-  CONTACT_TYPE_OPTIONS,
   createInviteTokenHash,
-  MANAGEMENT_TABS,
-  NOTIFICATION_TYPE_OPTIONS,
-  parseCsvValues,
   resolveAccessState,
-  toContactFormValues,
   toInviteFormValues,
-  toNotificationFormValues,
-  toReadAtNow,
   toRoleFormValues,
   toUserFormValues,
   type AccessState,
-  type ContactFormValues,
   type InviteFormValues,
-  type ManagementModuleKey,
-  type ManagementTab,
-  type NotificationFormValues,
   type RoleFormValues,
   type UserFormValues,
 } from '../contracts';
+import {
+  toInviteDisplayName,
+  toInviteRowSubtitle,
+  toManagementDateLabel,
+  toManagementIconVariant,
+  toManagementStatusLabel,
+  toManagementStatusVariant,
+  toRoleRowSubtitle,
+  toUserDisplayName,
+  toUserRowSubtitle,
+} from '../managementPresentation';
 import { useManagementModule } from '../useManagementModule.hook';
 
 type RoleFormMode = 'create' | 'edit';
-type ContactFormMode = 'create' | 'edit';
+type ManagementTab = 'users' | 'roles' | 'invites';
+type UserListMode = 'all' | 'active' | 'inactive';
 type ConfirmTarget =
   | { type: 'role-delete'; role: ManagedRole }
-  | { type: 'invite-delete'; invite: ManagedInvite }
-  | { type: 'notification-delete'; notification: ManagedNotification }
-  | { type: 'notification-mark-read'; notification: ManagedNotification };
-
-const CONTACT_PAGE_SIZE = 10;
-
-function makeAccessStateMap(
-  roleName: string | null | undefined,
-  hasMenuAccess: (menuKey: string) => boolean,
-  entitlementsSnapshot: unknown,
-): Record<ManagementModuleKey, AccessState> {
-  return {
-    users: resolveAccessState({
-      roleName,
-      moduleKey: 'users',
-      menuAllowed: hasMenuAccess('users'),
-      entitlementsSnapshot,
-    }),
-    contacts: resolveAccessState({
-      roleName,
-      moduleKey: 'contacts',
-      menuAllowed: hasMenuAccess('contacts'),
-      entitlementsSnapshot,
-    }),
-    notifications: resolveAccessState({
-      roleName,
-      moduleKey: 'notifications',
-      menuAllowed: hasMenuAccess('notifications'),
-      entitlementsSnapshot,
-    }),
-  };
-}
+  | { type: 'invite-delete'; invite: ManagedInvite };
 
 function isWritable(state: AccessState): boolean {
   return state === 'full';
@@ -103,33 +72,33 @@ function isVisible(state: AccessState): boolean {
   return state === 'full' || state === 'read-only';
 }
 
-function moduleLabel(moduleKey: ManagementModuleKey): string {
-  if (moduleKey === 'users') return 'Users';
-  if (moduleKey === 'contacts') return 'Contacts';
-  return 'Notifications';
+function isActiveStatus(value: string | null | undefined): boolean {
+  return value?.trim().toLowerCase() === 'active';
 }
 
-function accessBadgeVariant(state: AccessState): 'success' | 'warning' | 'destructive' | 'neutral' {
-  if (state === 'full') return 'success';
-  if (state === 'read-only') return 'warning';
-  if (state === 'locked-subscription') return 'destructive';
-  return 'neutral';
+function isInactiveStatus(value: string | null | undefined): boolean {
+  return value?.trim().toLowerCase() === 'inactive';
 }
 
-function accessBadgeLabel(state: AccessState): string {
-  if (state === 'full') return 'Full';
-  if (state === 'read-only') return 'Read-only';
-  if (state === 'locked-subscription') return 'Upgrade required';
-  return 'No role access';
+function toUserIcon(user: ManagedUser): string {
+  return user.userType?.trim().toLowerCase() === 'owner'
+    ? 'shield-account-outline'
+    : 'account-circle-outline';
 }
 
 export function ManagementScreen() {
   const { showToast } = useToast();
   const { accessSnapshot, hasMenuAccess } = useAuth();
+  const roleSheetScrollRef = useRef<ScrollView | null>(null);
+  const roleValidation = useFormValidation<'name'>(roleSheetScrollRef);
+  const inviteSheetScrollRef = useRef<ScrollView | null>(null);
+  const inviteValidation = useFormValidation<'email' | 'fullName' | 'roleId' | 'expiresAt'>(
+    inviteSheetScrollRef,
+  );
 
-  const [tab, setTab] = useState<ManagementTab>('users');
-  const [contactsPage, setContactsPage] = useState(1);
-  const [contactsSearch, setContactsSearch] = useState('');
+  const [searchValue, setSearchValue] = useState('');
+  const [activeTab, setActiveTab] = useState<ManagementTab>('users');
+  const [userListMode, setUserListMode] = useState<UserListMode>('active');
 
   const [roleSheetVisible, setRoleSheetVisible] = useState(false);
   const [roleFormMode, setRoleFormMode] = useState<RoleFormMode>('create');
@@ -141,18 +110,11 @@ export function ManagementScreen() {
 
   const [userSheetVisible, setUserSheetVisible] = useState(false);
   const [editingUser, setEditingUser] = useState<ManagedUser | null>(null);
+  const [selectedUser, setSelectedUser] = useState<ManagedUser | null>(null);
   const [userFormValues, setUserFormValues] = useState<UserFormValues>(toUserFormValues());
 
-  const [contactSheetVisible, setContactSheetVisible] = useState(false);
-  const [contactFormMode, setContactFormMode] = useState<ContactFormMode>('create');
-  const [editingContact, setEditingContact] = useState<ManagedContact | null>(null);
-  const [contactFormValues, setContactFormValues] = useState<ContactFormValues>(toContactFormValues());
-
-  const [notificationSheetVisible, setNotificationSheetVisible] = useState(false);
-  const [notificationFormValues, setNotificationFormValues] = useState<NotificationFormValues>(
-    toNotificationFormValues(),
-  );
-
+  const [roleActionTarget, setRoleActionTarget] = useState<ManagedRole | null>(null);
+  const [inviteActionTarget, setInviteActionTarget] = useState<ManagedInvite | null>(null);
   const [confirmTarget, setConfirmTarget] = useState<ConfirmTarget | null>(null);
 
   const {
@@ -160,9 +122,6 @@ export function ManagementScreen() {
     roles,
     roleOptions,
     invites,
-    contactsPage: contactsResult,
-    notifications,
-    subscription,
     isLoading,
     isRefreshing,
     isMutating,
@@ -174,46 +133,115 @@ export function ManagementScreen() {
     deleteRole,
     createInvite,
     deleteInvite,
-    createContact,
-    updateContact,
-    createNotification,
-    updateNotification,
-    deleteNotification,
-  } = useManagementModule({
-    contactsPage,
-    contactsPageSize: CONTACT_PAGE_SIZE,
-    contactsSearch,
-  });
+  } = useManagementModule();
 
   const roleName = accessSnapshot.context?.role ?? null;
-  const moduleAccessState = useMemo(
-    () => makeAccessStateMap(roleName, hasMenuAccess, accessSnapshot.entitlements),
+  const accessState = useMemo(
+    () =>
+      resolveAccessState({
+        roleName,
+        moduleKey: 'users',
+        menuAllowed: hasMenuAccess('users'),
+        entitlementsSnapshot: accessSnapshot.entitlements,
+      }),
     [roleName, hasMenuAccess, accessSnapshot.entitlements],
   );
-
-  const contactsTotalItems = contactsResult.total;
-  const contactsItems = contactsResult.items;
+  const canWriteUsers = isWritable(accessState);
 
   const roleOptionsForSelect = useMemo(
     () => roleOptions.map((item) => ({ value: item.id, label: item.name })),
     [roleOptions],
   );
 
-  const filteredNotifications = useMemo(() => {
-    const query = contactsSearch.trim().toLowerCase();
-    if (!query) return notifications;
-    return notifications.filter((item) => {
-      return (
-        item.title.toLowerCase().includes(query) ||
-        item.message.toLowerCase().includes(query) ||
-        item.type.toLowerCase().includes(query)
-      );
-    });
-  }, [notifications, contactsSearch]);
+  const activeUsersCount = useMemo(
+    () => users.filter((user) => isActiveStatus(user.status)).length,
+    [users],
+  );
+  const inactiveUsersCount = useMemo(
+    () => users.filter((user) => isInactiveStatus(user.status)).length,
+    [users],
+  );
+  const pendingInvitesCount = useMemo(
+    () => invites.filter((invite) => invite.status.trim().toLowerCase() === 'pending').length,
+    [invites],
+  );
 
-  const canWriteUsers = isWritable(moduleAccessState.users);
-  const canWriteContacts = isWritable(moduleAccessState.contacts);
-  const canWriteNotifications = isWritable(moduleAccessState.notifications);
+  const filteredUsers = useMemo(() => {
+    const normalizedSearch = searchValue.trim().toLowerCase();
+
+    return users.filter((user) => {
+      const statusMatches =
+        userListMode === 'all' ||
+        (userListMode === 'active' && isActiveStatus(user.status)) ||
+        (userListMode === 'inactive' && isInactiveStatus(user.status));
+
+      if (!statusMatches) return false;
+      if (!normalizedSearch) return true;
+
+      const haystack = [
+        user.fullName ?? '',
+        user.nickName ?? '',
+        user.email,
+        user.roleName ?? '',
+        user.status,
+      ]
+        .join(' ')
+        .toLowerCase();
+
+      return haystack.includes(normalizedSearch);
+    });
+  }, [searchValue, userListMode, users]);
+
+  const filteredRoles = useMemo(() => {
+    const normalizedSearch = searchValue.trim().toLowerCase();
+    if (!normalizedSearch) return roles;
+
+    return roles.filter((role) => {
+      const haystack = [role.name, role.status, String(role.permissions.length)]
+        .join(' ')
+        .toLowerCase();
+      return haystack.includes(normalizedSearch);
+    });
+  }, [roles, searchValue]);
+
+  const filteredInvites = useMemo(() => {
+    const normalizedSearch = searchValue.trim().toLowerCase();
+    if (!normalizedSearch) return invites;
+
+    return invites.filter((invite) => {
+      const haystack = [invite.email, invite.fullName ?? '', invite.status].join(' ').toLowerCase();
+      return haystack.includes(normalizedSearch);
+    });
+  }, [invites, searchValue]);
+
+  const activeRolesCount = useMemo(
+    () => roles.filter((role) => isActiveStatus(role.status)).length,
+    [roles],
+  );
+  const inactiveRolesCount = useMemo(
+    () => roles.filter((role) => isInactiveStatus(role.status)).length,
+    [roles],
+  );
+  const acceptedInvitesCount = useMemo(
+    () => invites.filter((invite) => invite.status.trim().toLowerCase() === 'accepted').length,
+    [invites],
+  );
+  const expiredInvitesCount = useMemo(
+    () => invites.filter((invite) => invite.status.trim().toLowerCase() === 'expired').length,
+    [invites],
+  );
+
+  useEffect(() => {
+    if (!selectedUser) return;
+    const nextSelectedUser = users.find((user) => user.id === selectedUser.id) ?? null;
+    if (!nextSelectedUser) {
+      setSelectedUser(null);
+      return;
+    }
+    if (nextSelectedUser !== selectedUser) {
+      setSelectedUser(nextSelectedUser);
+    }
+  }, [selectedUser, users]);
 
   function showNotice(options: {
     title?: string;
@@ -231,6 +259,7 @@ export function ManagementScreen() {
     setRoleFormMode('create');
     setEditingRole(null);
     setRoleFormValues(toRoleFormValues());
+    roleValidation.reset();
   }
 
   function openCreateRole() {
@@ -242,6 +271,7 @@ export function ManagementScreen() {
     setRoleFormMode('edit');
     setEditingRole(role);
     setRoleFormValues(toRoleFormValues(role));
+    roleValidation.reset();
     setRoleSheetVisible(true);
   }
 
@@ -251,19 +281,23 @@ export function ManagementScreen() {
   }
 
   function openInviteSheet() {
-    const fallbackRole = roleOptions[0]?.id ?? '';
-    setInviteFormValues(toInviteFormValues(fallbackRole));
+    setInviteFormValues(toInviteFormValues(roleOptions[0]?.id ?? ''));
+    inviteValidation.reset();
     setInviteSheetVisible(true);
   }
 
   function closeInviteSheet() {
     setInviteSheetVisible(false);
     setInviteFormValues(toInviteFormValues(roleOptions[0]?.id ?? ''));
+    inviteValidation.reset();
   }
 
-  function resetUserForm() {
-    setEditingUser(null);
-    setUserFormValues(toUserFormValues());
+  function openUserDetail(user: ManagedUser) {
+    setSelectedUser(user);
+  }
+
+  function closeUserDetail() {
+    setSelectedUser(null);
   }
 
   function openEditUser(user: ManagedUser) {
@@ -274,48 +308,23 @@ export function ManagementScreen() {
 
   function closeUserSheet() {
     setUserSheetVisible(false);
-    resetUserForm();
-  }
-
-  function resetContactForm() {
-    setContactFormMode('create');
-    setEditingContact(null);
-    setContactFormValues(toContactFormValues());
-  }
-
-  function openCreateContact() {
-    resetContactForm();
-    setContactSheetVisible(true);
-  }
-
-  function openEditContact(contact: ManagedContact) {
-    setContactFormMode('edit');
-    setEditingContact(contact);
-    setContactFormValues(toContactFormValues(contact));
-    setContactSheetVisible(true);
-  }
-
-  function closeContactSheet() {
-    setContactSheetVisible(false);
-    resetContactForm();
-  }
-
-  function openNotificationSheet() {
-    setNotificationFormValues(toNotificationFormValues());
-    setNotificationSheetVisible(true);
-  }
-
-  function closeNotificationSheet() {
-    setNotificationSheetVisible(false);
-    setNotificationFormValues(toNotificationFormValues());
+    setEditingUser(null);
+    setUserFormValues(toUserFormValues());
   }
 
   async function submitRoleForm() {
     const name = roleFormValues.name.trim();
-    if (!name) {
+    const valid = roleValidation.validate([
+      {
+        field: 'name',
+        message: 'Role name is required.',
+        isValid: name.length > 0,
+      },
+    ]);
+    if (!valid) {
       showNotice({
         title: 'Validation Error',
-        message: 'Role name is required.',
+        message: 'Complete the highlighted fields.',
       });
       return;
     }
@@ -336,13 +345,11 @@ export function ManagementScreen() {
           tone: 'success',
         });
       }
-
       closeRoleSheet();
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to save role.';
       showNotice({
         title: 'Save Failed',
-        message,
+        message: error instanceof Error ? error.message : 'Failed to save role.',
         tone: 'error',
       });
     }
@@ -354,10 +361,16 @@ export function ManagementScreen() {
     const roleId = inviteFormValues.roleId.trim();
     const expiresAt = inviteFormValues.expiresAt.trim();
 
-    if (!email || !fullName || !roleId || !expiresAt) {
+    const valid = inviteValidation.validate([
+      { field: 'email', message: 'Email is required.', isValid: email.length > 0 },
+      { field: 'fullName', message: 'Full name is required.', isValid: fullName.length > 0 },
+      { field: 'roleId', message: 'Role is required.', isValid: roleId.length > 0 },
+      { field: 'expiresAt', message: 'Expiry is required.', isValid: expiresAt.length > 0 },
+    ]);
+    if (!valid) {
       showNotice({
         title: 'Validation Error',
-        message: 'Email, full name, role, and expiry are required.',
+        message: 'Complete the highlighted fields.',
       });
       return;
     }
@@ -377,10 +390,9 @@ export function ManagementScreen() {
       });
       closeInviteSheet();
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to create invite.';
       showNotice({
         title: 'Invite Failed',
-        message,
+        message: error instanceof Error ? error.message : 'Failed to create invite.',
         tone: 'error',
       });
     }
@@ -389,7 +401,7 @@ export function ManagementScreen() {
   async function submitUserForm() {
     if (!editingUser) {
       showNotice({
-        title: 'Save Failed',
+        title: 'Update Failed',
         message: 'No user is selected for update.',
         tone: 'error',
       });
@@ -403,23 +415,11 @@ export function ManagementScreen() {
     const status = userFormValues.status.trim().toLowerCase();
     const roleId = userFormValues.roleId.trim();
 
-    if (fullName.length > 0) {
-      payload.full_name = fullName;
-    }
-
-    if (nickName.length > 0) {
-      payload.nick_name = nickName;
-    }
-
+    if (fullName.length > 0) payload.full_name = fullName;
+    if (nickName.length > 0) payload.nick_name = nickName;
     payload.mobile_number = mobileNumber.length > 0 ? mobileNumber : null;
-
-    if (status.length > 0) {
-      payload.status = status;
-    }
-
-    if (roleId.length > 0) {
-      payload.role_id = roleId;
-    }
+    if (status.length > 0) payload.status = status;
+    if (roleId.length > 0) payload.role_id = roleId;
 
     if (Object.keys(payload).length === 0) {
       showNotice({
@@ -430,7 +430,8 @@ export function ManagementScreen() {
     }
 
     try {
-      await updateUser(editingUser.id, payload);
+      const updatedUser = await updateUser(editingUser.id, payload);
+      setSelectedUser(updatedUser);
       showNotice({
         title: 'User Updated',
         message: editingUser.email,
@@ -438,107 +439,9 @@ export function ManagementScreen() {
       });
       closeUserSheet();
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to update user profile.';
       showNotice({
         title: 'Update Failed',
-        message,
-        tone: 'error',
-      });
-    }
-  }
-
-  async function submitContactForm() {
-    const name = contactFormValues.name.trim();
-    const type = contactFormValues.type.trim().toLowerCase();
-    const contactTypes = parseCsvValues(contactFormValues.contactTypesCsv.toLowerCase());
-    if (!name) {
-      showNotice({
-        title: 'Validation Error',
-        message: 'Contact name is required.',
-      });
-      return;
-    }
-
-    if (contactTypes.length === 0) {
-      showNotice({
-        title: 'Validation Error',
-        message: 'At least one contact type is required.',
-      });
-      return;
-    }
-
-    const payload = {
-      name,
-      type: type || 'other',
-      contact_types: contactTypes,
-      status: contactFormValues.status.trim().toLowerCase() || 'active',
-      email: contactFormValues.email.trim() || undefined,
-      phone: contactFormValues.phone.trim() || undefined,
-      company: contactFormValues.company.trim() || undefined,
-      address: contactFormValues.address.trim() || undefined,
-      notes: contactFormValues.notes.trim() || undefined,
-      country: contactFormValues.country.trim() || undefined,
-      city_region: contactFormValues.cityRegion.trim() || undefined,
-      tax_id: contactFormValues.taxId.trim() || undefined,
-    };
-
-    try {
-      if (contactFormMode === 'create') {
-        await createContact(payload);
-        showNotice({
-          title: 'Contact Created',
-          message: `${name} added.`,
-          tone: 'success',
-        });
-      } else if (editingContact) {
-        await updateContact(editingContact.id, payload);
-        showNotice({
-          title: 'Contact Updated',
-          message: `${name} updated.`,
-          tone: 'success',
-        });
-      }
-      closeContactSheet();
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to save contact.';
-      showNotice({
-        title: 'Save Failed',
-        message,
-        tone: 'error',
-      });
-    }
-  }
-
-  async function submitNotificationForm() {
-    const title = notificationFormValues.title.trim();
-    const message = notificationFormValues.message.trim();
-    const type = notificationFormValues.type.trim();
-
-    if (!title || !message || !type) {
-      showNotice({
-        title: 'Validation Error',
-        message: 'Notification title, message, and type are required.',
-      });
-      return;
-    }
-
-    try {
-      await createNotification({
-        title,
-        message,
-        type: type as (typeof NOTIFICATION_TYPE_OPTIONS)[number]['value'],
-      });
-      showNotice({
-        title: 'Notification Sent',
-        message: 'Notification was created.',
-        tone: 'success',
-      });
-      closeNotificationSheet();
-    } catch (error) {
-      const messageText = error instanceof Error ? error.message : 'Failed to create notification.';
-      showNotice({
-        title: 'Create Failed',
-        message: messageText,
+        message: error instanceof Error ? error.message : 'Failed to update user profile.',
         tone: 'error',
       });
     }
@@ -555,35 +458,18 @@ export function ManagementScreen() {
           message: `${confirmTarget.role.name} removed.`,
           tone: 'success',
         });
-      } else if (confirmTarget.type === 'invite-delete') {
+      } else {
         await deleteInvite(confirmTarget.invite.id);
         showNotice({
           title: 'Invite Removed',
           message: confirmTarget.invite.email,
           tone: 'success',
         });
-      } else if (confirmTarget.type === 'notification-delete') {
-        await deleteNotification(confirmTarget.notification.id);
-        showNotice({
-          title: 'Notification Deleted',
-          message: confirmTarget.notification.title,
-          tone: 'success',
-        });
-      } else if (confirmTarget.type === 'notification-mark-read') {
-        await updateNotification(confirmTarget.notification.id, {
-          read_at: toReadAtNow(),
-        });
-        showNotice({
-          title: 'Marked as Read',
-          message: confirmTarget.notification.title,
-          tone: 'success',
-        });
       }
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Action failed.';
       showNotice({
         title: 'Action Failed',
-        message,
+        message: error instanceof Error ? error.message : 'Action failed.',
         tone: 'error',
       });
     } finally {
@@ -591,632 +477,494 @@ export function ManagementScreen() {
     }
   }
 
-  function renderAccessGuard(moduleKey: ManagementModuleKey) {
-    const state = moduleAccessState[moduleKey];
-    if (isVisible(state)) return null;
-
-    const title =
-      state === 'locked-subscription'
-        ? `${moduleLabel(moduleKey)} locked by subscription`
-        : `${moduleLabel(moduleKey)} blocked by role`;
-    const message =
-      state === 'locked-subscription'
-        ? 'Current subscription does not include this module. Upgrade to enable it.'
-        : 'Your current role does not allow this module.';
-
-    return (
-      <EmptyState
-        title={title}
-        message={message}
-        actionLabel={state === 'locked-subscription' ? 'Review Access' : undefined}
-        onAction={state === 'locked-subscription' ? () => setTab('access') : undefined}
-      />
-    );
-  }
-
-  function renderAccessBanner(moduleKey: ManagementModuleKey) {
-    const state = moduleAccessState[moduleKey];
-    if (state !== 'read-only') return null;
-
-    return (
-      <SectionCard>
-        <EmptyState
-          title={`${moduleLabel(moduleKey)} in read-only mode`}
-          message="You can view records, but write actions are disabled for your current role or entitlement mode."
-        />
-      </SectionCard>
-    );
-  }
-
-  function renderUsersTab() {
-    const guard = renderAccessGuard('users');
-    if (guard) return guard;
-
-    return (
-      <>
-        {renderAccessBanner('users')}
-
-        <SectionCard>
-          <AppSection
-            title="Users"
-            description="User profile list from /user-management/users."
-          >
-            {users.length === 0 ? (
-              <EmptyState
-                title="No Users"
-                message="No user profiles were returned."
-              />
-            ) : (
-              users.map((user) => (
-                <View key={user.id} style={styles.listBlock}>
-                  <AppListItem
-                    title={user.fullName ?? user.email}
-                    description={`Role: ${user.roleName ?? 'n/a'} • ${user.email}`}
-                    rightText={user.status}
-                    onPress={canWriteUsers ? () => openEditUser(user) : undefined}
-                  />
-                  {canWriteUsers ? (
-                    <View style={styles.inlineButtons}>
-                      <AppButton
-                        label="Edit User"
-                        mode="outlined"
-                        tone="neutral"
-                        onPress={() => openEditUser(user)}
-                      />
-                    </View>
-                  ) : null}
-                </View>
-              ))
-            )}
-          </AppSection>
-        </SectionCard>
-
-        <SectionCard>
-          <AppSection
-            title="Roles"
-            description="Create, update, and delete roles relevant to mobile operations."
-          >
-            <View style={styles.rowActions}>
-              <AppButton
-                label="Create Role"
-                onPress={openCreateRole}
-                disabled={!canWriteUsers}
-              />
-            </View>
-            {roles.length === 0 ? (
-              <EmptyState
-                title="No Roles"
-                message="No roles were returned."
-              />
-            ) : (
-              roles.map((role) => (
-                <View key={role.id} style={styles.listBlock}>
-                  <AppListItem
-                    title={role.name}
-                    description={`${role.permissions.length} permissions`}
-                    rightText={role.status}
-                    onPress={canWriteUsers ? () => openEditRole(role) : undefined}
-                  />
-                  {canWriteUsers ? (
-                    <View style={styles.inlineButtons}>
-                      <AppButton
-                        label="Edit"
-                        mode="outlined"
-                        tone="neutral"
-                        onPress={() => openEditRole(role)}
-                      />
-                      <AppButton
-                        label="Delete"
-                        mode="outlined"
-                        tone="destructive"
-                        onPress={() => setConfirmTarget({ type: 'role-delete', role })}
-                      />
-                    </View>
-                  ) : null}
-                </View>
-              ))
-            )}
-          </AppSection>
-        </SectionCard>
-
-        <SectionCard>
-          <AppSection
-            title="Invites"
-            description="Invite flow using /user-management/invites."
-          >
-            <View style={styles.rowActions}>
-              <AppButton
-                label="Create Invite"
-                onPress={openInviteSheet}
-                disabled={!canWriteUsers}
-              />
-            </View>
-            {invites.length === 0 ? (
-              <EmptyState
-                title="No Invites"
-                message="No invites were returned."
-              />
-            ) : (
-              invites.map((invite) => (
-                <View key={invite.id} style={styles.listBlock}>
-                  <AppListItem
-                    title={invite.fullName ?? invite.email}
-                    description={invite.email}
-                    rightText={invite.status}
-                  />
-                  {canWriteUsers ? (
-                    <View style={styles.inlineButtons}>
-                      <AppButton
-                        label="Delete"
-                        mode="outlined"
-                        tone="destructive"
-                        onPress={() => setConfirmTarget({ type: 'invite-delete', invite })}
-                      />
-                    </View>
-                  ) : null}
-                </View>
-              ))
-            )}
-          </AppSection>
-        </SectionCard>
-      </>
-    );
-  }
-
-  function renderContactsTab() {
-    const guard = renderAccessGuard('contacts');
-    if (guard) return guard;
-
-    return (
-      <>
-        {renderAccessBanner('contacts')}
-
-        <SectionCard>
-          <AppSection
-            title="Contacts"
-            description="Contact list with search and paging."
-          >
-            <FilterBar
-              searchValue={contactsSearch}
-              onSearchChange={(value) => {
-                setContactsSearch(value);
-                setContactsPage(1);
-              }}
-              searchPlaceholder="Search contacts"
-            />
-
-            <View style={styles.rowActions}>
-              <AppButton
-                label="Create Contact"
-                onPress={openCreateContact}
-                disabled={!canWriteContacts}
-              />
-            </View>
-
-            {contactsItems.length === 0 ? (
-              <EmptyState
-                title="No Contacts"
-                message="No contacts match the current filters."
-              />
-            ) : (
-              contactsItems.map((contact) => (
-                <View key={contact.id} style={styles.listBlock}>
-                  <AppListItem
-                    title={contact.name}
-                    description={`${contact.type ?? 'other'} • ${contact.email ?? 'no email'}`}
-                    rightText={contact.status}
-                    onPress={canWriteContacts ? () => openEditContact(contact) : undefined}
-                  />
-                  {canWriteContacts ? (
-                    <View style={styles.inlineButtons}>
-                      <AppButton
-                        label="Edit"
-                        mode="outlined"
-                        tone="neutral"
-                        onPress={() => openEditContact(contact)}
-                      />
-                    </View>
-                  ) : null}
-                </View>
-              ))
-            )}
-
-            <PaginationFooter
-              page={contactsPage}
-              pageSize={CONTACT_PAGE_SIZE}
-              totalItems={contactsTotalItems}
-              loading={isRefreshing}
-              onPageChange={setContactsPage}
-            />
-          </AppSection>
-        </SectionCard>
-      </>
-    );
-  }
-
-  function renderNotificationsTab() {
-    const guard = renderAccessGuard('notifications');
-    if (guard) return guard;
-
-    return (
-      <>
-        {renderAccessBanner('notifications')}
-
-        <SectionCard>
-          <AppSection
-            title="Notifications Center"
-            description="In-app notification list with read/update actions."
-          >
-            <FilterBar
-              searchValue={contactsSearch}
-              onSearchChange={setContactsSearch}
-              searchPlaceholder="Search notifications"
-            />
-
-            <View style={styles.rowActions}>
-              <AppButton
-                label="Create Notification"
-                onPress={openNotificationSheet}
-                disabled={!canWriteNotifications}
-              />
-            </View>
-
-            {filteredNotifications.length === 0 ? (
-              <EmptyState
-                title="No Notifications"
-                message="No notifications matched the current filter."
-              />
-            ) : (
-              filteredNotifications.map((notification) => (
-                <View key={notification.id} style={styles.listBlock}>
-                  <AppListItem
-                    title={notification.title}
-                    description={`${notification.type} • ${notification.message}`}
-                    rightText={notification.readAt ? 'read' : 'unread'}
-                  />
-                  <View style={styles.inlineButtons}>
-                    <AppButton
-                      label="Mark Read"
-                      mode="outlined"
-                      tone="neutral"
-                      disabled={!canWriteNotifications || Boolean(notification.readAt)}
-                      onPress={() =>
-                        setConfirmTarget({
-                          type: 'notification-mark-read',
-                          notification,
-                        })
-                      }
-                    />
-                    <AppButton
-                      label="Delete"
-                      mode="outlined"
-                      tone="destructive"
-                      disabled={!canWriteNotifications}
-                      onPress={() =>
-                        setConfirmTarget({
-                          type: 'notification-delete',
-                          notification,
-                        })
-                      }
-                    />
-                  </View>
-                </View>
-              ))
-            )}
-          </AppSection>
-        </SectionCard>
-      </>
-    );
-  }
-
-  function renderAccessTab() {
-    const entitlement = accessSnapshot.entitlements;
-    const menuRows = accessSnapshot.menus;
-    const allowedModules =
-      entitlement && typeof entitlement === 'object' && !Array.isArray(entitlement)
-        ? ((entitlement as Record<string, unknown>).allowedModules as string[] | undefined) ?? []
-        : [];
-    const readOnly =
-      entitlement && typeof entitlement === 'object' && !Array.isArray(entitlement)
-        ? Boolean((entitlement as Record<string, unknown>).readOnly)
-        : false;
-
-    return (
-      <>
-        <SectionCard>
-          <AppSection
-            title="Subscription Snapshot"
-            description="Read-only state and plan period from /subscriptions/me."
-          >
-            <AppListItem
-              title="Status"
-              description={(subscription as { subscription?: { status?: string } } | null)?.subscription?.status ?? 'n/a'}
-            />
-            <AppListItem
-              title="Read-only mode"
-              description={readOnly ? 'Enabled' : 'Disabled'}
-            />
-            <AppListItem
-              title="Allowed module groups"
-              description={String(allowedModules.length)}
-            />
-            <AppListItem
-              title="Menu snapshot rows"
-              description={
-                Array.isArray(menuRows)
-                  ? String(menuRows.length)
-                  : menuRows && typeof menuRows === 'object'
-                    ? String(Object.keys(menuRows).length)
-                    : '0'
-              }
-            />
-          </AppSection>
-        </SectionCard>
-
-        <SectionCard>
-          <AppSection
-            title="Module Access States"
-            description="Resolved state by role + menu access + entitlement mode."
-          >
-            {(Object.keys(moduleAccessState) as ManagementModuleKey[]).map((moduleKey) => {
-              const state = moduleAccessState[moduleKey];
-              return (
-                <View key={moduleKey} style={styles.accessRow}>
-                  <Text style={styles.accessLabel}>{moduleLabel(moduleKey)}</Text>
-                  <AppBadge
-                    value={accessBadgeLabel(state)}
-                    variant={accessBadgeVariant(state)}
-                  />
-                </View>
-              );
-            })}
-          </AppSection>
-        </SectionCard>
-      </>
-    );
-  }
-
-  function renderTabBody() {
-    if (tab === 'users') return renderUsersTab();
-    if (tab === 'contacts') return renderContactsTab();
-    if (tab === 'notifications') return renderNotificationsTab();
-    return renderAccessTab();
-  }
-
   const roleSheetFooter = (
     <View style={styles.sheetFooter}>
-      <AppButton
-        label="Cancel"
-        mode="text"
-        tone="neutral"
-        onPress={closeRoleSheet}
-      />
-      <AppButton
-        label={roleFormMode === 'create' ? 'Create Role' : 'Update Role'}
-        onPress={() => void submitRoleForm()}
-        loading={isMutating}
-      />
+      <View style={styles.sheetButton}>
+        <AppButton label="Cancel" mode="outlined" tone="neutral" onPress={closeRoleSheet} />
+      </View>
+      <View style={styles.sheetButton}>
+        <AppButton
+          label={roleFormMode === 'create' ? 'Create Role' : 'Update Role'}
+          onPress={() => void submitRoleForm()}
+          loading={isMutating}
+          disabled={isMutating}
+        />
+      </View>
     </View>
   );
 
   const userSheetFooter = (
     <View style={styles.sheetFooter}>
-      <AppButton
-        label="Cancel"
-        mode="text"
-        tone="neutral"
-        onPress={closeUserSheet}
-      />
-      <AppButton
-        label="Update User"
-        onPress={() => void submitUserForm()}
-        loading={isMutating}
-      />
+      <View style={styles.sheetButton}>
+        <AppButton label="Cancel" mode="outlined" tone="neutral" onPress={closeUserSheet} />
+      </View>
+      <View style={styles.sheetButton}>
+        <AppButton
+          label="Update User"
+          onPress={() => void submitUserForm()}
+          loading={isMutating}
+          disabled={isMutating}
+        />
+      </View>
     </View>
   );
 
   const inviteSheetFooter = (
     <View style={styles.sheetFooter}>
-      <AppButton
-        label="Cancel"
-        mode="text"
-        tone="neutral"
-        onPress={closeInviteSheet}
-      />
-      <AppButton
-        label="Create Invite"
-        onPress={() => void submitInviteForm()}
-        loading={isMutating}
-      />
-    </View>
-  );
-
-  const contactSheetFooter = (
-    <View style={styles.sheetFooter}>
-      <AppButton
-        label="Cancel"
-        mode="text"
-        tone="neutral"
-        onPress={closeContactSheet}
-      />
-      <AppButton
-        label={contactFormMode === 'create' ? 'Create Contact' : 'Update Contact'}
-        onPress={() => void submitContactForm()}
-        loading={isMutating}
-      />
-    </View>
-  );
-
-  const notificationSheetFooter = (
-    <View style={styles.sheetFooter}>
-      <AppButton
-        label="Cancel"
-        mode="text"
-        tone="neutral"
-        onPress={closeNotificationSheet}
-      />
-      <AppButton
-        label="Create Notification"
-        onPress={() => void submitNotificationForm()}
-        loading={isMutating}
-      />
+      <View style={styles.sheetButton}>
+        <AppButton label="Cancel" mode="outlined" tone="neutral" onPress={closeInviteSheet} />
+      </View>
+      <View style={styles.sheetButton}>
+        <AppButton
+          label="Create Invite"
+          onPress={() => void submitInviteForm()}
+          loading={isMutating}
+          disabled={isMutating}
+        />
+      </View>
     </View>
   );
 
   return (
     <AppScreen padded={false}>
-      <AppHeader
-        title="Management"
-        subtitle="Phase 13: users, contacts, notifications, and subscription access."
-      />
+      <View style={styles.header}>
+        <AppHeader
+          title="Management"
+          subtitle="Users, roles, and invites."
+          menuButtonTestID="management-header-menu"
+          rightAction={
+            <HeaderActionGroup>
+              <NotificationHeaderButton testID="management-header-notifications" />
+            </HeaderActionGroup>
+          }
+        />
+        <SearchBar
+          value={searchValue}
+          onChangeText={setSearchValue}
+          placeholder="Search users by name, role, or email..."
+          testID="management-search-input"
+        />
+        <ModuleTabs
+          value={activeTab}
+          onValueChange={(value) => setActiveTab(value as ManagementTab)}
+          tabs={[
+            { value: 'users', label: 'Users' },
+            { value: 'roles', label: 'Roles' },
+            { value: 'invites', label: 'Invites' },
+          ]}
+          testID="management-module-tabs"
+        />
+      </View>
 
       <PullToRefreshContainer
         refreshing={isRefreshing}
         onRefresh={() => void refresh()}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={styles.main}
       >
-        <View style={styles.topActions}>
-          <AppButton
-            label="Refresh"
-            onPress={() => void refresh()}
-            loading={isRefreshing}
-          />
-        </View>
-
-        <SectionCard>
-          <AppSection
-            title="Overview"
-            description="Phase 13 management surfaces."
-          >
-            <View style={styles.overviewGrid}>
-              <View style={styles.metric}>
-                <Text style={styles.metricLabel}>Users</Text>
-                <Text style={styles.metricValue}>{users.length}</Text>
-              </View>
-              <View style={styles.metric}>
-                <Text style={styles.metricLabel}>Roles</Text>
-                <Text style={styles.metricValue}>{roles.length}</Text>
-              </View>
-              <View style={styles.metric}>
-                <Text style={styles.metricLabel}>Contacts</Text>
-                <Text style={styles.metricValue}>{contactsResult.total}</Text>
-              </View>
-              <View style={styles.metric}>
-                <Text style={styles.metricLabel}>Notifications</Text>
-                <Text style={styles.metricValue}>{notifications.length}</Text>
-              </View>
-            </View>
-          </AppSection>
-        </SectionCard>
-
-        <SectionCard>
-          <AppTabs
-            value={tab}
-            onValueChange={(value) => setTab(value as ManagementTab)}
-            tabs={MANAGEMENT_TABS as unknown as { value: string; label: string }[]}
-          />
-          <View style={styles.tabBody}>
-            {isLoading ? (
-              <>
-                <Skeleton height={20} />
-                <Skeleton height={84} />
-                <Skeleton height={84} />
-              </>
-            ) : errorMessage ? (
-              <ErrorState
-                title="Management Data Failed"
-                message={errorMessage}
-                onRetry={() => void refresh()}
-              />
-            ) : (
-              renderTabBody()
-            )}
+        {isLoading ? (
+          <View style={styles.skeletonBlock}>
+            <Skeleton height={72} />
+            <Skeleton height={176} />
+            <Skeleton height={176} />
+            <Skeleton height={68} />
+            <Skeleton height={68} />
           </View>
-        </SectionCard>
+        ) : errorMessage ? (
+          <ErrorState
+            title="Management Data Failed"
+            message={errorMessage}
+            onRetry={() => void refresh()}
+          />
+        ) : !isVisible(accessState) ? (
+          <EmptyState
+            title={
+              accessState === 'locked-subscription'
+                ? 'User management locked by subscription'
+                : 'User management blocked by role'
+            }
+            message={
+              accessState === 'locked-subscription'
+                ? 'Current subscription does not include user management.'
+                : 'Your current role does not allow user management.'
+            }
+          />
+        ) : (
+          <>
+            {accessState === 'read-only' ? (
+              <AlertStrip
+                title="Management is read-only"
+                subtitle="You can review users, roles, and invites, but write actions are hidden."
+                icon="eye-outline"
+                borderColor={palette.warning}
+                iconColor="#8B6914"
+                testID="management-read-only-alert"
+              />
+            ) : null}
+
+            {activeTab === 'users' ? (
+              <>
+                <StatStrip
+                  items={[
+                    { value: activeUsersCount, label: 'Active', color: 'green' },
+                    { value: inactiveUsersCount, label: 'Inactive', color: 'amber' },
+                    { value: users.length, label: 'Total', color: 'green' },
+                  ]}
+                  testID="management-stat-strip"
+                />
+
+                <PillTabs
+                  value={userListMode}
+                  onValueChange={(value) => setUserListMode(value as UserListMode)}
+                  tabs={[
+                    { value: 'all', label: `All (${users.length})` },
+                    { value: 'active', label: `Active (${activeUsersCount})` },
+                    { value: 'inactive', label: `Inactive (${inactiveUsersCount})` },
+                  ]}
+                  testID="management-user-tabs"
+                />
+
+                <SectionHeader
+                  title="Users"
+                  trailing={`${filteredUsers.length} shown`}
+                  testID="management-users-header"
+                />
+
+                {filteredUsers.length === 0 ? (
+                  <EmptyState
+                    title={
+                      userListMode === 'active'
+                        ? 'No active users'
+                        : userListMode === 'inactive'
+                          ? 'No inactive users'
+                          : 'No users'
+                    }
+                    message={
+                      searchValue.trim().length > 0
+                        ? 'No users match the current search.'
+                        : userListMode === 'active'
+                          ? 'No active users are available.'
+                          : userListMode === 'inactive'
+                            ? 'No inactive users are available.'
+                            : 'No user profiles were returned.'
+                    }
+                  />
+                ) : (
+                  filteredUsers.map((user) => (
+                    <ListRow
+                      key={user.id}
+                      icon={toUserIcon(user)}
+                      iconVariant={toManagementIconVariant(user.status)}
+                      title={toUserDisplayName(user)}
+                      subtitle={toUserRowSubtitle(user)}
+                      badge={
+                        <DotBadge
+                          label={toManagementStatusLabel(user.status)}
+                          variant={toManagementStatusVariant(user.status)}
+                        />
+                      }
+                      onPress={() => openUserDetail(user)}
+                      testID={`management-user-row-${user.id}`}
+                    />
+                  ))
+                )}
+              </>
+            ) : null}
+
+            {activeTab === 'roles' ? (
+              <>
+                <StatStrip
+                  items={[
+                    { value: activeRolesCount, label: 'Active', color: 'green' },
+                    { value: inactiveRolesCount, label: 'Inactive', color: 'amber' },
+                    { value: roles.length, label: 'Total', color: 'green' },
+                  ]}
+                  testID="management-stat-strip"
+                />
+
+                <DetailSectionCard
+                  title="Roles"
+                  description="Create, update, and retire roles used by the user directory."
+                  trailing={<Text style={styles.cardCount}>{filteredRoles.length}</Text>}
+                  testID="management-roles-card"
+                >
+                  {canWriteUsers ? (
+                    <View style={styles.cardActionRow}>
+                      <AppButton label="Create Role" onPress={openCreateRole} />
+                    </View>
+                  ) : null}
+
+                  {filteredRoles.length === 0 ? (
+                    <EmptyState
+                      title={searchValue.trim().length > 0 ? 'No matching roles' : 'No roles'}
+                      message={
+                        searchValue.trim().length > 0
+                          ? 'No roles match the current search.'
+                          : 'No roles are available for this farm yet.'
+                      }
+                      actionLabel={canWriteUsers && searchValue.trim().length === 0 ? 'Create Role' : undefined}
+                      onAction={canWriteUsers && searchValue.trim().length === 0 ? openCreateRole : undefined}
+                    />
+                  ) : (
+                    filteredRoles.map((role) => (
+                      <ListRow
+                        key={role.id}
+                        icon="shield-account-outline"
+                        iconVariant={toManagementIconVariant(role.status)}
+                        title={role.name}
+                        subtitle={toRoleRowSubtitle(role)}
+                        badge={
+                          <DotBadge
+                            label={toManagementStatusLabel(role.status)}
+                            variant={toManagementStatusVariant(role.status)}
+                          />
+                        }
+                        onPress={canWriteUsers ? () => setRoleActionTarget(role) : undefined}
+                        testID={`management-role-row-${role.id}`}
+                      />
+                    ))
+                  )}
+                </DetailSectionCard>
+              </>
+            ) : null}
+
+            {activeTab === 'invites' ? (
+              <>
+                <StatStrip
+                  items={[
+                    { value: pendingInvitesCount, label: 'Pending', color: 'amber' },
+                    { value: acceptedInvitesCount, label: 'Accepted', color: 'green' },
+                    { value: expiredInvitesCount, label: 'Expired', color: 'red' },
+                  ]}
+                  testID="management-stat-strip"
+                />
+
+                <DetailSectionCard
+                  title="Invites"
+                  description="Track open user invitations and remove stale access requests."
+                  trailing={<Text style={styles.cardCount}>{filteredInvites.length}</Text>}
+                  testID="management-invites-card"
+                >
+                  {canWriteUsers ? (
+                    <View style={styles.cardActionRow}>
+                      <AppButton label="Create Invite" onPress={openInviteSheet} />
+                    </View>
+                  ) : null}
+
+                  {filteredInvites.length === 0 ? (
+                    <EmptyState
+                      title={searchValue.trim().length > 0 ? 'No matching invites' : 'No invites'}
+                      message={
+                        searchValue.trim().length > 0
+                          ? 'No invites match the current search.'
+                          : 'No invites have been issued yet.'
+                      }
+                      actionLabel={canWriteUsers && searchValue.trim().length === 0 ? 'Create Invite' : undefined}
+                      onAction={canWriteUsers && searchValue.trim().length === 0 ? openInviteSheet : undefined}
+                    />
+                  ) : (
+                    filteredInvites.map((invite) => (
+                      <ListRow
+                        key={invite.id}
+                        icon="email-fast-outline"
+                        iconVariant={toManagementIconVariant(invite.status)}
+                        title={toInviteDisplayName(invite)}
+                        subtitle={toInviteRowSubtitle(invite)}
+                        badge={
+                          <DotBadge
+                            label={toManagementStatusLabel(invite.status)}
+                            variant={toManagementStatusVariant(invite.status)}
+                          />
+                        }
+                        onPress={canWriteUsers ? () => setInviteActionTarget(invite) : undefined}
+                        testID={`management-invite-row-${invite.id}`}
+                      />
+                    ))
+                  )}
+                </DetailSectionCard>
+              </>
+            ) : null}
+          </>
+        )}
       </PullToRefreshContainer>
 
       <BottomSheet
+        visible={Boolean(selectedUser)}
+        title={selectedUser ? toUserDisplayName(selectedUser) : 'User detail'}
+        onDismiss={closeUserDetail}
+      >
+        {selectedUser ? (
+          <>
+            <ProfileCard
+              icon={toUserIcon(selectedUser)}
+              name={toUserDisplayName(selectedUser)}
+              subtitle={`${selectedUser.roleName ?? 'No role'} · ${toManagementStatusLabel(selectedUser.status)}`}
+              cells={[
+                { label: 'Role', value: selectedUser.roleName ?? 'n/a' },
+                { label: 'Status', value: toManagementStatusLabel(selectedUser.status) },
+                { label: 'Type', value: selectedUser.userType ?? 'n/a' },
+                { label: 'Updated', value: toManagementDateLabel(selectedUser.updatedAt) },
+              ]}
+              testID="management-user-profile"
+            />
+
+            {canWriteUsers ? (
+              <View style={styles.detailPrimaryAction}>
+                <AppButton
+                  label="Edit User"
+                  onPress={() => {
+                    const user = selectedUser;
+                    closeUserDetail();
+                    openEditUser(user);
+                  }}
+                />
+              </View>
+            ) : null}
+
+            <DetailSectionCard
+              title="Profile"
+              description="Primary identity and contact information for this user."
+            >
+              <View style={styles.detailRow}>
+                <Text style={styles.detailLabel}>Email</Text>
+                <Text style={styles.detailValue}>{selectedUser.email}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailLabel}>Nick Name</Text>
+                <Text style={styles.detailValue}>{selectedUser.nickName ?? 'n/a'}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailLabel}>Mobile</Text>
+                <Text style={styles.detailValue}>{selectedUser.mobileNumber ?? 'n/a'}</Text>
+              </View>
+            </DetailSectionCard>
+
+            <DetailSectionCard
+              title="Access"
+              description="Role assignment and account lifecycle details."
+            >
+              <View style={styles.detailRow}>
+                <Text style={styles.detailLabel}>Profile ID</Text>
+                <Text style={styles.detailValue}>{selectedUser.id}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailLabel}>User ID</Text>
+                <Text style={styles.detailValue}>{selectedUser.userId ?? 'n/a'}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailLabel}>Created</Text>
+                <Text style={styles.detailValue}>
+                  {toManagementDateLabel(selectedUser.createdAt)}
+                </Text>
+              </View>
+            </DetailSectionCard>
+          </>
+        ) : null}
+      </BottomSheet>
+
+      <BottomSheet
         visible={roleSheetVisible}
-        title={roleFormMode === 'create' ? 'Create Role' : 'Update Role'}
+        title={roleFormMode === 'create' ? 'New Role' : 'Edit Role'}
         footer={roleSheetFooter}
         onDismiss={closeRoleSheet}
+        scrollViewRef={roleSheetScrollRef}
       >
-        <FormField label="Role Name">
-          <AppInput
-            value={roleFormValues.name}
-            onChangeText={(value) => setRoleFormValues({ name: value })}
-            placeholder="Role name"
-          />
-        </FormField>
+        <FormValidationProvider value={roleValidation.providerValue}>
+          <DetailSectionCard
+            title="Role Details"
+            description="Define the role name used across the farm team."
+          >
+            <FormField label="Role Name" name="name" required>
+              <AppInput
+                value={roleFormValues.name}
+                onChangeText={(value) => {
+                  roleValidation.clearFieldError('name');
+                  setRoleFormValues({ name: value });
+                }}
+                placeholder="Role name"
+              />
+            </FormField>
+          </DetailSectionCard>
+        </FormValidationProvider>
       </BottomSheet>
 
       <BottomSheet
         visible={userSheetVisible}
-        title="Update User"
+        title="Edit User"
         footer={userSheetFooter}
         onDismiss={closeUserSheet}
       >
-        <FormField label="Full name">
-          <AppInput
-            value={userFormValues.fullName}
-            onChangeText={(value) =>
-              setUserFormValues((prev) => ({
-                ...prev,
-                fullName: value,
-              }))
-            }
-            placeholder="Full name"
-          />
-        </FormField>
-        <FormField label="Nick name">
-          <AppInput
-            value={userFormValues.nickName}
-            onChangeText={(value) =>
-              setUserFormValues((prev) => ({
-                ...prev,
-                nickName: value,
-              }))
-            }
-            placeholder="Nick name"
-          />
-        </FormField>
-        <FormField label="Mobile number">
-          <AppInput
-            value={userFormValues.mobileNumber}
-            onChangeText={(value) =>
-              setUserFormValues((prev) => ({
-                ...prev,
-                mobileNumber: value,
-              }))
-            }
-            placeholder="+1..."
-          />
-        </FormField>
-        <FormField label="Role">
-          <AppSelect
-            value={userFormValues.roleId}
-            options={roleOptionsForSelect}
-            onChange={(value) =>
-              setUserFormValues((prev) => ({
-                ...prev,
-                roleId: value,
-              }))
-            }
-          />
-        </FormField>
-        <FormField label="Status">
-          <AppInput
-            value={userFormValues.status}
-            onChangeText={(value) =>
-              setUserFormValues((prev) => ({
-                ...prev,
-                status: value,
-              }))
-            }
-            placeholder="active"
-            autoCapitalize="none"
-          />
-        </FormField>
+        <DetailSectionCard
+          title="Profile"
+          description="Update the user-facing profile information stored for this account."
+        >
+          <FormField label="Full name">
+            <AppInput
+              value={userFormValues.fullName}
+              onChangeText={(value) =>
+                setUserFormValues((prev) => ({
+                  ...prev,
+                  fullName: value,
+                }))
+              }
+              placeholder="Full name"
+            />
+          </FormField>
+          <FormField label="Nick name">
+            <AppInput
+              value={userFormValues.nickName}
+              onChangeText={(value) =>
+                setUserFormValues((prev) => ({
+                  ...prev,
+                  nickName: value,
+                }))
+              }
+              placeholder="Nick name"
+            />
+          </FormField>
+          <FormField label="Mobile number">
+            <AppInput
+              value={userFormValues.mobileNumber}
+              onChangeText={(value) =>
+                setUserFormValues((prev) => ({
+                  ...prev,
+                  mobileNumber: value,
+                }))
+              }
+              placeholder="+1..."
+            />
+          </FormField>
+        </DetailSectionCard>
+
+        <DetailSectionCard
+          title="Access"
+          description="Adjust the role assignment and lifecycle status for this user."
+        >
+          <FormField label="Role">
+            <AppSelect
+              value={userFormValues.roleId}
+              options={roleOptionsForSelect}
+              onChange={(value) =>
+                setUserFormValues((prev) => ({
+                  ...prev,
+                  roleId: value,
+                }))
+              }
+            />
+          </FormField>
+          <FormField label="Status">
+            <AppInput
+              value={userFormValues.status}
+              onChangeText={(value) =>
+                setUserFormValues((prev) => ({
+                  ...prev,
+                  status: value,
+                }))
+              }
+              placeholder="active"
+              autoCapitalize="none"
+            />
+          </FormField>
+        </DetailSectionCard>
       </BottomSheet>
 
       <BottomSheet
@@ -1224,278 +972,128 @@ export function ManagementScreen() {
         title="Create Invite"
         footer={inviteSheetFooter}
         onDismiss={closeInviteSheet}
+        scrollViewRef={inviteSheetScrollRef}
       >
-        <FormField label="Email">
-          <AppInput
-            value={inviteFormValues.email}
-            onChangeText={(value) =>
-              setInviteFormValues((prev) => ({
-                ...prev,
-                email: value,
-              }))
-            }
-            placeholder="invite@example.test"
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-        </FormField>
-        <FormField label="Full Name">
-          <AppInput
-            value={inviteFormValues.fullName}
-            onChangeText={(value) =>
-              setInviteFormValues((prev) => ({
-                ...prev,
-                fullName: value,
-              }))
-            }
-            placeholder="Invitee name"
-          />
-        </FormField>
-        <FormField label="Role">
-          <AppSelect
-            value={inviteFormValues.roleId}
-            options={roleOptionsForSelect}
-            onChange={(value) =>
-              setInviteFormValues((prev) => ({
-                ...prev,
-                roleId: value,
-              }))
-            }
-          />
-        </FormField>
-        <FormField label="Expires At (ISO)">
-          <AppInput
-            value={inviteFormValues.expiresAt}
-            onChangeText={(value) =>
-              setInviteFormValues((prev) => ({
-                ...prev,
-                expiresAt: value,
-              }))
-            }
-            placeholder="2026-03-04T00:00:00.000Z"
-            autoCapitalize="none"
-          />
-        </FormField>
+        <FormValidationProvider value={inviteValidation.providerValue}>
+          <DetailSectionCard
+            title="Invite Details"
+            description="Issue an invite with the selected role and an explicit expiry."
+          >
+            <FormField label="Email" name="email" required>
+              <AppInput
+                value={inviteFormValues.email}
+                onChangeText={(value) => {
+                  inviteValidation.clearFieldError('email');
+                  setInviteFormValues((prev) => ({
+                    ...prev,
+                    email: value,
+                  }));
+                }}
+                placeholder="invite@example.test"
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+            </FormField>
+            <FormField label="Full Name" name="fullName" required>
+              <AppInput
+                value={inviteFormValues.fullName}
+                onChangeText={(value) => {
+                  inviteValidation.clearFieldError('fullName');
+                  setInviteFormValues((prev) => ({
+                    ...prev,
+                    fullName: value,
+                  }));
+                }}
+                placeholder="Invitee name"
+              />
+            </FormField>
+            <FormField label="Role" name="roleId" required>
+              <AppSelect
+                value={inviteFormValues.roleId}
+                options={roleOptionsForSelect}
+                onChange={(value) => {
+                  inviteValidation.clearFieldError('roleId');
+                  setInviteFormValues((prev) => ({
+                    ...prev,
+                    roleId: value,
+                  }));
+                }}
+              />
+            </FormField>
+            <FormField label="Expires At (ISO)" name="expiresAt" required>
+              <AppInput
+                value={inviteFormValues.expiresAt}
+                onChangeText={(value) => {
+                  inviteValidation.clearFieldError('expiresAt');
+                  setInviteFormValues((prev) => ({
+                    ...prev,
+                    expiresAt: value,
+                  }));
+                }}
+                placeholder="2026-03-04T00:00:00.000Z"
+                autoCapitalize="none"
+              />
+            </FormField>
+          </DetailSectionCard>
+        </FormValidationProvider>
       </BottomSheet>
 
-      <BottomSheet
-        visible={contactSheetVisible}
-        title={contactFormMode === 'create' ? 'Create Contact' : 'Update Contact'}
-        footer={contactSheetFooter}
-        onDismiss={closeContactSheet}
-      >
-        <FormField label="Name">
-          <AppInput
-            value={contactFormValues.name}
-            onChangeText={(value) =>
-              setContactFormValues((prev) => ({
-                ...prev,
-                name: value,
-              }))
-            }
-            placeholder="Contact name"
-          />
-        </FormField>
-        <FormField label="Type">
-          <AppSelect
-            value={contactFormValues.type}
-            options={[...CONTACT_TYPE_OPTIONS]}
-            onChange={(value) =>
-              setContactFormValues((prev) => ({
-                ...prev,
-                type: value,
-              }))
-            }
-          />
-        </FormField>
-        <FormField label="Contact Types (CSV)">
-          <AppInput
-            value={contactFormValues.contactTypesCsv}
-            onChangeText={(value) =>
-              setContactFormValues((prev) => ({
-                ...prev,
-                contactTypesCsv: value,
-              }))
-            }
-            placeholder="supplier, customer"
-          />
-        </FormField>
-        <FormField label="Status">
-          <AppSelect
-            value={contactFormValues.status}
-            options={[...CONTACT_STATUS_OPTIONS]}
-            onChange={(value) =>
-              setContactFormValues((prev) => ({
-                ...prev,
-                status: value,
-              }))
-            }
-          />
-        </FormField>
-        <FormField label="Email">
-          <AppInput
-            value={contactFormValues.email}
-            onChangeText={(value) =>
-              setContactFormValues((prev) => ({
-                ...prev,
-                email: value,
-              }))
-            }
-            placeholder="name@example.test"
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-        </FormField>
-        <FormField label="Phone">
-          <AppInput
-            value={contactFormValues.phone}
-            onChangeText={(value) =>
-              setContactFormValues((prev) => ({
-                ...prev,
-                phone: value,
-              }))
-            }
-            placeholder="+1..."
-          />
-        </FormField>
-        <FormField label="Company">
-          <AppInput
-            value={contactFormValues.company}
-            onChangeText={(value) =>
-              setContactFormValues((prev) => ({
-                ...prev,
-                company: value,
-              }))
-            }
-            placeholder="Company"
-          />
-        </FormField>
-        <FormField label="Address">
-          <AppInput
-            value={contactFormValues.address}
-            onChangeText={(value) =>
-              setContactFormValues((prev) => ({
-                ...prev,
-                address: value,
-              }))
-            }
-            placeholder="Address"
-          />
-        </FormField>
-        <FormField label="Country">
-          <AppInput
-            value={contactFormValues.country}
-            onChangeText={(value) =>
-              setContactFormValues((prev) => ({
-                ...prev,
-                country: value,
-              }))
-            }
-            placeholder="Country"
-          />
-        </FormField>
-        <FormField label="City/Region">
-          <AppInput
-            value={contactFormValues.cityRegion}
-            onChangeText={(value) =>
-              setContactFormValues((prev) => ({
-                ...prev,
-                cityRegion: value,
-              }))
-            }
-            placeholder="City"
-          />
-        </FormField>
-        <FormField label="Tax ID">
-          <AppInput
-            value={contactFormValues.taxId}
-            onChangeText={(value) =>
-              setContactFormValues((prev) => ({
-                ...prev,
-                taxId: value,
-              }))
-            }
-            placeholder="Tax identifier"
-          />
-        </FormField>
-        <FormField label="Notes">
-          <AppTextArea
-            value={contactFormValues.notes}
-            onChangeText={(value) =>
-              setContactFormValues((prev) => ({
-                ...prev,
-                notes: value,
-              }))
-            }
-            placeholder="Notes"
-          />
-        </FormField>
-      </BottomSheet>
+      <ActionSheet
+        visible={Boolean(roleActionTarget)}
+        title={roleActionTarget?.name}
+        message="Choose an action for this role."
+        actions={
+          roleActionTarget
+            ? [
+                {
+                  key: 'edit',
+                  label: 'Edit Role',
+                  onPress: () => openEditRole(roleActionTarget),
+                },
+                {
+                  key: 'delete',
+                  label: 'Delete Role',
+                  destructive: true,
+                  onPress: () => setConfirmTarget({ type: 'role-delete', role: roleActionTarget }),
+                },
+              ]
+            : []
+        }
+        onDismiss={() => setRoleActionTarget(null)}
+      />
 
-      <BottomSheet
-        visible={notificationSheetVisible}
-        title="Create Notification"
-        footer={notificationSheetFooter}
-        onDismiss={closeNotificationSheet}
-      >
-        <FormField label="Type">
-          <AppSelect
-            value={notificationFormValues.type}
-            options={NOTIFICATION_TYPE_OPTIONS as unknown as { value: string; label: string }[]}
-            onChange={(value) =>
-              setNotificationFormValues((prev) => ({
-                ...prev,
-                type: value,
-              }))
-            }
-          />
-        </FormField>
-        <FormField label="Title">
-          <AppInput
-            value={notificationFormValues.title}
-            onChangeText={(value) =>
-              setNotificationFormValues((prev) => ({
-                ...prev,
-                title: value,
-              }))
-            }
-            placeholder="Notification title"
-          />
-        </FormField>
-        <FormField label="Message">
-          <AppTextArea
-            value={notificationFormValues.message}
-            onChangeText={(value) =>
-              setNotificationFormValues((prev) => ({
-                ...prev,
-                message: value,
-              }))
-            }
-            placeholder="Notification message"
-          />
-        </FormField>
-      </BottomSheet>
+      <ActionSheet
+        visible={Boolean(inviteActionTarget)}
+        title={inviteActionTarget ? toInviteDisplayName(inviteActionTarget) : undefined}
+        message="Choose an action for this invite."
+        actions={
+          inviteActionTarget
+            ? [
+                {
+                  key: 'delete',
+                  label: 'Delete Invite',
+                  destructive: true,
+                  onPress: () =>
+                    setConfirmTarget({ type: 'invite-delete', invite: inviteActionTarget }),
+                },
+              ]
+            : []
+        }
+        onDismiss={() => setInviteActionTarget(null)}
+      />
 
       <ConfirmDialog
         visible={Boolean(confirmTarget)}
-        title={
-          confirmTarget?.type === 'notification-mark-read'
-            ? 'Mark Notification as Read'
-            : 'Confirm Action'
-        }
+        title="Confirm Action"
         message={
           confirmTarget?.type === 'role-delete'
             ? `Delete role "${confirmTarget.role.name}"?`
             : confirmTarget?.type === 'invite-delete'
               ? `Delete invite "${confirmTarget.invite.email}"?`
-              : confirmTarget?.type === 'notification-delete'
-                ? `Delete notification "${confirmTarget.notification.title}"?`
-                : confirmTarget?.type === 'notification-mark-read'
-                  ? `Mark "${confirmTarget.notification.title}" as read?`
-                  : 'Are you sure?'
+              : 'Are you sure?'
         }
-        confirmLabel={confirmTarget?.type === 'notification-mark-read' ? 'Mark Read' : 'Confirm'}
-        confirmTone={confirmTarget?.type?.includes('delete') ? 'destructive' : 'primary'}
+        confirmLabel="Confirm"
+        confirmTone="destructive"
         confirmLoading={isMutating}
         onCancel={() => setConfirmTarget(null)}
         onConfirm={() => void confirmAction()}
@@ -1505,70 +1103,50 @@ export function ManagementScreen() {
 }
 
 const styles = StyleSheet.create({
-  scrollContent: {
+  header: {
     paddingHorizontal: spacing.xl,
-    paddingVertical: spacing.lg,
+    paddingTop: spacing.lg,
+    paddingBottom: spacing.md,
+    gap: spacing.sm,
+  },
+  main: {
+    paddingHorizontal: spacing.xl,
+    paddingBottom: spacing.xl,
     gap: spacing.md,
   },
-  topActions: {
-    flexDirection: 'row',
+  skeletonBlock: {
     gap: spacing.sm,
   },
-  overviewGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: spacing.sm,
-  },
-  metric: {
-    width: '48%',
-    minWidth: 150,
-    borderWidth: 1,
-    borderColor: palette.border,
-    borderRadius: 10,
-    padding: spacing.sm,
-    gap: spacing.xs,
-  },
-  metricLabel: {
-    ...typography.caption,
-    color: palette.mutedForeground,
-  },
-  metricValue: {
+  cardCount: {
     ...typography.title,
     color: palette.foreground,
   },
-  tabBody: {
-    gap: spacing.sm,
-  },
-  rowActions: {
-    flexDirection: 'row',
-    gap: spacing.sm,
-    flexWrap: 'wrap',
-  },
-  listBlock: {
-    gap: spacing.xs,
-  },
-  inlineButtons: {
-    flexDirection: 'row',
-    gap: spacing.xs,
-    flexWrap: 'wrap',
-  },
-  accessRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: palette.border,
-    borderRadius: 10,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: spacing.xs,
-  },
-  accessLabel: {
-    ...typography.body,
-    color: palette.foreground,
+  cardActionRow: {
+    marginBottom: spacing.sm,
   },
   sheetFooter: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     gap: spacing.sm,
+  },
+  sheetButton: {
+    flex: 1,
+  },
+  detailPrimaryAction: {
+    marginBottom: spacing.sm,
+  },
+  detailRow: {
+    gap: spacing.xs,
+  },
+  detailLabel: {
+    ...typography.caption,
+    color: palette.mutedForeground,
+    textTransform: 'uppercase',
+    letterSpacing: 0.4,
+    fontWeight: '600',
+  },
+  detailValue: {
+    ...typography.body,
+    color: palette.foreground,
   },
 });

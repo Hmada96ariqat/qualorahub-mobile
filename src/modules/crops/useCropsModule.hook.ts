@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { listFields } from '../../api/modules/fields';
 import { listLots } from '../../api/modules/lots';
@@ -9,6 +9,7 @@ import {
   deleteProductionCycleOperation,
   getLogbookPracticeCatalog,
   getLogbookSession,
+  listCrops,
   listProductionCycleOperations,
   listProductionCycles,
   submitLogbook,
@@ -17,14 +18,13 @@ import {
   updateProductionCycleNotes,
   updateProductionCycleOperation,
   closeProductionCycle,
-  type CloseProductionCycleRequest,
-  type CreateCropRequest,
-  type CreateProductionCycleOperationRequest,
-  type CreateProductionCycleRequest,
-  type CropSummary,
-  type LogbookPracticeCatalogQuery,
-  type LogbookSessionQuery,
-  type LogbookSubmitRequest,
+    type CloseProductionCycleRequest,
+    type CreateCropRequest,
+    type CreateProductionCycleOperationRequest,
+    type CreateProductionCycleRequest,
+    type LogbookPracticeCatalogQuery,
+    type LogbookSessionQuery,
+    type LogbookSubmitRequest,
   type UpdateCropRequest,
   type UpdateCropStatusRequest,
   type UpdateProductionCycleNotesRequest,
@@ -34,6 +34,7 @@ import { useAuthSession } from '../../hooks/useAuthSession';
 
 const PHASE11_FIELDS_KEY = ['phase11', 'fields'] as const;
 const PHASE11_LOTS_KEY = ['phase11', 'lots'] as const;
+const PHASE11_CROPS_KEY = ['phase11', 'crops'] as const;
 const PHASE11_CYCLES_KEY = ['phase11', 'cycles'] as const;
 
 function toErrorMessage(error: unknown, fallback: string): string {
@@ -42,16 +43,6 @@ function toErrorMessage(error: unknown, fallback: string): string {
   }
 
   return fallback;
-}
-
-function normalizeCropCollection(cyclesCrops: CropSummary[], manualCrops: CropSummary[]): CropSummary[] {
-  const byId = new Map<string, CropSummary>();
-
-  for (const crop of [...cyclesCrops, ...manualCrops]) {
-    byId.set(crop.id, crop);
-  }
-
-  return Array.from(byId.values()).sort((left, right) => left.name.localeCompare(right.name));
 }
 
 type UseCropsModuleParams = {
@@ -68,7 +59,6 @@ export function useCropsModule({
   const { session } = useAuthSession();
   const token = session?.accessToken ?? null;
   const queryClient = useQueryClient();
-  const [manualCrops, setManualCrops] = useState<CropSummary[]>([]);
 
   const fieldsQuery = useQuery({
     queryKey: [...PHASE11_FIELDS_KEY],
@@ -79,6 +69,12 @@ export function useCropsModule({
   const lotsQuery = useQuery({
     queryKey: [...PHASE11_LOTS_KEY],
     queryFn: () => listLots(token ?? ''),
+    enabled: Boolean(token),
+  });
+
+  const cropsQuery = useQuery({
+    queryKey: [...PHASE11_CROPS_KEY],
+    queryFn: () => listCrops(token ?? ''),
     enabled: Boolean(token),
   });
 
@@ -113,35 +109,30 @@ export function useCropsModule({
 
   const createCropMutation = useMutation({
     mutationFn: (input: CreateCropRequest) => createCrop(token ?? '', input),
-    onSuccess: (createdCrop) => {
-      setManualCrops((current) => {
-        const next = current.filter((crop) => crop.id !== createdCrop.id);
-        return [...next, createdCrop];
-      });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: PHASE11_CROPS_KEY });
     },
   });
 
   const updateCropMutation = useMutation({
     mutationFn: (payload: { cropId: string; input: UpdateCropRequest }) =>
       updateCrop(token ?? '', payload.cropId, payload.input),
-    onSuccess: (updatedCrop) => {
-      setManualCrops((current) => {
-        const next = current.filter((crop) => crop.id !== updatedCrop.id);
-        return [...next, updatedCrop];
-      });
-      void queryClient.invalidateQueries({ queryKey: PHASE11_CYCLES_KEY });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: PHASE11_CROPS_KEY }),
+        queryClient.invalidateQueries({ queryKey: PHASE11_CYCLES_KEY }),
+      ]);
     },
   });
 
   const updateCropStatusMutation = useMutation({
     mutationFn: (payload: { cropId: string; input: UpdateCropStatusRequest }) =>
       updateCropStatus(token ?? '', payload.cropId, payload.input),
-    onSuccess: (updatedCrop) => {
-      setManualCrops((current) => {
-        const next = current.filter((crop) => crop.id !== updatedCrop.id);
-        return [...next, updatedCrop];
-      });
-      void queryClient.invalidateQueries({ queryKey: PHASE11_CYCLES_KEY });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: PHASE11_CROPS_KEY }),
+        queryClient.invalidateQueries({ queryKey: PHASE11_CYCLES_KEY }),
+      ]);
     },
   });
 
@@ -212,29 +203,7 @@ export function useCropsModule({
   });
 
   const cycles = useMemo(() => cyclesQuery.data ?? [], [cyclesQuery.data]);
-  const cyclesCrops = useMemo<CropSummary[]>(
-    () =>
-      cycles.reduce<CropSummary[]>((accumulator, cycle) => {
-        if (!cycle.cropId) return accumulator;
-        accumulator.push({
-          id: cycle.cropId,
-          name: cycle.cropName ?? 'Unnamed crop',
-          variety: null,
-          status: cycle.status,
-          notes: null,
-          fieldId: cycle.fieldId,
-          createdAt: cycle.createdAt,
-          updatedAt: cycle.updatedAt,
-        });
-        return accumulator;
-      }, []),
-    [cycles],
-  );
-
-  const crops = useMemo(
-    () => normalizeCropCollection(cyclesCrops, manualCrops),
-    [cyclesCrops, manualCrops],
-  );
+  const crops = useMemo(() => cropsQuery.data ?? [], [cropsQuery.data]);
 
   const isMutating =
     createCropMutation.isPending ||
@@ -248,22 +217,24 @@ export function useCropsModule({
     deleteOperationMutation.isPending ||
     submitLogbookMutation.isPending;
 
-  return {
-    fields: fieldsQuery.data ?? [],
-    lots: lotsQuery.data ?? [],
-    cycles,
-    crops,
+    return {
+      fields: fieldsQuery.data ?? [],
+      lots: lotsQuery.data ?? [],
+      cycles,
+      crops,
     cycleOperations: operationsQuery.data ?? [],
     logbookSession: logbookSessionQueryResult.data ?? null,
     logbookPracticeCatalog: practiceCatalogQueryResult.data ?? null,
     isLoading:
       fieldsQuery.isLoading ||
       lotsQuery.isLoading ||
+      cropsQuery.isLoading ||
       cyclesQuery.isLoading ||
       logbookSessionQueryResult.isLoading,
     isRefreshing:
       fieldsQuery.isFetching ||
       lotsQuery.isFetching ||
+      cropsQuery.isFetching ||
       cyclesQuery.isFetching ||
       operationsQuery.isFetching ||
       logbookSessionQueryResult.isFetching ||
@@ -275,7 +246,9 @@ export function useCropsModule({
       ? toErrorMessage(fieldsQuery.error, 'Failed to load fields for Phase 11.')
       : lotsQuery.error
         ? toErrorMessage(lotsQuery.error, 'Failed to load lots for Phase 11.')
-        : cyclesQuery.error
+        : cropsQuery.error
+          ? toErrorMessage(cropsQuery.error, 'Failed to load crops for Phase 11.')
+          : cyclesQuery.error
           ? toErrorMessage(cyclesQuery.error, 'Failed to load production cycles.')
           : logbookSessionQueryResult.error
             ? toErrorMessage(logbookSessionQueryResult.error, 'Failed to load logbook session.')
@@ -291,6 +264,7 @@ export function useCropsModule({
       await Promise.all([
         fieldsQuery.refetch(),
         lotsQuery.refetch(),
+        cropsQuery.refetch(),
         cyclesQuery.refetch(),
         logbookSessionQueryResult.refetch(),
         practiceCatalogQueryResult.refetch(),

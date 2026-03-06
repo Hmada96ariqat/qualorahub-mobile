@@ -3178,10 +3178,28 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /** List crops for authenticated farm */
+        get: operations["OrderWriteController_listCrops_v1"];
         put?: never;
         /** Create crop for authenticated farm */
         post: operations["OrderWriteController_createCrop_v1"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/crops/guidance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List crops for crop guidance selectors */
+        get: operations["OrderWriteController_listCropsForGuidance_v1"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -3239,7 +3257,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/products/commands/hard-delete": {
+    "/api/v1/products/commands/deactivate": {
         parameters: {
             query?: never;
             header?: never;
@@ -3248,8 +3266,8 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Hard delete products for authenticated farm */
-        post: operations["OrderWriteController_bulkHardDeleteProducts_v1"];
+        /** Deactivate products for authenticated farm */
+        post: operations["OrderWriteController_bulkDeactivateProducts_v1"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3566,23 +3584,6 @@ export interface paths {
         head?: never;
         /** Update product fields and optional crop guidance/inventory metadata */
         patch: operations["OrderWriteController_updateProduct_v1"];
-        trace?: never;
-    };
-    "/api/v1/crops/guidance": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List crops for crop guidance selectors */
-        get: operations["OrderWriteController_listCropsForGuidance_v1"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
         trace?: never;
     };
     "/api/v1/integrations/weather/commands/query": {
@@ -4027,7 +4028,7 @@ export interface paths {
         put?: never;
         post?: never;
         /** Deactivate animal record */
-        delete: operations["LivestockController_deleteAnimal_v1"];
+        delete: operations["LivestockController_deactivateAnimal_v1"];
         options?: never;
         head?: never;
         /** Update animal record */
@@ -5105,9 +5106,7 @@ export interface components {
         };
         ReplaceMaintenancePartsCommandDto: {
             /** @description Replacement parts payload list. Each part object supports dynamic fields. */
-            parts: {
-                [key: string]: unknown;
-            }[];
+            parts: components["schemas"]["ReplaceMaintenancePartDto"][];
         };
         CreateTaskDto: {
             /** @example Inspect greenhouse irrigation line */
@@ -5127,6 +5126,11 @@ export interface components {
             start_date_time?: string | null;
             /** Format: date-time */
             due_date_time?: string | null;
+            /**
+             * Format: date
+             * @description Compatibility alias for date-only due date. Prefer due_date_time for canonical writes.
+             */
+            due_date?: string | null;
             estimated_hours?: number | null;
             actual_hours?: number | null;
             assigned_users?: string[];
@@ -5138,6 +5142,11 @@ export interface components {
             livestock_id?: string | null;
             /** Format: uuid */
             equipment_id?: string | null;
+            /**
+             * Format: uuid
+             * @description Compatibility alias for a single primary task asset. Prefer field_id/livestock_id/equipment_id for canonical writes.
+             */
+            asset_id?: string | null;
         };
         UpdateTaskDto: {
             /** @example Inspect greenhouse irrigation line */
@@ -5157,6 +5166,11 @@ export interface components {
             start_date_time?: string | null;
             /** Format: date-time */
             due_date_time?: string | null;
+            /**
+             * Format: date
+             * @description Compatibility alias for date-only due date. Prefer due_date_time for canonical writes.
+             */
+            due_date?: string | null;
             estimated_hours?: number | null;
             actual_hours?: number | null;
             assigned_users?: string[];
@@ -5168,6 +5182,11 @@ export interface components {
             livestock_id?: string | null;
             /** Format: uuid */
             equipment_id?: string | null;
+            /**
+             * Format: uuid
+             * @description Compatibility alias for a single primary task asset. Prefer field_id/livestock_id/equipment_id for canonical writes.
+             */
+            asset_id?: string | null;
         };
         CreateFieldDto: {
             /** @example North Field */
@@ -6252,7 +6271,7 @@ export interface components {
             status: "active" | "inactive";
         };
         CreateLivestockCommandDto: Record<string, never>;
-        BulkHardDeleteProductsCommandDto: {
+        BulkDeactivateProductsCommandDto: {
             /**
              * @example [
              *       "11111111-1111-4111-8111-111111111111",
@@ -6553,6 +6572,24 @@ export interface components {
         CreateUserInviteDto: Record<string, never>;
         CreateRoleDto: Record<string, never>;
         UpdateRoleDto: Record<string, never>;
+        ReplaceMaintenancePartDto: {
+            /**
+             * Format: uuid
+             * @example 11111111-1111-4111-8111-111111111111
+             */
+            product_id: string;
+            /** @example 1 */
+            quantity: number;
+            /** @example 12.5 */
+            unit_cost: number;
+            /** @example 12.5 */
+            total_cost: number;
+            /**
+             * Format: uuid
+             * @example 22222222-2222-4222-8222-222222222222
+             */
+            farm_id?: string | null;
+        };
     };
     responses: never;
     parameters: never;
@@ -12100,6 +12137,27 @@ export interface operations {
             };
         };
     };
+    OrderWriteController_listCrops_v1: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
+            };
+        };
+    };
     OrderWriteController_createCrop_v1: {
         parameters: {
             query?: never;
@@ -12122,6 +12180,23 @@ export interface operations {
                         [key: string]: unknown;
                     };
                 };
+            };
+        };
+    };
+    OrderWriteController_listCropsForGuidance_v1: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };
@@ -12196,7 +12271,7 @@ export interface operations {
             };
         };
     };
-    OrderWriteController_bulkHardDeleteProducts_v1: {
+    OrderWriteController_bulkDeactivateProducts_v1: {
         parameters: {
             query?: never;
             header?: never;
@@ -12205,7 +12280,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["BulkHardDeleteProductsCommandDto"];
+                "application/json": components["schemas"]["BulkDeactivateProductsCommandDto"];
             };
         };
         responses: {
@@ -12215,7 +12290,7 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        deletedCount: number;
+                        deactivatedCount: number;
                     };
                 };
             };
@@ -12695,23 +12770,6 @@ export interface operations {
                         [key: string]: unknown;
                     };
                 };
-            };
-        };
-    };
-    OrderWriteController_listCropsForGuidance_v1: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
         };
     };
@@ -13596,7 +13654,7 @@ export interface operations {
             };
         };
     };
-    LivestockController_deleteAnimal_v1: {
+    LivestockController_deactivateAnimal_v1: {
         parameters: {
             query?: never;
             header?: never;

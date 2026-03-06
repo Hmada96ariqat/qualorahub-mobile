@@ -1,10 +1,13 @@
 import React from 'react';
 import { Text } from 'react-native';
+import { useState } from 'react';
 import { fireEvent } from '@testing-library/react-native';
+import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { AppDatePicker } from '../AppDatePicker';
 import { AppSelect } from '../AppSelect';
 import { AppTextArea } from '../AppTextArea';
 import { FormField } from '../FormField';
+import { FormValidationProvider } from '../FormValidation';
 import { renderWithProviders } from '../../__tests__/test-utils';
 
 describe('form components', () => {
@@ -33,6 +36,24 @@ describe('form components', () => {
 
     expect(errorView.getByText('Email is required')).toBeTruthy();
     expect(errorView.queryByText('We never share your email')).toBeNull();
+  });
+
+  it('renders required markers and provider validation errors', () => {
+    const view = renderWithProviders(
+      <FormValidationProvider
+        value={{
+          errors: { email: 'Email is required' },
+          registerFieldLayout: jest.fn(),
+        }}
+      >
+        <FormField label="Email" name="email" required>
+          <Text>Field Control</Text>
+        </FormField>
+      </FormValidationProvider>,
+    );
+
+    expect(view.getByText('Email *')).toBeTruthy();
+    expect(view.getByText('Email is required')).toBeTruthy();
   });
 
   it('selects an option from AppSelect', () => {
@@ -79,22 +100,58 @@ describe('form components', () => {
     expect(onCreateOption).toHaveBeenCalledTimes(1);
   });
 
-  it('returns a date from AppDatePicker and supports clear', () => {
-    const onChange = jest.fn();
-    const { getByText } = renderWithProviders(
-      <AppDatePicker
-        value="2026-03-02"
-        onChange={onChange}
-      />,
-    );
+  it('opens AppDatePicker, applies a selected date, and supports clear', () => {
+    function Harness() {
+      const [value, setValue] = useState<string | null>(null);
+      return <AppDatePicker value={value} onChange={setValue} testID="date-picker" />;
+    }
 
-    fireEvent.press(getByText('2026-03-02'));
-    fireEvent.press(getByText('Today'));
-    expect(onChange).toHaveBeenCalledWith(expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/));
+    const { getAllByText, getByTestId, getByText, queryByText } = renderWithProviders(<Harness />);
 
-    fireEvent.press(getByText('2026-03-02'));
-    fireEvent.press(getByText('Clear date'));
-    expect(onChange).toHaveBeenCalledWith(null);
+    expect(getAllByText('Pick a date').length).toBeGreaterThan(0);
+    fireEvent.press(getByTestId('date-picker.trigger'));
+    expect(getByText('Today')).toBeTruthy();
+    expect(getByText('Tomorrow')).toBeTruthy();
+    expect(queryByText('In 7 days')).toBeNull();
+
+    fireEvent.press(getByTestId('date-picker.native.set-date'));
+    fireEvent.press(getByTestId('date-picker.apply'));
+    expect(getAllByText('2026-03-05').length).toBeGreaterThan(0);
+
+    fireEvent.press(getByTestId('date-picker.trigger'));
+    fireEvent.press(getByTestId('date-picker.clear'));
+    expect(getAllByText('Pick a date').length).toBeGreaterThan(0);
+  });
+
+  it('uses the native Android picker config when opened on Android', () => {
+    const originalPlatform = Object.getOwnPropertyDescriptor(require('react-native').Platform, 'OS');
+    Object.defineProperty(require('react-native').Platform, 'OS', {
+      configurable: true,
+      value: 'android',
+    });
+
+    const androidOpenMock = jest.mocked(DateTimePickerAndroid.open);
+    androidOpenMock.mockClear();
+
+    try {
+      const { getByTestId } = renderWithProviders(
+        <AppDatePicker value={null} onChange={jest.fn()} testID="android-date-picker" />,
+      );
+
+      fireEvent.press(getByTestId('android-date-picker.trigger'));
+
+      expect(androidOpenMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          title: 'Pick a date',
+          mode: 'date',
+          neutralButton: { label: 'Clear date' },
+        }),
+      );
+    } finally {
+      if (originalPlatform) {
+        Object.defineProperty(require('react-native').Platform, 'OS', originalPlatform);
+      }
+    }
   });
 
   it('renders AppTextArea and handles text updates', () => {

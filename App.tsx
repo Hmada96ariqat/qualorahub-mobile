@@ -8,7 +8,7 @@ import { DashboardShell } from './src/modules/dashboard/screens/DashboardShell';
 import { palette } from './src/theme/tokens';
 
 function AppContent() {
-  const { session, loading, signOut } = useAuth();
+  const { session, loading } = useAuth();
 
   if (loading) {
     return (
@@ -20,12 +20,7 @@ function AppContent() {
 
   if (!session) return <LoginScreen />;
 
-  return (
-    <DashboardShell
-      email={session.user.email}
-      onSignOut={() => void signOut()}
-    />
-  );
+  return <DashboardShell email={session.user.email} />;
 }
 
 export default function App() {
