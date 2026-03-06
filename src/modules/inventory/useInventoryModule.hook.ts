@@ -7,7 +7,7 @@ import {
   createProduct,
   createTax,
   createWarehouse,
-  hardDeleteProducts,
+  deactivateProducts,
   listCategories,
   listCropsForGuidance,
   listManufacturerContacts,
@@ -25,7 +25,7 @@ import {
   type CreateProductRequest,
   type CreateTaxRequest,
   type CreateWarehouseRequest,
-  type HardDeleteProductsRequest,
+  type DeactivateProductsRequest,
   type InventoryCategory,
   type InventoryContactOption,
   type InventoryCropOption,
@@ -231,8 +231,8 @@ export function useInventoryModule() {
     onSuccess: invalidateCatalogQueries,
   });
 
-  const hardDeleteProductsMutation = useMutation({
-    mutationFn: (input: HardDeleteProductsRequest) => hardDeleteProducts(token ?? '', input),
+  const deactivateProductsMutation = useMutation({
+    mutationFn: (input: DeactivateProductsRequest) => deactivateProducts(token ?? '', input),
     onSuccess: invalidateCatalogQueries,
   });
 
@@ -268,7 +268,7 @@ export function useInventoryModule() {
     updateWarehouseMutation.isPending ||
     createProductMutation.isPending ||
     updateProductMutation.isPending ||
-    hardDeleteProductsMutation.isPending ||
+    deactivateProductsMutation.isPending ||
     createFieldOptionMutation.isPending ||
     createContactOptionMutation.isPending;
 
@@ -395,8 +395,8 @@ export function useInventoryModule() {
     createProduct: (input: CreateProductRequest) => createProductMutation.mutateAsync(input),
     updateProduct: (productId: string, input: UpdateProductRequest) =>
       updateProductMutation.mutateAsync({ productId, input }),
-    hardDeleteProducts: (input: HardDeleteProductsRequest) =>
-      hardDeleteProductsMutation.mutateAsync(input),
+    deactivateProducts: (input: DeactivateProductsRequest) =>
+      deactivateProductsMutation.mutateAsync(input),
     createFieldOption: async (input: { name: string; areaHectares: number }) => {
       const field = await createFieldOptionMutation.mutateAsync(input);
       return {

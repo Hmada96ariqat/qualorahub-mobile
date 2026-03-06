@@ -1,47 +1,50 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Text } from 'react-native-paper';
 import type {
   FieldDetail,
   FieldSummary,
-  FieldStatusFilter,
   InactiveFieldWithLots,
   ManualFieldBoundaryPayload,
 } from '../../../api/modules/fields';
 import {
-  ActionSheet,
-  AppBadge,
   AppButton,
-  AppCard,
-  AppHeader,
   AppInput,
-  AppListItem,
   AppPolygonMapEditor,
   AppScreen,
-  AppSection,
   AppSelect,
-  AppTabs,
   BottomSheet,
   ConfirmDialog,
+  DotBadge,
   EmptyState,
   ErrorState,
-  FilterBar,
+  FormValidationProvider,
   FormField,
-  PaginationFooter,
+  HeaderIconButton,
+  HeaderMenuButton,
+  ListRow,
+  LogRow,
+  NotificationHeaderButton,
+  PillTabs,
+  ProfileCard,
   PullToRefreshContainer,
+  QuickActionGrid,
+  SearchBar,
+  SectionHeader,
   Skeleton,
+  StatStrip,
+  useFormValidation,
   useToast,
 } from '../../../components';
+import type { DotBadgeVariant, ListRowIconVariant, QuickAction } from '../../../components';
 import { useAppI18n } from '../../../hooks/useAppI18n';
 import { useModuleActionPermissions } from '../../../hooks/useModuleActionPermissions';
-import { palette, spacing, typography } from '../../../theme/tokens';
+import { palette } from '../../../theme/tokens';
 import { polygonAreaHectares } from '../../../utils/geometry';
-import { fromGeoJsonPolygon, toGeoJsonPolygon, type MapCoordinate } from '../../../utils/geojson';
+import { fromGeoJsonPolygon, toGeoJsonPolygon } from '../../../utils/geojson';
+import { formatApiErrorMessage } from '../../../utils/lifecycle';
 import {
   FIELD_AREA_UNIT_OPTIONS,
-  FIELD_PAGE_SIZE,
-  FIELD_STATUS_FILTER_OPTIONS,
   buildFieldSearchText,
   displayToHectares,
   formatCanonicalHectares,
@@ -51,6 +54,7 @@ import {
   toFieldFormValues,
   type FieldFormMode,
   type FieldFormValues,
+  type FieldListMode,
 } from '../contracts';
 import {
   readFieldAreaUnitPreference,
@@ -61,12 +65,11 @@ import { useFieldsModule } from '../useFieldsModule.hook';
 import { validateFieldBoundaryInput } from '../validation';
 
 type ConfirmAction = 'deactivate' | 'reactivate' | null;
+type ModuleSwitcherValue = 'fields' | 'lots';
 
 type DisplayField = FieldSummary & {
   lotsCount: number;
 };
-
-type ModuleSwitcherValue = 'fields' | 'lots';
 
 function toDisplayField(field: FieldSummary | InactiveFieldWithLots): DisplayField {
   const lotsCount = Array.isArray((field as InactiveFieldWithLots).lots)
@@ -79,16 +82,54 @@ function toDisplayField(field: FieldSummary | InactiveFieldWithLots): DisplayFie
   };
 }
 
-function formatFieldStatus(status: string): string {
-  if (!status) return 'Unknown';
-  return `${status.charAt(0).toUpperCase()}${status.slice(1)}`;
+function toDisplayFieldFromDetail(detail: FieldDetail): DisplayField {
+  return {
+    ...detail,
+    lotsCount: detail.lots.length,
+  };
 }
 
-function toFieldStatusFilter(value: string): FieldStatusFilter {
-  if (value === 'active' || value === 'inactive' || value === 'fallow' || value === 'maintenance') {
-    return value;
+function toFieldStatusLabel(status: string): string {
+  const normalized = status.trim().toLowerCase();
+  if (normalized === 'active') return 'Active';
+  if (normalized === 'inactive') return 'Inactive';
+  if (normalized === 'maintenance') return 'Maintenance';
+  if (normalized === 'fallow') return 'Fallow';
+  if (!normalized) return 'Unknown';
+  return `${normalized.charAt(0).toUpperCase()}${normalized.slice(1)}`;
+}
+
+function toStatusBadgeVariant(status: string): DotBadgeVariant {
+  const normalized = status.trim().toLowerCase();
+  if (normalized === 'active') return 'success';
+  if (normalized === 'maintenance' || normalized === 'fallow') return 'warning';
+  return 'neutral';
+}
+
+function toIconVariant(status: string): ListRowIconVariant {
+  const normalized = status.trim().toLowerCase();
+  if (normalized === 'active') return 'green';
+  if (normalized === 'maintenance' || normalized === 'fallow') return 'amber';
+  return 'neutral';
+}
+
+function toFieldIcon(status: string): string {
+  const normalized = status.trim().toLowerCase();
+  if (normalized === 'maintenance') return 'wrench-outline';
+  if (normalized === 'fallow') return 'leaf';
+  if (normalized === 'inactive') return 'map-marker-off-outline';
+  return 'map-outline';
+}
+
+function toDateLabel(value: string | null | undefined): string {
+  if (!value) return 'n/a';
+  const dateStr = value.includes('T') ? value.slice(0, 10) : value;
+  try {
+    const d = new Date(`${dateStr}T00:00:00`);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  } catch {
+    return dateStr;
   }
-  return 'all';
 }
 
 function toManualShapePayload(values: FieldFormValues): ManualFieldBoundaryPayload | null {
@@ -111,23 +152,33 @@ function toManualShapePayload(values: FieldFormValues): ManualFieldBoundaryPaylo
 export function FieldsScreen() {
   const router = useRouter();
   const { showToast } = useToast();
+  const formSheetScrollRef = useRef<ScrollView | null>(null);
+  const formValidation = useFormValidation<
+    'name' | 'boundary' | 'manualAreaValue' | 'manualAreaUnit'
+  >(formSheetScrollRef);
   const { t } = useAppI18n();
-  const [statusFilter, setStatusFilter] = useState<FieldStatusFilter>('active');
+
+  const [listMode, setListMode] = useState<FieldListMode>('active');
   const [searchValue, setSearchValue] = useState('');
-  const [page, setPage] = useState(1);
+
   const [formVisible, setFormVisible] = useState(false);
   const [formMode, setFormMode] = useState<FieldFormMode>('create');
   const [editingField, setEditingField] = useState<FieldSummary | null>(null);
   const [preferredAreaUnit, setPreferredAreaUnit] = useState<PersistedFieldAreaUnit>('hectares');
   const [formValues, setFormValues] = useState<FieldFormValues>(toFieldFormValues());
-  const [actionField, setActionField] = useState<DisplayField | null>(null);
+
   const [confirmField, setConfirmField] = useState<DisplayField | null>(null);
   const [confirmAction, setConfirmAction] = useState<ConfirmAction>(null);
-  const [detailVisible, setDetailVisible] = useState(false);
+
+  const [selectedFieldId, setSelectedFieldId] = useState<string | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
   const [detailField, setDetailField] = useState<FieldDetail | null>(null);
+  const detailRequestIdRef = useRef(0);
+
+  const [fieldAlertsVisible, setFieldAlertsVisible] = useState(false);
 
   const permissions = useModuleActionPermissions('fields');
+
   const {
     fields,
     inactiveFieldsWithLots,
@@ -142,7 +193,7 @@ export function FieldsScreen() {
     deactivateField,
     reactivateFieldMain,
     reactivateFieldFromDeactivated,
-  } = useFieldsModule(statusFilter);
+  } = useFieldsModule('all');
 
   useEffect(() => {
     void (async () => {
@@ -159,82 +210,70 @@ export function FieldsScreen() {
     })();
   }, []);
 
-  useEffect(() => {
-    setPage(1);
-  }, [statusFilter, searchValue]);
+  const allRows = useMemo(() => fields.map((field) => toDisplayField(field)), [fields]);
+
+  const inactiveRows = useMemo(
+    () => inactiveFieldsWithLots.map((field) => toDisplayField(field)),
+    [inactiveFieldsWithLots],
+  );
+
+  const activeCount = useMemo(
+    () => allRows.filter((row) => row.status === 'active').length,
+    [allRows],
+  );
+
+  const watchCount = useMemo(
+    () =>
+      allRows.filter((row) => row.status === 'maintenance' || row.status === 'fallow').length,
+    [allRows],
+  );
+
+  const inactiveCount = useMemo(
+    () => allRows.filter((row) => row.status === 'inactive').length,
+    [allRows],
+  );
+
+  const criticalAlertRows = useMemo(
+    () => inactiveRows.filter((row) => row.lotsCount > 0),
+    [inactiveRows],
+  );
+
+  const watchAlertRows = useMemo(
+    () => allRows.filter((row) => row.status === 'maintenance' || row.status === 'fallow'),
+    [allRows],
+  );
+
+  const criticalAlertCount = criticalAlertRows.length;
+
+  const criticalAlertFieldIds = useMemo(
+    () => new Set(criticalAlertRows.map((row) => row.id)),
+    [criticalAlertRows],
+  );
 
   const sourceRows = useMemo(() => {
-    if (statusFilter === 'inactive') {
-      return inactiveFieldsWithLots.map((field) => toDisplayField(field));
-    }
-    return fields.map((field) => toDisplayField(field));
-  }, [fields, inactiveFieldsWithLots, statusFilter]);
+    if (listMode === 'all') return allRows;
+    if (listMode === 'active') return allRows.filter((row) => row.status !== 'inactive');
+    return inactiveRows;
+  }, [allRows, inactiveRows, listMode]);
 
   const filteredRows = useMemo(() => {
-    const normalized = searchValue.trim().toLowerCase();
-    if (!normalized) {
-      return sourceRows;
-    }
+    const term = searchValue.trim().toLowerCase();
+    if (!term) return sourceRows;
 
-    return sourceRows.filter((field) => buildFieldSearchText(field).includes(normalized));
+    return sourceRows.filter((row) => {
+      const text = buildFieldSearchText(row);
+      const status = row.status.toLowerCase();
+      const area = String(row.areaHectares).toLowerCase();
+      return text.includes(term) || status.includes(term) || area.includes(term);
+    });
   }, [searchValue, sourceRows]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredRows.length / FIELD_PAGE_SIZE));
-  const currentPage = Math.min(page, totalPages);
-  const paginatedRows = useMemo(() => {
-    const start = (currentPage - 1) * FIELD_PAGE_SIZE;
-    return filteredRows.slice(start, start + FIELD_PAGE_SIZE);
-  }, [currentPage, filteredRows]);
-  const mapOverlays = useMemo(() => {
-    if (!detailField) {
-      return [] as Array<{
-        id: string;
-        points: MapCoordinate[];
-        strokeColor?: string;
-        fillColor?: string;
-      }>;
-    }
-
-    const overlays = [] as Array<{
-      id: string;
-      points: MapCoordinate[];
-      strokeColor?: string;
-      fillColor?: string;
-    }>;
-    const fieldBoundary = fromGeoJsonPolygon(detailField.shapePolygon);
-    if (fieldBoundary.length >= 3) {
-      overlays.push({
-        id: `field-${detailField.id}`,
-        points: fieldBoundary,
-        strokeColor: '#2C6BED',
-        fillColor: 'rgba(44, 107, 237, 0.15)',
-      });
-    }
-
-    for (const lot of detailField.lots) {
-      const points = fromGeoJsonPolygon(lot.shapePolygon);
-      if (points.length < 3) continue;
-      overlays.push({
-        id: `lot-${lot.id}`,
-        points,
-        strokeColor: '#248F36',
-        fillColor: 'rgba(36, 143, 54, 0.15)',
-      });
-    }
-
-    for (const housing of detailField.housingUnitBoundaries) {
-      const points = fromGeoJsonPolygon(housing.shapePolygon);
-      if (points.length < 3) continue;
-      overlays.push({
-        id: `housing-${housing.id}`,
-        points,
-        strokeColor: '#8C6239',
-        fillColor: 'rgba(140, 98, 57, 0.15)',
-      });
-    }
-
-    return overlays;
-  }, [detailField]);
+  function closeFormSheet() {
+    setFormVisible(false);
+    setEditingField(null);
+    setFormValues(toFieldFormValues(null, preferredAreaUnit));
+    formValidation.reset();
+  }
 
   function openCreateSheet() {
     setFormMode('create');
@@ -250,26 +289,55 @@ export function FieldsScreen() {
     setFormVisible(true);
   }
 
-  async function openDetails(fieldId: string) {
-    setDetailVisible(true);
+  async function openFieldDetails(field: DisplayField) {
+    const requestId = detailRequestIdRef.current + 1;
+    detailRequestIdRef.current = requestId;
+    setSelectedFieldId(field.id);
     setDetailLoading(true);
+    setDetailField(null);
+
     try {
-      const detail = await loadFieldDetail(fieldId);
+      const detail = await loadFieldDetail(field.id);
+      if (detailRequestIdRef.current !== requestId) return;
       setDetailField(detail);
     } catch (error) {
+      if (detailRequestIdRef.current !== requestId) return;
       setDetailField(null);
+      setSelectedFieldId(null);
       const message = error instanceof Error ? error.message : 'Failed to load field details.';
       showToast({ message, variant: 'error' });
-      setDetailVisible(false);
     } finally {
+      if (detailRequestIdRef.current !== requestId) return;
       setDetailLoading(false);
     }
   }
 
-  function closeFormSheet() {
-    setFormVisible(false);
-    setEditingField(null);
-    setFormValues(toFieldFormValues(null, preferredAreaUnit));
+  function closeFieldDetails() {
+    detailRequestIdRef.current += 1;
+    setSelectedFieldId(null);
+    setDetailLoading(false);
+    setDetailField(null);
+  }
+
+  async function refreshSelectedFieldDetail() {
+    if (!selectedFieldId) return;
+    const requestId = detailRequestIdRef.current + 1;
+    detailRequestIdRef.current = requestId;
+
+    setDetailLoading(true);
+    try {
+      const detail = await loadFieldDetail(selectedFieldId);
+      if (detailRequestIdRef.current !== requestId) return;
+      setDetailField(detail);
+    } catch (error) {
+      if (detailRequestIdRef.current !== requestId) return;
+      setDetailField(null);
+      const message = error instanceof Error ? error.message : 'Failed to refresh field details.';
+      showToast({ message, variant: 'error' });
+    } finally {
+      if (detailRequestIdRef.current !== requestId) return;
+      setDetailLoading(false);
+    }
   }
 
   async function setPreferredUnit(nextUnit: PersistedFieldAreaUnit) {
@@ -278,11 +346,6 @@ export function FieldsScreen() {
   }
 
   async function submitForm() {
-    if (!formValues.name.trim()) {
-      showToast({ message: t('validation', 'fieldNameRequired'), variant: 'error' });
-      return;
-    }
-
     const manualShape = toManualShapePayload(formValues);
     const geoPolygon = toGeoJsonPolygon(formValues.boundaryPoints);
 
@@ -291,6 +354,34 @@ export function FieldsScreen() {
       manualEnabled: formValues.manualAreaFallback.enabled,
       manualArea: formValues.manualAreaFallback.area,
     });
+
+    const valid = formValidation.validate([
+      {
+        field: 'name',
+        message: t('validation', 'fieldNameRequired'),
+        isValid: formValues.name.trim().length > 0,
+      },
+      {
+        field: 'boundary',
+        message: t('validation', 'fieldBoundaryRequired'),
+        isValid: formValues.manualAreaFallback.enabled || boundaryValidation.valid,
+      },
+      {
+        field: 'manualAreaValue',
+        message: 'Manual area value must be a positive number.',
+        isValid:
+          !formValues.manualAreaFallback.enabled || boundaryValidation.reason !== 'invalid_manual_area',
+      },
+      {
+        field: 'manualAreaUnit',
+        message: 'Area unit is required.',
+        isValid: !formValues.manualAreaFallback.enabled || formValues.manualAreaFallback.unit.length > 0,
+      },
+    ]);
+    if (!valid) {
+      showToast({ message: 'Complete the highlighted fields.', variant: 'error' });
+      return;
+    }
 
     if (!boundaryValidation.valid) {
       showToast({
@@ -304,9 +395,7 @@ export function FieldsScreen() {
     }
 
     const derivedHectares = manualShape
-      ? formatCanonicalHectares(
-          displayToHectares(manualShape.area, manualShape.unit),
-        )
+      ? formatCanonicalHectares(displayToHectares(manualShape.area, manualShape.unit))
       : formatCanonicalHectares(Math.max(polygonAreaHectares(formValues.boundaryPoints), 0.0001));
 
     const payload = {
@@ -337,7 +426,7 @@ export function FieldsScreen() {
       await setPreferredUnit(formValues.manualAreaFallback.unit);
       closeFormSheet();
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Field mutation failed.';
+      const message = formatApiErrorMessage(error, 'Field mutation failed.');
       showToast({ message, variant: 'error' });
     }
   }
@@ -351,289 +440,541 @@ export function FieldsScreen() {
       if (confirmAction === 'deactivate') {
         await deactivateField(confirmField.id);
         showToast({ message: 'Field deactivated.', variant: 'success' });
-      } else if (statusFilter === 'inactive') {
+      } else if (listMode === 'inactive') {
         await reactivateFieldFromDeactivated(confirmField.id);
         showToast({ message: 'Field reactivated.', variant: 'success' });
       } else {
         await reactivateFieldMain(confirmField.id);
         showToast({ message: 'Field reactivated.', variant: 'success' });
       }
+
+      if (detailField && confirmField.id === detailField.id) {
+        await refreshSelectedFieldDetail();
+      }
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Field status update failed.';
+      const message = formatApiErrorMessage(error, 'Field status update failed.');
       showToast({ message, variant: 'error' });
     } finally {
       setConfirmAction(null);
       setConfirmField(null);
-      setActionField(null);
     }
   }
 
-  return (
-    <AppScreen scroll>
-      <AppHeader title={t('fields', 'title')} subtitle={t('fields', 'subtitle')} />
+  function buildDetailQuickActions(): QuickAction[] {
+    if (!detailField) return [];
 
-      <AppTabs
-        value="fields"
-        onValueChange={(nextValue) => {
-          if ((nextValue as ModuleSwitcherValue) === 'lots') {
-            router.push('/(protected)/lots');
-          }
-        }}
-        tabs={[
-          { value: 'fields', label: t('fields', 'title') },
-          { value: 'lots', label: t('lots', 'title') },
+    const detailSummary = toDisplayFieldFromDetail(detailField);
+    const actions: QuickAction[] = [];
+
+    if (permissions.permissions.edit) {
+      actions.push({
+        key: 'edit',
+        icon: 'pencil-outline',
+        label: 'Edit',
+        color: 'green',
+        onPress: () => openEditSheet(detailSummary),
+      });
+    }
+
+    if (permissions.permissions.delete && detailField.status === 'inactive') {
+      actions.push({
+        key: 'reactivate',
+        icon: 'check-circle-outline',
+        label: 'Reactivate',
+        color: 'green',
+        onPress: () => {
+          setConfirmField(detailSummary);
+          setConfirmAction('reactivate');
+        },
+      });
+    } else if (permissions.permissions.delete) {
+      actions.push({
+        key: 'deactivate',
+        icon: 'close-circle-outline',
+        label: 'Deactivate',
+        color: 'red',
+        onPress: () => {
+          setConfirmField(detailSummary);
+          setConfirmAction('deactivate');
+        },
+      });
+    }
+
+    return actions;
+  }
+
+  const detailSummary = useMemo(() => {
+    if (!detailField) return null;
+
+    const fieldBoundaryPoints = fromGeoJsonPolygon(detailField.shapePolygon);
+    const lotsInside = detailField.lots;
+    const lotsMappedCount = lotsInside.filter(
+      (lot) => fromGeoJsonPolygon(lot.shapePolygon).length >= 3,
+    ).length;
+    const activeLotsCount = lotsInside.filter((lot) => lot.status === 'active').length;
+    const inactiveLotsCount = lotsInside.filter((lot) => lot.status === 'inactive').length;
+
+    return {
+      fieldBoundaryPoints: fieldBoundaryPoints.length,
+      hasFieldPolygon: fieldBoundaryPoints.length >= 3,
+      lotsInsideCount: lotsInside.length,
+      lotsMappedCount,
+      activeLotsCount,
+      inactiveLotsCount,
+    };
+  }, [detailField]);
+
+  function renderFieldAlertItem(item: DisplayField, variant: 'critical' | 'watch') {
+    const isCritical = variant === 'critical';
+
+    return (
+      <View
+        key={item.id}
+        style={[
+          styles.alertItem,
+          isCritical ? styles.alertItemCritical : styles.alertItemWatch,
         ]}
-      />
+      >
+        <View
+          style={[
+            styles.alertDot,
+            { backgroundColor: isCritical ? palette.destructive : '#FFC61A' },
+          ]}
+        />
+        <View style={styles.alertBody}>
+          <Text style={styles.alertName}>{item.name}</Text>
+          <Text style={styles.alertInfo}>
+            {item.location ?? item.soilType ?? 'No location'} · {formatDisplayArea(item.areaHectares, preferredAreaUnit)}{' '}
+            {toAreaUnitLabel(preferredAreaUnit)}
+          </Text>
+        </View>
+        <Text
+          style={[
+            styles.alertMeta,
+            { color: isCritical ? palette.destructive : '#8B6914' },
+          ]}
+        >
+          {isCritical ? `${item.lotsCount} lots` : toFieldStatusLabel(item.status)}
+        </Text>
+      </View>
+    );
+  }
 
-      <SectionTopActions
-        canCreate={permissions.permissions.add}
-        onCreate={openCreateSheet}
-        onRefresh={() => void refresh()}
-        loading={isRefreshing || isMutating}
-      />
+  const detailQuickActions = buildDetailQuickActions();
 
-      {permissions.permissions.view ? null : (
-        <AppCard>
-          <EmptyState
-            title="Fields view blocked"
-            message={t('common', 'permissionDenied')}
-          />
-        </AppCard>
-      )}
-
-      {permissions.permissions.view ? (
-        <>
-          <AppCard>
-            <FilterBar
-              searchValue={searchValue}
-              onSearchChange={setSearchValue}
-              searchPlaceholder={t('fields', 'searchPlaceholder')}
-            >
-              <AppSelect
-                testID="fields-status-filter"
-                value={statusFilter}
-                onChange={(nextValue) => setStatusFilter(toFieldStatusFilter(nextValue))}
-                options={FIELD_STATUS_FILTER_OPTIONS.map((item) => ({
-                  label: item.label,
-                  value: item.value,
-                }))}
-                label="Field status"
+  return (
+    <AppScreen padded={false}>
+      <View style={styles.header}>
+        <View style={styles.headerTop}>
+          <View style={styles.headerLead}>
+            <HeaderMenuButton testID="fields-header-menu" />
+            <Text style={styles.headerTitle}>Fields</Text>
+          </View>
+          <View style={styles.headerBtns}>
+            <NotificationHeaderButton testID="fields-header-notifications" />
+            <HeaderIconButton
+              icon="alert-circle-outline"
+              onPress={() => setFieldAlertsVisible(true)}
+              badgeDot={criticalAlertCount > 0}
+              testID="fields-header-alert"
+            />
+            {permissions.permissions.add ? (
+              <HeaderIconButton
+                icon="plus"
+                onPress={openCreateSheet}
+                filled
+                testID="fields-header-create"
               />
-            </FilterBar>
-          </AppCard>
+            ) : null}
+          </View>
+        </View>
+        <SearchBar
+          value={searchValue}
+          onChangeText={setSearchValue}
+          placeholder="Search by name, location, soil..."
+          testID="fields-search"
+        />
+      </View>
 
-          <AppCard>
-            <AppSection title={t('fields', 'records')}>
-              {isLoading ? (
-                <>
-                  <Skeleton height={56} />
-                  <Skeleton height={56} />
-                  <Skeleton height={56} />
-                </>
-              ) : errorMessage ? (
-                <ErrorState message={errorMessage} onRetry={() => void refresh()} />
-              ) : paginatedRows.length === 0 ? (
-                <EmptyState
-                  title={t('fields', 'noRowsTitle')}
-                  message={t('fields', 'noRowsMessage')}
-                  actionLabel={permissions.permissions.add ? t('fields', 'create') : undefined}
-                  onAction={permissions.permissions.add ? openCreateSheet : undefined}
-                />
-              ) : (
-                <PullToRefreshContainer refreshing={isRefreshing} onRefresh={() => void refresh()}>
-                  <View style={styles.rows}>
-                    {paginatedRows.map((field) => (
-                      <AppCard key={field.id}>
-                        <AppListItem
-                          title={field.name}
-                          description={`Soil ${field.soilType ?? 'N/A'} • Area ${formatDisplayArea(field.areaHectares, preferredAreaUnit)} ${toAreaUnitLabel(preferredAreaUnit)}`}
-                          leftIcon="map"
-                          onPress={() => setActionField(field)}
-                        />
-                        <View style={styles.rowMeta}>
-                          <View style={styles.metaGroup}>
-                            <Text style={styles.metaText}>Status</Text>
-                            <AppBadge value={formatFieldStatus(field.status)} variant={field.status === 'inactive' ? 'warning' : 'success'} />
-                          </View>
-                          <View style={styles.metaGroup}>
-                            <Text style={styles.metaText}>Lots</Text>
-                            <AppBadge value={field.lotsCount} variant="accent" />
-                          </View>
-                        </View>
-                      </AppCard>
-                    ))}
-                  </View>
-                </PullToRefreshContainer>
-              )}
-            </AppSection>
-          </AppCard>
+      <View style={styles.moduleSwitch}>
+        <PillTabs
+          value="fields"
+          onValueChange={(nextValue) => {
+            if ((nextValue as ModuleSwitcherValue) === 'lots') {
+              router.replace('/(protected)/lots');
+            }
+          }}
+          tabs={[
+            { value: 'fields', label: 'Fields' },
+            { value: 'lots', label: 'Lots' },
+          ]}
+          testID="fields-module-switch"
+        />
+      </View>
 
-          <PaginationFooter
-            page={currentPage}
-            pageSize={FIELD_PAGE_SIZE}
-            totalItems={filteredRows.length}
-            onPageChange={setPage}
+      <PullToRefreshContainer refreshing={isRefreshing} onRefresh={() => void refresh()}>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={styles.main}
+          showsVerticalScrollIndicator={false}
+        >
+          <StatStrip
+            items={[
+              { value: activeCount, label: 'Active', color: 'green' },
+              { value: watchCount, label: 'Watch', color: 'amber' },
+              { value: inactiveCount, label: 'Inactive', color: 'red' },
+            ]}
           />
-        </>
-      ) : null}
+
+          <PillTabs
+            value={listMode}
+            onValueChange={(nextValue) => setListMode(nextValue as FieldListMode)}
+            tabs={[
+              { value: 'all', label: `All (${allRows.length})` },
+              { value: 'active', label: `Active (${activeCount})` },
+              { value: 'inactive', label: `Inactive (${inactiveCount})` },
+            ]}
+            testID="fields-list-mode"
+          />
+
+          <SectionHeader title="Fields" trailing={`${filteredRows.length} items`} />
+
+          {permissions.loading ? (
+            <>
+              <Skeleton height={68} />
+              <Skeleton height={68} />
+              <Skeleton height={68} />
+            </>
+          ) : !permissions.permissions.view ? (
+            <EmptyState title="Fields view blocked" message={t('common', 'permissionDenied')} />
+          ) : isLoading ? (
+            <>
+              <Skeleton height={68} />
+              <Skeleton height={68} />
+              <Skeleton height={68} />
+            </>
+          ) : errorMessage ? (
+            <ErrorState message={errorMessage} onRetry={() => void refresh()} />
+          ) : filteredRows.length === 0 ? (
+            <EmptyState
+              title="No fields found"
+              message="Try another search or create a new field record."
+              actionLabel={permissions.permissions.add ? 'Create field' : undefined}
+              onAction={permissions.permissions.add ? openCreateSheet : undefined}
+            />
+          ) : (
+            filteredRows.map((row) => {
+              const isCritical = criticalAlertFieldIds.has(row.id);
+              const areaLabel = `${formatDisplayArea(row.areaHectares, preferredAreaUnit)} ${toAreaUnitLabel(preferredAreaUnit)}`;
+
+              return (
+                <ListRow
+                  key={row.id}
+                  icon={toFieldIcon(row.status)}
+                  iconVariant={toIconVariant(row.status)}
+                  title={row.name}
+                  subtitle={`${row.location ?? row.soilType ?? 'No location'} · ${areaLabel}`}
+                  badge={
+                    <DotBadge
+                      label={toFieldStatusLabel(row.status)}
+                      variant={toStatusBadgeVariant(row.status)}
+                    />
+                  }
+                  overdueLine={isCritical ? `Inactive with ${row.lotsCount} lots` : undefined}
+                  accentBorder={isCritical}
+                  onPress={() => void openFieldDetails(row)}
+                />
+              );
+            })
+          )}
+        </ScrollView>
+      </PullToRefreshContainer>
+
+      <BottomSheet
+        visible={Boolean(selectedFieldId)}
+        onDismiss={closeFieldDetails}
+        title={detailField?.name ?? 'Field detail'}
+        heightRatio={0.75}
+      >
+        {detailLoading ? (
+          <>
+            <Skeleton height={120} />
+            <Skeleton height={56} />
+            <Skeleton height={56} />
+          </>
+        ) : !detailField ? (
+          <EmptyState
+            title="No details"
+            message="Field detail could not be loaded."
+            actionLabel="Retry"
+            onAction={() => void refreshSelectedFieldDetail()}
+          />
+        ) : (
+          <>
+            <ProfileCard
+              icon={toFieldIcon(detailField.status)}
+              name={detailField.name}
+              subtitle={`${toFieldStatusLabel(detailField.status)} · ${formatDisplayArea(detailField.areaHectares, preferredAreaUnit)} ${toAreaUnitLabel(preferredAreaUnit)}`}
+              cells={[
+                {
+                  label: 'Area',
+                  value: `${formatDisplayArea(detailField.areaHectares, preferredAreaUnit)} ${toAreaUnitLabel(preferredAreaUnit)}`,
+                },
+                { label: 'Status', value: toFieldStatusLabel(detailField.status) },
+                { label: 'Soil', value: detailField.soilType ?? 'n/a' },
+                { label: 'Lots', value: String(detailField.lots.length) },
+              ]}
+            />
+
+            {detailQuickActions.length > 0 ? (
+              <QuickActionGrid actions={detailQuickActions} />
+            ) : null}
+
+            <SectionHeader title="Polygon Summary" />
+            <LogRow
+              title={
+                detailSummary?.hasFieldPolygon
+                  ? 'Field polygon is mapped'
+                  : 'Field polygon is not mapped'
+              }
+              date={toDateLabel(detailField.updatedAt)}
+              chips={[
+                {
+                  label: 'Boundary points',
+                  value: String(detailSummary?.fieldBoundaryPoints ?? 0),
+                },
+                {
+                  label: 'Lots inside',
+                  value: String(detailSummary?.lotsInsideCount ?? 0),
+                  valueColor:
+                    (detailSummary?.lotsInsideCount ?? 0) > 0
+                      ? palette.primary
+                      : palette.mutedForeground,
+                },
+                {
+                  label: 'Mapped lots',
+                  value: String(detailSummary?.lotsMappedCount ?? 0),
+                },
+              ]}
+            />
+            <LogRow
+              title="Lot status summary"
+              date={toFieldStatusLabel(detailField.status)}
+              chips={[
+                {
+                  label: 'Active lots',
+                  value: String(detailSummary?.activeLotsCount ?? 0),
+                },
+                {
+                  label: 'Inactive lots',
+                  value: String(detailSummary?.inactiveLotsCount ?? 0),
+                  valueColor:
+                    (detailSummary?.inactiveLotsCount ?? 0) > 0
+                      ? palette.destructive
+                      : palette.mutedForeground,
+                },
+              ]}
+            />
+
+            <SectionHeader
+              title="Lots Inside Field"
+              trailing={`${detailField.lots.length} lots`}
+            />
+            {detailField.lots.length === 0 ? (
+              <EmptyState
+                title="No lots inside this field"
+                message="This field polygon has no linked lots."
+              />
+            ) : (
+              detailField.lots.map((lot) => (
+                <LogRow
+                  key={lot.id}
+                  title={lot.name}
+                  date={toFieldStatusLabel(lot.status)}
+                  chips={[
+                    {
+                      label: 'Boundary',
+                      value: fromGeoJsonPolygon(lot.shapePolygon).length >= 3 ? 'Mapped' : 'No map',
+                    },
+                    {
+                      label: 'Status',
+                      value: toFieldStatusLabel(lot.status),
+                      valueColor: lot.status === 'inactive' ? palette.destructive : palette.primary,
+                    },
+                  ]}
+                />
+              ))
+            )}
+          </>
+        )}
+      </BottomSheet>
 
       <BottomSheet
         visible={formVisible}
         onDismiss={closeFormSheet}
-        title={formMode === 'create' ? t('fields', 'create') : t('fields', 'edit')}
+        scrollViewRef={formSheetScrollRef}
+        title={formMode === 'create' ? 'New Field' : 'Edit Field'}
         footer={
-          <View style={styles.sheetFooter}>
-            <AppButton label={t('common', 'cancel')} mode="text" tone="neutral" onPress={closeFormSheet} />
-            <AppButton
-              label={formMode === 'create' ? t('common', 'create') : t('common', 'save')}
-              onPress={() => void submitForm()}
-              disabled={isMutating || !formValues.name.trim()}
-              loading={isMutating}
-              testID="fields-form-submit"
-            />
+          <View style={styles.formBtns}>
+            <View style={styles.formBtnHalf}>
+              <AppButton
+                label="Cancel"
+                mode="outlined"
+                tone="neutral"
+                onPress={closeFormSheet}
+              />
+            </View>
+            <View style={styles.formBtnHalf}>
+              <AppButton
+                label={formMode === 'create' ? 'Create' : 'Save'}
+                onPress={() => void submitForm()}
+                disabled={isMutating}
+                loading={isMutating}
+                testID="fields-form-submit"
+              />
+            </View>
           </View>
         }
       >
-        <FormField label="Field name" required>
-          <AppInput
-            value={formValues.name}
-            onChangeText={(nextValue) => setFormValues((current) => ({ ...current, name: nextValue }))}
-            placeholder="Field name"
-          />
-        </FormField>
+        <FormValidationProvider value={formValidation.providerValue}>
+          <FormField label="Field name" name="name" required>
+            <AppInput
+              value={formValues.name}
+              onChangeText={(nextValue) => {
+                formValidation.clearFieldError('name');
+                setFormValues((current) => ({ ...current, name: nextValue }));
+              }}
+              placeholder="Field name"
+            />
+          </FormField>
 
-        <FormField label="Soil type">
-          <AppInput
-            value={formValues.soilType}
-            onChangeText={(nextValue) => setFormValues((current) => ({ ...current, soilType: nextValue }))}
-            placeholder="Optional soil type"
-          />
-        </FormField>
-
-        <FormField label={t('map', 'boundary')} required={!formValues.manualAreaFallback.enabled}>
-          <AppPolygonMapEditor
-            points={formValues.boundaryPoints}
-            onChangePoints={(nextPoints) =>
-              setFormValues((current) => ({ ...current, boundaryPoints: nextPoints }))
-            }
-            onMapUnavailable={() =>
-              setFormValues((current) => ({
-                ...current,
-                manualAreaFallback: { ...current.manualAreaFallback, enabled: true },
-              }))
-            }
-            onInvalidAction={(reason) => {
-              if (reason === 'self_intersection') {
-                showToast({ message: t('validation', 'polygonSelfIntersect'), variant: 'error' });
+          <FormField label="Soil type">
+            <AppInput
+              value={formValues.soilType}
+              onChangeText={(nextValue) =>
+                setFormValues((current) => ({ ...current, soilType: nextValue }))
               }
-              if (reason === 'min_points') {
-                showToast({ message: t('validation', 'polygonMinPoints'), variant: 'error' });
+              placeholder="Optional soil type"
+            />
+          </FormField>
+
+          <FormField
+            label={t('map', 'boundary')}
+            name="boundary"
+            required={!formValues.manualAreaFallback.enabled}
+          >
+            <AppPolygonMapEditor
+              points={formValues.boundaryPoints}
+              onChangePoints={(nextPoints) => {
+                formValidation.clearFieldError('boundary');
+                setFormValues((current) => ({ ...current, boundaryPoints: nextPoints }));
+              }}
+              onMapUnavailable={() =>
+                setFormValues((current) => ({
+                  ...current,
+                  manualAreaFallback: { ...current.manualAreaFallback, enabled: true },
+                }))
               }
-            }}
-            testID="fields-boundary-map"
-          />
-        </FormField>
-
-        <FormField label="Manual area fallback">
-          <AppButton
-            label={formValues.manualAreaFallback.enabled ? 'Use map boundary' : 'Use manual area fallback'}
-            mode="outlined"
-            tone="neutral"
-            onPress={() =>
-              setFormValues((current) => ({
-                ...current,
-                manualAreaFallback: {
-                  ...current.manualAreaFallback,
-                  enabled: !current.manualAreaFallback.enabled,
-                },
-              }))
-            }
-          />
-        </FormField>
-
-        {formValues.manualAreaFallback.enabled ? (
-          <>
-            <FormField label="Area value" required>
-              <AppInput
-                value={formValues.manualAreaFallback.area}
-                onChangeText={(nextValue) =>
-                  setFormValues((current) => ({
-                    ...current,
-                    manualAreaFallback: { ...current.manualAreaFallback, area: nextValue },
-                  }))
+              onInvalidAction={(reason) => {
+                if (reason === 'self_intersection') {
+                  showToast({ message: t('validation', 'polygonSelfIntersect'), variant: 'error' });
                 }
-                placeholder="1.00"
-              />
-            </FormField>
-
-            <FormField label="Area unit" required>
-              <AppSelect
-                testID="fields-manual-unit"
-                value={formValues.manualAreaFallback.unit}
-                onChange={(nextValue) =>
-                  setFormValues((current) => ({
-                    ...current,
-                    areaUnit: nextValue as PersistedFieldAreaUnit,
-                    manualAreaFallback: {
-                      ...current.manualAreaFallback,
-                      unit: nextValue as PersistedFieldAreaUnit,
-                    },
-                  }))
+                if (reason === 'min_points') {
+                  showToast({ message: t('validation', 'polygonMinPoints'), variant: 'error' });
                 }
-                options={FIELD_AREA_UNIT_OPTIONS.map((option) => ({
-                  label: option.label,
-                  value: option.value,
-                }))}
-              />
-            </FormField>
-          </>
-        ) : null}
+              }}
+              testID="fields-boundary-map"
+            />
+          </FormField>
+
+          <FormField label="Manual area fallback">
+            <AppButton
+              label={
+                formValues.manualAreaFallback.enabled
+                  ? 'Use map boundary'
+                  : 'Use manual area fallback'
+              }
+              mode="outlined"
+              tone="neutral"
+              onPress={() =>
+                setFormValues((current) => ({
+                  ...current,
+                  manualAreaFallback: {
+                    ...current.manualAreaFallback,
+                    enabled: !current.manualAreaFallback.enabled,
+                  },
+                }))
+              }
+            />
+          </FormField>
+
+          {formValues.manualAreaFallback.enabled ? (
+            <>
+              <FormField label="Area value" name="manualAreaValue" required>
+                <AppInput
+                  value={formValues.manualAreaFallback.area}
+                  onChangeText={(nextValue) => {
+                    formValidation.clearFieldError('manualAreaValue');
+                    setFormValues((current) => ({
+                      ...current,
+                      manualAreaFallback: { ...current.manualAreaFallback, area: nextValue },
+                    }));
+                  }}
+                  placeholder="1.00"
+                />
+              </FormField>
+
+              <FormField label="Area unit" name="manualAreaUnit" required>
+                <AppSelect
+                  testID="fields-manual-unit"
+                  value={formValues.manualAreaFallback.unit}
+                  onChange={(nextValue) => {
+                    formValidation.clearFieldError('manualAreaUnit');
+                    setFormValues((current) => ({
+                      ...current,
+                      areaUnit: nextValue as PersistedFieldAreaUnit,
+                      manualAreaFallback: {
+                        ...current.manualAreaFallback,
+                        unit: nextValue as PersistedFieldAreaUnit,
+                      },
+                    }));
+                  }}
+                  options={FIELD_AREA_UNIT_OPTIONS.map((option) => ({
+                    label: option.label,
+                    value: option.value,
+                  }))}
+                />
+              </FormField>
+            </>
+          ) : null}
+        </FormValidationProvider>
       </BottomSheet>
 
-      <ActionSheet
-        visible={Boolean(actionField) && !confirmAction}
-        onDismiss={() => setActionField(null)}
-        title={actionField?.name}
-        message="Choose an action for this field."
-        actions={
-          actionField
-            ? [
-                {
-                  key: 'view',
-                  label: t('fields', 'view'),
-                  onPress: () => void openDetails(actionField.id),
-                  disabled: !permissions.permissions.view,
-                },
-                {
-                  key: 'edit',
-                  label: t('fields', 'edit'),
-                  onPress: () => openEditSheet(actionField),
-                  disabled: !permissions.permissions.edit,
-                },
-                actionField.status === 'inactive'
-                  ? {
-                      key: 'reactivate',
-                      label: 'Reactivate field',
-                      onPress: () => {
-                        setConfirmField(actionField);
-                        setConfirmAction('reactivate');
-                      },
-                      disabled: !permissions.permissions.delete,
-                    }
-                  : {
-                      key: 'deactivate',
-                      label: 'Deactivate field',
-                      destructive: true,
-                      onPress: () => {
-                        setConfirmField(actionField);
-                        setConfirmAction('deactivate');
-                      },
-                      disabled: !permissions.permissions.delete,
-                    },
-              ]
-            : []
-        }
-      />
+      <BottomSheet
+        visible={fieldAlertsVisible}
+        onDismiss={() => setFieldAlertsVisible(false)}
+        title="Field Alerts"
+      >
+        {criticalAlertRows.length > 0 ? (
+          <>
+            <SectionHeader title="Needs Review" titleColor={palette.destructive} />
+            {criticalAlertRows.map((row) => renderFieldAlertItem(row, 'critical'))}
+          </>
+        ) : null}
+
+        {watchAlertRows.length > 0 ? (
+          <>
+            <View style={criticalAlertRows.length > 0 ? styles.alertSectionGap : undefined}>
+              <SectionHeader title="Watchlist" titleColor="#8B6914" />
+            </View>
+            {watchAlertRows.map((row) => renderFieldAlertItem(row, 'watch'))}
+          </>
+        ) : null}
+
+        {criticalAlertRows.length === 0 && watchAlertRows.length === 0 ? (
+          <EmptyState title="No active alerts" message="All fields are stable." />
+        ) : null}
+      </BottomSheet>
 
       <ConfirmDialog
         visible={Boolean(confirmField) && Boolean(confirmAction)}
@@ -642,11 +983,15 @@ export function FieldsScreen() {
           setConfirmField(null);
         }}
         onConfirm={() => void submitConfirmAction()}
-        title={confirmAction === 'deactivate' ? t('fields', 'deactivateConfirm') : t('fields', 'reactivateConfirm')}
+        title={
+          confirmAction === 'deactivate'
+            ? 'Deactivate Field'
+            : 'Reactivate Field'
+        }
         message={
           confirmAction === 'deactivate'
-            ? 'This field will move to the inactive list.'
-            : statusFilter === 'inactive'
+            ? `Deactivate ${confirmField?.name ?? 'this field'}?`
+            : listMode === 'inactive'
               ? 'This uses the deactivated fields reactivation flow.'
               : 'This uses the main fields status update flow.'
         }
@@ -654,157 +999,104 @@ export function FieldsScreen() {
         confirmTone={confirmAction === 'deactivate' ? 'destructive' : 'primary'}
         confirmLoading={isMutating}
       />
-
-      <BottomSheet
-        visible={detailVisible}
-        onDismiss={() => {
-          setDetailVisible(false);
-          setDetailField(null);
-        }}
-        title={detailField?.name ?? t('fields', 'view')}
-      >
-        {detailLoading || !detailField ? (
-          <>
-            <Skeleton height={40} />
-            <Skeleton height={40} />
-            <Skeleton height={160} />
-          </>
-        ) : (
-          <>
-            <View style={styles.detailGrid}>
-              <View style={styles.detailItem}>
-                <Text style={styles.metaText}>Status</Text>
-                <AppBadge value={formatFieldStatus(detailField.status)} variant={detailField.status === 'inactive' ? 'warning' : 'success'} />
-              </View>
-              <View style={styles.detailItem}>
-                <Text style={styles.metaText}>Soil</Text>
-                <Text style={styles.detailValue}>{detailField.soilType ?? 'N/A'}</Text>
-              </View>
-              <View style={styles.detailItem}>
-                <Text style={styles.metaText}>Area</Text>
-                <Text style={styles.detailValue}>
-                  {formatDisplayArea(detailField.areaHectares, preferredAreaUnit)} {toAreaUnitLabel(preferredAreaUnit)}
-                </Text>
-              </View>
-              <View style={styles.detailItem}>
-                <Text style={styles.metaText}>Created</Text>
-                <Text style={styles.detailValue}>{detailField.createdAt ? detailField.createdAt.slice(0, 10) : 'N/A'}</Text>
-              </View>
-            </View>
-
-            <AppCard>
-              <AppSection title="Active cycle summary">
-                <Text style={styles.detailValue}>
-                  {detailField.activeCycleSummary ? JSON.stringify(detailField.activeCycleSummary) : 'No active cycle summary.'}
-                </Text>
-              </AppSection>
-            </AppCard>
-
-            <AppCard>
-              <AppSection title="Lots in this field">
-                {detailField.lots.length === 0 ? (
-                  <Text style={styles.detailValue}>No lots linked to this field.</Text>
-                ) : (
-                  detailField.lots.map((lot) => (
-                    <AppListItem
-                      key={lot.id}
-                      title={lot.name}
-                      description={`Status ${formatFieldStatus(lot.status)}`}
-                    />
-                  ))
-                )}
-              </AppSection>
-            </AppCard>
-
-            <FormField label="Map overlays">
-              <AppPolygonMapEditor
-                points={[]}
-                onChangePoints={() => undefined}
-                disabled
-                overlays={mapOverlays}
-                helperText="Field, lot, and housing overlays."
-                showCompleteButton={false}
-              />
-            </FormField>
-          </>
-        )}
-      </BottomSheet>
     </AppScreen>
   );
 }
 
-function SectionTopActions({
-  canCreate,
-  onCreate,
-  onRefresh,
-  loading,
-}: {
-  canCreate: boolean;
-  onCreate: () => void;
-  onRefresh: () => void;
-  loading: boolean;
-}) {
-  return (
-    <View style={styles.topActions}>
-      <View style={styles.primaryAction}>
-        <AppButton label="Create Field" onPress={onCreate} disabled={!canCreate} />
-      </View>
-      <View style={styles.secondaryAction}>
-        <AppButton label="Refresh" mode="outlined" tone="neutral" onPress={onRefresh} loading={loading} />
-      </View>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
-  topActions: {
-    flexDirection: 'row',
-    gap: spacing.sm,
-    alignItems: 'center',
+  header: {
+    backgroundColor: palette.surface,
+    paddingHorizontal: 16,
+    paddingBottom: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: palette.border,
   },
-  primaryAction: {
+  headerTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: 48,
+  },
+  headerLead: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    flex: 1,
+    minWidth: 0,
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    letterSpacing: -0.3,
+    color: palette.foreground,
+  },
+  headerBtns: {
+    flexDirection: 'row',
+    gap: 6,
+  },
+  moduleSwitch: {
+    paddingHorizontal: 16,
+    paddingTop: 8,
+    backgroundColor: palette.background,
+  },
+  scrollView: {
     flex: 1,
   },
-  secondaryAction: {
-    minWidth: 120,
+  main: {
+    padding: 16,
+    paddingBottom: 96,
   },
-  rows: {
-    gap: spacing.sm,
+  formBtns: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 16,
   },
-  rowMeta: {
+  formBtnHalf: {
+    flex: 1,
+  },
+  alertItem: {
+    backgroundColor: palette.surface,
+    borderWidth: 1,
+    borderColor: palette.border,
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    marginBottom: 6,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: spacing.sm,
-    paddingHorizontal: spacing.sm,
-    paddingBottom: spacing.xs,
+    gap: 10,
   },
-  metaGroup: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.xs,
+  alertItemCritical: {
+    borderLeftWidth: 3,
+    borderLeftColor: palette.destructive,
   },
-  metaText: {
-    ...typography.caption,
+  alertItemWatch: {
+    borderLeftWidth: 3,
+    borderLeftColor: '#FFC61A',
+  },
+  alertDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+  },
+  alertBody: {
+    flex: 1,
+  },
+  alertName: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: palette.foreground,
+  },
+  alertInfo: {
+    fontSize: 11,
     color: palette.mutedForeground,
+    marginTop: 1,
+  },
+  alertMeta: {
+    fontSize: 11,
     fontWeight: '600',
   },
-  sheetFooter: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    gap: spacing.sm,
-  },
-  detailGrid: {
-    gap: spacing.sm,
-  },
-  detailItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: spacing.sm,
-  },
-  detailValue: {
-    ...typography.body,
-    color: palette.foreground,
+  alertSectionGap: {
+    marginTop: 16,
   },
 });

@@ -29,6 +29,8 @@ type ToastProviderProps = {
   children: ReactNode;
 };
 
+const DEFAULT_TOAST_DURATION_MS = 5000;
+
 export function ToastProvider({ children }: ToastProviderProps) {
   const [toast, setToast] = useState<ToastState | null>(null);
 
@@ -40,7 +42,7 @@ export function ToastProvider({ children }: ToastProviderProps) {
     setToast({
       visible: true,
       variant: 'info',
-      duration: 3000,
+      duration: DEFAULT_TOAST_DURATION_MS,
       ...options,
     });
   }, []);
@@ -59,7 +61,7 @@ export function ToastProvider({ children }: ToastProviderProps) {
       <Snackbar
         visible={Boolean(toast?.visible)}
         onDismiss={hideToast}
-        duration={toast?.duration ?? 3000}
+        duration={toast?.duration ?? DEFAULT_TOAST_DURATION_MS}
         action={
           toast?.actionLabel
             ? {

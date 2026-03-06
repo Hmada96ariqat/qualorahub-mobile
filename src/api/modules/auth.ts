@@ -40,7 +40,26 @@ export type AuthContextSnapshot = {
   role: string;
   type: string;
   farmId: string | null;
+  farmName: string | null;
+  displayName: string | null;
 };
+
+function readFirstPresentString(
+  record: Record<string, unknown>,
+  keys: readonly string[],
+): string | null {
+  for (const key of keys) {
+    const value = record[key];
+    if (typeof value === 'string') {
+      const normalized = value.trim();
+      if (normalized.length > 0) {
+        return normalized;
+      }
+    }
+  }
+
+  return null;
+}
 
 function toSession(payload: AuthSessionResponse): AuthSession {
   if (!isRecord(payload)) {
@@ -87,6 +106,19 @@ function parseAuthContextSnapshot(payload: AuthContextResponse): AuthContextSnap
   if (farm && typeof farm.id === 'string') {
     farmId = farm.id;
   }
+  const farmName = farm
+    ? readFirstPresentString(farm, ['name', 'farm_name', 'display_name'])
+    : null;
+  const firstAndLastName = [
+    readFirstPresentString(user, ['first_name']),
+    readFirstPresentString(user, ['last_name']),
+  ]
+    .filter((value): value is string => Boolean(value))
+    .join(' ')
+    .trim();
+  const userDisplayName =
+    readFirstPresentString(user, ['display_name', 'full_name', 'name']) ??
+    (firstAndLastName.length > 0 ? firstAndLastName : null);
 
   return {
     userId: readString(user, 'id'),
@@ -94,6 +126,8 @@ function parseAuthContextSnapshot(payload: AuthContextResponse): AuthContextSnap
     role: readString(user, 'role'),
     type: readString(user, 'type'),
     farmId,
+    farmName,
+    displayName: userDisplayName,
   };
 }
 

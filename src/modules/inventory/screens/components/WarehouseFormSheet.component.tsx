@@ -1,5 +1,7 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
+import type { RefObject } from 'react';
 import { StyleSheet, View } from 'react-native';
+import type { ScrollView } from 'react-native';
 import {
   AppButton,
   AppChip,
@@ -7,8 +9,11 @@ import {
   AppSelect,
   AppTextArea,
   BottomSheet,
+  FormValidationProvider,
   FormField,
+  useFormValidation,
   type SelectOption,
+  type FormValidationProviderValue,
   useToast,
 } from '../../../../components';
 import {
@@ -21,12 +26,18 @@ import {
   type WarehouseFormValues,
 } from '../../contracts';
 import { spacing } from '../../../../theme/tokens';
+import { InventorySectionCard } from './InventorySectionCard.component';
 
 type WarehouseFormSheetProps = {
   visible: boolean;
   mode: InventoryFormMode;
   values: WarehouseFormValues;
   fieldOptions: SelectOption[];
+  formScrollViewRef: RefObject<ScrollView | null>;
+  formValidation: {
+    providerValue: FormValidationProviderValue;
+    clearFieldError: (field: WarehouseFormField) => void;
+  };
   loading: boolean;
   disabled: boolean;
   onDismiss: () => void;
@@ -35,11 +46,16 @@ type WarehouseFormSheetProps = {
   onQuickCreateField: (input: { name: string; areaHectares: number }) => Promise<SelectOption>;
 };
 
+type WarehouseFormField = 'name' | 'fieldId';
+type WarehouseQuickAddField = 'fieldName' | 'fieldArea';
+
 export function WarehouseFormSheet({
   visible,
   mode,
   values,
   fieldOptions,
+  formScrollViewRef,
+  formValidation,
   loading,
   disabled,
   onDismiss,
@@ -52,6 +68,10 @@ export function WarehouseFormSheet({
   const [quickAddFieldName, setQuickAddFieldName] = useState('');
   const [quickAddFieldArea, setQuickAddFieldArea] = useState('1');
   const [quickAddFieldLoading, setQuickAddFieldLoading] = useState(false);
+  const quickAddFieldScrollRef = useRef<ScrollView | null>(null);
+  const quickAddFieldValidation = useFormValidation<WarehouseQuickAddField>(
+    quickAddFieldScrollRef,
+  );
 
   const selectFieldOptions = useMemo<SelectOption[]>(
     () => [{ label: 'Select field', value: '__none__' }, ...fieldOptions],
@@ -80,19 +100,27 @@ export function WarehouseFormSheet({
     setQuickAddFieldVisible(false);
     setQuickAddFieldName('');
     setQuickAddFieldArea('1');
+    quickAddFieldValidation.reset();
   }
 
   async function handleQuickCreateField() {
     const name = quickAddFieldName.trim();
     const area = Number.parseFloat(quickAddFieldArea.trim());
 
-    if (!name) {
-      showToast({ message: 'Field name is required.', variant: 'error' });
-      return;
-    }
-
-    if (!Number.isFinite(area) || area <= 0) {
-      showToast({ message: 'Field area must be a positive number.', variant: 'error' });
+    const valid = quickAddFieldValidation.validate([
+      {
+        field: 'fieldName',
+        message: 'Field name is required.',
+        isValid: name.length > 0,
+      },
+      {
+        field: 'fieldArea',
+        message: 'Field area must be a positive number.',
+        isValid: Number.isFinite(area) && area > 0,
+      },
+    ]);
+    if (!valid) {
+      showToast({ message: 'Complete the highlighted fields.', variant: 'error' });
       return;
     }
 
@@ -115,6 +143,7 @@ export function WarehouseFormSheet({
       <BottomSheet
         visible={visible}
         onDismiss={onDismiss}
+        scrollViewRef={formScrollViewRef}
         title={mode === 'create' ? 'Create Warehouse' : 'Edit Warehouse'}
         footer={
           <SheetFooter
@@ -126,115 +155,131 @@ export function WarehouseFormSheet({
           />
         }
       >
-        <FormField label="Name" required>
-          <AppInput
-            value={values.name}
-            onChangeText={(value) => setFormValue('name', value)}
-            placeholder="Warehouse name"
-          />
-        </FormField>
-
-        <FormField label="Field" required helperText="Required. Use quick add if no field exists yet.">
-          <AppSelect
-            value={values.fieldId || '__none__'}
-            onChange={(value) => setFormValue('fieldId', value === '__none__' ? '' : value)}
-            options={selectFieldOptions}
-            searchable
-            onCreateOption={() => setQuickAddFieldVisible(true)}
-            createOptionLabel="Create field"
-          />
-        </FormField>
-
-        <FormField label="Status">
-          <AppSelect
-            value={values.status}
-            onChange={(value) => setFormValue('status', normalizeStatus(value))}
-            options={ROW_STATUS_OPTIONS.map((item) => ({ label: item.label, value: item.value }))}
-          />
-        </FormField>
-
-        <View style={styles.twoColumnRow}>
-          <View style={styles.column}>
-            <FormField label="Capacity value">
+        <FormValidationProvider value={formValidation.providerValue}>
+          <InventorySectionCard
+            title="Warehouse Details"
+            description="Field assignment, status, capacity, temperature, and storage types."
+          >
+            <FormField label="Name" name="name" required>
               <AppInput
-                value={values.capacityValue}
-                onChangeText={(value) => setFormValue('capacityValue', value)}
-                placeholder="Optional"
-                keyboardType="numeric"
+                value={values.name}
+                onChangeText={(value) => {
+                  formValidation.clearFieldError('name');
+                  setFormValue('name', value);
+                }}
+                placeholder="Warehouse name"
               />
             </FormField>
-          </View>
-          <View style={styles.column}>
-            <FormField label="Capacity unit">
+
+            <FormField label="Field" name="fieldId" required helperText="Required. Use quick add if no field exists yet.">
               <AppSelect
-                value={values.capacityUnit || '__none__'}
-                onChange={(value) => setFormValue('capacityUnit', value === '__none__' ? '' : value)}
-                options={capacityOptions}
+                value={values.fieldId || '__none__'}
+                onChange={(value) => {
+                  formValidation.clearFieldError('fieldId');
+                  setFormValue('fieldId', value === '__none__' ? '' : value);
+                }}
+                options={selectFieldOptions}
                 searchable
+                onCreateOption={() => setQuickAddFieldVisible(true)}
+                createOptionLabel="Create field"
               />
             </FormField>
-          </View>
-        </View>
 
-        <View style={styles.twoColumnRow}>
-          <View style={styles.column}>
-            <FormField label="Min temperature">
-              <AppInput
-                value={values.temperatureMin}
-                onChangeText={(value) => setFormValue('temperatureMin', value)}
-                placeholder="Optional"
-                keyboardType="numeric"
+            <FormField label="Status">
+              <AppSelect
+                value={values.status}
+                onChange={(value) => setFormValue('status', normalizeStatus(value))}
+                options={ROW_STATUS_OPTIONS.map((item) => ({ label: item.label, value: item.value }))}
               />
             </FormField>
-          </View>
-          <View style={styles.column}>
-            <FormField label="Max temperature">
-              <AppInput
-                value={values.temperatureMax}
-                onChangeText={(value) => setFormValue('temperatureMax', value)}
-                placeholder="Optional"
-                keyboardType="numeric"
+
+            <View style={styles.twoColumnRow}>
+              <View style={styles.column}>
+                <FormField label="Capacity value">
+                  <AppInput
+                    value={values.capacityValue}
+                    onChangeText={(value) => setFormValue('capacityValue', value)}
+                    placeholder="Optional"
+                    keyboardType="numeric"
+                  />
+                </FormField>
+              </View>
+              <View style={styles.column}>
+                <FormField label="Capacity unit">
+                  <AppSelect
+                    value={values.capacityUnit || '__none__'}
+                    onChange={(value) =>
+                      setFormValue('capacityUnit', value === '__none__' ? '' : value)
+                    }
+                    options={capacityOptions}
+                    searchable
+                  />
+                </FormField>
+              </View>
+            </View>
+
+            <View style={styles.twoColumnRow}>
+              <View style={styles.column}>
+                <FormField label="Min temperature">
+                  <AppInput
+                    value={values.temperatureMin}
+                    onChangeText={(value) => setFormValue('temperatureMin', value)}
+                    placeholder="Optional"
+                    keyboardType="numeric"
+                  />
+                </FormField>
+              </View>
+              <View style={styles.column}>
+                <FormField label="Max temperature">
+                  <AppInput
+                    value={values.temperatureMax}
+                    onChangeText={(value) => setFormValue('temperatureMax', value)}
+                    placeholder="Optional"
+                    keyboardType="numeric"
+                  />
+                </FormField>
+              </View>
+            </View>
+
+            <FormField label="Warehouse types" helperText="Select one or multiple storage types.">
+              <View style={styles.chipsWrap}>
+                {WAREHOUSE_TYPE_OPTIONS.map((option) => {
+                  const selected = values.warehouseTypes.includes(option.value);
+                  return (
+                    <AppChip
+                      key={option.value}
+                      label={option.label}
+                      selected={selected}
+                      onPress={() => toggleWarehouseType(option.value)}
+                    />
+                  );
+                })}
+              </View>
+            </FormField>
+
+            <FormField label="Safety measures">
+              <AppTextArea
+                value={values.safetyMeasures}
+                onChangeText={(value) => setFormValue('safetyMeasures', value)}
+                placeholder="Optional safety details"
               />
             </FormField>
-          </View>
-        </View>
 
-        <FormField label="Warehouse types" helperText="Select one or multiple storage types.">
-          <View style={styles.chipsWrap}>
-            {WAREHOUSE_TYPE_OPTIONS.map((option) => {
-              const selected = values.warehouseTypes.includes(option.value);
-              return (
-                <AppChip
-                  key={option.value}
-                  label={option.label}
-                  selected={selected}
-                  onPress={() => toggleWarehouseType(option.value)}
-                />
-              );
-            })}
-          </View>
-        </FormField>
-
-        <FormField label="Safety measures">
-          <AppTextArea
-            value={values.safetyMeasures}
-            onChangeText={(value) => setFormValue('safetyMeasures', value)}
-            placeholder="Optional safety details"
-          />
-        </FormField>
-
-        <FormField label="Notes">
-          <AppTextArea
-            value={values.notes}
-            onChangeText={(value) => setFormValue('notes', value)}
-            placeholder="Optional notes"
-          />
-        </FormField>
+            <FormField label="Notes">
+              <AppTextArea
+                value={values.notes}
+                onChangeText={(value) => setFormValue('notes', value)}
+                placeholder="Optional notes"
+              />
+            </FormField>
+          </InventorySectionCard>
+        </FormValidationProvider>
       </BottomSheet>
 
       <BottomSheet
         visible={quickAddFieldVisible}
         onDismiss={dismissQuickAddField}
+        scrollViewRef={quickAddFieldScrollRef}
         title="Create Field"
         footer={
           <SheetFooter
@@ -242,25 +287,38 @@ export function WarehouseFormSheet({
             onSubmit={() => void handleQuickCreateField()}
             submitLabel="Create"
             loading={quickAddFieldLoading}
-            disabled={!quickAddFieldName.trim() || quickAddFieldLoading}
+            disabled={quickAddFieldLoading}
           />
         }
       >
-        <FormField label="Field name" required>
-          <AppInput
-            value={quickAddFieldName}
-            onChangeText={setQuickAddFieldName}
-            placeholder="Field name"
-          />
-        </FormField>
-        <FormField label="Area (hectares)" required>
-          <AppInput
-            value={quickAddFieldArea}
-            onChangeText={setQuickAddFieldArea}
-            placeholder="1"
-            keyboardType="numeric"
-          />
-        </FormField>
+        <FormValidationProvider value={quickAddFieldValidation.providerValue}>
+          <InventorySectionCard
+            title="Field Quick Add"
+            description="Create a field and attach it directly to the warehouse draft."
+          >
+            <FormField label="Field name" name="fieldName" required>
+              <AppInput
+                value={quickAddFieldName}
+                onChangeText={(value) => {
+                  quickAddFieldValidation.clearFieldError('fieldName');
+                  setQuickAddFieldName(value);
+                }}
+                placeholder="Field name"
+              />
+            </FormField>
+            <FormField label="Area (hectares)" name="fieldArea" required>
+              <AppInput
+                value={quickAddFieldArea}
+                onChangeText={(value) => {
+                  quickAddFieldValidation.clearFieldError('fieldArea');
+                  setQuickAddFieldArea(value);
+                }}
+                placeholder="1"
+                keyboardType="numeric"
+              />
+            </FormField>
+          </InventorySectionCard>
+        </FormValidationProvider>
       </BottomSheet>
     </>
   );

@@ -3,11 +3,13 @@ import type { operations } from '../generated/schema';
 import { OPENAPI_BLOCKER_IDS } from './openapi-blockers';
 import {
   isRecord,
+  readArray,
   normalizeRows,
   readNullableString,
   readString,
   type UnknownRecord,
 } from './runtime-parsers';
+import { trackObservabilityEvent } from '../../utils/observability';
 
 type CreateTaskRequestContract =
   operations['OrderWriteController_createTask_v1']['requestBody']['content']['application/json'];
@@ -25,13 +27,20 @@ export type TaskSummary = {
   dueDate: string | null;
   assetId: string | null;
   assetLabel: string | null;
+  assignedTo: string | null;
+  fieldId: string | null;
+  livestockId: string | null;
+  equipmentId: string | null;
   createdAt: string;
   updatedAt: string;
 };
 
+export type TaskAssetBinding = 'assigned_to' | 'field_id' | 'livestock_id' | 'equipment_id';
+
 export type TaskAssetOption = {
   label: string;
   value: string;
+  binding: TaskAssetBinding;
 };
 
 export type TaskComment = {
@@ -55,7 +64,12 @@ export type CreateTaskFallbackRequest = {
   notes?: string | null;
   status?: TaskStatus;
   priority?: string | null;
+  due_date_time?: string | null;
   due_date?: string | null;
+  assigned_to?: string | null;
+  field_id?: string | null;
+  livestock_id?: string | null;
+  equipment_id?: string | null;
   asset_id?: string | null;
 };
 
@@ -83,10 +97,107 @@ function readFirstNullableString(record: UnknownRecord, keys: string[]): string 
   return null;
 }
 
+const TASK_ASSET_BINDING_KEYS = [
+  'assigned_to',
+  'field_id',
+  'livestock_id',
+  'equipment_id',
+] as const;
+
+const TASK_ASSET_BINDING_FROM_GROUP: Record<string, TaskAssetBinding | null> = {
+  fields: 'field_id',
+  equipment: 'equipment_id',
+  livestock: 'livestock_id',
+  profiles: 'assigned_to',
+  users: 'assigned_to',
+  lots: null,
+  warehouses: null,
+  housing_units: null,
+};
+
+const TASK_ASSET_GROUP_LABELS: Record<string, string> = {
+  fields: 'Field',
+  lots: 'Lot',
+  warehouses: 'Warehouse',
+  equipment: 'Equipment',
+  livestock: 'Livestock',
+  housing_units: 'Housing Unit',
+  profiles: 'User',
+  users: 'User',
+};
+
+const TASK_ASSET_BINDING_LABELS: Record<TaskAssetBinding, string> = {
+  assigned_to: 'User',
+  field_id: 'Field',
+  livestock_id: 'Livestock',
+  equipment_id: 'Equipment',
+};
+
+const ISO_DATE_ONLY_REGEX = /^\d{4}-\d{2}-\d{2}$/;
+const ISO_DATE_TIME_PREFIX_REGEX = /^\d{4}-\d{2}-\d{2}T/;
+
+function toUtcMidnightIso(dateOnly: string): string {
+  return `${dateOnly}T00:00:00.000Z`;
+}
+
+function normalizeDueDateTimeValue(value: string | null): string | null {
+  if (value === null) {
+    return null;
+  }
+
+  const trimmed = value.trim();
+  if (!trimmed) {
+    return null;
+  }
+
+  if (ISO_DATE_ONLY_REGEX.test(trimmed)) {
+    return toUtcMidnightIso(trimmed);
+  }
+
+  if (!ISO_DATE_TIME_PREFIX_REGEX.test(trimmed)) {
+    throw new Error(
+      'Invalid task due date. Expected ISO-8601 datetime or YYYY-MM-DD date-only format.',
+    );
+  }
+
+  const parsed = new Date(trimmed);
+  if (Number.isNaN(parsed.getTime())) {
+    throw new Error('Invalid task due date. Unable to parse provided datetime value.');
+  }
+
+  return parsed.toISOString();
+}
+
+function readNormalizedDueDateTime(record: UnknownRecord): string | null | undefined {
+  if ('due_date_time' in record || 'dueDateTime' in record) {
+    return normalizeDueDateTimeValue(readFirstNullableString(record, ['due_date_time', 'dueDateTime']));
+  }
+
+  if ('due_date' in record || 'dueDate' in record) {
+    return normalizeDueDateTimeValue(readFirstNullableString(record, ['due_date', 'dueDate']));
+  }
+
+  return undefined;
+}
+
+function readBindingValue(record: UnknownRecord, key: TaskAssetBinding): string | null | undefined {
+  const camelKey = key.replace(/_([a-z])/g, (_, letter: string) => letter.toUpperCase());
+  if (!(key in record) && !(camelKey in record)) {
+    return undefined;
+  }
+
+  return readFirstNullableString(record, [key, camelKey]);
+}
+
 function parseTaskSummary(payload: unknown): TaskSummary | null {
   if (!isRecord(payload)) return null;
 
   const title = readFirstString(payload, ['title', 'name', 'task_name']);
+  const assignedTo = readFirstNullableString(payload, ['assigned_to', 'assignedTo']);
+  const fieldId = readFirstNullableString(payload, ['field_id', 'fieldId']);
+  const livestockId = readFirstNullableString(payload, ['livestock_id', 'livestockId']);
+  const equipmentId = readFirstNullableString(payload, ['equipment_id', 'equipmentId']);
+  const legacyAssetId = readFirstNullableString(payload, ['asset_id', 'assetId']);
 
   return {
     id: readString(payload, 'id'),
@@ -94,18 +205,79 @@ function parseTaskSummary(payload: unknown): TaskSummary | null {
     description: readFirstNullableString(payload, ['description', 'notes', 'message']),
     status: readFirstString(payload, ['status', 'task_status'], 'pending'),
     priority: readFirstNullableString(payload, ['priority', 'task_priority']),
-    dueDate: readFirstNullableString(payload, ['due_date', 'dueDate', 'due_at']),
-    assetId: readFirstNullableString(payload, ['asset_id', 'assetId']),
-    assetLabel: readFirstNullableString(payload, ['asset_name', 'assetName', 'asset_label']),
+    dueDate: readFirstNullableString(payload, [
+      'due_date_time',
+      'dueDateTime',
+      'due_date',
+      'dueDate',
+      'due_at',
+    ]),
+    assetId: fieldId ?? equipmentId ?? livestockId ?? assignedTo ?? legacyAssetId,
+    assetLabel: readFirstNullableString(payload, [
+      'asset_name',
+      'assetName',
+      'asset_label',
+      'field_name',
+      'equipment_name',
+      'livestock_name',
+      'assigned_to_name',
+      'assignee_name',
+    ]),
+    assignedTo,
+    fieldId,
+    livestockId,
+    equipmentId,
     createdAt: readFirstString(payload, ['created_at', 'createdAt']),
     updatedAt: readFirstString(payload, ['updated_at', 'updatedAt']),
   };
 }
 
-function parseTaskAssetOption(payload: unknown): TaskAssetOption | null {
+function inferTaskAssetBinding(record: UnknownRecord): TaskAssetBinding | null {
+  const directFieldId = readNullableString(record, 'field_id');
+  if (directFieldId) return 'field_id';
+
+  const directEquipmentId = readNullableString(record, 'equipment_id');
+  if (directEquipmentId) return 'equipment_id';
+
+  const directLivestockId = readNullableString(record, 'livestock_id');
+  if (directLivestockId) return 'livestock_id';
+
+  const directAssignedTo = readNullableString(record, 'assigned_to');
+  if (directAssignedTo) return 'assigned_to';
+
+  const legacyUserId = readNullableString(record, 'user_id');
+  if (legacyUserId) return 'assigned_to';
+
+  const kind = readFirstString(record, ['type', 'asset_type', 'group']).trim().toLowerCase();
+  if (kind in TASK_ASSET_BINDING_FROM_GROUP) {
+    return TASK_ASSET_BINDING_FROM_GROUP[kind] ?? null;
+  }
+
+  return null;
+}
+
+function toTaskAssetLabel(rawLabel: string, binding: TaskAssetBinding, groupLabel?: string): string {
+  const prefix = groupLabel ?? TASK_ASSET_BINDING_LABELS[binding];
+  return rawLabel.startsWith(`${prefix}:`) ? rawLabel : `${prefix}: ${rawLabel}`;
+}
+
+function parseTaskAssetOption(
+  payload: unknown,
+  bindingHint?: TaskAssetBinding,
+  groupLabel?: string,
+): TaskAssetOption | null {
   if (!isRecord(payload)) return null;
 
-  const value = readFirstString(payload, ['id', 'value', 'asset_id', 'user_id']);
+  const value = readFirstString(payload, [
+    'id',
+    'value',
+    'field_id',
+    'equipment_id',
+    'livestock_id',
+    'assigned_to',
+    'asset_id',
+    'user_id',
+  ]);
   const label = readFirstString(payload, [
     'name',
     'label',
@@ -115,25 +287,20 @@ function parseTaskAssetOption(payload: unknown): TaskAssetOption | null {
     'barn_name',
     'unit_code',
   ]);
+  const binding = bindingHint ?? inferTaskAssetBinding(payload);
 
-  if (!value || !label) return null;
+  if (!value || !label || !binding) return null;
 
-  return { value, label };
+  return {
+    value,
+    label: toTaskAssetLabel(label, binding, groupLabel),
+    binding,
+  };
 }
-
-const ASSET_GROUP_LABELS: Record<string, string> = {
-  fields: 'Field',
-  lots: 'Lot',
-  warehouses: 'Warehouse',
-  equipment: 'Equipment',
-  livestock: 'Livestock',
-  housing_units: 'Housing Unit',
-  profiles: 'User',
-};
 
 function parseTaskAssetOptions(payload: unknown): TaskAssetOption[] {
   if (Array.isArray(payload)) {
-    return parseList(payload, parseTaskAssetOption);
+    return parseList(payload, (value) => parseTaskAssetOption(value));
   }
 
   if (!isRecord(payload)) {
@@ -144,15 +311,17 @@ function parseTaskAssetOptions(payload: unknown): TaskAssetOption[] {
   const seen = new Set<string>();
 
   for (const [groupKey, rawValue] of Object.entries(payload)) {
-    const groupLabel = ASSET_GROUP_LABELS[groupKey] ?? groupKey;
-    for (const row of parseList(rawValue, parseTaskAssetOption)) {
-      if (seen.has(row.value)) continue;
-      seen.add(row.value);
+    const binding = TASK_ASSET_BINDING_FROM_GROUP[groupKey];
+    if (!binding) {
+      continue;
+    }
 
-      options.push({
-        value: row.value,
-        label: `${groupLabel}: ${row.label}`,
-      });
+    const groupLabel = TASK_ASSET_GROUP_LABELS[groupKey] ?? TASK_ASSET_BINDING_LABELS[binding];
+    for (const row of parseList(rawValue, (value) => parseTaskAssetOption(value, binding, groupLabel))) {
+      const dedupeKey = `${row.binding}:${row.value}`;
+      if (seen.has(dedupeKey)) continue;
+      seen.add(dedupeKey);
+      options.push(row);
     }
   }
 
@@ -215,10 +384,33 @@ function normalizeTaskRequest(input: CreateTaskRequest | UpdateTaskRequest): Unk
   if ('description' in record || 'notes' in record) {
     normalized.description = readFirstNullableString(record, ['description', 'notes']);
   }
-  if ('status' in record) normalized.status = readString(record, 'status');
-  if ('priority' in record) normalized.priority = record.priority ?? null;
-  if ('due_date' in record) normalized.due_date = record.due_date ?? null;
-  if ('asset_id' in record) normalized.asset_id = record.asset_id ?? null;
+  if ('status' in record) {
+    normalized.status = readString(record, 'status');
+  }
+  if ('priority' in record) {
+    normalized.priority = record.priority ?? null;
+  }
+
+  const dueDateTime = readNormalizedDueDateTime(record);
+  if (dueDateTime !== undefined) {
+    normalized.due_date_time = dueDateTime;
+  }
+
+  if ('assigned_users' in record || 'assignedUsers' in record) {
+    const values =
+      ('assigned_users' in record ? readArray(record, 'assigned_users') : readArray(record, 'assignedUsers'))
+        .map((value) => (typeof value === 'string' ? value : null))
+        .filter((value): value is string => Boolean(value));
+
+    normalized.assigned_users = values;
+  }
+
+  for (const key of TASK_ASSET_BINDING_KEYS) {
+    const value = readBindingValue(record, key);
+    if (value !== undefined) {
+      normalized[key] = value;
+    }
+  }
 
   return normalized;
 }
@@ -237,9 +429,10 @@ export async function getTaskById(token: string, taskId: string): Promise<TaskSu
 
 // TODO(openapi-blocker: QH-OAPI-007): Replace unknown payload parsing once task responses are typed.
 export async function createTask(token: string, input: CreateTaskRequest): Promise<TaskSummary> {
+  const body = normalizeTaskRequest(input);
   const { data } = await apiClient.post<unknown, UnknownRecord>('/tasks', {
     token,
-    body: normalizeTaskRequest(input),
+    body,
     idempotencyKey: `tasks-create-${Date.now()}`,
   });
   return parseFirst(data, parseTaskSummary, 'Tasks API returned an empty create payload.');
@@ -251,9 +444,26 @@ export async function updateTask(
   taskId: string,
   input: UpdateTaskRequest,
 ): Promise<TaskSummary> {
+  const body = normalizeTaskRequest(input);
+  const rawInput = isRecord(input) ? input : {};
+  const legacyDueDate = readFirstNullableString(rawInput, ['due_date', 'dueDate']);
+
+  trackObservabilityEvent({
+    type: 'api.request',
+    level: 'info',
+    message: `PATCH /tasks/${taskId} payload`,
+    context: {
+      method: 'PATCH',
+      path: `/tasks/${taskId}`,
+      payloadKeys: Object.keys(body).sort(),
+      due_date_time: body.due_date_time ?? null,
+      due_date: legacyDueDate,
+    },
+  });
+
   const { data } = await apiClient.patch<unknown, UnknownRecord>(`/tasks/${taskId}`, {
     token,
-    body: normalizeTaskRequest(input),
+    body,
   });
   return parseFirst(data, parseTaskSummary, 'Tasks API returned an empty update payload.');
 }

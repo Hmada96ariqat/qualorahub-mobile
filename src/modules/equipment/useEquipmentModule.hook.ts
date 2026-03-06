@@ -16,6 +16,7 @@ import {
   listUpcomingMaintenance,
   listUsageLogs,
   reactivateEquipment,
+  replaceMaintenanceParts,
   updateEquipment,
   updateMaintenanceRecord,
   updateUsageLog,
@@ -23,15 +24,19 @@ import {
   type CreateMaintenanceRecordRequest,
   type CreateUsageLogRequest,
   type EquipmentSummary,
+  type ReplaceMaintenancePartRequest,
   type UpdateEquipmentRequest,
   type UpdateMaintenanceRecordRequest,
   type UpdateUsageLogRequest,
 } from '../../api/modules/equipment';
+import { listLots } from '../../api/modules/lots';
 import { useAuthSession } from '../../hooks/useAuthSession';
+import { loadEquipmentContactOptions } from './contactOptions';
 
 const EQUIPMENT_LIST_QUERY_KEY = ['equipment', 'list'] as const;
 const EQUIPMENT_UPCOMING_QUERY_KEY = ['equipment', 'upcoming'] as const;
 const EQUIPMENT_OPERATORS_QUERY_KEY = ['equipment', 'operators'] as const;
+const EQUIPMENT_CONTACTS_QUERY_KEY = ['equipment', 'contacts'] as const;
 const EQUIPMENT_FIELD_OPTIONS_QUERY_KEY = ['equipment', 'field-options'] as const;
 
 function toErrorMessage(error: unknown, fallback: string): string {
@@ -41,10 +46,14 @@ function toErrorMessage(error: unknown, fallback: string): string {
   return fallback;
 }
 
-export function useEquipmentModule(selectedEquipmentId: string | null) {
+export function useEquipmentModule(
+  selectedEquipmentId: string | null,
+  options: { selectedUsageFieldId?: string | null } = {},
+) {
   const { session } = useAuthSession();
   const token = session?.accessToken ?? null;
   const queryClient = useQueryClient();
+  const selectedUsageFieldId = options.selectedUsageFieldId ?? null;
 
   const listQuery = useQuery({
     queryKey: EQUIPMENT_LIST_QUERY_KEY,
@@ -64,6 +73,12 @@ export function useEquipmentModule(selectedEquipmentId: string | null) {
     enabled: Boolean(token),
   });
 
+  const contactsQuery = useQuery({
+    queryKey: EQUIPMENT_CONTACTS_QUERY_KEY,
+    queryFn: () => loadEquipmentContactOptions(token ?? ''),
+    enabled: Boolean(token),
+  });
+
   const fieldOptionsQuery = useQuery({
     queryKey: EQUIPMENT_FIELD_OPTIONS_QUERY_KEY,
     queryFn: async () => {
@@ -76,6 +91,26 @@ export function useEquipmentModule(selectedEquipmentId: string | null) {
         }));
     },
     enabled: Boolean(token),
+  });
+
+  const lotOptionsQuery = useQuery({
+    queryKey: ['equipment', 'lot-options', selectedUsageFieldId],
+    queryFn: async () => {
+      if (!selectedUsageFieldId) {
+        return [];
+      }
+
+      const lots = await listLots(token ?? '', {
+        fieldId: selectedUsageFieldId,
+        status: 'all',
+      });
+
+      return lots.map((lot) => ({
+        label: lot.name,
+        value: lot.id,
+      }));
+    },
+    enabled: Boolean(token && selectedUsageFieldId),
   });
 
   const detailQuery = useQuery({
@@ -148,7 +183,9 @@ export function useEquipmentModule(selectedEquipmentId: string | null) {
         queryClient.invalidateQueries({ queryKey: EQUIPMENT_UPCOMING_QUERY_KEY }),
         queryClient.invalidateQueries({ queryKey: ['equipment', 'detail', equipmentId] }),
         queryClient.invalidateQueries({ queryKey: ['equipment', 'usage-logs', equipmentId] }),
-        queryClient.invalidateQueries({ queryKey: ['equipment', 'maintenance-records', equipmentId] }),
+        queryClient.invalidateQueries({
+          queryKey: ['equipment', 'maintenance-records', equipmentId],
+        }),
       ]);
     },
   });
@@ -158,7 +195,9 @@ export function useEquipmentModule(selectedEquipmentId: string | null) {
       createUsageLog(token ?? '', payload.equipmentId, payload.input),
     onSuccess: async (_, payload) => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ['equipment', 'usage-logs', payload.equipmentId] }),
+        queryClient.invalidateQueries({
+          queryKey: ['equipment', 'usage-logs', payload.equipmentId],
+        }),
         queryClient.invalidateQueries({ queryKey: EQUIPMENT_LIST_QUERY_KEY }),
       ]);
     },
@@ -225,10 +264,36 @@ export function useEquipmentModule(selectedEquipmentId: string | null) {
     },
   });
 
+  const replaceMaintenancePartsMutation = useMutation({
+    mutationFn: (payload: { recordId: string; parts: ReplaceMaintenancePartRequest[] }) =>
+      replaceMaintenanceParts(token ?? '', payload.recordId, payload.parts),
+    onSuccess: async () => {
+      if (!selectedEquipmentId) return;
+      await queryClient.invalidateQueries({
+        queryKey: ['equipment', 'maintenance-records', selectedEquipmentId],
+      });
+    },
+  });
+
   const equipment = useMemo<EquipmentSummary[]>(() => listQuery.data ?? [], [listQuery.data]);
   const upcomingMaintenance = useMemo(() => upcomingQuery.data ?? [], [upcomingQuery.data]);
   const operatorOptions = useMemo(() => operatorsQuery.data ?? [], [operatorsQuery.data]);
+  const contactOptions = useMemo(() => contactsQuery.data ?? [], [contactsQuery.data]);
   const fieldOptions = useMemo(() => fieldOptionsQuery.data ?? [], [fieldOptionsQuery.data]);
+  const lotOptions = useMemo(() => lotOptionsQuery.data ?? [], [lotOptionsQuery.data]);
+  const servicePerformerOptions = useMemo(
+    () => [
+      ...operatorOptions.map((option) => ({
+        label: `User: ${option.label}`,
+        value: `user:${option.value}`,
+      })),
+      ...contactOptions.map((option) => ({
+        label: `Contact: ${option.label}`,
+        value: `contact:${option.value}`,
+      })),
+    ],
+    [contactOptions, operatorOptions],
+  );
   const usageLogs = useMemo(() => usageLogsQuery.data ?? [], [usageLogsQuery.data]);
   const maintenanceRecords = useMemo(() => maintenanceQuery.data ?? [], [maintenanceQuery.data]);
 
@@ -243,18 +308,27 @@ export function useEquipmentModule(selectedEquipmentId: string | null) {
     deleteUsageMutation.isPending ||
     createMaintenanceMutation.isPending ||
     updateMaintenanceMutation.isPending ||
-    deleteMaintenanceMutation.isPending;
+    deleteMaintenanceMutation.isPending ||
+    replaceMaintenancePartsMutation.isPending;
 
   return {
     equipment,
     upcomingMaintenance,
     operatorOptions,
+    contactOptions,
     fieldOptions,
+    lotOptions,
+    servicePerformerOptions,
     equipmentDetail: detailQuery.data ?? null,
     usageLogs,
     maintenanceRecords,
     isLoading: listQuery.isLoading,
-    isRefreshing: listQuery.isFetching || upcomingQuery.isFetching,
+    isRefreshing:
+      listQuery.isFetching ||
+      upcomingQuery.isFetching ||
+      operatorsQuery.isFetching ||
+      contactsQuery.isFetching ||
+      fieldOptionsQuery.isFetching,
     isMutating,
     detailsLoading: detailQuery.isLoading || usageLogsQuery.isLoading || maintenanceQuery.isLoading,
     detailsRefreshing:
@@ -263,19 +337,38 @@ export function useEquipmentModule(selectedEquipmentId: string | null) {
       ? toErrorMessage(listQuery.error, 'Failed to load equipment.')
       : upcomingQuery.error
         ? toErrorMessage(upcomingQuery.error, 'Failed to load upcoming maintenance.')
-        : null,
+        : operatorsQuery.error
+          ? toErrorMessage(operatorsQuery.error, 'Failed to load equipment operators.')
+          : contactsQuery.error
+            ? toErrorMessage(contactsQuery.error, 'Failed to load farm contacts.')
+            : fieldOptionsQuery.error
+              ? toErrorMessage(fieldOptionsQuery.error, 'Failed to load fields.')
+              : null,
     detailsErrorMessage: detailQuery.error
       ? toErrorMessage(detailQuery.error, 'Failed to load equipment detail.')
       : usageLogsQuery.error
         ? toErrorMessage(usageLogsQuery.error, 'Failed to load usage logs.')
         : maintenanceQuery.error
           ? toErrorMessage(maintenanceQuery.error, 'Failed to load maintenance records.')
-          : null,
+          : lotOptionsQuery.error
+            ? toErrorMessage(lotOptionsQuery.error, 'Failed to load lots.')
+            : null,
     refresh: async () => {
-      await Promise.all([listQuery.refetch(), upcomingQuery.refetch()]);
+      await Promise.all([
+        listQuery.refetch(),
+        upcomingQuery.refetch(),
+        operatorsQuery.refetch(),
+        contactsQuery.refetch(),
+        fieldOptionsQuery.refetch(),
+      ]);
     },
     refreshDetails: async () => {
-      await Promise.all([detailQuery.refetch(), usageLogsQuery.refetch(), maintenanceQuery.refetch()]);
+      await Promise.all([
+        detailQuery.refetch(),
+        usageLogsQuery.refetch(),
+        maintenanceQuery.refetch(),
+        lotOptionsQuery.refetch(),
+      ]);
     },
     createEquipment: (input: CreateEquipmentRequest) => createEquipmentMutation.mutateAsync(input),
     updateEquipment: (equipmentId: string, input: UpdateEquipmentRequest) =>
@@ -293,5 +386,7 @@ export function useEquipmentModule(selectedEquipmentId: string | null) {
     updateMaintenanceRecord: (recordId: string, input: UpdateMaintenanceRecordRequest) =>
       updateMaintenanceMutation.mutateAsync({ recordId, input }),
     deleteMaintenanceRecord: (recordId: string) => deleteMaintenanceMutation.mutateAsync(recordId),
+    replaceMaintenanceParts: (recordId: string, parts: ReplaceMaintenancePartRequest[]) =>
+      replaceMaintenancePartsMutation.mutateAsync({ recordId, parts }),
   };
 }

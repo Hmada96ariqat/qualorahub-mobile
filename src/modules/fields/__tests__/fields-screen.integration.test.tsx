@@ -1,9 +1,11 @@
 import React from 'react';
-import { fireEvent, waitFor, within } from '@testing-library/react-native';
+import { fireEvent, waitFor } from '@testing-library/react-native';
 import { ToastProvider } from '../../../components';
 import { renderWithProviders } from '../../../components/__tests__/test-utils';
 import { FieldsScreen } from '../screens/FieldsScreen';
 import { useFieldsModule } from '../useFieldsModule.hook';
+
+const mockReplace = jest.fn();
 
 jest.mock('../useFieldsModule.hook', () => ({
   useFieldsModule: jest.fn(),
@@ -24,6 +26,7 @@ jest.mock('../../../hooks/useModuleActionPermissions', () => ({
 jest.mock('expo-router', () => ({
   useRouter: () => ({
     push: jest.fn(),
+    replace: mockReplace,
   }),
 }));
 
@@ -64,11 +67,25 @@ describe('FieldsScreen integration', () => {
   });
   const reactivateMainMock = jest.fn().mockResolvedValue(fieldRecord);
   const reactivateDeactivatedMock = jest.fn().mockResolvedValue(fieldRecord);
+  const loadFieldDetailMock = jest.fn().mockResolvedValue({
+    ...fieldRecord,
+    lots: [
+      {
+        id: 'lot-1',
+        name: 'Lot A',
+        status: 'active',
+        shapePolygon: null,
+      },
+    ],
+    housingUnitBoundaries: [],
+  });
 
   beforeEach(() => {
+    mockReplace.mockClear();
     createFieldMock.mockClear();
     reactivateMainMock.mockClear();
     reactivateDeactivatedMock.mockClear();
+    loadFieldDetailMock.mockClear();
 
     useFieldsModuleMock.mockReturnValue({
       fields: [fieldRecord],
@@ -83,9 +100,7 @@ describe('FieldsScreen integration', () => {
       isMutating: false,
       errorMessage: null,
       refresh: async () => undefined,
-      loadFieldDetail: async () => {
-        throw new Error('not used');
-      },
+      loadFieldDetail: loadFieldDetailMock,
       createField: createFieldMock,
       updateField: async () => fieldRecord,
       deactivateField: async () => fieldRecord,
@@ -97,7 +112,7 @@ describe('FieldsScreen integration', () => {
   it('submits create field with manual fallback payload when selected', async () => {
     const { getByText, getByPlaceholderText, getByTestId } = renderScreen();
 
-    fireEvent.press(getByText('Create Field'));
+    fireEvent.press(getByTestId('fields-header-create'));
 
     fireEvent.changeText(getByPlaceholderText('Field name'), '  South Field  ');
     fireEvent.press(getByText('Use manual area fallback'));
@@ -115,18 +130,32 @@ describe('FieldsScreen integration', () => {
     });
   });
 
+  it('defaults the field status filter to active records', () => {
+    const { queryByText } = renderScreen();
+
+    expect(queryByText('Inactive Field')).toBeNull();
+  });
+
   it('uses deactivated reactivation endpoint when inactive filter is selected', async () => {
     const { getByText, getByTestId } = renderScreen();
 
-    const statusFilter = getByTestId('fields-status-filter');
-    fireEvent.press(within(statusFilter).getByText('Active'));
-    fireEvent.press(getByTestId('app-select-option-inactive'));
+    fireEvent.press(getByText('Inactive (1)'));
 
     fireEvent.press(getByText('Inactive Field'));
-    fireEvent.press(getByText('Reactivate field'));
+    await waitFor(() => expect(loadFieldDetailMock).toHaveBeenCalledWith('field-1'));
+    fireEvent.press(getByText('Reactivate'));
     fireEvent.press(getByTestId('confirm-dialog.confirm'));
 
     await waitFor(() => expect(reactivateDeactivatedMock).toHaveBeenCalledWith('field-1'));
     expect(reactivateMainMock).not.toHaveBeenCalled();
+  });
+
+  it('switches to lots from the shared section tabs', () => {
+    const { getByTestId, getByText } = renderScreen();
+
+    fireEvent.press(getByText('Lots'));
+
+    expect(getByTestId('fields-module-switch')).toBeTruthy();
+    expect(mockReplace).toHaveBeenCalledWith('/(protected)/lots');
   });
 });

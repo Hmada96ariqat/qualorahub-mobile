@@ -18,10 +18,10 @@ export type TransactionListMode = 'all' | TransactionTypeOption | 'reversal';
 
 export type TransactionFormValues = {
   type: TransactionTypeOption;
+  transactionName: string;
   amount: string;
   transactionDate: string;
   financeGroupId: string;
-  description: string;
   category: string;
   paymentMethod: string;
   referenceNumber: string;
@@ -40,6 +40,27 @@ export type FinanceSummaryMetrics = {
   transactionCount: number;
   reversalCount: number;
 };
+
+function hasLinkedTransactionId(value: string | null | undefined): boolean {
+  return typeof value === 'string' && value.trim().length > 0;
+}
+
+export function isReversalLinkedTransaction(
+  transaction:
+    | Pick<
+        FinanceTransaction,
+        'isReversal' | 'originalTransactionId' | 'reversalTransactionId'
+      >
+    | null
+    | undefined,
+): boolean {
+  if (!transaction) return false;
+  return (
+    transaction.isReversal ||
+    hasLinkedTransactionId(transaction.originalTransactionId) ||
+    hasLinkedTransactionId(transaction.reversalTransactionId)
+  );
+}
 
 function toDateOnly(value: string | null | undefined): string {
   if (!value) return new Date().toISOString().slice(0, 10);
@@ -81,14 +102,36 @@ export function normalizeFinanceGroupType(value: string | null | undefined): Fin
   return 'expense';
 }
 
+export function filterFinanceGroupsByType(
+  groups: FinanceGroup[],
+  type: TransactionTypeOption,
+): FinanceGroup[] {
+  return groups.filter((group) => normalizeFinanceGroupType(group.type) === type);
+}
+
+export function matchesTransactionListMode(
+  transaction: Pick<
+    FinanceTransaction,
+    'type' | 'isReversal' | 'originalTransactionId' | 'reversalTransactionId'
+  >,
+  mode: TransactionListMode,
+): boolean {
+  if (mode === 'all') return true;
+
+  const reversalLinked = isReversalLinkedTransaction(transaction);
+  if (mode === 'reversal') return reversalLinked;
+
+  return !reversalLinked && normalizeTransactionType(transaction.type) === mode;
+}
+
 export function toTransactionFormValues(transaction?: FinanceTransaction | null): TransactionFormValues {
   if (!transaction) {
     return {
       type: 'expense',
+      transactionName: '',
       amount: '',
       transactionDate: new Date().toISOString().slice(0, 10),
       financeGroupId: '',
-      description: '',
       category: '',
       paymentMethod: '',
       referenceNumber: '',
@@ -98,10 +141,10 @@ export function toTransactionFormValues(transaction?: FinanceTransaction | null)
 
   return {
     type: normalizeTransactionType(transaction.type),
+    transactionName: transaction.description ?? '',
     amount: toMoneyString(transaction.amount),
     transactionDate: toDateOnly(transaction.transactionDate),
     financeGroupId: transaction.financeGroupId ?? '',
-    description: transaction.description ?? '',
     category: transaction.category ?? '',
     paymentMethod: transaction.paymentMethod ?? '',
     referenceNumber: transaction.referenceNumber ?? '',
@@ -134,7 +177,7 @@ export function buildFinanceSummaryMetrics(
     const amount = Number.isFinite(row.amount) ? row.amount : 0;
     const normalizedType = normalizeTransactionType(row.type);
 
-    if (row.isReversal) {
+    if (isReversalLinkedTransaction(row)) {
       reversalCount += 1;
     }
 

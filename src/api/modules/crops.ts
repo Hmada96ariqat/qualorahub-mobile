@@ -34,6 +34,8 @@ export type LogbookSubmitRequest =
 
 type ProductionCyclesResponse =
   operations['OrderWriteController_listProductionCycles_v1']['responses'][200]['content']['application/json'];
+type ListCropsResponse =
+  operations['OrderWriteController_listCrops_v1']['responses'][200]['content']['application/json'];
 type CreateProductionCycleResponse =
   operations['OrderWriteController_createProductionCycle_v1']['responses'][201]['content']['application/json'];
 type GetProductionCycleByIdResponse =
@@ -470,6 +472,11 @@ function normalizeCropPayload(
 export async function listProductionCycles(token: string): Promise<ProductionCycleSummary[]> {
   const { data } = await apiClient.get<ProductionCyclesResponse>('/production-cycles', { token });
   return parseList(data, parseProductionCycleSummary);
+}
+
+export async function listCrops(token: string): Promise<CropSummary[]> {
+  const { data } = await apiClient.get<ListCropsResponse>('/crops', { token });
+  return parseList(data, parseCropSummary);
 }
 
 export async function createProductionCycle(

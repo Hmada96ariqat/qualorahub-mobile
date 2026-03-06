@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { StyleSheet, View, type ScrollView } from 'react-native';
 import { Text } from 'react-native-paper';
 import type {
   CropSummary,
@@ -16,8 +16,10 @@ import {
   AppCard,
   AppDatePicker,
   AppHeader,
+  HeaderActionGroup,
   AppInput,
   AppListItem,
+  NotificationHeaderButton,
   AppScreen,
   AppSection,
   AppSelect,
@@ -28,13 +30,20 @@ import {
   EmptyState,
   ErrorState,
   FilterBar,
+  FormValidationProvider,
   FormField,
   PaginationFooter,
   PullToRefreshContainer,
   Skeleton,
+  useFormValidation,
   useToast,
 } from '../../../components';
 import { palette, spacing, typography } from '../../../theme/tokens';
+import {
+  formatApiErrorMessage,
+  isActiveLifecycleStatus,
+  isInactiveLifecycleStatus,
+} from '../../../utils/lifecycle';
 import {
   CYCLE_LIST_MODE_OPTIONS,
   LOGBOOK_CATEGORY_OPTIONS,
@@ -60,11 +69,11 @@ import { useCropsModule } from '../useCropsModule.hook';
 
 type Phase11Tab = 'crops' | 'cycles' | 'logbook';
 
-type CropStatusAction = 'active' | 'inactive';
+type Props = {
+  initialTab?: Phase11Tab;
+};
 
-function isInactiveStatus(status: string): boolean {
-  return status.trim().toLowerCase() === 'inactive';
-}
+type CropStatusAction = 'active' | 'inactive';
 
 function statusLabel(value: string): string {
   if (!value) return 'Unknown';
@@ -79,19 +88,6 @@ function statusVariant(status: string): 'success' | 'warning' | 'accent' | 'neut
   if (normalized === 'closed' || normalized === 'inactive') return 'warning';
   if (normalized === 'planned' || normalized === 'draft') return 'accent';
   return 'neutral';
-}
-
-function normalizeApiErrorMessage(error: unknown, fallback: string): string {
-  if (error instanceof Error && error.message) {
-    const traceId =
-      typeof (error as { traceId?: unknown }).traceId === 'string'
-        ? (error as { traceId?: string }).traceId
-        : null;
-
-    return traceId ? `${error.message} (trace: ${traceId})` : error.message;
-  }
-
-  return fallback;
 }
 
 function formatCycleMeta(cycle: ProductionCycleSummary): string {
@@ -122,13 +118,25 @@ function toSubmitFamily(value: string): LogbookSubmitRequest['family'] | undefin
     : undefined;
 }
 
-export function CropsScreen() {
+export function CropsScreen({ initialTab = 'crops' }: Props) {
   const { showToast } = useToast();
+  const cropFormScrollRef = useRef<ScrollView | null>(null);
+  const cropFormValidation = useFormValidation<'cropName'>(cropFormScrollRef);
+  const cycleFormScrollRef = useRef<ScrollView | null>(null);
+  const cycleFormValidation = useFormValidation<'fieldId' | 'lotId' | 'cropId' | 'startDate'>(
+    cycleFormScrollRef,
+  );
+  const cycleCloseFormScrollRef = useRef<ScrollView | null>(null);
+  const cycleCloseFormValidation = useFormValidation<'endDate'>(cycleCloseFormScrollRef);
+  const operationFormScrollRef = useRef<ScrollView | null>(null);
+  const operationFormValidation = useFormValidation<'date' | 'type' | 'cost'>(
+    operationFormScrollRef,
+  );
 
-  const [activeTab, setActiveTab] = useState<Phase11Tab>('crops');
+  const [activeTab, setActiveTab] = useState<Phase11Tab>(initialTab);
   const [cropSearch, setCropSearch] = useState('');
   const [cycleSearch, setCycleSearch] = useState('');
-  const [cycleListMode, setCycleListMode] = useState<CycleListMode>('all');
+  const [cycleListMode, setCycleListMode] = useState<CycleListMode>('active');
 
   const [cropFormVisible, setCropFormVisible] = useState(false);
   const [cropFormMode, setCropFormMode] = useState<CropFormMode>('create');
@@ -220,6 +228,10 @@ export function CropsScreen() {
     }
   }, [logbookSession, logbookFormValues.fieldId]);
 
+  useEffect(() => {
+    setActiveTab(initialTab);
+  }, [initialTab]);
+
   const filteredCrops = useMemo(() => {
     const normalizedSearch = cropSearch.trim().toLowerCase();
     if (!normalizedSearch) return crops;
@@ -253,6 +265,37 @@ export function CropsScreen() {
       return haystack.includes(normalizedSearch);
     });
   }, [cycles, cycleListMode, cycleSearch]);
+
+  const activeFields = useMemo(
+    () => fields.filter((field) => isActiveLifecycleStatus(field.status)),
+    [fields],
+  );
+
+  const activeFieldIds = useMemo(
+    () => new Set(activeFields.map((field) => field.id)),
+    [activeFields],
+  );
+
+  const activeLots = useMemo(
+    () =>
+      lots.filter((lot) => isActiveLifecycleStatus(lot.status) && activeFieldIds.has(lot.fieldId)),
+    [activeFieldIds, lots],
+  );
+
+  const activeCrops = useMemo(
+    () => crops.filter((crop) => isActiveLifecycleStatus(crop.status)),
+    [crops],
+  );
+
+  const cropHasActiveCycle = useMemo(() => {
+    const cropIds = new Set<string>();
+    for (const cycle of cycles) {
+      if (!cycle.cropId) continue;
+      if (!isActiveLifecycleStatus(cycle.status)) continue;
+      cropIds.add(cycle.cropId);
+    }
+    return cropIds;
+  }, [cycles]);
 
   const categoryOptions = useMemo(() => {
     if (!logbookSession?.categories.length) {
@@ -309,23 +352,64 @@ export function CropsScreen() {
     }));
   }, [logbookPracticeCatalog, logbookFormValues.family]);
 
+  const cycleFieldOptions = useMemo(
+    () =>
+      activeFields.map((field) => ({
+        label: field.name,
+        value: field.id,
+      })),
+    [activeFields],
+  );
+
   const lotOptions = useMemo(() => {
     if (!cycleFormValues.fieldId) {
-      return lots.map((lot) => ({
+      return activeLots.map((lot) => ({
         label: `${lot.name} (${lot.fieldName ?? lot.fieldId})`,
         value: lot.id,
       }));
     }
 
-    return lots
+    return activeLots
       .filter((lot) => lot.fieldId === cycleFormValues.fieldId)
       .map((lot) => ({ label: lot.name, value: lot.id }));
-  }, [lots, cycleFormValues.fieldId]);
+  }, [activeLots, cycleFormValues.fieldId]);
+
+  const cropOptions = useMemo(
+    () =>
+      activeCrops
+        .filter((crop) => !cycleFormValues.fieldId || !crop.fieldId || crop.fieldId === cycleFormValues.fieldId)
+        .map((crop) => ({
+          label: crop.name,
+          value: crop.id,
+        })),
+    [activeCrops, cycleFormValues.fieldId],
+  );
+
+  useEffect(() => {
+    if (!cycleFormValues.lotId) return;
+    if (lotOptions.some((option) => option.value === cycleFormValues.lotId)) return;
+
+    setCycleFormValues((current) => ({
+      ...current,
+      lotId: '',
+    }));
+  }, [cycleFormValues.lotId, lotOptions]);
+
+  useEffect(() => {
+    if (!cycleFormValues.cropId) return;
+    if (cropOptions.some((option) => option.value === cycleFormValues.cropId)) return;
+
+    setCycleFormValues((current) => ({
+      ...current,
+      cropId: '',
+    }));
+  }, [cropOptions, cycleFormValues.cropId]);
 
   function openCropCreateSheet() {
     setCropFormMode('create');
     setEditingCrop(null);
     setCropFormValues(toCropFormValues());
+    cropFormValidation.reset();
     setCropFormVisible(true);
   }
 
@@ -333,6 +417,7 @@ export function CropsScreen() {
     setCropFormMode('edit');
     setEditingCrop(crop);
     setCropFormValues(toCropFormValues(crop));
+    cropFormValidation.reset();
     setCropFormVisible(true);
   }
 
@@ -340,12 +425,20 @@ export function CropsScreen() {
     setCropFormVisible(false);
     setEditingCrop(null);
     setCropFormValues(toCropFormValues());
+    cropFormValidation.reset();
   }
 
   async function submitCropForm() {
     const cropName = cropFormValues.cropName.trim();
-    if (!cropName) {
-      showToast({ message: 'Crop name is required.', variant: 'error' });
+    const valid = cropFormValidation.validate([
+      {
+        field: 'cropName',
+        message: 'Crop name is required.',
+        isValid: cropName.length > 0,
+      },
+    ]);
+    if (!valid) {
+      showToast({ message: 'Complete the highlighted fields.', variant: 'error' });
       return;
     }
 
@@ -369,7 +462,7 @@ export function CropsScreen() {
       closeCropSheet();
     } catch (error) {
       showToast({
-        message: normalizeApiErrorMessage(error, 'Crop mutation failed.'),
+        message: formatApiErrorMessage(error, 'Crop mutation failed.'),
         variant: 'error',
       });
     }
@@ -387,7 +480,7 @@ export function CropsScreen() {
       });
     } catch (error) {
       showToast({
-        message: normalizeApiErrorMessage(error, 'Crop status update failed.'),
+        message: formatApiErrorMessage(error, 'Crop status update failed.'),
         variant: 'error',
       });
     } finally {
@@ -398,17 +491,75 @@ export function CropsScreen() {
 
   function openCycleCreateSheet() {
     setCycleFormValues(toCycleFormValues());
+    cycleFormValidation.reset();
     setCycleFormVisible(true);
   }
 
   function closeCycleCreateSheet() {
     setCycleFormVisible(false);
     setCycleFormValues(toCycleFormValues());
+    cycleFormValidation.reset();
   }
 
   async function submitCycleCreate() {
-    if (!cycleFormValues.fieldId || !cycleFormValues.lotId || !cycleFormValues.cropId) {
-      showToast({ message: 'Field, lot, and crop are required.', variant: 'error' });
+    const valid = cycleFormValidation.validate([
+      {
+        field: 'fieldId',
+        message: 'Field is required.',
+        isValid: Boolean(cycleFormValues.fieldId),
+      },
+      {
+        field: 'lotId',
+        message: 'Lot is required.',
+        isValid: Boolean(cycleFormValues.lotId),
+      },
+      {
+        field: 'cropId',
+        message: 'Crop is required.',
+        isValid: Boolean(cycleFormValues.cropId),
+      },
+      {
+        field: 'startDate',
+        message: 'Start date is required.',
+        isValid: Boolean(cycleFormValues.startDate),
+      },
+    ]);
+    if (!valid) {
+      showToast({ message: 'Complete the highlighted fields.', variant: 'error' });
+      return;
+    }
+
+    const selectedField = activeFields.find((field) => field.id === cycleFormValues.fieldId) ?? null;
+    if (!selectedField) {
+      showToast({ message: 'Select an active field before creating a production cycle.', variant: 'error' });
+      return;
+    }
+
+    const selectedLot = activeLots.find((lot) => lot.id === cycleFormValues.lotId) ?? null;
+    if (!selectedLot) {
+      showToast({ message: 'Select an active lot before creating a production cycle.', variant: 'error' });
+      return;
+    }
+
+    if (selectedLot.fieldId !== selectedField.id) {
+      showToast({
+        message: 'Selected lot does not belong to the selected field',
+        variant: 'error',
+      });
+      return;
+    }
+
+    const selectedCrop = activeCrops.find((crop) => crop.id === cycleFormValues.cropId) ?? null;
+    if (!selectedCrop) {
+      showToast({ message: 'Select an active crop before creating a production cycle.', variant: 'error' });
+      return;
+    }
+
+    if (selectedCrop.fieldId && selectedCrop.fieldId !== selectedField.id) {
+      showToast({
+        message: 'Selected crop does not belong to the selected field',
+        variant: 'error',
+      });
       return;
     }
 
@@ -424,7 +575,7 @@ export function CropsScreen() {
       closeCycleCreateSheet();
     } catch (error) {
       showToast({
-        message: normalizeApiErrorMessage(error, 'Production cycle create failed.'),
+        message: formatApiErrorMessage(error, 'Production cycle create failed.'),
         variant: 'error',
       });
     }
@@ -453,7 +604,7 @@ export function CropsScreen() {
       closeCycleNotesSheet();
     } catch (error) {
       showToast({
-        message: normalizeApiErrorMessage(error, 'Cycle notes update failed.'),
+        message: formatApiErrorMessage(error, 'Cycle notes update failed.'),
         variant: 'error',
       });
     }
@@ -469,10 +620,22 @@ export function CropsScreen() {
     setCycleCloseVisible(false);
     setCycleCloseValues(toCycleCloseFormValues());
     setCycleActionTarget(null);
+    cycleCloseFormValidation.reset();
   }
 
   async function submitCycleClose() {
     if (!cycleActionTarget) return;
+    const valid = cycleCloseFormValidation.validate([
+      {
+        field: 'endDate',
+        message: 'End date is required.',
+        isValid: Boolean(cycleCloseValues.endDate),
+      },
+    ]);
+    if (!valid) {
+      showToast({ message: 'Complete the highlighted fields.', variant: 'error' });
+      return;
+    }
 
     try {
       await closeProductionCycle(cycleActionTarget.id, {
@@ -483,7 +646,7 @@ export function CropsScreen() {
       closeCycleCloseSheet();
     } catch (error) {
       showToast({
-        message: normalizeApiErrorMessage(error, 'Production cycle close failed.'),
+        message: formatApiErrorMessage(error, 'Production cycle close failed.'),
         variant: 'error',
       });
     }
@@ -504,6 +667,7 @@ export function CropsScreen() {
     setOperationFormMode('create');
     setEditingOperation(null);
     setOperationFormValues(toOperationFormValues());
+    operationFormValidation.reset();
     setOperationFormVisible(true);
   }
 
@@ -511,6 +675,7 @@ export function CropsScreen() {
     setOperationFormMode('edit');
     setEditingOperation(operation);
     setOperationFormValues(toOperationFormValues(operation));
+    operationFormValidation.reset();
     setOperationFormVisible(true);
   }
 
@@ -518,14 +683,32 @@ export function CropsScreen() {
     setOperationFormVisible(false);
     setEditingOperation(null);
     setOperationFormValues(toOperationFormValues());
+    operationFormValidation.reset();
   }
 
   async function submitOperationForm() {
     if (!operationsCycle) return;
 
     const costNumber = Number.parseFloat(operationFormValues.cost);
-    if (!Number.isFinite(costNumber) || costNumber < 0) {
-      showToast({ message: 'Operation cost must be a valid non-negative number.', variant: 'error' });
+    const valid = operationFormValidation.validate([
+      {
+        field: 'date',
+        message: 'Operation date is required.',
+        isValid: Boolean(operationFormValues.date),
+      },
+      {
+        field: 'type',
+        message: 'Operation type is required.',
+        isValid: Boolean(operationFormValues.type),
+      },
+      {
+        field: 'cost',
+        message: 'Operation cost must be a valid non-negative number.',
+        isValid: Number.isFinite(costNumber) && costNumber >= 0,
+      },
+    ]);
+    if (!valid) {
+      showToast({ message: 'Complete the highlighted fields.', variant: 'error' });
       return;
     }
 
@@ -551,7 +734,7 @@ export function CropsScreen() {
       closeOperationFormSheet();
     } catch (error) {
       showToast({
-        message: normalizeApiErrorMessage(error, 'Operation mutation failed.'),
+        message: formatApiErrorMessage(error, 'Operation mutation failed.'),
         variant: 'error',
       });
     }
@@ -569,7 +752,7 @@ export function CropsScreen() {
       }
     } catch (error) {
       showToast({
-        message: normalizeApiErrorMessage(error, 'Operation delete failed.'),
+        message: formatApiErrorMessage(error, 'Operation delete failed.'),
         variant: 'error',
       });
     } finally {
@@ -592,7 +775,7 @@ export function CropsScreen() {
       payloadObject = parsed as Record<string, unknown>;
     } catch (error) {
       showToast({
-        message: normalizeApiErrorMessage(error, 'Payload must be valid JSON.'),
+        message: formatApiErrorMessage(error, 'Payload must be valid JSON.'),
         variant: 'error',
       });
       return;
@@ -614,7 +797,7 @@ export function CropsScreen() {
       showToast({ message: 'Logbook record submitted.', variant: 'success' });
     } catch (error) {
       showToast({
-        message: normalizeApiErrorMessage(error, 'Logbook submit failed.'),
+        message: formatApiErrorMessage(error, 'Logbook submit failed.'),
         variant: 'error',
       });
     }
@@ -986,6 +1169,11 @@ export function CropsScreen() {
       <AppHeader
         title="Crops, Cycles, and Logbook"
         subtitle="Phase 11 operations scope for crop planning and production lifecycle tracking."
+        rightAction={
+          <HeaderActionGroup>
+            <NotificationHeaderButton testID="crops-header-notifications" />
+          </HeaderActionGroup>
+        }
       />
 
       <AppTabs
@@ -1031,6 +1219,7 @@ export function CropsScreen() {
       <BottomSheet
         visible={cropFormVisible}
         onDismiss={closeCropSheet}
+        scrollViewRef={cropFormScrollRef}
         title={cropFormMode === 'create' ? 'Create Crop' : 'Edit Crop'}
         footer={
           <View style={styles.sheetFooter}>
@@ -1039,54 +1228,58 @@ export function CropsScreen() {
               label={cropFormMode === 'create' ? 'Create' : 'Save'}
               onPress={() => void submitCropForm()}
               loading={isMutating}
-              disabled={isMutating || !cropFormValues.cropName.trim()}
+              disabled={isMutating}
             />
           </View>
         }
       >
-        <FormField label="Crop name" required>
-          <AppInput
-            value={cropFormValues.cropName}
-            onChangeText={(value) =>
-              setCropFormValues((current) => ({
-                ...current,
-                cropName: value,
-              }))
-            }
-            placeholder="Crop name"
-          />
-        </FormField>
+        <FormValidationProvider value={cropFormValidation.providerValue}>
+          <FormField label="Crop name" name="cropName" required>
+            <AppInput
+              value={cropFormValues.cropName}
+              onChangeText={(value) => {
+                cropFormValidation.clearFieldError('cropName');
+                setCropFormValues((current) => ({
+                  ...current,
+                  cropName: value,
+                }));
+              }}
+              placeholder="Crop name"
+            />
+          </FormField>
 
-        <FormField label="Variety">
-          <AppInput
-            value={cropFormValues.cropVariety}
-            onChangeText={(value) =>
-              setCropFormValues((current) => ({
-                ...current,
-                cropVariety: value,
-              }))
-            }
-            placeholder="Optional variety"
-          />
-        </FormField>
+          <FormField label="Variety">
+            <AppInput
+              value={cropFormValues.cropVariety}
+              onChangeText={(value) =>
+                setCropFormValues((current) => ({
+                  ...current,
+                  cropVariety: value,
+                }))
+              }
+              placeholder="Optional variety"
+            />
+          </FormField>
 
-        <FormField label="Notes">
-          <AppTextArea
-            value={cropFormValues.notes}
-            onChangeText={(value) =>
-              setCropFormValues((current) => ({
-                ...current,
-                notes: value,
-              }))
-            }
-            placeholder="Optional notes"
-          />
-        </FormField>
+          <FormField label="Notes">
+            <AppTextArea
+              value={cropFormValues.notes}
+              onChangeText={(value) =>
+                setCropFormValues((current) => ({
+                  ...current,
+                  notes: value,
+                }))
+              }
+              placeholder="Optional notes"
+            />
+          </FormField>
+        </FormValidationProvider>
       </BottomSheet>
 
       <BottomSheet
         visible={cycleFormVisible}
         onDismiss={closeCycleCreateSheet}
+        scrollViewRef={cycleFormScrollRef}
         title="Create Production Cycle"
         footer={
           <View style={styles.sheetFooter}>
@@ -1095,95 +1288,95 @@ export function CropsScreen() {
               label="Create"
               onPress={() => void submitCycleCreate()}
               loading={isMutating}
-              disabled={
-                isMutating ||
-                !cycleFormValues.fieldId ||
-                !cycleFormValues.lotId ||
-                !cycleFormValues.cropId
-              }
+              disabled={isMutating}
             />
           </View>
         }
       >
-        <FormField label="Field" required>
-          <AppSelect
-            value={cycleFormValues.fieldId}
-            onChange={(value) =>
-              setCycleFormValues((current) => ({
-                ...current,
-                fieldId: value,
-                lotId: '',
-              }))
-            }
-            options={fields.map((field) => ({
-              label: field.name,
-              value: field.id,
-            }))}
-            label="Select field"
-          />
-        </FormField>
+        <FormValidationProvider value={cycleFormValidation.providerValue}>
+          <FormField label="Field" name="fieldId" required>
+            <AppSelect
+              testID="cycle-form-field-select"
+              value={cycleFormValues.fieldId}
+              onChange={(value) => {
+                cycleFormValidation.clearFieldError('fieldId');
+                setCycleFormValues((current) => ({
+                  ...current,
+                  fieldId: value,
+                  lotId: '',
+                  cropId: '',
+                }));
+              }}
+              options={cycleFieldOptions}
+              label="Select field"
+            />
+          </FormField>
 
-        <FormField label="Lot" required>
-          <AppSelect
-            value={cycleFormValues.lotId}
-            onChange={(value) =>
-              setCycleFormValues((current) => ({
-                ...current,
-                lotId: value,
-              }))
-            }
-            options={lotOptions}
-            label="Select lot"
-          />
-        </FormField>
+          <FormField label="Lot" name="lotId" required>
+            <AppSelect
+              testID="cycle-form-lot-select"
+              value={cycleFormValues.lotId}
+              onChange={(value) => {
+                cycleFormValidation.clearFieldError('lotId');
+                setCycleFormValues((current) => ({
+                  ...current,
+                  lotId: value,
+                }));
+              }}
+              options={lotOptions}
+              label="Select lot"
+            />
+          </FormField>
 
-        <FormField label="Crop" required>
-          <AppSelect
-            value={cycleFormValues.cropId}
-            onChange={(value) =>
-              setCycleFormValues((current) => ({
-                ...current,
-                cropId: value,
-              }))
-            }
-            options={crops.map((crop) => ({
-              label: crop.name,
-              value: crop.id,
-            }))}
-            label="Select crop"
-          />
-        </FormField>
+          <FormField label="Crop" name="cropId" required>
+            <AppSelect
+              testID="cycle-form-crop-select"
+              value={cycleFormValues.cropId}
+              onChange={(value) => {
+                cycleFormValidation.clearFieldError('cropId');
+                setCycleFormValues((current) => ({
+                  ...current,
+                  cropId: value,
+                }));
+              }}
+              options={cropOptions}
+              label="Select crop"
+            />
+          </FormField>
 
-        <FormField label="Start date" required>
-          <AppDatePicker
-            value={cycleFormValues.startDate}
-            onChange={(value) =>
-              setCycleFormValues((current) => ({
-                ...current,
-                startDate: value ?? new Date().toISOString().slice(0, 10),
-              }))
-            }
-            label="Cycle start date"
-          />
-        </FormField>
+          <FormField label="Start date" name="startDate" required>
+            <AppDatePicker
+              value={cycleFormValues.startDate}
+              onChange={(value) => {
+                cycleFormValidation.clearFieldError('startDate');
+                setCycleFormValues((current) => ({
+                  ...current,
+                  startDate: value ?? '',
+                }));
+              }}
+              label="Cycle start date"
+            />
+          </FormField>
 
-        <FormField label="Notes">
-          <AppTextArea
-            value={cycleFormValues.notes}
-            onChangeText={(value) =>
-              setCycleFormValues((current) => ({
-                ...current,
-                notes: value,
-              }))
-            }
-            placeholder="Optional cycle notes"
-          />
-        </FormField>
+          <FormField label="Notes">
+            <AppTextArea
+              value={cycleFormValues.notes}
+              onChangeText={(value) =>
+                setCycleFormValues((current) => ({
+                  ...current,
+                  notes: value,
+                }))
+              }
+              placeholder="Optional cycle notes"
+            />
+          </FormField>
+        </FormValidationProvider>
       </BottomSheet>
 
       <BottomSheet
         visible={cycleCloseVisible}
         onDismiss={closeCycleCloseSheet}
+        scrollViewRef={cycleCloseFormScrollRef}
         title={cycleActionTarget ? `Close Cycle: ${cycleActionTarget.cropName ?? cycleActionTarget.id}` : 'Close Cycle'}
         footer={
           <View style={styles.sheetFooter}>
@@ -1193,36 +1386,39 @@ export function CropsScreen() {
               tone="destructive"
               onPress={() => void submitCycleClose()}
               loading={isMutating}
-              disabled={isMutating || !cycleCloseValues.endDate}
+              disabled={isMutating}
             />
           </View>
         }
       >
-        <FormField label="End date" required>
-          <AppDatePicker
-            value={cycleCloseValues.endDate}
-            onChange={(value) =>
-              setCycleCloseValues((current) => ({
-                ...current,
-                endDate: value ?? new Date().toISOString().slice(0, 10),
-              }))
-            }
-            label="Cycle end date"
-          />
-        </FormField>
+        <FormValidationProvider value={cycleCloseFormValidation.providerValue}>
+          <FormField label="End date" name="endDate" required>
+            <AppDatePicker
+              value={cycleCloseValues.endDate}
+              onChange={(value) => {
+                cycleCloseFormValidation.clearFieldError('endDate');
+                setCycleCloseValues((current) => ({
+                  ...current,
+                  endDate: value ?? '',
+                }));
+              }}
+              label="Cycle end date"
+            />
+          </FormField>
 
-        <FormField label="Close notes">
-          <AppTextArea
-            value={cycleCloseValues.notes}
-            onChangeText={(value) =>
-              setCycleCloseValues((current) => ({
-                ...current,
-                notes: value,
-              }))
-            }
-            placeholder="Optional close notes"
-          />
-        </FormField>
+          <FormField label="Close notes">
+            <AppTextArea
+              value={cycleCloseValues.notes}
+              onChangeText={(value) =>
+                setCycleCloseValues((current) => ({
+                  ...current,
+                  notes: value,
+                }))
+              }
+              placeholder="Optional close notes"
+            />
+          </FormField>
+        </FormValidationProvider>
       </BottomSheet>
 
       <BottomSheet
@@ -1306,6 +1502,7 @@ export function CropsScreen() {
       <BottomSheet
         visible={operationFormVisible}
         onDismiss={closeOperationFormSheet}
+        scrollViewRef={operationFormScrollRef}
         title={operationFormMode === 'create' ? 'Create operation' : 'Edit operation'}
         footer={
           <View style={styles.sheetFooter}>
@@ -1314,66 +1511,71 @@ export function CropsScreen() {
               label={operationFormMode === 'create' ? 'Create' : 'Save'}
               onPress={() => void submitOperationForm()}
               loading={isMutating}
-              disabled={isMutating || !operationFormValues.date}
+              disabled={isMutating}
             />
           </View>
         }
       >
-        <FormField label="Operation date" required>
-          <AppDatePicker
-            value={operationFormValues.date}
-            onChange={(value) =>
-              setOperationFormValues((current) => ({
-                ...current,
-                date: value ?? new Date().toISOString().slice(0, 10),
-              }))
-            }
-            label="Operation date"
-          />
-        </FormField>
+        <FormValidationProvider value={operationFormValidation.providerValue}>
+          <FormField label="Operation date" name="date" required>
+            <AppDatePicker
+              value={operationFormValues.date}
+              onChange={(value) => {
+                operationFormValidation.clearFieldError('date');
+                setOperationFormValues((current) => ({
+                  ...current,
+                  date: value ?? '',
+                }));
+              }}
+              label="Operation date"
+            />
+          </FormField>
 
-        <FormField label="Operation type" required>
-          <AppSelect
-            value={operationFormValues.type}
-            onChange={(value) =>
-              setOperationFormValues((current) => ({
-                ...current,
-                type: value === 'PLANTING' ? 'PLANTING' : 'LAND_PREP',
-              }))
-            }
-            options={OPERATION_TYPE_OPTIONS.map((option) => ({
-              label: option.label,
-              value: option.value,
-            }))}
-            label="Operation type"
-          />
-        </FormField>
+          <FormField label="Operation type" name="type" required>
+            <AppSelect
+              value={operationFormValues.type}
+              onChange={(value) => {
+                operationFormValidation.clearFieldError('type');
+                setOperationFormValues((current) => ({
+                  ...current,
+                  type: value === 'PLANTING' ? 'PLANTING' : 'LAND_PREP',
+                }));
+              }}
+              options={OPERATION_TYPE_OPTIONS.map((option) => ({
+                label: option.label,
+                value: option.value,
+              }))}
+              label="Operation type"
+            />
+          </FormField>
 
-        <FormField label="Cost" required>
-          <AppInput
-            value={operationFormValues.cost}
-            onChangeText={(value) =>
-              setOperationFormValues((current) => ({
-                ...current,
-                cost: value,
-              }))
-            }
-            placeholder="0"
-          />
-        </FormField>
+          <FormField label="Cost" name="cost" required>
+            <AppInput
+              value={operationFormValues.cost}
+              onChangeText={(value) => {
+                operationFormValidation.clearFieldError('cost');
+                setOperationFormValues((current) => ({
+                  ...current,
+                  cost: value,
+                }));
+              }}
+              placeholder="0"
+            />
+          </FormField>
 
-        <FormField label="Notes">
-          <AppTextArea
-            value={operationFormValues.notes}
-            onChangeText={(value) =>
-              setOperationFormValues((current) => ({
-                ...current,
-                notes: value,
-              }))
-            }
-            placeholder="Optional operation notes"
-          />
-        </FormField>
+          <FormField label="Notes">
+            <AppTextArea
+              value={operationFormValues.notes}
+              onChangeText={(value) =>
+                setOperationFormValues((current) => ({
+                  ...current,
+                  notes: value,
+                }))
+              }
+              placeholder="Optional operation notes"
+            />
+          </FormField>
+        </FormValidationProvider>
       </BottomSheet>
 
       <ActionSheet
@@ -1389,17 +1591,22 @@ export function CropsScreen() {
                   label: 'Edit crop',
                   onPress: () => openCropEditSheet(cropActionTarget),
                 },
-                {
-                  key: 'status',
-                  label: isInactiveStatus(cropActionTarget.status)
-                    ? 'Mark active'
-                    : 'Mark inactive',
-                  destructive: !isInactiveStatus(cropActionTarget.status),
-                  onPress: () =>
-                    setPendingCropStatusAction(
-                      isInactiveStatus(cropActionTarget.status) ? 'active' : 'inactive',
-                    ),
-                },
+                ...(!isActiveLifecycleStatus(cropActionTarget.status) ||
+                !cropHasActiveCycle.has(cropActionTarget.id)
+                  ? [
+                      {
+                        key: 'status',
+                        label: isInactiveLifecycleStatus(cropActionTarget.status)
+                          ? 'Mark active'
+                          : 'Mark inactive',
+                        destructive: !isInactiveLifecycleStatus(cropActionTarget.status),
+                        onPress: () =>
+                          setPendingCropStatusAction(
+                            isInactiveLifecycleStatus(cropActionTarget.status) ? 'active' : 'inactive',
+                          ),
+                      },
+                    ]
+                  : []),
               ]
             : []
         }

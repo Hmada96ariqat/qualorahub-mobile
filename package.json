@@ -29,6 +29,7 @@
     "@expo/vector-icons": "^15.0.2",
     "@hookform/resolvers": "^5.2.2",
     "@react-native-async-storage/async-storage": "^3.0.1",
+    "@react-native-community/datetimepicker": "8.6.0",
     "@tanstack/react-query": "^5.90.21",
     "@turf/area": "^7.3.4",
     "@turf/boolean-intersects": "^7.3.4",

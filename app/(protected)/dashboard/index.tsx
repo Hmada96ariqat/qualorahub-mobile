@@ -15,7 +15,7 @@ export default function DashboardRoute() {
       moduleLabel="Dashboard"
       onSignOut={() => void signOut()}
     >
-      <DashboardShell email={session?.user.email ?? ''} onSignOut={() => void signOut()} />
+      <DashboardShell email={session?.user.email ?? ''} />
     </ModuleAccessGate>
   );
 }

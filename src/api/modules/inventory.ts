@@ -9,7 +9,6 @@ import {
   readString,
   type UnknownRecord,
 } from './runtime-parsers';
-import { OPENAPI_BLOCKER_IDS } from './openapi-blockers';
 
 type CategoryCreateResponse =
   operations['CatalogWriteController_createCategory_v1']['responses'][201]['content']['application/json'];
@@ -33,8 +32,8 @@ type ProductCreateResponse =
 type ProductUpdateResponse =
   operations['OrderWriteController_updateProduct_v1']['responses'][200]['content']['application/json'];
 
-type HardDeleteProductsResponse =
-  operations['OrderWriteController_bulkHardDeleteProducts_v1']['responses'][200]['content']['application/json'];
+type DeactivateProductsResponse =
+  operations['OrderWriteController_bulkDeactivateProducts_v1']['responses'][200]['content']['application/json'];
 
 type ListCategoriesResponse =
   operations['CatalogReadController_getCategories_v1']['responses'][200]['content']['application/json'];
@@ -76,8 +75,8 @@ type CreateProductRequestContract =
   operations['OrderWriteController_createProduct_v1']['requestBody']['content']['application/json'];
 type UpdateProductRequestContract =
   operations['OrderWriteController_updateProduct_v1']['requestBody']['content']['application/json'];
-type HardDeleteProductsRequestContract =
-  operations['OrderWriteController_bulkHardDeleteProducts_v1']['requestBody']['content']['application/json'];
+type DeactivateProductsRequestContract =
+  operations['OrderWriteController_bulkDeactivateProducts_v1']['requestBody']['content']['application/json'];
 
 export type InventoryStatus = 'active' | 'inactive' | string;
 
@@ -233,15 +232,7 @@ export type CreateInventoryContactRequest =
   | CreateContactRequest
   | CreateInventoryContactFallbackRequest;
 
-type HardDeleteProductsFallbackRequest = {
-  ids: string[];
-};
-
-// TODO(typed): Remove this fallback when BulkHardDeleteProductsCommandDto request schema is typed
-// (tracked as QH-OAPI-012).
-export type HardDeleteProductsRequest =
-  | HardDeleteProductsRequestContract
-  | HardDeleteProductsFallbackRequest;
+export type DeactivateProductsRequest = DeactivateProductsRequestContract;
 
 function readNullableNumber(value: unknown): number | null {
   if (typeof value === 'number' && Number.isFinite(value)) return value;
@@ -720,28 +711,26 @@ export async function updateProduct(
   return parseMutationResult(data, parseProduct, 'Products API returned an empty update payload.');
 }
 
-export async function hardDeleteProducts(
+export async function deactivateProducts(
   token: string,
-  input: HardDeleteProductsRequest,
+  input: DeactivateProductsRequest,
 ): Promise<number> {
   const requestBody = isRecord(input)
     ? { ids: Array.isArray(input.ids) ? input.ids : [] }
     : { ids: [] };
 
   if (requestBody.ids.length === 0) {
-    throw new Error(
-      `Hard-delete requires at least one product ID (${OPENAPI_BLOCKER_IDS.PRODUCTS_HARD_DELETE_REQUEST_DTO}).`,
-    );
+    throw new Error('Deactivate requires at least one product ID.');
   }
 
-  const { data } = await apiClient.post<HardDeleteProductsResponse, HardDeleteProductsFallbackRequest>(
-    '/products/commands/hard-delete',
+  const { data } = await apiClient.post<DeactivateProductsResponse, DeactivateProductsRequest>(
+    '/products/commands/deactivate',
     {
       token,
       body: requestBody,
-      idempotencyKey: `products-hard-delete-${Date.now()}`,
+      idempotencyKey: `products-deactivate-${Date.now()}`,
     },
   );
 
-  return typeof data.deletedCount === 'number' ? data.deletedCount : 0;
+  return typeof data.deactivatedCount === 'number' ? data.deactivatedCount : 0;
 }

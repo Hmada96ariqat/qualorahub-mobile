@@ -2,6 +2,7 @@ import {
   createCrop,
   createProductionCycleOperation,
   getLogbookSession,
+  listCrops,
   listProductionCycles,
   submitLogbook,
 } from '../../../api/modules/crops';
@@ -59,6 +60,43 @@ describe('crops api module', () => {
         notes: 'Cycle note',
         estimatedCost: 42.5,
         actualCost: 17,
+        createdAt: '2026-03-01T00:00:00.000Z',
+        updatedAt: '2026-03-02T00:00:00.000Z',
+      },
+    ]);
+  });
+
+  it('parses crops list payload from canonical crop endpoint', async () => {
+    const fetchMock = jest.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      text: async () =>
+        JSON.stringify([
+          {
+            id: 'crop-1',
+            crop_name: 'Tomato',
+            crop_variety: 'Roma',
+            status: 'Active',
+            notes: 'Field linked crop',
+            field_id: 'field-1',
+            created_at: '2026-03-01T00:00:00.000Z',
+            updated_at: '2026-03-02T00:00:00.000Z',
+          },
+        ]),
+      headers: { get: () => null },
+    });
+    global.fetch = fetchMock as unknown as typeof fetch;
+
+    const crops = await listCrops('token');
+
+    expect(crops).toEqual([
+      {
+        id: 'crop-1',
+        name: 'Tomato',
+        variety: 'Roma',
+        status: 'Active',
+        notes: 'Field linked crop',
+        fieldId: 'field-1',
         createdAt: '2026-03-01T00:00:00.000Z',
         updatedAt: '2026-03-02T00:00:00.000Z',
       },
