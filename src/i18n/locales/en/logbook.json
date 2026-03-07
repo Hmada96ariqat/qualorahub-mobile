@@ -1,0 +1,359 @@
+{
+  "logbook": {
+    "title": "Operations Logbook",
+    "sessionBadge": "Session · {{count}} logs",
+    "flowStepLabel": "Step {{current}} of {{total}} • {{title}}",
+    "defaultPracticeLabel": "{{family}} Operation",
+    "steps": {
+      "category": "What did you do?",
+      "entity": "Select entity",
+      "family": "Choose category",
+      "practice": "Select practice",
+      "form": "Enter activity details",
+      "success": "Activity logged"
+    },
+    "context": {
+      "fieldLabel": "Field",
+      "dateLabel": "Date",
+      "noAccessibleFields": "No accessible fields",
+      "selectField": "Select field",
+      "allAccessibleFields": "All accessible fields",
+      "selectedField": "Selected field"
+    },
+    "actions": {
+      "back": "Back",
+      "cancel": "Cancel",
+      "saveLog": "Save Log",
+      "saving": "Saving...",
+      "logAnother": "Log Another Activity",
+      "repeatSameOperation": "Repeat Same Operation",
+      "finish": "Finish"
+    },
+    "categories": {
+      "cropOperation": "Crop Operation",
+      "equipmentUsage": "Equipment Usage",
+      "equipmentMaintenance": "Equipment Maintenance",
+      "animalFeedWater": "Animal Feed & Water",
+      "animalHouseMaintenance": "Animal House Maintenance",
+      "animalYield": "Animal Yield",
+      "lotMaintenance": "Lot Maintenance"
+    },
+    "operationFamilies": {
+      "landPrep": "Land Preparation",
+      "planting": "Planting",
+      "irrigation": "Irrigation",
+      "nutrient": "Nutrient Application",
+      "treatment": "Treatment",
+      "weedManagement": "Weed Management",
+      "cultural": "Cultural Operations",
+      "harvest": "Harvest"
+    },
+    "cards": {
+      "cropOperationHint": "Select crop family and practice",
+      "directLogHint": "Log this activity directly"
+    },
+    "search": {
+      "entities": "Search entities...",
+      "practices": "Search practices..."
+    },
+    "fallbacks": {
+      "fieldWorker": "Field Worker",
+      "unknownLot": "Unknown lot",
+      "unknownField": "Unknown field"
+    },
+    "emptyStates": {
+      "noActiveFields": "No accessible active fields were found for your account.",
+      "noCategories": "No log categories are available for your current permissions and plan.",
+      "noEntities": "No entities are available for the selected category.",
+      "noPractices": "No practices are enabled for this crop/family combination.",
+      "category": {
+        "cropOperation": "No active production cycle crops are available.",
+        "equipmentUsage": "No accessible equipment is available.",
+        "equipmentMaintenance": "No accessible equipment is available.",
+        "animalFeedWater": "No animal housing units are available.",
+        "animalHouseMaintenance": "No animal housing units are available.",
+        "animalYield": "No active animals are available.",
+        "lotMaintenance": "No active lots are available."
+      }
+    },
+    "form": {
+      "optionalLabel": "{{label}} (Optional)",
+      "selectFieldPlaceholder": "Select {{label}}",
+      "photos": "Photos",
+      "attachPhotos": "Attach operation photos"
+    },
+    "success": {
+      "title": "Activity Logged",
+      "recordLabel": "Record #{{id}}",
+      "savedAsDraftPrefix": "Saved as draft:",
+      "sessionSummary": "This session · {{count}} logs"
+    },
+    "featureDisabled": {
+      "title": "Logbook is disabled",
+      "description": "Enable `VITE_LOGBOOK_ENABLED` to access this feature."
+    },
+    "toasts": {
+      "loadError": {
+        "title": "Unable to load logbook",
+        "description": "Failed to load session context."
+      },
+      "permissionsChanged": {
+        "title": "Permissions changed",
+        "description": "Your previous category is no longer available. Please choose another activity."
+      },
+      "missingSelection": {
+        "title": "Missing selection",
+        "description": "Select category and entity before submitting."
+      },
+      "missingField": {
+        "title": "Missing field",
+        "description": "Select a field before saving this log."
+      },
+      "missingCropSelection": {
+        "title": "Missing crop selection",
+        "description": "Select operation family and practice before submitting."
+      },
+      "noCulturalPractice": {
+        "title": "No cultural practice configured",
+        "description": "Please enable at least one Cultural Operations practice for this crop before saving."
+      },
+      "validationRequired": {
+        "title": "Validation required",
+        "description": "Please fix the highlighted fields and try again."
+      },
+      "photoUploadFailed": {
+        "title": "Photo upload failed",
+        "description": "Unable to upload selected photos."
+      },
+      "photoUploadAuthRequired": "Sign in again to upload photos.",
+      "savedAsDraft": {
+        "title": "Saved as draft",
+        "description": "Record was saved, but follow-up action is still required."
+      },
+      "logSaved": {
+        "title": "Log saved",
+        "description": "Activity recorded successfully."
+      },
+      "sessionExpired": {
+        "title": "Session expired",
+        "description": "Please sign in again. Your draft was preserved."
+      },
+      "practiceUpdated": {
+        "title": "Practice updated",
+        "description": "Selected practice is no longer available. Choose another one."
+      },
+      "permissionDenied": {
+        "title": "Permission denied",
+        "description": "You no longer have permission to submit this category. Please choose another activity."
+      },
+      "selectionInvalid": {
+        "title": "Selection no longer valid",
+        "description": "The selected field or entity changed. Please reselect the activity target."
+      },
+      "saveFailed": {
+        "title": "Save failed",
+        "description": "Unable to save log right now."
+      }
+    },
+    "validation": {
+      "required": "{{field}} is required.",
+      "positive": "{{field}} must be greater than 0.",
+      "invalidField": "{{field}} is invalid.",
+      "unsupportedField": "Unsupported field \"{{field}}\" in this form."
+    },
+    "productsEditor": {
+      "productsUsed": "Products used",
+      "addInput": "Add input",
+      "noInputs": "No inputs added yet.",
+      "inputLabel": "Input #{{index}}",
+      "removeInput": "Remove input {{index}}",
+      "product": "Product",
+      "selectProduct": "Select product",
+      "searchProducts": "Search products...",
+      "warehouse": "Warehouse",
+      "selectWarehouse": "Select warehouse",
+      "quantity": "Quantity",
+      "available": "Available: {{available}}",
+      "unit": "Unit",
+      "selectUnit": "Select unit",
+      "unitCostOptional": "Unit cost (Optional)",
+      "batch": "Batch",
+      "batchPlaceholder": "Optional batch",
+      "ipmDetails": "IPM / treatment details",
+      "doseUsed": "Dose used",
+      "recommendedDoseInline": "Recommended: {{dose}}{{unit}}",
+      "enterDoseUsed": "Enter dose used",
+      "phiDays": "PHI days",
+      "recommendedDose": "Recommended dose: {{dose}}{{unit}}",
+      "noCropGuidance": "No crop guidance available for this product.",
+      "selectPesticideProduct": "Select a pesticide-like product to show IPM-specific fields."
+    },
+    "templates": {
+      "crop_operation_land_prep": {
+        "title": "Land Preparation Log",
+        "fields": {
+          "cost": { "label": "Cost", "placeholder": "0" },
+          "quantity": { "label": "Quantity", "placeholder": "0" },
+          "unit": {
+            "label": "Unit",
+            "options": { "ha": "ha", "acre": "acre", "m2": "m2" }
+          },
+          "inputs": { "label": "Products used" },
+          "notes": { "label": "Notes", "placeholder": "Optional notes" }
+        }
+      },
+      "crop_operation_planting": {
+        "title": "Planting Log",
+        "fields": {
+          "plantingDate": { "label": "Planting Date" },
+          "inputs": { "label": "Products used" },
+          "notes": { "label": "Notes", "placeholder": "Optional notes" }
+        }
+      },
+      "crop_operation_irrigation": {
+        "title": "Irrigation Log",
+        "fields": {
+          "method": { "label": "Method", "placeholder": "Drip irrigation" },
+          "water_source": { "label": "Water Source", "placeholder": "Well" },
+          "volume_value": { "label": "Volume", "placeholder": "100" },
+          "volume_unit": {
+            "label": "Volume Unit",
+            "options": { "L": "L", "m3": "m3" }
+          },
+          "duration_hours": { "label": "Duration (hours)", "placeholder": "2" },
+          "inputs": { "label": "Products used" },
+          "notes": { "label": "Notes", "placeholder": "Optional notes" }
+        }
+      },
+      "crop_operation_nutrient": {
+        "title": "Nutrient Application Log",
+        "fields": {
+          "dateApplied": { "label": "Date" },
+          "applicationMethod": { "label": "Application Method", "placeholder": "Fertigation" },
+          "products": { "label": "Products used" },
+          "totalCost": { "label": "Total Cost", "placeholder": "0" },
+          "notes": { "label": "Notes", "placeholder": "Optional notes" }
+        }
+      },
+      "crop_operation_treatment": {
+        "title": "Treatment Log",
+        "fields": {
+          "treatment_date": { "label": "Date" },
+          "treatment_type": { "label": "Treatment Type", "placeholder": "Fungicide spraying" },
+          "application_method": { "label": "Application Method", "placeholder": "Spray" },
+          "treatment_location": { "label": "Location", "placeholder": "North block" },
+          "products": { "label": "Products used" },
+          "notes": { "label": "Notes", "placeholder": "Optional notes" }
+        }
+      },
+      "crop_operation_weed_mgmt": {
+        "title": "Weed Management Log",
+        "fields": {
+          "date": { "label": "Date" },
+          "cost": { "label": "Cost", "placeholder": "0" },
+          "reusable_products": { "label": "Products used" },
+          "notes": { "label": "Notes", "placeholder": "Optional notes" }
+        }
+      },
+      "crop_operation_cultural": {
+        "title": "Cultural Operation Log",
+        "fields": {
+          "operationDate": { "label": "Date" },
+          "quantity": { "label": "Quantity", "placeholder": "0" },
+          "unit": {
+            "label": "Unit",
+            "options": { "ha": "ha", "acre": "acre", "m2": "m2" }
+          },
+          "cost": { "label": "Cost", "placeholder": "0" },
+          "inputs": { "label": "Products used" },
+          "notes": { "label": "Notes", "placeholder": "Optional notes" }
+        }
+      },
+      "crop_operation_harvest": {
+        "title": "Harvest Log",
+        "fields": {
+          "harvestDate": { "label": "Date" },
+          "totalHarvestedQuantity": { "label": "Total Harvested Quantity", "placeholder": "1" },
+          "totalHarvestedUnit": {
+            "label": "Unit",
+            "options": { "kg": "kg", "g": "g", "t": "t", "lb": "lb" }
+          },
+          "workerName": { "label": "Worker Name", "placeholder": "Field Worker" },
+          "notes": { "label": "Notes", "placeholder": "Optional notes" }
+        }
+      },
+      "equipment_usage_none": {
+        "title": "Equipment Usage Log",
+        "fields": {
+          "usage_purpose": { "label": "Usage Purpose", "placeholder": "Field tilling" },
+          "operator_id": { "label": "User", "placeholder": "Current user" },
+          "date_used": { "label": "Date Used" },
+          "total_hours_used": { "label": "Total Hours Used", "placeholder": "2" },
+          "fuel_consumables_used": { "label": "Fuel / Consumables Used", "placeholder": "Diesel" },
+          "cost": { "label": "Cost", "placeholder": "0" },
+          "notes": { "label": "Notes", "placeholder": "Optional notes" }
+        }
+      },
+      "equipment_maintenance_none": {
+        "title": "Equipment Maintenance Log",
+        "fields": {
+          "service_type": {
+            "label": "Service Type",
+            "options": { "scheduled": "Scheduled", "preventive": "Preventive", "emergency": "Emergency" }
+          },
+          "date_performed": { "label": "Date Performed" },
+          "service_description": { "label": "Service Description", "placeholder": "Describe maintenance work" },
+          "service_performed_by": { "label": "Performed By", "placeholder": "user:<uuid> or contact:<uuid>" },
+          "parts": { "label": "Parts used" },
+          "total_cost": { "label": "Total Cost", "placeholder": "0" },
+          "notes": { "label": "Notes", "placeholder": "Optional notes" }
+        }
+      },
+      "animal_feed_water_none": {
+        "title": "Animal Feed & Water Log",
+        "fields": {
+          "type": { "label": "Type", "options": { "Feed": "Feed", "Water": "Water" } },
+          "quantity": { "label": "Quantity", "placeholder": "1" },
+          "unit": { "label": "Unit", "options": { "kg": "kg", "L": "L" } },
+          "expense": { "label": "Expense", "placeholder": "0" },
+          "feed_type": { "label": "Feed Type", "placeholder": "Starter feed" },
+          "attach_to_finance": { "label": "Attach to Finance" },
+          "notes": { "label": "Notes", "placeholder": "Optional notes" }
+        }
+      },
+      "animal_house_maintenance_none": {
+        "title": "Animal House Maintenance Log",
+        "fields": {
+          "date_performed": { "label": "Date" },
+          "service_type": { "label": "Service Type", "placeholder": "Cleaning" },
+          "service_description": { "label": "Description", "placeholder": "Describe work performed" },
+          "total_cost": { "label": "Total Cost", "placeholder": "0" },
+          "products_used": { "label": "Products used" },
+          "notes": { "label": "Notes", "placeholder": "Optional notes" }
+        }
+      },
+      "animal_yield_none": {
+        "title": "Animal Yield Log",
+        "fields": {
+          "date": { "label": "Date" },
+          "status": { "label": "Status", "placeholder": "draft" },
+          "line_items": { "label": "Line items used" },
+          "notes": { "label": "Notes", "placeholder": "Optional notes" }
+        }
+      },
+      "lot_maintenance_none": {
+        "title": "Lot Maintenance Log",
+        "fields": {
+          "cost": { "label": "Cost", "placeholder": "0" },
+          "quantity": { "label": "Quantity", "placeholder": "0" },
+          "unit": {
+            "label": "Unit",
+            "options": { "ha": "ha", "acre": "acre", "m2": "m2" }
+          },
+          "inputs": { "label": "Products used" },
+          "notes": { "label": "Notes", "placeholder": "Optional notes" }
+        }
+      }
+    }
+  }
+}

@@ -18,7 +18,6 @@ import {
   HeaderIconButton,
   HeaderMenuButton,
   ListRow,
-  NotificationHeaderButton,
   PillTabs,
   ProfileCard,
   PullToRefreshContainer,
@@ -27,6 +26,7 @@ import {
   SectionHeader,
   Skeleton,
   StatStrip,
+  SystemHeaderActions,
   useFormValidation,
   useToast,
 } from '../../../components';
@@ -36,6 +36,7 @@ import type {
   ListRowIconVariant,
   QuickAction,
 } from '../../../components';
+import { useAppI18n } from '../../../hooks/useAppI18n';
 import { palette } from '../../../theme/tokens';
 import {
   FINANCE_GROUP_TYPE_OPTIONS,
@@ -104,6 +105,7 @@ function toTxIcon(row: FinanceTransaction): string {
 // ─── screen ──────────────────────────────────────────────────────────────────
 
 export function FinanceScreen() {
+  const { t } = useAppI18n();
   const { showToast } = useToast();
   const transactionFormScrollRef = useRef<ScrollView | null>(null);
   const transactionFormValidation = useFormValidation<
@@ -561,10 +563,9 @@ export function FinanceScreen() {
       <View style={styles.header}>
         <View style={styles.headerLead}>
           <HeaderMenuButton testID="finance-header-menu" />
-          <Text style={styles.headerTitle}>Finance</Text>
+          <Text style={styles.headerTitle}>{t('sidebar', 'items.finance', 'Finance')}</Text>
         </View>
-        <View style={styles.headerActions}>
-          <NotificationHeaderButton testID="finance-header-notifications" />
+        <SystemHeaderActions notificationTestID="finance-header-notifications">
           <HeaderIconButton
             icon="folder-outline"
             onPress={openCreateGroupForm}
@@ -576,7 +577,7 @@ export function FinanceScreen() {
             filled
             testID="finance-header-create-transaction"
           />
-        </View>
+        </SystemHeaderActions>
       </View>
 
       {/* Search */}

@@ -1,0 +1,833 @@
+{
+  "tasks": {
+    "title": "Tasks",
+    "description": "Comprehensive task management for your farm operations",
+    "addNew": "Create Task",
+    "backToTasks": "Back to Tasks",
+    "offlineMode": "Offline Mode",
+    "syncing": "Syncing...",
+    "changesPendingSync": "Changes pending sync",
+    
+    "actions": {
+      "add": "Add Task",
+      "create": "Create Task",
+      "createNew": "Create New Task",
+      "edit": "Edit",
+      "editTask": "Edit Task",
+      "update": "Update Task",
+      "delete": "Delete Task",
+      "deleteTask": "Delete Task",
+      "view": "View",
+      "viewDetails": "View Details",
+      "duplicate": "Duplicate",
+      "archive": "Archive",
+      "unarchive": "Unarchive",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saveDraft": "Save Draft",
+      "saveAndAssign": "Save & Assign",
+      "submit": "Submit",
+      "reset": "Reset",
+      "filter": "Filter",
+      "filters": "Filters",
+      "search": "Search",
+      "clearAllFilters": "Clear All Filters",
+      "refresh": "Refresh",
+      "export": "Export",
+      "exportTasks": "Export Tasks",
+      "import": "Import",
+      "importTasks": "Import Tasks",
+      "manageTemplates": "Manage Templates",
+      "useTemplate": "Use Template",
+      "applyTemplate": "Apply Template",
+      "close": "Close",
+      "next": "Next",
+      "previous": "Previous",
+      "finish": "Finish",
+      "processing": "Processing...",
+      "admin": "Admin"
+    },
+    
+    "views": {
+      "list": "List",
+      "listView": "List View",
+      "calendar": "Calendar",
+      "calendarView": "Calendar View",
+      "kanban": "Kanban",
+      "kanbanBoard": "Kanban Board",
+      "grid": "Grid",
+      "table": "Table"
+    },
+    
+    "status": {
+      "draft": "Draft",
+      "toDo": "To Do",
+      "to_do": "To Do",
+      "pending": "Pending",
+      "inProgress": "In Progress",
+      "in_progress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "archived": "Archived",
+      "all": "All Statuses",
+      "unknown": "Unknown Status"
+    },
+    
+    "priority": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "urgent": "Urgent",
+      "all": "All Priorities"
+    },
+    
+    "types": {
+      "plantingCycle": "Planting Cycle",
+      "planting_cycle": "Planting Cycle",
+      "equipment": "Equipment",
+      "animalHousing": "Animal Housing",
+      "animal_housing": "Animal Housing",
+      "animal": "Animal",
+      "livestock": "Livestock",
+      "maintenance": "Maintenance",
+      "harvest": "Harvest",
+      "irrigation": "Irrigation",
+      "pest_control": "Pest Control",
+      "pestControl": "Pest Control",
+      "fertilizer": "Fertilizer",
+      "inspection": "Inspection",
+      "transport": "Transport",
+      "storage": "Storage",
+      "sales": "Sales",
+      "administrative": "Administrative",
+      "other": "Other",
+      "all": "All Types"
+    },
+    
+    "categories": {
+      "soilPreparation": "Soil Preparation",
+      "planting": "Planting",
+      "cultivation": "Cultivation",
+      "harvesting": "Harvesting",
+      "postHarvest": "Post-Harvest",
+      "feeding": "Feeding",
+      "breeding": "Breeding",
+      "healthCheck": "Health Check",
+      "vaccination": "Vaccination",
+      "cleaning": "Cleaning",
+      "repair": "Repair",
+      "inspection": "Inspection",
+      "routine": "Routine",
+      "emergency": "Emergency",
+      "scheduled": "Scheduled"
+    },
+    
+    "wizard": {
+      "title": {
+        "create": "Create New Task",
+        "edit": "Edit Task"
+      },
+      "subtitle": {
+        "create": "Set up your task with all necessary details",
+        "edit": "Update task information and settings"
+      },
+      "steps": {
+        "basicDetails": {
+          "title": "Basic Details",
+          "description": "Task name, type, and description",
+          "subtitle": "Define the core information for your task"
+        },
+        "assignmentProgress": {
+          "title": "Assignment & Progress",
+          "description": "Status, priority, and assignments",
+          "subtitle": "Set task priority, status, and assign team members"
+        },
+        "time": {
+          "title": "Time",
+          "description": "Scheduling and time tracking",
+          "subtitle": "Set dates, deadlines, and time estimates"
+        },
+        "costTracking": {
+          "title": "Cost Tracking",
+          "description": "Labor, fuel, and material costs",
+          "subtitle": "Track expenses and resource costs"
+        }
+      },
+      "progress": "Step {{current}} of {{total}}",
+      "completed": "Completed",
+      "optional": "Optional"
+    },
+    
+    "form": {
+      "title": {
+        "create": "Create New Task",
+        "edit": "Edit Task"
+      },
+      "description": {
+        "create": "Fill in the details for your new task",
+        "edit": "Update task information"
+      },
+      "sections": {
+        "basicInfo": "Basic Information",
+        "basicDetails": "Basic Details",
+        "assignmentProgress": "Assignment & Progress",
+        "timeScheduling": "Time Tracking",
+        "costTracking": "Cost Breakdown",
+        "linkedAssets": "Linked Assets",
+        "checklist": "Checklist",
+        "attachments": "Attachments",
+        "additionalInfo": "Additional Information"
+      },
+      "fields": {
+        "title": {
+          "label": "Task Name",
+          "placeholder": "Enter task name",
+          "required": "Task name is required",
+          "helpText": "Give your task a clear, descriptive name"
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Additional context or instructions",
+          "helpText": "Provide details about what needs to be done"
+        },
+        "taskType": {
+          "label": "Task Type",
+          "placeholder": "Select task type",
+          "required": "Task type is required",
+          "helpText": "Choose the category that best fits this task"
+        },
+        "taskCategory": {
+          "label": "Task Category",
+          "placeholder": "Select category",
+          "required": "Task category is required",
+          "helpText": "Specific category within the task type"
+        },
+        "status": {
+          "label": "Status",
+          "placeholder": "Select status",
+          "required": "Status is required",
+          "helpText": "Current state of the task"
+        },
+        "priority": {
+          "label": "Priority",
+          "placeholder": "Select priority",
+          "helpText": "How urgent or important is this task"
+        },
+        "taskColor": {
+          "label": "Task Color",
+          "helpText": "Choose a color to help identify this task"
+        },
+        "assignedUsers": {
+          "label": "Assigned To",
+          "placeholder": "Select users...",
+          "noUsersAvailable": "No users available for assignment",
+          "usersSelected": "{{count}} user(s) selected",
+          "helpText": "Team members responsible for this task"
+        },
+        "startDateTime": {
+          "label": "Start Date & Time",
+          "placeholder": "Select start date",
+          "helpText": "When should this task begin"
+        },
+        "dueDatetime": {
+          "label": "Due Date & Time",
+          "placeholder": "Select due date",
+          "helpText": "When should this task be completed"
+        },
+        "estimatedHours": {
+          "label": "Estimated Hours",
+          "placeholder": "0",
+          "helpText": "How long do you expect this task to take"
+        },
+        "actualHours": {
+          "label": "Actual Hours",
+          "placeholder": "0",
+          "helpText": "How long did this task actually take"
+        },
+        "completedDate": {
+          "label": "Completed Date",
+          "placeholder": "Select completion date"
+        },
+        "laborCost": {
+          "label": "Labor Cost",
+          "placeholder": "0.00",
+          "helpText": "Cost of labor for this task"
+        },
+        "fuelCost": {
+          "label": "Fuel Cost",
+          "placeholder": "0.00",
+          "helpText": "Fuel expenses for equipment used"
+        },
+        "materialCost": {
+          "label": "Material Cost",
+          "placeholder": "0.00",
+          "helpText": "Cost of materials and supplies"
+        },
+        "totalCost": {
+          "label": "Total Cost",
+          "calculated": "Calculated automatically",
+          "helpText": "Sum of all task-related costs"
+        },
+        "linkedAssets": {
+          "label": "Linked Assets",
+          "fields": "Fields",
+          "lots": "Lots",
+          "equipment": "Equipment",
+          "warehouses": "Warehouses",
+          "livestock": "Livestock",
+          "selectFields": "Select fields",
+          "selectLots": "Select lots",
+          "selectEquipment": "Select equipment",
+          "selectWarehouses": "Select warehouses",
+          "selectLivestock": "Select livestock",
+          "noFieldsAvailable": "No fields available",
+          "noLotsAvailable": "No lots available",
+          "noEquipmentAvailable": "No equipment available",
+          "noWarehousesAvailable": "No warehouses available",
+          "noLivestockAvailable": "No livestock available",
+          "helpText": "Link relevant farm assets to this task"
+        },
+        "checklistItems": {
+          "label": "Checklist",
+          "addItem": "Add Checklist Item",
+          "removeItem": "Remove Item",
+          "itemPlaceholder": "Enter checklist item",
+          "noItems": "No checklist items added yet",
+          "helpText": "Break down the task into smaller steps"
+        },
+        "attachments": {
+          "label": "Attachments",
+          "upload": "Upload Files",
+          "dropFiles": "Drop files here or click to browse",
+          "supportedFormats": "PDF, JPG, PNG, CSV files supported",
+          "maxFileSize": "Max file size: 10MB",
+          "noAttachments": "No attachments added",
+          "helpText": "Attach relevant documents, images, or files"
+        },
+        "repeatPattern": {
+          "label": "Repeat Pattern",
+          "placeholder": "Select repeat pattern",
+          "doesNotRepeat": "Does not repeat",
+          "daily": "Daily",
+          "weekly": "Weekly", 
+          "monthly": "Monthly",
+          "custom": "Custom",
+          "helpText": "Set up recurring tasks if needed"
+        }
+      },
+      "validation": {
+        "titleRequired": "Task name is required",
+        "typeRequired": "Task type is required",
+        "categoryRequired": "Task category is required",
+        "statusRequired": "Status is required",
+        "invalidDate": "Please enter a valid date",
+        "invalidTime": "Please enter a valid time",
+        "invalidNumber": "Please enter a valid number",
+        "startBeforeEnd": "Start date must be before due date",
+        "estimatedHoursMin": "Estimated hours must be 0 or greater",
+        "actualHoursMin": "Actual hours must be 0 or greater",
+        "costMin": "Cost must be 0 or greater"
+      }
+    },
+    
+    "table": {
+      "headers": {
+        "title": "Task",
+        "type": "Type",
+        "category": "Category",
+        "status": "Status",
+        "priority": "Priority",
+        "assignedTo": "Assigned To",
+        "dueDate": "Due Date",
+        "estimatedHours": "Est. Hours",
+        "actualHours": "Actual Hours",
+        "progress": "Progress",
+        "cost": "Cost",
+        "actions": "Actions",
+        "createdBy": "Created By",
+        "createdDate": "Created",
+        "updatedDate": "Updated"
+      },
+      "noData": "No tasks found",
+      "loading": "Loading tasks...",
+      "pagination": {
+        "showing": "Showing {{start}} to {{end}} of {{total}} tasks",
+        "rowsPerPage": "Rows per page",
+        "page": "Page",
+        "of": "of",
+        "goToPage": "Go to page",
+        "previous": "Previous",
+        "next": "Next"
+      }
+    },
+    
+    "card": {
+      "overdue": "Overdue",
+      "dueToday": "Due Today",
+      "dueSoon": "Due Soon",
+      "estimatedTime": "{{hours}}h estimated",
+      "actualTime": "{{actual}}h / {{estimated}}h",
+      "totalCost": "Total Cost: ${{cost}}",
+      "assignedTo": "Assigned to {{count}} user(s)",
+      "noAssignment": "Unassigned",
+      "checklist": "Checklist: {{completed}}/{{total}} completed",
+      "noChecklist": "No checklist",
+      "linkedAssets": "{{count}} linked asset(s)",
+      "noLinkedAssets": "No linked assets"
+    },
+    
+    "kanban": {
+      "columns": {
+        "draft": "Draft",
+        "toDo": "To Do",
+        "inProgress": "In Progress", 
+        "completed": "Completed",
+        "cancelled": "Cancelled",
+        "archived": "Archive"
+      },
+      "taskCount": "{{count}} task(s)",
+      "dropHere": "Drop task here",
+      "moveToColumn": "Move to {{column}}",
+      "loading": "Loading tasks...",
+      "empty": "No tasks in this column",
+      "dragToMove": "Drag tasks between columns to update status"
+    },
+    
+    "calendar": {
+      "month": "Month",
+      "week": "Week",
+      "day": "Day",
+      "agenda": "Agenda",
+      "today": "Today",
+      "noEvents": "No tasks scheduled for this period",
+      "tasksDue": "{{count}} task(s) due",
+      "tasksOverdue": "{{count}} overdue task(s)",
+      "viewTask": "View Task",
+      "createTask": "Create Task",
+      "loading": "Loading calendar...",
+      "moreTasks": "more",
+      "weekdays": {
+        "sun": "Sun",
+        "mon": "Mon", 
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat"
+      },
+      "navigation": {
+        "previous": "Previous",
+        "next": "Next",
+        "today": "Today"
+      }
+    },
+    
+    "filters": {
+      "title": "Search & Filters",
+      "filtersAndSearch": "Filters & Search",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search tasks...",
+        "noResults": "No tasks match your search criteria",
+        "resultsCount": "{{count}} of {{total}} tasks"
+      },
+      "status": {
+        "label": "Status",
+        "all": "All Statuses",
+        "selected": "{{count}} selected"
+      },
+      "priority": {
+        "label": "Priority", 
+        "all": "All Priorities",
+        "selected": "{{count}} selected"
+      },
+      "type": {
+        "label": "Type",
+        "taskType": "Task Type",
+        "all": "All Types",
+        "selected": "{{count}} selected"
+      },
+      "assignedTo": {
+        "label": "Assigned To",
+        "all": "All Users",
+        "unassigned": "Unassigned",
+        "selected": "{{count}} selected",
+        "loading": "Loading users..."
+      },
+      "dateRange": {
+        "label": "Due Date Range",
+        "from": "From",
+        "to": "To",
+        "anytime": "Anytime",
+        "today": "Today",
+        "thisWeek": "This Week",
+        "thisMonth": "This Month",
+        "overdue": "Overdue",
+        "custom": "Custom Range"
+      },
+      "clearAll": "Clear All",
+      "applyFilters": "Apply Filters",
+      "activeFilters": "{{count}} filter(s) applied",
+      "noActiveFilters": "No filters applied"
+    },
+    
+    "detail": {
+      "title": "Task Details",
+      "overview": "Overview",
+      "description": "Description",
+      "noDescription": "No description provided",
+      "basicInfo": "Basic Information",
+      "assignment": "Assignment",
+      "scheduling": "Scheduling",
+      "progress": "Progress",
+      "costs": "Costs",
+      "assets": "Linked Assets",
+      "checklist": "Checklist",
+      "comments": "Comments",
+      "activity": "Activity",
+      "allActivity": "All activity",
+      "attachments": "Attachments",
+      "history": "History",
+      "metadata": "Metadata",
+      "fields": {
+        "taskName": "Task Name",
+        "taskType": "Task Type",
+        "category": "Category",
+        "status": "Status",
+        "priority": "Priority",
+        "assignedTo": "Assigned To",
+        "createdBy": "Created By",
+        "createdDate": "Created Date",
+        "updatedDate": "Updated Date",
+        "startDate": "Start Date",
+        "dueDate": "Due Date",
+        "completedDate": "Completed Date",
+        "estimatedHours": "Estimated Hours",
+        "actualHours": "Actual Hours",
+        "laborCost": "Labor Cost",
+        "fuelCost": "Fuel Cost",
+        "materialCost": "Material Cost",
+        "totalCost": "Total Cost",
+        "color": "Task Color",
+        "id": "Task ID"
+      },
+      "labels": {
+        "unassigned": "Unassigned",
+        "notSet": "Not set",
+        "notSpecified": "Not specified",
+        "none": "None",
+        "unknown": "Unknown",
+        "noAttachments": "No attachments",
+        "noComments": "No comments yet",
+        "noActivity": "No activity yet",
+        "noChecklist": "No checklist items"
+      },
+      "actions": {
+        "editTask": "Edit Task",
+        "deleteTask": "Delete Task",
+        "duplicateTask": "Duplicate Task",
+        "archiveTask": "Archive Task",
+        "markComplete": "Mark Complete",
+        "markIncomplete": "Mark Incomplete",
+        "assignToMe": "Assign to Me"
+      }
+    },
+    
+    "comments": {
+      "title": "Comments",
+      "addComment": "Add a comment...",
+      "postComment": "Post Comment",
+      "editComment": "Edit Comment",
+      "deleteComment": "Delete Comment",
+      "reply": "Reply",
+      "showReplies": "Show replies",
+      "hideReplies": "Hide replies",
+      "noComments": "No comments yet. Be the first to comment!",
+      "loading": "Loading comments...",
+      "posting": "Posting...",
+      "edited": "Edited",
+      "deleted": "Comment deleted",
+      "enterToSend": "Press Enter to send, Shift+Enter for new line"
+    },
+    
+    "activity": {
+      "title": "Activity",
+      "taskCreated": "{{user}} created this task",
+      "taskUpdated": "{{user}} updated this task",
+      "statusChanged": "{{user}} changed status from {{oldStatus}} to {{newStatus}}",
+      "priorityChanged": "{{user}} changed priority from {{oldPriority}} to {{newPriority}}",
+      "assignedUser": "{{user}} assigned {{assignee}} to this task",
+      "unassignedUser": "{{user}} unassigned {{assignee}} from this task",
+      "dueDateChanged": "{{user}} changed due date to {{dueDate}}",
+      "taskCompleted": "{{user}} marked this task as completed",
+      "commentAdded": "{{user}} added a comment",
+      "attachmentAdded": "{{user}} added an attachment",
+      "checklistUpdated": "{{user}} updated the checklist",
+      "loading": "Loading activity...",
+      "noActivity": "No activity yet.",
+      "timeAgo": "{{time}} ago"
+    },
+    
+    "templates": {
+      "title": "Task Templates",
+      "subtitle": "Manage and use task templates",
+      "description": "Create reusable task templates to streamline task creation",
+      "createTemplate": "Create Template",
+      "editTemplate": "Edit Template",
+      "deleteTemplate": "Delete Template",
+      "useTemplate": "Use Template",
+      "applyTemplate": "Apply Template",
+      "selectTemplate": "Select Template",
+      "noTemplate": "No template selected",
+      "templateApplied": "Template applied successfully",
+      "management": {
+        "title": "Template Management",
+        "description": "Create, edit, and manage your task templates",
+        "noTemplates": "No templates created yet",
+        "createFirst": "Create your first template to get started"
+      },
+      "form": {
+        "templateName": {
+          "label": "Template Name",
+          "placeholder": "Enter template name",
+          "required": "Template name is required"
+        },
+        "templateDescription": {
+          "label": "Template Description",
+          "placeholder": "Describe what this template is for"
+        },
+        "isPublic": {
+          "label": "Make Public",
+          "helpText": "Allow other team members to use this template"
+        }
+      },
+      "selector": {
+        "title": "Quick Start with Template",
+        "placeholder": "Choose a template to start with",
+        "noTemplatesAvailable": "No templates available",
+        "createNewTemplate": "Create new template",
+        "preview": "Preview",
+        "apply": "Apply"
+      }
+    },
+    
+    "dashboard": {
+      "title": "Tasks Dashboard", 
+      "subtitle": "Overview of all task activities and metrics",
+      "summary": {
+        "totalTasks": "Total Tasks",
+        "activeTasks": "Active Tasks",
+        "completedTasks": "Completed Tasks",
+        "overdueTasks": "Overdue Tasks",
+        "tasksThisWeek": "Tasks This Week",
+        "tasksThisMonth": "Tasks This Month",
+        "avgCompletionTime": "Avg. Completion Time",
+        "totalCost": "Total Cost"
+      },
+      "charts": {
+        "tasksByStatus": "Tasks by Status",
+        "tasksByPriority": "Tasks by Priority", 
+        "tasksByType": "Tasks by Type",
+        "completionTrend": "Completion Trend",
+        "costAnalysis": "Cost Analysis",
+        "teamPerformance": "Team Performance"
+      },
+      "recentTasks": "Recent Tasks",
+      "upcomingDeadlines": "Upcoming Deadlines",
+      "loading": "Loading dashboard...",
+      "noData": "No data available"
+    },
+    
+    "messages": {
+      "success": {
+        "taskCreated": "Task Created",
+        "taskCreatedDescription": "New task has been successfully created.",
+        "taskUpdated": "Task Updated", 
+        "taskUpdatedDescription": "Task has been successfully updated.",
+        "taskDeleted": "Task Deleted",
+        "taskDeletedDescription": "Task has been successfully deleted.",
+        "taskCompleted": "Task Completed",
+        "taskCompletedDescription": "Task has been marked as completed.",
+        "taskArchived": "Task Archived",
+        "taskArchivedDescription": "Task has been archived successfully.",
+        "taskDuplicated": "Task Duplicated",
+        "taskDuplicatedDescription": "Task has been duplicated successfully.",
+        "statusUpdated": "Status Updated",
+        "statusUpdatedDescription": "Task status has been updated.",
+        "assignmentUpdated": "Assignment Updated",
+        "assignmentUpdatedDescription": "Task assignment has been updated.",
+        "templateCreated": "Template Created",
+        "templateCreatedDescription": "Task template has been created.",
+        "templateApplied": "Template Applied",
+        "templateAppliedDescription": "Template has been applied to the task.",
+        "commentAdded": "Comment Added",
+        "commentAddedDescription": "Your comment has been posted.",
+        "attachmentUploaded": "Attachment Uploaded",
+        "attachmentUploadedDescription": "File has been uploaded successfully.",
+        "checklistUpdated": "Checklist Updated",
+        "checklistUpdatedDescription": "Checklist has been updated.",
+        "tasksExported": "Tasks Exported",
+        "tasksExportedDescription": "Tasks have been exported successfully.",
+        "offlineTaskSaved": "Task Saved (Offline)",
+        "offlineTaskSavedDescription": "Task will be synced when connection is restored."
+      },
+      "error": {
+        "generic": "Error",
+        "taskCreateFailed": "Failed to create task",
+        "taskUpdateFailed": "Failed to update task", 
+        "taskDeleteFailed": "Failed to delete task",
+        "taskLoadFailed": "Failed to load task",
+        "statusUpdateFailed": "Failed to update status",
+        "validationError": "Validation Error",
+        "permissionDenied": "Permission denied",
+        "networkError": "Network error occurred",
+        "templateLoadFailed": "Failed to load templates",
+        "templateCreateFailed": "Failed to create template",
+        "templateApplyFailed": "Failed to apply template",
+        "commentFailed": "Failed to add comment",
+        "uploadFailed": "Failed to upload file",
+        "exportFailed": "Failed to export tasks",
+        "importFailed": "Failed to import tasks",
+        "attachmentTooLarge": "File too large",
+        "invalidFileType": "Invalid file type",
+        "offlineError": "Offline Error",
+        "syncFailed": "Sync failed"
+      },
+      "permissions": {
+        "cannotCreate": "You do not have permission to create tasks.",
+        "cannotEdit": "You do not have permission to edit tasks.",
+        "cannotDelete": "You do not have permission to delete tasks.",
+        "cannotAssign": "You do not have permission to assign tasks.",
+        "cannotManageTemplates": "You do not have permission to manage templates.",
+        "cannotExport": "You do not have permission to export tasks.",
+        "cannotViewDetails": "You do not have permission to view task details."
+      }
+    },
+    
+    "empty": {
+      "title": "No Tasks Found",
+      "description": "Create your first task to get started with task management.",
+      "action": "Create Task",
+      "filtered": {
+        "title": "No Tasks Match Filters",
+        "description": "Try adjusting your search criteria or filters.",
+        "action": "Clear Filters"
+      },
+      "calendar": {
+        "title": "No Tasks Scheduled",
+        "description": "No tasks are scheduled for this time period."
+      },
+      "templates": {
+        "title": "No Templates Available", 
+        "description": "Create task templates to streamline your workflow."
+      }
+    },
+    
+    "loading": {
+      "tasks": "Loading tasks...",
+      "taskDetails": "Loading task details...",
+      "templates": "Loading templates...",
+      "comments": "Loading comments...",
+      "activity": "Loading activity...",
+      "dashboard": "Loading dashboard...",
+      "saving": "Saving...",
+      "deleting": "Deleting...",
+      "uploading": "Uploading..."
+    },
+    
+    "dialog": {
+      "delete": {
+        "title": "Delete Task",
+        "description": "Are you sure you want to delete \"{{taskName}}\"? This action cannot be undone.",
+        "confirm": "Delete Task",
+        "cancel": "Cancel"
+      },
+      "archive": {
+        "title": "Archive Task",
+        "description": "Are you sure you want to archive \"{{taskName}}\"?",
+        "confirm": "Archive Task",
+        "cancel": "Cancel"
+      },
+      "duplicate": {
+        "title": "Duplicate Task",
+        "description": "Create a copy of \"{{taskName}}\"?",
+        "confirm": "Duplicate Task",
+        "cancel": "Cancel"
+      },
+      "deleteTemplate": {
+        "title": "Delete Template",
+        "description": "Are you sure you want to delete the template \"{{templateName}}\"? This action cannot be undone.",
+        "confirm": "Delete Template",
+        "cancel": "Cancel"
+      },
+      "unsavedChanges": {
+        "title": "Unsaved Changes",
+        "description": "You have unsaved changes. Do you want to save them before leaving?",
+        "save": "Save Changes",
+        "discard": "Discard Changes",
+        "cancel": "Cancel"
+      }
+    },
+    
+    "recurring": {
+      "title": "Recurring Task Settings",
+      "pattern": "Repeat Pattern",
+      "frequency": "Frequency",
+      "endDate": "End Date",
+      "occurrences": "Number of Occurrences",
+      "never": "Never",
+      "options": {
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "monthly": "Monthly",
+        "yearly": "Yearly",
+        "custom": "Custom"
+      },
+      "every": "Every",
+      "days": "day(s)",
+      "weeks": "week(s)",
+      "months": "month(s)",
+      "years": "year(s)",
+      "on": "On",
+      "weekdays": {
+        "monday": "Monday",
+        "tuesday": "Tuesday", 
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday"
+      }
+    },
+    
+    "checklist": {
+      "title": "Task Checklist",
+      "addItem": "Add Item",
+      "removeItem": "Remove",
+      "itemPlaceholder": "Enter checklist item",
+      "completed": "{{completed}} of {{total}} completed",
+      "allCompleted": "All items completed",
+      "toggleAll": "Toggle All",
+      "clearCompleted": "Clear Completed",
+      "noItems": "No checklist items added yet"
+    },
+    
+    "attachments": {
+      "title": "Attachments",
+      "add": "Add Attachment",
+      "upload": "Upload Files",
+      "remove": "Remove",
+      "download": "Download",
+      "view": "View",
+      "noAttachments": "No attachments added",
+      "dropFiles": "Drop files here or click to browse",
+      "supportedFormats": "Supported formats: PDF, JPG, JPEG, PNG, CSV",
+      "maxFileSize": "Maximum file size: 10MB",
+      "uploading": "Uploading...",
+      "uploadComplete": "Upload complete",
+      "uploadFailed": "Upload failed",
+      "fileTooBig": "File too large",
+      "invalidFormat": "Invalid file format"
+    }
+  }
+}

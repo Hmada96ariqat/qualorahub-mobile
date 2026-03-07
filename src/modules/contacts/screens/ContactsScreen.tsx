@@ -18,10 +18,8 @@ import {
   ErrorState,
   FormField,
   FormValidationProvider,
-  HeaderActionGroup,
   HeaderIconButton,
   ListRow,
-  NotificationHeaderButton,
   PaginationFooter,
   PillTabs,
   ProfileCard,
@@ -31,10 +29,12 @@ import {
   SectionHeader,
   Skeleton,
   StatStrip,
+  SystemHeaderActions,
   useFormValidation,
   useToast,
 } from '../../../components';
 import type { QuickAction } from '../../../components';
+import { useAppI18n } from '../../../hooks/useAppI18n';
 import { useAuth } from '../../../providers/AuthProvider';
 import { palette, spacing, typography } from '../../../theme/tokens';
 import {
@@ -99,6 +99,7 @@ function renderDetailValue(value: string | null | undefined): string {
 }
 
 export function ContactsScreen() {
+  const { t } = useAppI18n();
   const { showToast } = useToast();
   const { accessSnapshot, hasMenuAccess } = useAuth();
   const contactSheetScrollRef = useRef<ScrollView | null>(null);
@@ -353,12 +354,15 @@ export function ContactsScreen() {
     <AppScreen padded={false}>
       <View style={styles.header}>
         <AppHeader
-          title="Contacts"
-          subtitle="Farm directory for suppliers, customers, and operational partners."
+          title={t('system', 'headers.contacts.title', 'Contacts')}
+          subtitle={t(
+            'system',
+            'headers.contacts.subtitle',
+            'Farm directory for suppliers, customers, and operational partners.',
+          )}
           menuButtonTestID="contacts-header-menu"
           rightAction={
-            <HeaderActionGroup>
-              <NotificationHeaderButton testID="contacts-header-notifications" />
+            <SystemHeaderActions notificationTestID="contacts-header-notifications">
               {canWriteContacts ? (
                 <HeaderIconButton
                   icon="plus"
@@ -367,7 +371,7 @@ export function ContactsScreen() {
                   testID="contacts-header-create"
                 />
               ) : null}
-            </HeaderActionGroup>
+            </SystemHeaderActions>
           }
         />
         <SearchBar

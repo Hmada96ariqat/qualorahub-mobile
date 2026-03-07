@@ -19,7 +19,6 @@ import {
   HeaderMenuButton,
   ListRow,
   LogRow,
-  NotificationHeaderButton,
   PillTabs,
   ProfileCard,
   PullToRefreshContainer,
@@ -28,11 +27,13 @@ import {
   SectionHeader,
   Skeleton,
   StatStrip,
+  SystemHeaderActions,
   UnderlineTabs,
   useFormValidation,
   useToast,
 } from '../../../components';
 import type { DotBadgeVariant, ListRowIconVariant, QuickAction } from '../../../components';
+import { useAppI18n } from '../../../hooks/useAppI18n';
 import { palette } from '../../../theme/tokens';
 import {
   TASK_PRIORITY_OPTIONS,
@@ -126,6 +127,7 @@ function toShortDate(value: string | null | undefined): string {
 /* ─── Component ─── */
 
 export function TasksScreen() {
+  const { t } = useAppI18n();
   const { showToast } = useToast();
   const formScrollViewRef = useRef<ScrollView | null>(null);
   const formValidation = useFormValidation<'title' | 'dueDate'>(formScrollViewRef);
@@ -372,12 +374,11 @@ export function TasksScreen() {
         <View style={styles.headerTop}>
           <View style={styles.headerLead}>
             <HeaderMenuButton testID="tasks-header-menu" />
-            <Text style={styles.headerTitle}>Tasks</Text>
+            <Text style={styles.headerTitle}>{t('sidebar', 'items.tasks', 'Tasks')}</Text>
           </View>
-          <View style={styles.headerBtns}>
-            <NotificationHeaderButton testID="tasks-header-notifications" />
+          <SystemHeaderActions notificationTestID="tasks-header-notifications">
             <HeaderIconButton icon="plus" onPress={openCreateSheet} filled />
-          </View>
+          </SystemHeaderActions>
         </View>
         <SearchBar
           value={searchValue}

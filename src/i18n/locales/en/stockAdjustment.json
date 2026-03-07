@@ -1,0 +1,228 @@
+{
+  "stockAdjustment": {
+    "title": "Stock Adjustment",
+    "subtitle": "Manage stock entry and exit vouchers with full tracking",
+    
+    "entryStock": "Entry Stock",
+    "outStock": "Out Stock",
+    "newAdjustment": "New Adjustment",
+    "gridView": "Grid View",
+    "tableView": "Table View",
+    "offline": "Offline",
+    "pending": "pending",
+    "sync": "Sync",
+    
+    "stats": {
+      "totalVouchers": "Total Vouchers",
+      "draft": "Draft",
+      "completed": "Completed", 
+      "entry": "Entry",
+      "out": "Out"
+    },
+    
+    "filters": {
+      "title": "Filters",
+      "show": "Show",
+      "hide": "Hide", 
+      "filters": "Filters",
+      "searchVouchers": "Search vouchers...",
+      "allStatus": "All Status",
+      "allTypes": "All Types",
+      "reset": "Reset"
+    },
+    
+    "status": {
+      "draft": "Draft",
+      "completed": "Completed",
+      "posted": "Posted"
+    },
+    
+    "dialogs": {
+      "createTitle": "Create Stock Adjustment",
+      "createDescription": "Add products to track stock changes with full batch and expiry management",
+      "mobileEntryDescription": "Add stock to inventory",
+      "mobileExitDescription": "Remove stock from inventory",
+      "voucherDetails": "Voucher Details",
+      "viewVoucherDescription": "View complete voucher information and line items",
+      "deleteConfirmTitle": "Delete Voucher",
+      "deleteConfirmDescription": "Are you sure you want to delete voucher {{voucher}}? This action cannot be undone.",
+      "thisVoucher": "this voucher"
+    },
+    
+    "form": {
+      "sourceType": "Source Type",
+      "selectSourceType": "Select Source Type",
+      "referenceNumber": "Reference Number", 
+      "referencePlaceholder": "REF-001",
+      "date": "Date",
+      "selectDate": "Select date",
+      "contact": "Contact",
+      "selectContact": "Select Contact",
+      "noContactSelected": "No Contact Selected",
+      "searchContacts": "Search contacts...",
+      "noContactsFound": "No contacts found",
+      "notes": "Notes",
+      "notesPlaceholder": "Additional notes",
+      "addProducts": "Add Products",
+      "selectProductToAdd": "Select product to add...",
+      "searchProducts": "Search products...",
+      "noProductsFound": "No products found",
+      "selectBatch": "Select Batch",
+      "saveAsDraft": "Save as Draft",
+      "postVoucher": "Post Voucher",
+      "advancedMode": "Advanced Mode (Manufacturing & Expiry Dates)"
+    },
+    
+    "sourceTypes": {
+      "entry": {
+        "yield": "Harvest/Yield",
+        "purchase": "Purchase",
+        "production": "Production",
+        "transfer": "Transfer In",
+        "adjustment": "Stock Adjustment",
+        "return": "Return",
+        "donation": "Donation",
+        "process": "Processing",
+        "other": "Other"
+      },
+      "exit": {
+        "sale": "Sale",
+        "farm_usage": "Farm Usage",
+        "transfer": "Transfer Out",
+        "adjustment": "Stock Adjustment", 
+        "damage": "Damage/Loss",
+        "donation": "Donation",
+        "loss_damage": "Loss/Damage",
+        "return": "Return",
+        "other": "Other"
+      }
+    },
+    
+    "table": {
+      "info": "Info",
+      "reference": "Reference",
+      "type": "Type", 
+      "contact": "Contact",
+      "noContact": "No Contact",
+      "date": "Date",
+      "status": "Status",
+      "lineItems": "Line Items",
+      "items": "items",
+      "notes": "Notes",
+      "actions": "Actions",
+      "productName": "Product Name",
+      "product": "Product",
+      "unknownProduct": "Unknown Product",
+      "barcode": "Barcode",
+      "sku": "SKU", 
+      "availableQty": "Available Qty",
+      "quantity": "Quantity",
+      "warehouse": "Warehouse",
+      "selectWarehouse": "Select Warehouse",
+      "batchNumber": "Batch Number",
+      "batchSelection": "Batch Selection",
+      "manufacturingDate": "Manufacturing Date",
+      "expiryDate": "Expiry Date",
+      "expiryDays": "Expiry Days",
+      "available": "Available",
+      "mfg": "Mfg",
+      "exp": "Exp",
+      "selected": "Selected",
+      "unknownBatch": "Unknown Batch",
+      "days": "days"
+    },
+    
+    "buttons": {
+      "saveAndPost": "Save & Post",
+      "hold": "Hold",
+      "back": "Back",
+      "next": "Next",
+      "draft": "Draft",
+      "post": "Post",
+      "cancel": "Cancel",
+      "deleteVoucher": "Delete"
+    },
+    
+    "messages": {
+      "productAlreadyAdded": "Product Already Added",
+      "productAlreadyAddedDesc": "This product is already in the voucher",
+      "contactRequired": "Contact Required",
+      "contactRequiredDesc": "Please select a contact for this voucher",
+      "sourceTypeRequired": "Source Type Required",
+      "sourceTypeRequiredDesc": "Please select a source type for this voucher",
+      "noProductsAddedError": "No Products Added",
+      "noProductsAddedErrorDesc": "Please add at least one product to the voucher",
+      "entryTip": "Add products using the search above. Enable Advanced Mode to add batch details (manufacturing/expiry).",
+      "noProductsAdded": "No products added yet",
+      "noProductsAddedOut": "No products added for out stock yet",
+      "noBatchesAvailable": "No batches available",
+      "checkingStock": "Checking stock...",
+      "added": "Added",
+      "quantityExceedsAvailableTitle": "Quantity exceeds available stock",
+      "quantityExceedsAvailableDesc": "You are over the limit. Available in selected warehouse: {{availableQuantity}}.",
+      "incompleteProductsTitle": "Incomplete products",
+      "incompleteProductsDesc": "Please fill in warehouse and quantity for all products.",
+      "insufficientStock": "Insufficient stock",
+      "insufficientStockDesc": "{{product}} exceeds available quantity in selected warehouse ({{availableQuantity}}).",
+      "insufficientStockSaveError": "Insufficient stock for {{product}}. Available: {{availableQuantity}}, Required: {{requestedQuantity}}.",
+      "insufficientStockGenericError": "Insufficient stock. Available: {{availableQuantity}}, Required: {{requestedQuantity}}.",
+      "insufficientStockRemainingError": "Insufficient stock. Could not deduct remaining quantity: {{remainingQuantity}}.",
+      "exceedsWarehouseStock": "Exceeds available stock in this warehouse ({{availableQuantity}}).",
+      "draftSaved": "Draft Saved",
+      "draftSavedDesc": "Voucher saved as draft successfully",
+      "voucherPosted": "Voucher Posted", 
+      "voucherPostedDesc": "Voucher posted successfully and stock updated",
+      "userNotAuthenticated": "User not authenticated",
+      "farmNotFoundForUser": "Farm not found for user",
+      "error": "Error",
+      "failedToSave": "Failed to save voucher"
+    },
+    
+    "summary": {
+      "recordsCount": "Records",
+      "totalAvailableQuantity": "Total Available", 
+      "totalQuantity": "Total Quantity"
+    },
+
+    "wizard": {
+      "steps": {
+        "details": "Details",
+        "products": "Products",
+        "review": "Review"
+      },
+      "units": "units",
+      "inventory": {
+        "unknownWarehouse": "Unknown warehouse",
+        "locations": "locations",
+        "currentStockReadonly": "Current stock (read-only)",
+        "totalAvailable": "Total available",
+        "selectedWarehouse": "Selected warehouse",
+        "locationsSummary": "Locations: {{locations}}",
+        "noLocationStockRecords": "No location stock records yet."
+      },
+      "review": {
+        "totalItems": "Total Items",
+        "productsCount": "{{count}} products",
+        "productsHeading": "Products ({{count}})",
+        "noWarehouse": "No warehouse"
+      }
+    },
+    
+    "vouchers": {
+      "title": "Stock Vouchers",
+      "description": "Manage all your stock adjustment vouchers",
+      "noVouchersFound": "No vouchers found",
+      "noVouchersMatchFilters": "No vouchers match the current filters",
+      "noVouchersCreated": "No vouchers have been created yet", 
+      "createFirstVoucher": "Create First Voucher",
+      "productsInVoucher": "{{count}} products in this voucher",
+      "more": "more"
+    },
+    
+    "tooltips": {
+      "viewDetails": "View Details",
+      "postVoucher": "Post Voucher",
+      "deleteVoucher": "Delete Voucher"
+    }
+  }
+}

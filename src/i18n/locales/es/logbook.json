@@ -1,0 +1,359 @@
+{
+  "logbook": {
+    "title": "Bitácora de Operaciones",
+    "sessionBadge": "Sesión · {{count}} registros",
+    "flowStepLabel": "Paso {{current}} de {{total}} • {{title}}",
+    "defaultPracticeLabel": "Operación de {{family}}",
+    "steps": {
+      "category": "¿Qué hiciste?",
+      "entity": "Seleccionar entidad",
+      "family": "Elegir categoría",
+      "practice": "Seleccionar práctica",
+      "form": "Ingresar detalles de la actividad",
+      "success": "Actividad registrada"
+    },
+    "context": {
+      "fieldLabel": "Campo",
+      "dateLabel": "Fecha",
+      "noAccessibleFields": "No hay campos accesibles",
+      "selectField": "Seleccionar campo",
+      "allAccessibleFields": "Todos los campos accesibles",
+      "selectedField": "Campo seleccionado"
+    },
+    "actions": {
+      "back": "Atrás",
+      "cancel": "Cancelar",
+      "saveLog": "Guardar registro",
+      "saving": "Guardando...",
+      "logAnother": "Registrar otra actividad",
+      "repeatSameOperation": "Repetir la misma operación",
+      "finish": "Finalizar"
+    },
+    "categories": {
+      "cropOperation": "Operación de Cultivo",
+      "equipmentUsage": "Uso de Equipos",
+      "equipmentMaintenance": "Mantenimiento de Equipos",
+      "animalFeedWater": "Alimento y Agua Animal",
+      "animalHouseMaintenance": "Mantenimiento de Instalaciones Animales",
+      "animalYield": "Producción Animal",
+      "lotMaintenance": "Mantenimiento de Lote"
+    },
+    "operationFamilies": {
+      "landPrep": "Preparación del Terreno",
+      "planting": "Siembra",
+      "irrigation": "Riego",
+      "nutrient": "Aplicación de Nutrientes",
+      "treatment": "Tratamiento",
+      "weedManagement": "Control de Malezas",
+      "cultural": "Operaciones Culturales",
+      "harvest": "Cosecha"
+    },
+    "cards": {
+      "cropOperationHint": "Seleccioná familia y práctica del cultivo",
+      "directLogHint": "Registrá esta actividad directamente"
+    },
+    "search": {
+      "entities": "Buscar entidades...",
+      "practices": "Buscar prácticas..."
+    },
+    "fallbacks": {
+      "fieldWorker": "Trabajador de campo",
+      "unknownLot": "Lote desconocido",
+      "unknownField": "Campo desconocido"
+    },
+    "emptyStates": {
+      "noActiveFields": "No se encontraron campos activos accesibles para tu cuenta.",
+      "noCategories": "No hay categorías de registro disponibles para tus permisos y plan actuales.",
+      "noEntities": "No hay entidades disponibles para la categoría seleccionada.",
+      "noPractices": "No hay prácticas habilitadas para esta combinación de cultivo/familia.",
+      "category": {
+        "cropOperation": "No hay cultivos activos de ciclos de producción disponibles.",
+        "equipmentUsage": "No hay equipos accesibles disponibles.",
+        "equipmentMaintenance": "No hay equipos accesibles disponibles.",
+        "animalFeedWater": "No hay unidades de alojamiento animal disponibles.",
+        "animalHouseMaintenance": "No hay unidades de alojamiento animal disponibles.",
+        "animalYield": "No hay animales activos disponibles.",
+        "lotMaintenance": "No hay lotes activos disponibles."
+      }
+    },
+    "form": {
+      "optionalLabel": "{{label}} (Opcional)",
+      "selectFieldPlaceholder": "Seleccionar {{label}}",
+      "photos": "Fotos",
+      "attachPhotos": "Adjuntar fotos de la operación"
+    },
+    "success": {
+      "title": "Actividad registrada",
+      "recordLabel": "Registro #{{id}}",
+      "savedAsDraftPrefix": "Guardado como borrador:",
+      "sessionSummary": "Esta sesión · {{count}} registros"
+    },
+    "featureDisabled": {
+      "title": "La bitácora está deshabilitada",
+      "description": "Habilitá `VITE_LOGBOOK_ENABLED` para acceder a esta función."
+    },
+    "toasts": {
+      "loadError": {
+        "title": "No se pudo cargar la bitácora",
+        "description": "No se pudo cargar el contexto de sesión."
+      },
+      "permissionsChanged": {
+        "title": "Los permisos cambiaron",
+        "description": "Tu categoría anterior ya no está disponible. Elegí otra actividad."
+      },
+      "missingSelection": {
+        "title": "Falta selección",
+        "description": "Seleccioná categoría y entidad antes de enviar."
+      },
+      "missingField": {
+        "title": "Falta campo",
+        "description": "Seleccioná un campo antes de guardar este registro."
+      },
+      "missingCropSelection": {
+        "title": "Falta selección de cultivo",
+        "description": "Seleccioná familia de operación y práctica antes de enviar."
+      },
+      "noCulturalPractice": {
+        "title": "No hay práctica cultural configurada",
+        "description": "Habilitá al menos una práctica de Operaciones Culturales para este cultivo antes de guardar."
+      },
+      "validationRequired": {
+        "title": "Validación requerida",
+        "description": "Corregí los campos resaltados e intentá nuevamente."
+      },
+      "photoUploadFailed": {
+        "title": "Falló la carga de fotos",
+        "description": "No se pudieron cargar las fotos seleccionadas."
+      },
+      "photoUploadAuthRequired": "Iniciá sesión nuevamente para subir fotos.",
+      "savedAsDraft": {
+        "title": "Guardado como borrador",
+        "description": "El registro se guardó, pero todavía se requiere una acción de seguimiento."
+      },
+      "logSaved": {
+        "title": "Registro guardado",
+        "description": "Actividad registrada correctamente."
+      },
+      "sessionExpired": {
+        "title": "La sesión expiró",
+        "description": "Iniciá sesión nuevamente. Tu borrador fue preservado."
+      },
+      "practiceUpdated": {
+        "title": "Práctica actualizada",
+        "description": "La práctica seleccionada ya no está disponible. Elegí otra."
+      },
+      "permissionDenied": {
+        "title": "Permiso denegado",
+        "description": "Ya no tenés permiso para enviar esta categoría. Elegí otra actividad."
+      },
+      "selectionInvalid": {
+        "title": "La selección ya no es válida",
+        "description": "El campo o la entidad seleccionada cambió. Volvé a seleccionar el objetivo de la actividad."
+      },
+      "saveFailed": {
+        "title": "Error al guardar",
+        "description": "No se pudo guardar el registro en este momento."
+      }
+    },
+    "validation": {
+      "required": "{{field}} es obligatorio.",
+      "positive": "{{field}} debe ser mayor que 0.",
+      "invalidField": "{{field}} no es válido.",
+      "unsupportedField": "Campo no compatible \"{{field}}\" en este formulario."
+    },
+    "productsEditor": {
+      "productsUsed": "Productos usados",
+      "addInput": "Agregar insumo",
+      "noInputs": "Todavía no se agregaron insumos.",
+      "inputLabel": "Insumo #{{index}}",
+      "removeInput": "Eliminar insumo {{index}}",
+      "product": "Producto",
+      "selectProduct": "Seleccionar producto",
+      "searchProducts": "Buscar productos...",
+      "warehouse": "Almacén",
+      "selectWarehouse": "Seleccionar almacén",
+      "quantity": "Cantidad",
+      "available": "Disponible: {{available}}",
+      "unit": "Unidad",
+      "selectUnit": "Seleccionar unidad",
+      "unitCostOptional": "Costo unitario (Opcional)",
+      "batch": "Lote",
+      "batchPlaceholder": "Lote opcional",
+      "ipmDetails": "Detalles de MIP / tratamiento",
+      "doseUsed": "Dosis usada",
+      "recommendedDoseInline": "Recomendado: {{dose}}{{unit}}",
+      "enterDoseUsed": "Ingresar dosis usada",
+      "phiDays": "Días de PHI",
+      "recommendedDose": "Dosis recomendada: {{dose}}{{unit}}",
+      "noCropGuidance": "No hay guía de cultivo disponible para este producto.",
+      "selectPesticideProduct": "Seleccioná un producto tipo pesticida para mostrar los campos específicos de MIP."
+    },
+    "templates": {
+      "crop_operation_land_prep": {
+        "title": "Registro de Preparación del Terreno",
+        "fields": {
+          "cost": { "label": "Costo", "placeholder": "0" },
+          "quantity": { "label": "Cantidad", "placeholder": "0" },
+          "unit": {
+            "label": "Unidad",
+            "options": { "ha": "ha", "acre": "acre", "m2": "m2" }
+          },
+          "inputs": { "label": "Productos usados" },
+          "notes": { "label": "Notas", "placeholder": "Notas opcionales" }
+        }
+      },
+      "crop_operation_planting": {
+        "title": "Registro de Siembra",
+        "fields": {
+          "plantingDate": { "label": "Fecha de siembra" },
+          "inputs": { "label": "Productos usados" },
+          "notes": { "label": "Notas", "placeholder": "Notas opcionales" }
+        }
+      },
+      "crop_operation_irrigation": {
+        "title": "Registro de Riego",
+        "fields": {
+          "method": { "label": "Método", "placeholder": "Riego por goteo" },
+          "water_source": { "label": "Fuente de agua", "placeholder": "Pozo" },
+          "volume_value": { "label": "Volumen", "placeholder": "100" },
+          "volume_unit": {
+            "label": "Unidad de volumen",
+            "options": { "L": "L", "m3": "m3" }
+          },
+          "duration_hours": { "label": "Duración (horas)", "placeholder": "2" },
+          "inputs": { "label": "Productos usados" },
+          "notes": { "label": "Notas", "placeholder": "Notas opcionales" }
+        }
+      },
+      "crop_operation_nutrient": {
+        "title": "Registro de Aplicación de Nutrientes",
+        "fields": {
+          "dateApplied": { "label": "Fecha" },
+          "applicationMethod": { "label": "Método de aplicación", "placeholder": "Fertirriego" },
+          "products": { "label": "Productos usados" },
+          "totalCost": { "label": "Costo total", "placeholder": "0" },
+          "notes": { "label": "Notas", "placeholder": "Notas opcionales" }
+        }
+      },
+      "crop_operation_treatment": {
+        "title": "Registro de Tratamiento",
+        "fields": {
+          "treatment_date": { "label": "Fecha" },
+          "treatment_type": { "label": "Tipo de tratamiento", "placeholder": "Pulverización fungicida" },
+          "application_method": { "label": "Método de aplicación", "placeholder": "Pulverización" },
+          "treatment_location": { "label": "Ubicación", "placeholder": "Bloque norte" },
+          "products": { "label": "Productos usados" },
+          "notes": { "label": "Notas", "placeholder": "Notas opcionales" }
+        }
+      },
+      "crop_operation_weed_mgmt": {
+        "title": "Registro de Control de Malezas",
+        "fields": {
+          "date": { "label": "Fecha" },
+          "cost": { "label": "Costo", "placeholder": "0" },
+          "reusable_products": { "label": "Productos usados" },
+          "notes": { "label": "Notas", "placeholder": "Notas opcionales" }
+        }
+      },
+      "crop_operation_cultural": {
+        "title": "Registro de Operación Cultural",
+        "fields": {
+          "operationDate": { "label": "Fecha" },
+          "quantity": { "label": "Cantidad", "placeholder": "0" },
+          "unit": {
+            "label": "Unidad",
+            "options": { "ha": "ha", "acre": "acre", "m2": "m2" }
+          },
+          "cost": { "label": "Costo", "placeholder": "0" },
+          "inputs": { "label": "Productos usados" },
+          "notes": { "label": "Notas", "placeholder": "Notas opcionales" }
+        }
+      },
+      "crop_operation_harvest": {
+        "title": "Registro de Cosecha",
+        "fields": {
+          "harvestDate": { "label": "Fecha" },
+          "totalHarvestedQuantity": { "label": "Cantidad total cosechada", "placeholder": "1" },
+          "totalHarvestedUnit": {
+            "label": "Unidad",
+            "options": { "kg": "kg", "g": "g", "t": "t", "lb": "lb" }
+          },
+          "workerName": { "label": "Nombre del trabajador", "placeholder": "Trabajador de campo" },
+          "notes": { "label": "Notas", "placeholder": "Notas opcionales" }
+        }
+      },
+      "equipment_usage_none": {
+        "title": "Registro de Uso de Equipos",
+        "fields": {
+          "usage_purpose": { "label": "Propósito de uso", "placeholder": "Labranza del campo" },
+          "operator_id": { "label": "Usuario", "placeholder": "Usuario actual" },
+          "date_used": { "label": "Fecha de uso" },
+          "total_hours_used": { "label": "Horas totales de uso", "placeholder": "2" },
+          "fuel_consumables_used": { "label": "Combustible / consumibles usados", "placeholder": "Diésel" },
+          "cost": { "label": "Costo", "placeholder": "0" },
+          "notes": { "label": "Notas", "placeholder": "Notas opcionales" }
+        }
+      },
+      "equipment_maintenance_none": {
+        "title": "Registro de Mantenimiento de Equipos",
+        "fields": {
+          "service_type": {
+            "label": "Tipo de servicio",
+            "options": { "scheduled": "Programado", "preventive": "Preventivo", "emergency": "Emergencia" }
+          },
+          "date_performed": { "label": "Fecha de realización" },
+          "service_description": { "label": "Descripción del servicio", "placeholder": "Describí el trabajo de mantenimiento" },
+          "service_performed_by": { "label": "Realizado por", "placeholder": "usuario:<uuid> o contacto:<uuid>" },
+          "parts": { "label": "Partes usadas" },
+          "total_cost": { "label": "Costo total", "placeholder": "0" },
+          "notes": { "label": "Notas", "placeholder": "Notas opcionales" }
+        }
+      },
+      "animal_feed_water_none": {
+        "title": "Registro de Alimento y Agua Animal",
+        "fields": {
+          "type": { "label": "Tipo", "options": { "Feed": "Alimento", "Water": "Agua" } },
+          "quantity": { "label": "Cantidad", "placeholder": "1" },
+          "unit": { "label": "Unidad", "options": { "kg": "kg", "L": "L" } },
+          "expense": { "label": "Gasto", "placeholder": "0" },
+          "feed_type": { "label": "Tipo de alimento", "placeholder": "Alimento inicial" },
+          "attach_to_finance": { "label": "Adjuntar a finanzas" },
+          "notes": { "label": "Notas", "placeholder": "Notas opcionales" }
+        }
+      },
+      "animal_house_maintenance_none": {
+        "title": "Registro de Mantenimiento de Instalaciones Animales",
+        "fields": {
+          "date_performed": { "label": "Fecha" },
+          "service_type": { "label": "Tipo de servicio", "placeholder": "Limpieza" },
+          "service_description": { "label": "Descripción", "placeholder": "Describí el trabajo realizado" },
+          "total_cost": { "label": "Costo total", "placeholder": "0" },
+          "products_used": { "label": "Productos usados" },
+          "notes": { "label": "Notas", "placeholder": "Notas opcionales" }
+        }
+      },
+      "animal_yield_none": {
+        "title": "Registro de Producción Animal",
+        "fields": {
+          "date": { "label": "Fecha" },
+          "status": { "label": "Estado", "placeholder": "borrador" },
+          "line_items": { "label": "Ítems usados" },
+          "notes": { "label": "Notas", "placeholder": "Notas opcionales" }
+        }
+      },
+      "lot_maintenance_none": {
+        "title": "Registro de Mantenimiento de Lote",
+        "fields": {
+          "cost": { "label": "Costo", "placeholder": "0" },
+          "quantity": { "label": "Cantidad", "placeholder": "0" },
+          "unit": {
+            "label": "Unidad",
+            "options": { "ha": "ha", "acre": "acre", "m2": "m2" }
+          },
+          "inputs": { "label": "Productos usados" },
+          "notes": { "label": "Notas", "placeholder": "Notas opcionales" }
+        }
+      }
+    }
+  }
+}

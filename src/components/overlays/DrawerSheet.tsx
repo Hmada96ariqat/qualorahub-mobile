@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  I18nManager,
   useWindowDimensions,
   Easing,
 } from 'react-native';
@@ -40,25 +41,26 @@ export function DrawerSheet({
   testID,
 }: DrawerSheetProps) {
   const { width: screenWidth } = useWindowDimensions();
+  const isRTL = I18nManager.isRTL;
   const drawerWidth = useMemo(
     () => Math.min(screenWidth * widthRatio, maxWidth),
     [maxWidth, screenWidth, widthRatio],
   );
-  const translateX = useRef(new Animated.Value(-drawerWidth)).current;
+  const translateX = useRef(new Animated.Value(isRTL ? drawerWidth : -drawerWidth)).current;
   const backdropOpacity = useRef(new Animated.Value(0)).current;
   const [mounted, setMounted] = useState(visible);
 
   useEffect(() => {
     if (!mounted) {
-      translateX.setValue(-drawerWidth);
+      translateX.setValue(isRTL ? drawerWidth : -drawerWidth);
       backdropOpacity.setValue(0);
     }
-  }, [backdropOpacity, drawerWidth, mounted, translateX]);
+  }, [backdropOpacity, drawerWidth, isRTL, mounted, translateX]);
 
   useEffect(() => {
     if (visible) {
       setMounted(true);
-      translateX.setValue(-drawerWidth);
+      translateX.setValue(isRTL ? drawerWidth : -drawerWidth);
       backdropOpacity.setValue(0);
 
       Animated.parallel([
@@ -84,7 +86,7 @@ export function DrawerSheet({
 
     Animated.parallel([
       Animated.timing(translateX, {
-        toValue: -drawerWidth,
+        toValue: isRTL ? drawerWidth : -drawerWidth,
         duration: ANIMATION_DURATION_MS,
         easing: Easing.in(Easing.cubic),
         useNativeDriver: true,
@@ -100,7 +102,7 @@ export function DrawerSheet({
         setMounted(false);
       }
     });
-  }, [backdropOpacity, drawerWidth, mounted, translateX, visible]);
+  }, [backdropOpacity, drawerWidth, isRTL, mounted, translateX, visible]);
 
   if (!mounted) {
     return null;
@@ -114,7 +116,7 @@ export function DrawerSheet({
       animationType="none"
       statusBarTranslucent
     >
-      <View style={styles.modalRoot}>
+      <View style={[styles.modalRoot, isRTL ? styles.modalRootRtl : null]}>
         <Animated.View style={[styles.backdrop, { opacity: backdropOpacity }]}>
           <Pressable
             style={StyleSheet.absoluteFill}
@@ -126,6 +128,7 @@ export function DrawerSheet({
         <Animated.View
           style={[
             styles.panel,
+            isRTL ? styles.panelRtl : null,
             {
               width: drawerWidth,
               transform: [{ translateX }],
@@ -134,7 +137,7 @@ export function DrawerSheet({
           testID={testID}
         >
           <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-            <View style={styles.header}>
+            <View style={[styles.header, isRTL ? styles.headerRtl : null]}>
               <View style={styles.copy}>
                 {title ? <Text style={styles.title}>{title}</Text> : null}
                 {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
@@ -164,6 +167,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
+  modalRootRtl: {
+    flexDirection: 'row-reverse',
+  },
   backdrop: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(23, 38, 31, 0.32)',
@@ -179,6 +185,12 @@ const styles = StyleSheet.create({
     shadowRadius: 16,
     elevation: 8,
   },
+  panelRtl: {
+    borderRightWidth: 0,
+    borderLeftWidth: 1,
+    borderLeftColor: palette.border,
+    shadowOffset: { width: -6, height: 0 },
+  },
   safe: {
     flex: 1,
   },
@@ -192,6 +204,9 @@ const styles = StyleSheet.create({
     paddingBottom: spacing.sm,
     borderBottomWidth: 1,
     borderBottomColor: palette.border,
+  },
+  headerRtl: {
+    flexDirection: 'row-reverse',
   },
   copy: {
     flex: 1,

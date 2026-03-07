@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { I18nManager, StyleSheet, Text, View } from 'react-native';
 import { palette } from '../../theme/tokens';
 
 type SectionHeaderProps = {
@@ -11,7 +11,7 @@ type SectionHeaderProps = {
 
 export function SectionHeader({ title, trailing, titleColor, testID }: SectionHeaderProps) {
   return (
-    <View style={styles.container} testID={testID}>
+    <View style={[styles.container, I18nManager.isRTL ? styles.containerRtl : null]} testID={testID}>
       <Text style={[styles.title, titleColor ? { color: titleColor } : undefined]}>{title}</Text>
       {trailing ? <Text style={styles.trailing}>{trailing}</Text> : null}
     </View>
@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 8,
+  },
+  containerRtl: {
+    flexDirection: 'row-reverse',
   },
   title: {
     fontSize: 13,

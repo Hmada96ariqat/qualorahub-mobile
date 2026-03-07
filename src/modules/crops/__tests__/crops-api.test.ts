@@ -2,8 +2,11 @@ import {
   createCrop,
   createProductionCycleOperation,
   getLogbookSession,
+  listCropGroups,
+  listCropPracticeMappings,
   listCrops,
   listProductionCycles,
+  replaceCropPracticeMappings,
   submitLogbook,
 } from '../../../api/modules/crops';
 
@@ -79,6 +82,7 @@ describe('crops api module', () => {
             status: 'Active',
             notes: 'Field linked crop',
             field_id: 'field-1',
+            crop_group_id: 'group-1',
             created_at: '2026-03-01T00:00:00.000Z',
             updated_at: '2026-03-02T00:00:00.000Z',
           },
@@ -97,8 +101,74 @@ describe('crops api module', () => {
         status: 'Active',
         notes: 'Field linked crop',
         fieldId: 'field-1',
+        cropGroupId: 'group-1',
         createdAt: '2026-03-01T00:00:00.000Z',
         updatedAt: '2026-03-02T00:00:00.000Z',
+      },
+    ]);
+  });
+
+  it('parses crop groups and crop practice mappings from operation-practices endpoints', async () => {
+    const fetchMock = jest
+      .fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        text: async () =>
+          JSON.stringify([
+            {
+              id: 'group-1',
+              code: 'solanaceae',
+              name: 'Solanaceae',
+              description: 'Tomato and pepper operations',
+            },
+          ]),
+        headers: { get: () => null },
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        text: async () =>
+          JSON.stringify([
+            {
+              id: 'practice-1',
+              code: 'land_prep',
+              label: 'Land Preparation',
+              domain_area: 'SOIL_PREP',
+              operation_family: 'LAND_PREP',
+              description: 'Prepare beds',
+              is_active: true,
+              enabled: true,
+              relevance: 'PRIMARY',
+            },
+          ]),
+        headers: { get: () => null },
+      });
+
+    global.fetch = fetchMock as unknown as typeof fetch;
+
+    const cropGroups = await listCropGroups('token');
+    const cropPractices = await listCropPracticeMappings('token', 'crop-1');
+
+    expect(cropGroups).toEqual([
+      {
+        id: 'group-1',
+        code: 'solanaceae',
+        name: 'Solanaceae',
+        description: 'Tomato and pepper operations',
+      },
+    ]);
+    expect(cropPractices).toEqual([
+      {
+        id: 'practice-1',
+        code: 'land_prep',
+        label: 'Land Preparation',
+        domainArea: 'SOIL_PREP',
+        operationFamily: 'LAND_PREP',
+        description: 'Prepare beds',
+        isActive: true,
+        enabled: true,
+        relevance: 'PRIMARY',
       },
     ]);
   });
@@ -260,5 +330,32 @@ describe('crops api module', () => {
     expect((options.headers as Record<string, string>)['Idempotency-Key']).toEqual(
       expect.stringMatching(/^production-cycle-operations-create-cycle-1-/),
     );
+  });
+
+  it('normalizes crop practice mapping replacements before posting', async () => {
+    const fetchMock = jest.fn().mockResolvedValue({
+      ok: true,
+      status: 201,
+      text: async () => JSON.stringify({ updated: 2 }),
+      headers: { get: () => null },
+    });
+    global.fetch = fetchMock as unknown as typeof fetch;
+
+    const updated = await replaceCropPracticeMappings('token', 'crop-1', {
+      practiceIds: ['practice-1', ' practice-2 ', 'practice-1', ''],
+    });
+
+    const [url, options] = fetchMock.mock.calls[0];
+    expect(url).toBe(
+      'http://127.0.0.1:3300/api/v1/operation-practices/crops/crop-1/commands/replace-mappings',
+    );
+    expect(options.method).toBe('POST');
+    expect((options.headers as Record<string, string>)['Idempotency-Key']).toEqual(
+      expect.stringMatching(/^crop-practices-replace-crop-1-/),
+    );
+    expect(JSON.parse(options.body as string)).toEqual({
+      practiceIds: ['practice-1', 'practice-2'],
+    });
+    expect(updated).toBe(2);
   });
 });

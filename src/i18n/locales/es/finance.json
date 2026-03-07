@@ -1,0 +1,326 @@
+{
+  "finance": {
+    "title": "Gestión de Dinero",
+    "description": "Rastrea entradas y salidas de dinero con grupos personalizados",
+    
+    "status": {
+      "online": "En Línea",
+      "offline": "Sin Conexión",
+      "pending": "pendiente"
+    },
+    
+    "actions": {
+      "add": "Agregar Transacción",
+      "addNew": "Agregar Nueva Transacción",
+      "edit": "Editar Transacción",
+      "update": "Actualizar Transacción",
+      "delete": "Eliminar Transacción",
+      "reverse": "Revertir Transacción",
+      "export": "Exportar a Excel",
+      "manageGroups": "Gestionar Grupo Financiero",
+      "view": "Ver",
+      "cancel": "Cancelar",
+      "create": "Crear",
+      "save": "Guardar",
+      "processing": "Procesando...",
+      "clearAllFilters": "Limpiar Todos los Filtros",
+      "download": "Descargar",
+      "cancelEdit": "Cancelar Edición",
+      "createGroup": "Crear Grupo",
+      "updateGroup": "Actualizar Grupo",
+      "deleteGroup": "Eliminar Grupo",
+      "addTransaction": "Agregar Transacción",
+      "updateTransaction": "Actualizar Transacción",
+      "reversing": "Revirtiendo...",
+      "close": "Cerrar"
+    },
+    
+    "summary": {
+      "totalMoneyIn": "Total Entradas",
+      "totalMoneyOut": "Total Salidas",
+      "netProfit": "Ganancia Neta"
+    },
+    
+    "transactions": {
+      "title": "Transacciones",
+      "count": "Transacciones ({{count}})",
+      "moneyIn": "Entrada",
+      "moneyOut": "Salida",
+      "income": "ingreso",
+      "expense": "gasto",
+      "reversed": "Revertida",
+      "reversalEntry": "Entrada de Reversión",
+      "noTransactionsFound": "No se encontraron transacciones que coincidan con tus criterios.",
+      "showing": "Mostrando {{start}} a {{end}} de {{total}} transacciones"
+    },
+    
+    "transactionDialog": {
+      "title": {
+        "add": "Agregar Nueva Transacción",
+        "edit": "Editar Transacción"
+      },
+      "description": {
+        "add": "Registrar nueva entrada o salida de dinero.",
+        "edit": "Actualizar los detalles de la transacción."
+      },
+      "fields": {
+        "type": {
+          "label": "Tipo",
+          "placeholder": "Seleccionar tipo"
+        },
+        "group": {
+          "label": "Grupo Financiero",
+          "placeholder": "Seleccionar grupo financiero de {{type}}",
+          "noGroupsAvailable": "No hay grupos financieros de {{type}} disponibles. Creá uno primero.",
+          "createNewGroup": "Crear nuevo grupo financiero"
+        },
+        "amount": {
+          "label": "Monto Pagado",
+          "placeholder": "0.00"
+        },
+        "date": {
+          "label": "Fecha"
+        },
+        "contact": {
+          "label": "Contacto Tercero (Opcional)",
+          "placeholder": "Seleccionar contacto",
+          "noContact": "Sin contacto",
+          "createNewContact": "Crear nuevo contacto"
+        },
+        "paymentMethod": {
+          "label": "Método de Pago",
+          "placeholder": "Seleccionar método de pago",
+          "cash": "Efectivo",
+          "bankTransfer": "Transferencia Bancaria",
+          "cheque": "Cheque"
+        },
+        "description": {
+          "label": "Notas / Descripción (Opcional)",
+          "placeholder": "Ingresá cualquier detalle relevante"
+        },
+        "attachments": {
+          "label": "Archivos Adjuntos (Opcional)",
+          "uploadPrompt": "Subir recibos, facturas, comprobantes de pago"
+        }
+      }
+    },
+    
+    "groupDialog": {
+      "title": "Gestionar Grupo Financiero",
+      "description": "Crear, editar y gestionar tus grupos financieros personalizados de entradas y salidas de dinero.",
+      "form": {
+        "title": {
+          "create": "Crear Nuevo Grupo Financiero",
+          "edit": "Editar Grupo Financiero"
+        },
+        "fields": {
+          "name": {
+            "label": "Nombre del Grupo Financiero",
+            "placeholder": "ej., Combustible y Equipo, Ventas de Cosecha, Ventas de Ganado"
+          },
+          "type": {
+            "label": "Tipo",
+            "placeholder": "Seleccionar tipo"
+          }
+        }
+      },
+      "existingGroups": "Grupos Financieros Existentes",
+      "noGroups": "Aún no se han creado grupos financieros. Creá tu primer grupo financiero arriba."
+    },
+    
+    "deleteGroupDialog": {
+      "title": "Eliminar Grupo Financiero",
+      "description": "¿Estás seguro que querés eliminar el grupo \"{{name}}\"? Esta acción no se puede deshacer. Todas las transacciones en este grupo permanecerán pero perderán su asociación de grupo.",
+      "confirm": "Eliminar Grupo",
+      "cancel": "Cancelar"
+    },
+    "deleteTransactionDialog": {
+      "title": "Eliminar Transacción",
+      "description": "¿Estás seguro de que querés eliminar esta transacción de forma permanente? Esta acción no se puede deshacer.",
+      "confirm": "Eliminar Transacción",
+      "cancel": "Cancelar"
+    },
+    
+    "charts": {
+      "overview": "Vista General Financiera",
+      "moneyInByCategory": "Dinero Entrante por Categoría",
+      "moneyOutByCategory": "Dinero Saliente por Categoría",
+      "activeTransactionsOnly": "Los gráficos reflejan solo transacciones activas.",
+      "amount": "Monto",
+      "other": "Otro",
+      "totalIn": "Total Entradas",
+      "totalOut": "Total Salidas",
+      "noActiveTransactions": "No hay transacciones activas para este gráfico.",
+      "noTransactionsToDisplay": "No hay transacciones para mostrar. Agregá transacciones para ver el detalle por categoría."
+    },
+    
+    "transactionCard": {
+      "createdBy": "Creado por:",
+      "contact": "Contacto:",
+      "payment": "Pago:"
+    },
+    
+    "transactionView": {
+      "title": "Detalles de la Transacción",
+      "type": {
+        "income": "INGRESO",
+        "expense": "GASTO"
+      },
+      "fields": {
+        "date": "Fecha",
+        "category": "Categoría",
+        "financeGroup": "Grupo Financiero",
+        "contact": "Contacto",
+        "paymentMethod": "Método de Pago"
+      },
+      "attachments": {
+        "title": "Archivos Adjuntos",
+        "count": "Archivos Adjuntos ({{count}})",
+        "download": "Descargar"
+      },
+      "metadata": {
+        "created": "Creada:",
+        "id": "ID:"
+      }
+    },
+    
+    "reversalDialog": {
+      "title": "Revertir Transacción",
+      "alreadyReversed": "Esta transacción ya ha sido revertida y no se puede revertir nuevamente.",
+      "transactionDetails": "Detalles de la Transacción:",
+      "fields": {
+        "reason": {
+          "label": "Motivo de la Reversión *",
+          "placeholder": "Por favor explicá por qué se está revirtiendo esta transacción...",
+          "helpText": "Esto creará una nueva transacción de {{oppositeType}} por el mismo monto para revertir esta entrada."
+        }
+      },
+      "confirm": "Revertir Transacción",
+      "cancel": "Cancelar"
+    },
+    
+    "filters": {
+      "title": "Búsqueda y Filtros",
+      "search": {
+        "placeholder": "Buscar transacciones..."
+      },
+      "datePeriod": {
+        "label": "Período de Fecha",
+        "allTime": "Todo el Tiempo",
+        "yearToDate": "Año hasta la Fecha",
+        "quarterly": "Este Trimestre",
+        "monthly": "Este Mes",
+        "custom": "Rango Personalizado",
+        "from": "Desde",
+        "to": "Hasta"
+      },
+      "group": {
+        "label": "Grupo Financiero",
+        "all": "Todos los Grupos"
+      },
+      "categories": {
+        "label": "Categorías",
+        "all": "Todas las categorías"
+      },
+      "contacts": {
+        "label": "Contactos",
+        "all": "Todos los contactos"
+      }
+    },
+    
+    "financialOverview": {
+      "title": "Vista General Financiera"
+    },
+    
+    "table": {
+      "headers": {
+        "date": "Fecha",
+        "type": "Tipo",
+        "amount": "Monto",
+        "description": "Descripción",
+        "group": "Grupo Financiero",
+        "user": "Usuario",
+        "contact": "Contacto",
+        "payment": "Pago",
+        "actions": "Acciones"
+      }
+    },
+    
+    "badges": {
+      "moneyIn": "Entrada",
+      "moneyOut": "Salida"
+    },
+    
+    "messages": {
+      "success": {
+        "transactionAdded": "{{type}} Agregado",
+        "transactionAddedDescription": "Nuevo {{type}} ha sido registrado exitosamente.",
+        "transactionUpdated": "{{type}} Actualizado",
+        "transactionUpdatedDescription": "El {{type}} ha sido actualizado exitosamente.",
+        "transactionReversed": "Transacción Revertida",
+        "transactionReversedDescription": "La transacción ha sido revertida exitosamente.",
+        "transactionDeleted": "Transacción Eliminada",
+        "transactionDeletedDescription": "La transacción se eliminó de forma permanente.",
+        "groupCreated": "Grupo Creado",
+        "groupCreatedDescription": "El grupo financiero de {{type}} \"{{name}}\" ha sido creado y seleccionado.",
+        "groupUpdated": "Grupo Actualizado",
+        "groupUpdatedDescription": "El grupo financiero de {{type}} \"{{name}}\" ha sido actualizado.",
+        "groupDeleted": "Grupo Eliminado",
+        "groupDeletedDescription": "El grupo financiero \"{{name}}\" ha sido eliminado. Las transacciones relacionadas han sido actualizadas para remover la asociación de grupo.",
+        "groupCreatedOffline": "Grupo Creado (Sin Conexión)",
+        "groupCreatedOfflineDescription": "Seleccionado y se sincronizará después.",
+        "groupUpdatedOffline": "Grupo Actualizado (Sin Conexión)",
+        "groupUpdatedOfflineDescription": "Se sincronizará cuando esté en línea.",
+        "contactCreated": "Contacto Creado",
+        "contactCreatedDescription": "El contacto \"{{name}}\" ha sido creado y seleccionado.",
+        "contactCreatedOffline": "Contacto Creado (Sin Conexión)",
+        "contactCreatedOfflineDescription": "Seleccionado y se sincronizará después.",
+        "exportComplete": "Exportación Completa",
+        "exportCompleteDescription": "Transacciones exportadas a {{fileName}}",
+        "downloadStarted": "Descarga Iniciada",
+        "downloadStartedDescription": "{{fileName}} se está descargando."
+      },
+      "error": {
+        "generic": "Error",
+        "validationError": "Error de Validación",
+        "amountRequired": "Por favor ingresá un monto válido mayor a 0",
+        "groupRequired": "Por favor seleccioná un grupo financiero",
+        "dateRequired": "Por favor seleccioná una fecha",
+        "groupNameRequired": "El nombre del grupo es requerido.",
+        "reasonRequired": "Por favor proporcioná un motivo para la reversión",
+        "transactionFailed": "Falló al {{action}} transacción: {{error}}",
+        "groupFailed": "Falló al {{action}} grupo financiero: {{error}}",
+        "contactFailed": "Falló al crear contacto: {{error}}",
+        "deleteGroupFailed": "Falló al preparar grupo para eliminación: {{error}}",
+        "offlineError": "Error Sin Conexión",
+        "offlineSaveFailed": "Falló el guardado sin conexión",
+        "offlineSaveContactFailed": "Falló al guardar contacto sin conexión",
+        "downloadFailed": "Descarga Fallida",
+        "downloadFailedDescription": "Falló al descargar {{fileName}}.",
+        "fileUrlNotAvailable": "URL del archivo no disponible.",
+        "reversalFailed": "Falló al revertir transacción",
+        "transactionDeleteFailed": "No se pudo eliminar la transacción"
+      },
+      "permissions": {
+        "denied": "Permiso denegado",
+        "cannotManageGroups": "No tenés permiso para gestionar grupos financieros.",
+        "cannotPerformAction": "No tenés permiso para realizar esta acción.",
+        "cannotReverseTransactions": "No tenés permiso para revertir transacciones.",
+        "cannotAddContacts": "No tenés permiso para agregar contactos.",
+        "cannotDeleteGroups": "No tenés permiso para eliminar grupos.",
+        "cannotDeleteTransactions": "No tenés permiso para eliminar transacciones."
+      }
+    },
+    
+    "contactDialog": {
+      "title": "Agregar Nuevo Contacto"
+    },
+    
+    "validation": {
+      "amountPositive": "El monto debe ser mayor a 0",
+      "groupRequired": "El grupo financiero es requerido",
+      "dateRequired": "La fecha es requerida",
+      "reasonRequired": "El motivo de la reversión es requerido"
+    }
+  }
+}

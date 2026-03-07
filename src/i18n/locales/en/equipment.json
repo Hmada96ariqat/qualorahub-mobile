@@ -1,0 +1,945 @@
+{
+  "equipment": {
+    "title": "Equipment",
+    "name": "Name",
+    "type": "Type",
+    "brand": "Brand",
+    "status": "Status",
+    "notes": "Notes",
+    "search": "Search equipment...",
+    "noResults": "No equipment found",
+    "add": "Add Equipment",
+    "trackUsage": "Track Usage",
+    "actions": {
+      "add": "Add",
+      "edit": "Edit",
+      "update": "Update",
+      "delete": "Delete",
+      "deactivate": "Deactivate",
+      "activate": "Activate",
+      "reactivate": "Reactivate",
+      "viewProfile": "View Profile",
+      "manageEquipment": "Manage Equipment"
+    },
+    "usage": {
+      "addTitle": "Add New Usage Log",
+      "editTitle": "Edit Usage Log",
+      "form": {
+        "sections": {
+          "basicDetails": "Basic Details",
+          "location": "Location",
+          "timeMetrics": "Time & Usage Metrics",
+          "resourcesCost": "Resources & Cost"
+        },
+        "fields": {
+          "usagePurpose": {
+            "label": "Usage Purpose",
+            "placeholder": "Select purpose"
+          },
+          "otherPurpose": {
+            "label": "Specify Other Purpose",
+            "placeholder": "Enter specific purpose"
+          },
+          "operator": {
+            "label": "Operator / Driver Name",
+            "placeholder": "Select operator"
+          },
+          "usedBy": {
+            "label": "Used By (if different)",
+            "placeholder": "Select user (optional)"
+          },
+          "keywords": {
+            "label": "Keywords / Tags",
+            "placeholder": "Enter tag and press Add"
+          },
+          "description": {
+            "label": "Usage Description",
+            "placeholder": "e.g., Plowed Field A in prep for corn planting"
+          },
+          "field": {
+            "label": "Field",
+            "placeholder": "Select field"
+          },
+          "lot": {
+            "label": "Lot Used In",
+            "placeholder": "Select lot (optional)"
+          },
+          "noSpecificLot": "No specific lot",
+          "dateUsed": {
+            "label": "Date Used",
+            "placeholder": "Select date"
+          },
+          "startDateTime": {
+            "label": "Start Date/Time"
+          },
+          "endDateTime": {
+            "label": "End Date/Time"
+          },
+          "startingReading": {
+            "label": "Starting Reading",
+            "placeholder": "0"
+          },
+          "endingReading": {
+            "label": "Ending Reading",
+            "placeholder": "0"
+          },
+          "totalHoursUsed": {
+            "label": "Total Hours Used",
+            "placeholder": "0"
+          },
+          "autoCalculated": "Auto-calculated from start/end time",
+          "fuelConsumables": {
+            "label": "Fuel or Consumables Used",
+            "placeholder": "e.g., 20 liters diesel"
+          },
+          "cost": {
+            "label": "Cost",
+            "placeholder": "0.00"
+          },
+          "noneOption": "None",
+          "totalUsedLabel": "Total Used",
+          "unitsFallback": "units",
+          "usageRateNote": "Auto-calculated based on usage rate: ${{rate}} per {{unit}}"
+        },
+        "buttons": {
+          "cancel": "Cancel",
+          "saving": "Saving...",
+          "create": "Create Usage Log",
+          "update": "Update Usage Log",
+          "add": "Add"
+        },
+        "purposes": {
+          "tilling": "Tilling",
+          "plowing": "Plowing",
+          "seeding": "Seeding",
+          "spraying": "Spraying",
+          "harvesting": "Harvesting",
+          "transport": "Transport/Delivery",
+          "fertilizing": "Fertilizing",
+          "irrigationSupport": "Irrigation Support",
+          "landPreparation": "Land Preparation",
+          "mulching": "Mulching",
+          "weeding": "Weeding",
+          "pesticideApplication": "Pesticide Application",
+          "soilSampling": "Soil Sampling",
+          "mowing": "Mowing",
+          "baling": "Baling",
+          "hayRaking": "Hay Raking",
+          "livestockFeedingSupport": "Livestock Feeding Support",
+          "cleaning": "Cleaning",
+          "other": "Other"
+        },
+        "validation": {
+          "usagePurposeRequired": "Usage purpose is required",
+          "operatorRequired": "Operator is required",
+          "fieldRequired": "Field is required"
+        },
+        "messages": {
+          "saveFailed": "Failed to save usage log. Please try again."
+        }
+      },
+      "export": {
+        "headers": {
+          "name": "Name",
+          "type": "Type",
+          "brand": "Brand",
+          "model": "Model",
+          "year": "Year",
+          "status": "Status",
+          "idPlate": "ID/Plate Number",
+          "serialNumber": "Serial Number",
+          "usage": "Usage",
+          "ownership": "Ownership",
+          "dateAcquired": "Date Acquired",
+          "purchasePrice": "Purchase Price",
+          "currentValue": "Current Value",
+          "location": "Location",
+          "insured": "Insured"
+        }
+      },
+      "messages": {
+        "success": {
+          "added": "Usage Log Added",
+          "addedDescription": "Usage log has been successfully recorded.",
+          "updated": "Usage Log Updated",
+          "updatedDescription": "Usage log has been successfully updated.",
+          "deleted": "Usage Log Deleted",
+          "deletedDescription": "Usage log has been successfully deleted."
+        },
+        "error": {
+          "addFailed": "Failed to add usage log",
+          "updateFailed": "Failed to update usage log",
+          "deleteFailed": "Failed to delete usage log"
+        }
+      }
+    },
+    "maintenance": {
+      "title": "Maintenance Record",
+      "addTitle": "Add Maintenance Record",
+      "editTitle": "Edit Maintenance Record",
+      "description": "Record maintenance activities and parts used",
+      "form": {
+        "sections": {
+          "serviceDetails": "Service Details",
+          "partsInventory": "Parts & Inventory",
+          "costTracking": "Cost Tracking",
+          "maintenanceDetails": "Maintenance Details",
+          "partsUsed": "Parts Used",
+          "costs": "Costs"
+        },
+        "fields": {
+          "serviceType": {
+            "label": "Service Type",
+            "placeholder": "Select service type"
+          },
+          "datePerformed": {
+            "label": "Date Performed",
+            "placeholder": "Select date"
+          },
+          "performedBy": {
+            "label": "Service Performed By",
+            "placeholder": "Select person or vendor"
+          },
+          "currentReading": {
+            "label": "Current Meter Reading",
+            "placeholder": "0"
+          },
+          "nextDue": {
+            "label": "Next Maintenance Due",
+            "placeholder": "YYYY-MM-DD or +30 days"
+          },
+          "description": {
+            "label": "Service Description",
+            "placeholder": "Describe the maintenance work performed"
+          },
+          "serviceDescription": {
+            "label": "Service Description",
+            "placeholder": "Describe the maintenance work performed"
+          },
+          "addProduct": "Add Product",
+          "loadingProducts": "Loading products...",
+          "selectProduct": "Select product",
+          "product": {
+            "label": "Product/Part",
+            "placeholder": "Select product"
+          },
+          "unknownProduct": "Unknown Product",
+          "batch": {
+            "label": "Batch",
+            "placeholder": "Select batch"
+          },
+          "selectBatch": "Select batch",
+          "noBatch": "No batch",
+          "available": "Available",
+          "quantity": {
+            "label": "Quantity",
+            "placeholder": "0"
+          },
+          "insufficientQuantity": "Insufficient quantity",
+          "availableQuantityIs": "Available quantity is",
+          "exceedsStock": "Exceeds available stock",
+          "unitCost": {
+            "label": "Unit Cost",
+            "placeholder": "0.00"
+          },
+          "lineTotal": "Line Total",
+          "partsCost": "Parts Cost",
+          "laborCost": {
+            "label": "Labor Cost",
+            "placeholder": "0.00"
+          },
+          "vendorFee": {
+            "label": "Vendor Fee",
+            "placeholder": "0.00"
+          },
+          "autoCalculatedTotal": "Auto-calculated Total",
+          "totalCostOverride": {
+            "label": "Total Cost Override",
+            "placeholder": "Leave empty for auto-calculation"
+          },
+          "finalTotal": "Final Total"
+        },
+        "buttons": {
+          "cancel": "Cancel",
+          "saving": "Saving...",
+          "create": "Create Maintenance Record",
+          "update": "Update Maintenance Record",
+          "addPart": "Add Part"
+        },
+        "serviceTypes": {
+          "scheduled": "Scheduled",
+          "preventive": "Preventive",
+          "emergency": "Emergency"
+        },
+        "people": {
+          "internal": "Internal",
+          "external": "External",
+          "unknownUser": "Unknown User",
+          "unknownContact": "Unknown Contact"
+        },
+        "messages": {
+          "productAlreadyAdded": "Product already added",
+          "productAlreadyInList": "This product is already in the parts list.",
+          "noInventory": "No inventory available",
+          "noQuantityBatch": "There is no quantity/batch available for the selected item.",
+          "warning": "Warning",
+          "stockVoucherError": "Stock voucher could not be created automatically",
+          "createSuccess": "Maintenance record created successfully",
+          "updateSuccess": "Maintenance record updated successfully",
+          "createError": "Error creating maintenance record",
+          "updateError": "Error updating maintenance record",
+          "authRequired": "No authenticated user.",
+          "farmNotFound": "Farm not found.",
+          "farmNotFoundForUser": "Farm not found for user."
+        }
+      },
+      "parts": {
+        "add": "Add Part",
+        "remove": "Remove Part",
+        "noParts": "No parts added yet",
+        "available": "available",
+        "partsCost": "Parts Cost",
+        "subtotal": "Subtotal"
+      },
+      "costs": {
+        "laborCost": "Labor Cost",
+        "vendorFee": "Vendor Fee",
+        "partsCost": "Parts Cost",
+        "totalCost": "Total Cost",
+        "calculated": "(Calculated)"
+      },
+      "messages": {
+        "success": {
+          "added": "Maintenance Record Added",
+          "addedDescription": "Maintenance record has been successfully added.",
+          "updated": "Maintenance Record Updated",
+          "updatedDescription": "Maintenance record has been successfully updated.",
+          "deleted": "Maintenance Record Deleted",
+          "deletedDescription": "Maintenance record has been successfully deleted."
+        },
+        "error": {
+          "addFailed": "Failed to add maintenance record",
+          "updateFailed": "Failed to update maintenance record",
+          "deleteFailed": "Failed to delete maintenance record",
+          "servicePerformedByRequired": "Service performed by is required",
+          "productAlreadyAdded": "Product already added",
+          "productAlreadyAddedDescription": "This product is already in the parts list.",
+          "insufficientQuantity": "Insufficient quantity",
+          "insufficientQuantityDescription": "Not enough quantity available for this product."
+        }
+      },
+      "table": {
+        "headers": {
+          "date": "Date",
+          "serviceType": "Service Type",
+          "description": "Description",
+          "performedBy": "Performed By",
+          "cost": "Cost",
+          "nextDue": "Next Due",
+          "actions": "Actions"
+        },
+        "actions": {
+          "view": "View",
+          "edit": "Edit"
+        }
+      },
+      "view": {
+        "title": "Maintenance Record Details",
+        "performedBy": "Performed By",
+        "meterReading": "Meter Reading",
+        "nextMaintenanceDue": "Next Maintenance Due",
+        "costBreakdown": "Cost Breakdown",
+        "laborCost": "Labor Cost",
+        "partsCost": "Parts Cost",
+        "vendorFee": "Vendor Fee",
+        "totalCost": "Total Cost",
+        "partsReplaced": "Parts Replaced",
+        "serviceDescription": "Service Description",
+        "additionalNotes": "Additional Notes",
+        "attachments": "Attachments",
+        "createdAt": "Created",
+        "updatedAt": "Last Updated",
+        "downloadStarted": "Download started",
+        "downloadFailed": "Failed to download attachment"
+      }
+    },
+    "profile": {
+      "performedBy": "Performed By",
+      "addMaintenance": "Add Maintenance",
+      "edit": "Edit",
+      "usageRecordDetails": "Usage Record Details",
+      "operator": "Operator",
+      "fieldLocation": "Field/Location",
+      "usageTable": {
+        "date": "Date",
+        "purpose": "Purpose",
+        "operator": "Operator",
+        "fieldLocation": "Field/Location",
+        "hours": "Hours",
+        "fuelUsed": "Fuel Used",
+        "description": "Description",
+        "actions": "Actions"
+      },
+      "maintenanceTable": {
+        "date": "Date",
+        "type": "Type",
+        "performedBy": "Performed By",
+        "description": "Description",
+        "cost": "Cost",
+        "actions": "Actions"
+      }
+    },
+    "attachments": {
+      "title": "Attachments",
+      "add": "Add Attachment",
+      "upload": "Upload",
+      "uploading": "Uploading...",
+      "remove": "Remove",
+      "view": "View",
+      "download": "Download",
+      "types": {
+        "manual": "Manual",
+        "invoice": "Invoice",
+        "warranty": "Warranty",
+        "certificate": "Certificate",
+        "photo": "Photo",
+        "other": "Other"
+      },
+      "messages": {
+        "success": {
+          "uploaded": "Attachment Uploaded",
+          "uploadedDescription": "Attachment has been successfully uploaded.",
+          "removed": "Attachment Removed",
+          "removedDescription": "Attachment has been successfully removed."
+        },
+        "error": {
+          "uploadFailed": "Failed to upload attachment",
+          "removeFailed": "Failed to remove attachment",
+          "invalidFileType": "Invalid file type",
+          "fileTooLarge": "File too large"
+        }
+      }
+    },
+    "delete": {
+      "title": "Deactivate Equipment",
+      "description": "Are you sure you want to deactivate \"{{name}}\"? This will set the equipment status to inactive, but all historical data will be preserved.",
+      "confirm": "Deactivate Equipment",
+      "cancel": "Cancel"
+    },
+    "validation": {
+      "nameRequired": "Equipment name is required",
+      "typeRequired": "Equipment type is required",
+      "statusRequired": "Status is required",
+      "trackUsageRequired": "Track usage by is required",
+      "invalidNumber": "Please enter a valid number",
+      "invalidDate": "Please enter a valid date"
+    },
+    "deactivated": {
+      "title": "Deactivated Equipment",
+      "subtitle": "Manage inactive equipment",
+      "description": "deactivated equipment",
+      "item": "item",
+      "items": "items",
+      "export": {
+        "label": "Export",
+        "headers": {
+          "name": "Name",
+          "type": "Type",
+          "brand": "Brand",
+          "model": "Model",
+          "year": "Year",
+          "status": "Status",
+          "idPlate": "ID/Plate Number",
+          "serialNumber": "Serial Number",
+          "usage": "Usage",
+          "ownership": "Ownership",
+          "dateAcquired": "Date Acquired",
+          "purchasePrice": "Purchase Price",
+          "currentValue": "Current Value",
+          "location": "Location",
+          "insured": "Insured"
+        }
+      },
+      "exportTooltip": "Export deactivated equipment list to CSV",
+      "totalDeactivated": "Total Deactivated",
+      "totalValue": "Total Value",
+      "insuredItems": "Insured Items",
+      "searchPlaceholder": "Search by name, type, brand, model...",
+      "listTitle": "Deactivated Equipment List",
+      "loading": "Loading deactivated equipment...",
+      "noDeactivatedEquipmentFound": "No Deactivated Equipment Found",
+      "tryAdjustingSearchTerms": "Try adjusting your search terms",
+      "allEquipmentCurrentlyActive": "All equipment is currently active",
+      "labels": {
+        "inactive": "Inactive",
+        "noLocation": "No location",
+        "unknownLocation": "Unknown location",
+        "na": "N/A",
+        "equipment": "Equipment",
+        "model": "Model",
+        "year": "Year",
+        "ownership": "Ownership",
+        "purchased": "Purchased",
+        "leased": "Leased",
+        "value": "Value",
+        "usage": "Usage",
+        "location": "Location",
+        "acquired": "Acquired",
+        "serialShort": "SN",
+        "idShort": "ID"
+      },
+      "tooltips": {
+        "insured": "This equipment is insured"
+      },
+      "actions": {
+        "reactivate": "Reactivate Equipment",
+        "reactivateShort": "Reactivate"
+      },
+      "table": {
+        "headers": {
+          "equipment": "Equipment",
+          "type": "Type",
+          "brandModel": "Brand/Model",
+          "year": "Year",
+          "status": "Status",
+          "ownership": "Ownership",
+          "lastUsage": "Last Usage",
+          "lastValue": "Last Value",
+          "actions": "Actions"
+        }
+      },
+      "dialog": {
+        "title": "Reactivate Equipment",
+        "description": "Are you sure you want to reactivate \"{{name}}\"? This will set the equipment status back to operational and make it available for use.",
+        "cancel": "Cancel",
+        "confirm": "Reactivate Equipment"
+      }
+    },
+    "searchTitle": "Search & Filters",
+    "description": "Manage equipment, track usage and maintenance.",
+    "addNew": "Add New Equipment",
+    "offlineMode": "Offline Mode",
+    "syncing": "Syncing...",
+    "syncChanges": "Sync Changes",
+    "changesPendingSync": "Changes pending sync",
+    "labels": {
+      "status": "Status",
+      "usage": "Usage",
+      "insured": "Insured"
+    },
+    "filter": {
+      "filterButton": "Filters",
+      "title": "Filters",
+      "resetAll": "Reset All",
+      "typeLabel": "Equipment Type",
+      "allTypes": "All Types",
+      "statusLabel": "Status",
+      "allStatus": "All Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "insuranceLabel": "Insurance Status",
+      "all": "All",
+      "insured": "Insured",
+      "notInsured": "Not Insured",
+      "ariaAll": "All equipment",
+      "ariaActive": "Active equipment",
+      "ariaInactive": "Inactive equipment"
+    },
+    "empty": {
+      "noEquipment": "Get started by adding your first piece of equipment to track usage and maintenance.",
+      "noMatches": "No equipment matches your current filters. Try adjusting your search criteria."
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "pageOf": "Page {{page}} of {{total}}",
+      "goToPrevious": "Go to previous page",
+      "goToNext": "Go to next page",
+      "currentPageAria": "Currently on page {{page}} of {{total}}"
+    },
+    "statuses": {
+      "operational": "Active",
+      "maintenance": "Under Maintenance",
+      "broken": "Out of Use",
+      "retired": "Retired",
+      "inactive": "Inactive"
+    },
+    "types": {
+      "tractor": "Tractor",
+      "harvester": "Harvester",
+      "seeder": "Seeder",
+      "sprayer": "Sprayer",
+      "plow": "Plow",
+      "baler": "Baler",
+      "cultivator": "Cultivator",
+      "irrigationPump": "Irrigation Pump",
+      "waterTanker": "Water Tanker",
+      "drone": "Drone",
+      "sensorDevice": "Sensor Device",
+      "livestockFeeder": "Livestock Feeder",
+      "livestockShelter": "Livestock Shelter Equipment",
+      "generator": "Generator",
+      "forklift": "Forklift",
+      "truck": "Truck",
+      "trailer": "Trailer",
+      "greenhouse": "Greenhouse Equipment",
+      "packingMachine": "Packing Machine",
+      "coldStorage": "Cold Storage Unit",
+      "other": "Other"
+    },
+    "usageTracking": {
+      "hours": "Hours",
+      "miles": "Miles",
+      "km": "KM"
+    },
+    "export": {
+      "headers": {
+        "name": "Equipment Name",
+        "type": "Type",
+        "brand": "Brand",
+        "status": "Status",
+        "trackUsageBy": "Track Usage By",
+        "currentUsage": "Current Usage",
+        "insured": "Insured",
+        "notes": "Notes"
+      }
+    },
+    "permissions": {
+      "manageDenied": "You do not have permission to manage equipment.",
+      "addDenied": "You do not have permission to add equipment.",
+      "editDenied": "You do not have permission to edit equipment.",
+      "deleteDenied": "You do not have permission to deactivate equipment.",
+      "exportDenied": "You do not have permission to export equipment."
+    },
+    "table": {
+      "name": "Name",
+      "type": "Type",
+      "status": "Status",
+      "usage": "Usage",
+      "actions": "Actions"
+    },
+    "form": {
+      "addNewEquipment": "Add New Equipment",
+      "fillEquipmentDetails": "Enter details for the new equipment",
+      "title": {
+        "add": "Add Equipment",
+        "edit": "Edit Equipment"
+      },
+      "description": {
+        "add": "Provide the equipment details",
+        "edit": "Update the equipment details"
+      },
+      "tabs": {
+        "basic": "Basic",
+        "usage": "Usage",
+        "additional": "Additional"
+      },
+      "sections": {
+        "basicInfo": "Basic Information",
+        "usageTracking": "Usage Tracking",
+        "additionalInfo": "Additional Information"
+      },
+      "fields": {
+        "name": {
+          "label": "Equipment Name",
+          "placeholder": "Enter equipment name",
+          "required": "Equipment name is required"
+        },
+        "type": {
+          "label": "Equipment Type",
+          "placeholder": "Select equipment type",
+          "required": "Equipment type is required"
+        },
+        "brand": {
+          "label": "Brand",
+          "placeholder": "Enter brand name"
+        },
+        "status": {
+          "label": "Status"
+        },
+        "trackUsage": {
+          "label": "Track Usage By"
+        },
+        "currentReading": {
+          "label": "Current Usage Reading",
+          "placeholder": "Enter current reading"
+        },
+        "insured": {
+          "label": "Equipment Insured",
+          "description": "Whether this equipment is covered by insurance"
+        },
+        "notes": {
+          "label": "Notes",
+          "placeholder": "Add notes (optional)"
+        },
+        "images": {
+          "label": "Equipment Photos",
+          "tooltip": "Upload up to 5 photos of this equipment"
+        },
+        "attachments": {
+          "label": "Attachments"
+        }
+      },
+      "saving": "Saving...",
+      "upload": {
+        "authenticationRequired": "Authentication required",
+        "pleaseLogInToUpload": "Please log in to upload files",
+        "tooManyFiles": "Too many files",
+        "maxFilesAllowed": "Maximum {{max}} files. You can add {{remaining}} more.",
+        "fileTooLarge": "File too large",
+        "fileIsLargerThan": "\"{{filename}}\" is larger than {{size}}MB",
+        "uploadSuccessful": "Upload successful",
+        "filesUploadedSuccessfully": "{{count}} file(s) uploaded successfully",
+        "uploadFailed": "Upload failed",
+        "failedToUploadFiles": "Failed to upload files",
+        "fileRemoved": "File removed",
+        "fileHasBeenRemoved": "\"{{filename}}\" has been removed",
+        "removeFailed": "Remove failed",
+        "failedToRemoveFile": "Failed to remove file",
+        "downloadFailed": "Download failed",
+        "failedToDownloadFile": "Failed to download file",
+        "uploadingFiles": "Uploading files...",
+        "dropFilesHere": "Drop files here or click to upload",
+        "supportedFormats": "Supported formats",
+        "maxFileSize": "Max file size: {{size}}MB",
+        "slotsAvailable": "{{count}} slots available",
+        "chooseFiles": "Choose Files",
+        "attachedFiles": "Attached Files ({{count}})"
+      }
+    },
+    "messages": {
+      "success": {
+        "added": "Equipment Added",
+        "addedDescription": "New equipment has been successfully added.",
+        "updated": "Equipment Updated",
+        "updatedDescription": "Equipment has been successfully updated.",
+        "deactivated": "Equipment Deactivated",
+        "deactivatedDescription": "Equipment has been set to inactive status.",
+        "deactivatedOffline": "Equipment Deactivated (Offline)",
+        "activated": "Equipment Activated",
+        "activatedDescription": "Equipment has been set to active status.",
+        "activatedOffline": "Equipment Activated (Offline)",
+        "exportComplete": "Export Complete",
+        "exportedSingleDescription": "{{name}} data exported successfully.",
+        "exportedAllDescription": "{{count}} equipment records exported successfully.",
+        "activatedDescriptionWithName": "\"{{name}}\" has been reactivated successfully."
+      },
+      "error": {
+        "addFailedWithMessage": "Failed to add equipment: {{message}}",
+        "updateFailedWithMessage": "Failed to update equipment: {{message}}",
+        "noDataToExport": "No Data to Export",
+        "noEquipmentDataToExport": "There is no equipment data to export.",
+        "validationError": "Validation Error",
+        "errorActivatingEquipment": "Failed to activate equipment"
+      },
+      "info": {
+        "changeWillSyncWhenRestored": "Change will be synced when connection is restored."
+      },
+      "exportSuccessful": "Export Successful",
+      "deactivatedEquipmentDataExported": "Deactivated equipment data exported."
+    },
+    "usageLog": {
+      "title": "Usage Log",
+      "breadcrumbTitle": "{{name}} Usage Log",
+      "backToEquipment": "Back to Equipment",
+      "add": "Add Usage Log",
+      "searchPlaceholder": "Search by purpose, operator, tags, description...",
+      "syncButton": "Sync ({{count}})",
+      "export": {
+        "label": "Export",
+        "headers": {
+          "dateUsed": "Date Used",
+          "usagePurpose": "Usage Purpose",
+          "operator": "Operator",
+          "field": "Field",
+          "lot": "Lot",
+          "startTime": "Start Time",
+          "endTime": "End Time",
+          "startingReading": "Starting Reading",
+          "endingReading": "Ending Reading",
+          "totalUsed": "Total Used",
+          "totalHours": "Total Hours",
+          "fuelConsumables": "Fuel/Consumables",
+          "cost": "Cost",
+          "description": "Description",
+          "keywordsTags": "Keywords/Tags"
+        }
+      },
+      "filters": {
+        "title": "Filters",
+        "usagePurpose": "Usage Purpose",
+        "allPurposes": "All Purposes",
+        "operator": "Operator",
+        "allOperators": "All Operators",
+        "field": "Field",
+        "allFields": "All Fields",
+        "startDate": "Start Date",
+        "endDate": "End Date"
+      },
+      "listTitle": "Usage Logs ({{count}})",
+      "loading": "Loading usage logs...",
+      "empty": "No usage logs found",
+      "tags": "{{count}} tags",
+      "unknownOperator": "Unknown Operator",
+      "unknownField": "Unknown Field",
+      "unknown": "Unknown",
+      "costLabel": "Cost",
+      "table": {
+        "headers": {
+          "datePurpose": "Date & Purpose",
+          "operator": "Operator",
+          "location": "Location",
+          "timePeriod": "Time Period",
+          "usage": "Usage",
+          "cost": "Cost",
+          "actions": "Actions"
+        }
+      },
+      "pagination": {
+        "showing": "Showing {{start}} to {{end}} of {{total}} entries"
+      },
+      "errors": {
+        "equipmentIdRequired": "Equipment ID required",
+        "equipmentIdNotProvided": "Equipment ID not provided",
+        "farmNotFoundForUser": "Farm not found for user"
+      },
+      "confirmDelete": "Are you sure you want to delete this usage log?"
+    },
+    "usageView": {
+      "startDateTime": "Start Date/Time",
+      "endDateTime": "End Date/Time",
+      "usedBy": "Used By",
+      "lot": "Lot",
+      "totalHoursUsed": "Total Hours Used",
+      "totalHoursValue": "{{hours}} hours",
+      "fuelConsumablesUsed": "Fuel / Consumables Used",
+      "cost": "Cost",
+      "editUsageLog": "Edit Usage Log"
+    },
+    "imagesUpload": {
+      "errors": {
+        "authRequired": "You must be logged in to upload images",
+        "maxImagesTitle": "Maximum images reached",
+        "maxImagesDescription": "You can only upload up to {{max}} images",
+        "invalidFilesTitle": "Invalid files",
+        "invalidFilesDescription": "Only image files are allowed",
+        "uploadFailed": "Failed to upload images. Please try again."
+      },
+      "successUploaded": "{{count}} image(s) uploaded",
+      "altEquipment": "Equipment",
+      "uploading": "Uploading...",
+      "uploadButton": "Upload Photo",
+      "imageCount": "{{count}}/{{max}} images",
+      "altEquipmentImage": "Equipment {{index}}"
+    },
+    "imageGallery": {
+      "altMain": "Equipment image",
+      "altThumbnail": "Image {{index}}"
+    }
+  },
+  "equipmentProfile": {
+    "backToEquipment": "Back to Equipment",
+    "totalHours": "Total Hours",
+    "operatingHours": "Operating Hours",
+    "totalFuelUsed": "Total Fuel Used",
+    "fuelConsumption": "Fuel Consumption",
+    "totalCost": "Total Cost",
+    "usagePlusMaintenance": "Usage + Maintenance",
+    "lastMaintenance": "Last Maintenance",
+    "never": "Never",
+    "mostRecentService": "Most recent service",
+    "equipmentDetails": "Equipment Details",
+    "ownership": "Ownership",
+    "trackUsageBy": "Track Usage By",
+    "hours": "Hours",
+    "usageHistory": "Usage History",
+    "maintenanceHistory": "Maintenance History",
+    "addUsage": "Add Usage",
+    "grid": "Grid",
+    "table": "Table",
+    "noUsageRecordsYet": "No Usage Records Yet",
+    "startTrackingEquipmentUsage": "Start tracking equipment usage to monitor performance and costs.",
+    "loadingEquipmentDetails": "Loading equipment details...",
+    "equipmentNotFound": "Equipment not found",
+    "unknown": "Unknown",
+    "noMaintenanceRecordsYet": "No Maintenance Records Yet",
+    "view": "View",
+    "notes": "Notes",
+    "addTitle": "Add Maintenance Record",
+    "addMaintenance": "Add Maintenance",
+    "usageRecordDetails": "Usage Record Details",
+    "operator": "Operator",
+    "fieldLocation": "Field/Location",
+    "performedBy": "Performed By",
+    "notSpecified": "Not specified",
+    "nextMaintenance": "Next Maintenance",
+    "pendingMaintenance": "Pending Maintenance",
+    "purchaseDate": "Purchase Date",
+    "purchasePrice": "Purchase Price",
+    "currentValue": "Current Value",
+    "noField": "No field",
+    "description": "Description",
+    "serialNumber": "Serial Number",
+    "offlineDebugTitle": "Offline Debug",
+    "offlineDebugMessage": "Unable to find id {{id}}. Cached IDs: {{cachedIds}}",
+    "offlineDebugNone": "none",
+    "actions": {
+      "edit": "Edit"
+    },
+    "usageTable": {
+      "date": "Date",
+      "purpose": "Purpose",
+      "operator": "Operator",
+      "fieldLocation": "Field/Location",
+      "hours": "Hours",
+      "fuelUsed": "Fuel Used",
+      "description": "Description",
+      "actions": "Actions"
+    },
+    "performedBy": "Performed By",
+    "notSpecified": "Not specified",
+    "nextMaintenance": "Next Maintenance",
+    "pendingMaintenance": "Pending Maintenance",
+    "purchaseDate": "Purchase Date",
+    "purchasePrice": "Purchase Price",
+    "currentValue": "Current Value",
+    "noField": "No field",
+    "description": "Description",
+    "serialNumber": "Serial Number",
+    "offlineDebugTitle": "Offline Debug",
+    "offlineDebugMessage": "Unable to find id {{id}}. Cached IDs: {{cachedIds}}",
+    "offlineDebugNone": "none",
+    "actions": {
+      "edit": "Edit"
+    },
+    "maintenance": {
+      "addTitle": "Add Maintenance Record",
+      "editTitle": "Edit Maintenance Record"
+    },
+    "usageLogAddedSuccessfully": "Usage log added successfully",
+    "usageLogUpdatedSuccessfully": "Usage log updated successfully",
+    "errorAddingUsageLog": "Error adding usage log",
+    "loadingRecentUsage": "Loading recent usage...",
+    "loadingMaintenanceRecords": "Loading maintenance records...",
+    "errors": {
+      "noAuthenticatedUser": "No authenticated user",
+      "farmNotFound": "Farm not found"
+    }
+  },
+  "usagePurposes": {
+    "plowing": "Plowing",
+    "planting": "Planting",
+    "harvesting": "Harvesting",
+    "spraying": "Spraying",
+    "irrigation": "Irrigation",
+    "transport": "Transport",
+    "maintenance": "Maintenance",
+    "other": "Other"
+  },
+  "common": {
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information"
+  }
+}

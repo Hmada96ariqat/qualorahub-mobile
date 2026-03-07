@@ -1,0 +1,266 @@
+{
+  "stockCount": {
+    "title": "Conteo de Inventario",
+    "subtitle": "Realice conteos físicos de inventario y concilie con las cantidades del sistema",
+    
+    "newCount": "Nuevo Conteo",
+    "back": "Regresar",
+    "createStockCount": "Crear Conteo de Inventario",
+    "editStockCount": "Editar Conteo de Inventario",
+    "close": "Cerrar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "viewDetails": "Ver Detalles",
+    
+    "viewType": {
+      "table": "Tabla",
+      "grid": "Cuadrícula"
+    },
+    
+    "stats": {
+      "totalCounts": "Conteos Totales",
+      "totalShortages": "Faltantes Totales",
+      "totalExcesses": "Excesos Totales"
+    },
+    
+    "filters": {
+      "title": "Filtros",
+      "warehouse": "Bodega",
+      "allWarehouses": "Todas las Bodegas",
+      "status": "Estado",
+      "allStatuses": "Todos los Estados",
+      "fromDate": "Fecha Desde",
+      "toDate": "Fecha Hasta",
+      "selectDate": "Seleccione fecha",
+      "clearFilters": "Limpiar Filtros",
+      "offlineMode": "Modo Sin Conexión",
+      "syncOfflineData": "Sincronizar Datos Sin Conexión"
+    },
+    
+    "status": {
+      "draft": "Borrador",
+      "inProgress": "En Progreso",
+      "completed": "Completado",
+      "posted": "Publicado",
+      "cancelled": "Cancelado"
+    },
+    
+    "summary": {
+      "allStockCounts": "Todos los Conteos de Inventario",
+      "viewManageAll": "Vea y administre todos sus registros de conteo de inventario",
+      "noVariance": "Sin Variación",
+      "excess": "Sobrante",
+      "shortage": "Faltante",
+      "stockCountItems": "Artículos del Conteo",
+      "manageAdjustments": "Revisar y administrar ajustes de cantidad",
+      "stockCountDetails": "Detalles del Conteo de Inventario",
+      "reviewDetails": "Revise la información completa del conteo de inventario",
+      "backToList": "Regresar a la Lista",
+      "countItemsTitle": "Artículos del Conteo",
+      "itemsCount": "{{count}} artículos",
+      "itemsWithDifferences": "{{count}} con diferencias"
+    },
+    
+    "table": {
+      "reference": "Referencia",
+      "warehouse": "Bodega",
+      "countDate": "Fecha de Conteo",
+      "status": "Estado",
+      "items": "Artículos",
+      "variances": "Variaciones",
+      "created": "Creado",
+      "actions": "Acciones",
+      "view": "Ver",
+      "edit": "Editar",
+      "delete": "Borrar",
+      "unknown": "Desconocido",
+      "info": "Información",
+      "productName": "Nombre del Producto",
+      "product": "Producto",
+      "batchLot": "Lote",
+      "systemQty": "Cant. Sistema",
+      "countedQty": "Cant. Contada",
+      "difference": "Diferencia",
+      "manufacturingDate": "Fecha de Elaboración",
+      "expiryDate": "Fecha de Vencimiento",
+      "expiryDateDays": "Fecha de Vencimiento",
+      "notes": "Notas",
+      "sku": "SKU",
+      "na": "N/D",
+      "noChange": "Sin Cambio",
+      "unknownProduct": "Producto Desconocido"
+    },
+    
+    "form": {
+      "warehouse": "Bodega",
+      "selectWarehouse": "Seleccione bodega",
+      "countReference": "Referencia de Conteo",
+      "countReferenceDesc": "ej., CONTEO-2024-001",
+      "description": "Descripción",
+      "date": "Fecha",
+      "selectDate": "Seleccione fecha",
+      "notes": "Notas",
+      "notesPlaceholder": "Agregue cualquier nota relevante sobre este conteo de inventario",
+      "addProducts": "Agregar Productos",
+      "searchProducts": "Busque productos por nombre o SKU...",
+      "createDescription": "Registre conteos físicos de inventario y concilie discrepancias",
+      "updateDescription": "Actualice su borrador de conteo de inventario y finalice cuando esté listo"
+    },
+    
+    "buttons": {
+      "saveAsDraft": "Guardar como Borrador",
+      "submitCount": "Completar Conteo",
+      "postCount": "Publicar Conteo",
+      "reopen": "Reabrir",
+      "cancelCount": "Cancelar Conteo"
+    },
+    
+    "messages": {
+      "pendingSync": "pendiente de sincronización",
+      "processing": "Procesando...",
+      "selectWarehouse": "Seleccione Bodega",
+      "selectWarehouseDesc": "Por favor, seleccione una bodega primero.",
+      "noInventory": "Sin Inventario",
+      "noInventoryDesc": "Este producto no tiene inventario en la bodega seleccionada.",
+      "productAlreadyAdded": "Producto Ya Agregado",
+      "productAlreadyAddedDesc": "Este producto ya está en la lista de conteo.",
+      "noItems": "No hay artículos para contar",
+      "warehouseRequired": "Por favor, seleccione una bodega",
+      "draftUpdated": "Borrador Actualizado",
+      "draftUpdatedDesc": "Borrador de conteo de inventario actualizado con éxito.",
+      "stockCountCompleted": "Conteo de Inventario Completado",
+      "stockCountCompletedDesc": "¡Conteo de inventario completado! {{count}} artículos con diferencias actualizados.",
+      "draftSaved": "Borrador Guardado",
+      "draftSavedDesc": "Conteo de inventario guardado como borrador. Puede continuar editando más tarde.",
+      "countedItemsDesc": "{{total}} artículo(s) contado(s). {{differences}} con diferencias actualizados.",
+      "error": "Error",
+      "errorSaving": "No se pudo guardar el conteo de inventario. Por favor, intente de nuevo.",
+      "deleteConfirmTitle": "Borrar Conteo de Inventario",
+      "deleteConfirmDesc": "¿Está seguro que desea borrar este conteo de inventario? Esta acción no se puede deshacer.",
+      "confirmDelete": "Borrar",
+      "discardChangesTitle": "Descartar Cambios",
+      "discardChangesDesc": "Tiene cambios sin guardar. ¿Está seguro que desea descartarlos?",
+      "discardChanges": "Descartar",
+      "keepEditing": "Continuar Editando",
+      "postCountTitle": "Publicar Conteo de Inventario",
+      "postCountDesc": "¿Está seguro que desea publicar este conteo de inventario? Esto actualizará las cantidades del inventario y no se puede deshacer.",
+      "postCount": "Publicar Conteo",
+      "reopenCountTitle": "Reabrir Conteo de Inventario",
+      "reopenCountDesc": "¿Está seguro que desea reabrir este conteo de inventario? Esto le permitirá editarlo nuevamente.",
+      "reopenCount": "Reabrir",
+      "cancelCountTitle": "Cancelar Conteo de Inventario",
+      "cancelCountDesc": "¿Está seguro que desea cancelar este conteo de inventario? Esta acción no se puede deshacer.",
+      "cancelCount": "Cancelar Conteo",
+      "countDeleted": "Conteo de inventario borrado con éxito",
+      "countPosted": "Conteo de inventario publicado con éxito",
+      "countReopened": "Conteo de inventario reabierto con éxito",
+      "countCancelled": "Conteo de inventario cancelado con éxito",
+      "importSuccess": "Productos importados con éxito",
+      "importFailed": "No se pudieron importar los productos. Por favor, intente de nuevo.",
+      "filterApplied": "Filtros aplicados",
+      "filterCleared": "Filtros limpiados"
+    },
+    
+    "validation": {
+      "warehouseRequired": "La bodega es obligatoria",
+      "countReferenceRequired": "La referencia de conteo es obligatoria",
+      "dateRequired": "La fecha es obligatoria",
+      "invalidDate": "Por favor, seleccione una fecha válida",
+      "atLeastOneProduct": "Se requiere al menos un producto",
+      "quantityRequired": "La cantidad es obligatoria",
+      "quantityMustBePositive": "La cantidad debe ser un número positivo",
+      "quantityTooLarge": "La cantidad excede el máximo permitido",
+      "invalidQuantity": "Por favor, ingrese una cantidad válida",
+      "negativeQuantity": "La cantidad no puede ser negativa",
+      "duplicateProduct": "Este producto ya existe en la lista",
+      "permissionDenied": "No tiene permiso para realizar esta acción",
+      "networkError": "Error de red. Por favor, verifique su conexión e intente de nuevo.",
+      "serverError": "Error del servidor. Por favor, intente de nuevo más tarde."
+    },
+    
+    "noStockCountsFound": "No se Encontraron Conteos de Inventario",
+    "startFirstStockCount": "Comience creando su primer conteo de inventario",
+    "adjustFilters": "Intente ajustar sus filtros para ver más resultados",
+    
+    "accessibility": {
+      "viewToggle": "Cambiar modo de vista",
+      "datePickerIcon": "Abrir selector de fecha",
+      "addProductIcon": "Agregar producto",
+      "removeProductIcon": "Quitar producto",
+      "deleteIcon": "Borrar conteo de inventario",
+      "backIcon": "Regresar",
+      "loadingIndicator": "Cargando...",
+      "savingIndicator": "Guardando...",
+      "postingIndicator": "Publicando...",
+      "processingIndicator": "Procesando...",
+      "filterIcon": "Opciones de filtro",
+      "searchIcon": "Buscar productos",
+      "calendarIcon": "Seleccione fecha",
+      "warehouseIcon": "Bodega",
+      "productIcon": "Producto",
+      "variancePositive": "Variación positiva",
+      "varianceNegative": "Variación negativa",
+      "offlineMode": "Modo sin conexión",
+      "onlineMode": "Modo en línea",
+      "syncData": "Sincronizar datos sin conexión"
+    },
+    
+    "tooltips": {
+      "viewDetails": "Ver detalles del conteo de inventario",
+      "editDraft": "Editar borrador de conteo de inventario",
+      "deleteCount": "Borrar conteo de inventario",
+      "postCount": "Publicar y finalizar conteo de inventario",
+      "saveAsDraft": "Guardar como borrador para después",
+      "completeCount": "Completar y actualizar inventario",
+      "clearFilters": "Limpiar todos los filtros",
+      "syncOffline": "Sincronizar cambios sin conexión"
+    },
+    
+    "advanced": {
+      "importFromCSV": "Importar desde CSV",
+      "exportToCSV": "Exportar a CSV",
+      "scanBarcode": "Escanear Código de Barras",
+      "bulkActions": "Acciones Masivas",
+      "selectAll": "Seleccionar Todo",
+      "deselectAll": "Deseleccionar Todo",
+      "attachments": "Archivos Adjuntos",
+      "addAttachment": "Agregar Archivo Adjunto",
+      "removeAttachment": "Quitar Archivo Adjunto"
+    },
+    
+    "batch": {
+      "batchNumber": "Número de Lote",
+      "lotNumber": "Número de Lote",
+      "serialNumber": "Número de Serie",
+      "location": "Ubicación",
+      "selectBatch": "Seleccionar Lote",
+      "noBatchesAvailable": "No hay lotes disponibles"
+    },
+    
+    "units": {
+      "uom": "UDM",
+      "unit": "Unidad",
+      "pieces": "Piezas",
+      "kg": "kg",
+      "lbs": "lbs",
+      "liters": "L",
+      "gallons": "gal"
+    },
+    
+    "empty": {
+      "title": "No se Agregaron Productos",
+      "description": "Comience agregando productos para realizar un conteo de inventario",
+      "action": "Agregar Primer Producto"
+    },
+    
+    "badges": {
+      "draft": "Borrador",
+      "inProgress": "En Progreso",
+      "completed": "Completado",
+      "posted": "Publicado",
+      "cancelled": "Cancelado",
+      "offline": "Sin Conexión",
+      "synced": "Sincronizado"
+    }
+  }
+}

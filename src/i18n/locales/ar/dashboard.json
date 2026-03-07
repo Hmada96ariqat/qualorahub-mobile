@@ -1,0 +1,309 @@
+{
+  "dashboard": {
+    "title": "لوحة التحكم",
+    "subtitle": "نظرة عامة على عمليات المزرعة",
+    "header": {
+      "goodMorning": "صباح الخير",
+      "goodAfternoon": "مساء الخير",
+      "goodEvening": "مساء الخير",
+      "farmer": "المزارع",
+      "myFarm": "مزرعتي",
+      "searchExport": "بحث وتصدير",
+      "lowStock": "مخزون منخفض",
+      "unitsLeft": "وحدة متبقية",
+      "moreItems": "المزيد",
+      "gettingStarted": "ابدأ الآن",
+      "onboarding": {
+        "sequentialHint": "أكمل كل خطوة لفتح التالية",
+        "addFirstField": "أضف أول حقل",
+        "addFirstLot": "أضف أول قطعة",
+        "addCrops": "أضف المحاصيل",
+        "createProductionCycle": "أنشئ أول دورة إنتاج",
+        "unlocks": {
+          "lot": "يفتح: القطعة",
+          "crop": "يفتح: المحصول",
+          "productionCycle": "يفتح: دورة الإنتاج"
+        }
+      }
+    },
+    "sections": {
+      "farmOverview": "نظرة عامة على المزرعة",
+      "finance": "المالية",
+      "tasks": "المهام",
+      "planting": "الزراعة",
+      "orders": "الطلبات",
+      "alerts": "التنبيهات",
+      "livestock": "الثروة الحيوانية",
+      "inventory": "المخزون والمعدات"
+    },
+    "farmOverview": {
+      "title": "🌾 نظرة عامة على المزرعة",
+      "activeCrops": "المحاصيل النشطة",
+      "activeCropsSubtitle": "قيد النمو حالياً",
+      "activeWorkers": "العمال النشطون",
+      "activeWorkersSubtitle": "يعملون اليوم",
+      "dailyRevenue": "الإيراد اليومي",
+      "dailyExpense": "المصروفات",
+      "criticalAlerts": "تنبيهات حرجة",
+      "criticalAlertsSubtitle": "تتطلب الانتباه",
+      "weather": {
+        "title": "الطقس",
+        "myFarm": "مزرعتي",
+        "loading": "جارٍ تحميل الطقس...",
+        "noLocation": "بيانات الموقع غير متوفرة",
+        "configureLocation": "قم بإعداد موقع المزرعة من الإعدادات",
+        "temperature": "درجة الحرارة",
+        "humidity": "الرطوبة",
+        "windSpeed": "سرعة الرياح",
+        "conditions": "الحالة"
+      },
+      "season": {
+        "title": "الموسم والمرحلة",
+        "currentSeason": "الموسم الحالي",
+        "activeStages": "المراحل النشطة",
+        "stage": "مرحلة",
+        "stages": "مراحل"
+      },
+      "productionCycles": {
+        "title": "دورات الإنتاج النشطة",
+        "subtitle": "أحدث 3 دورات",
+        "viewAll": "عرض الكل",
+        "emptyTitle": "لا توجد دورات إنتاج نشطة",
+        "emptyDescription": "ابدأ دورة لمتابعة التقدم والأداء.",
+        "unnamedCrop": "محصول بدون اسم",
+        "started": "تاريخ البدء",
+        "running": "مدة التشغيل",
+        "days": "{{count}} يومًا",
+        "target": "الهدف",
+        "estimatedCost": "التكلفة التقديرية",
+        "viewFull": "عرض الدورة كاملة",
+        "activeStatus": "نشط"
+      },
+      "profitableCrops": {
+        "title": "أكثر المحاصيل ربحية",
+        "subtitle": "نسبة الحصاد هذا العام (باستثناء الهدر)",
+        "emptyTitle": "لا توجد بيانات حصاد هذا العام",
+        "emptyDescription": "قم بتصنيف نتائج الحصاد لعرض أفضل المحاصيل.",
+        "harvested": "تم حصاده",
+        "others": "أخرى",
+        "totalHarvested": "إجمالي المحصول",
+        "topCrop": "المحصول الأعلى",
+        "unknownCrop": "محصول غير معروف"
+      }
+    },
+    "finance": {
+      "title": "المالية",
+      "monthlyIncome": "الدخل الشهري",
+      "monthlyIncomeSubtitle": "هذا الشهر",
+      "monthlyExpenses": "المصروفات الشهرية",
+      "monthlyExpensesSubtitle": "هذا الشهر",
+      "profit": "الربح",
+      "profitLoss": "الربح / الخسارة",
+      "profitLossSubtitle": "النتيجة الصافية",
+      "netResult": "النتيجة الصافية",
+      "topExpenses": "أعلى المصروفات",
+      "noExpenses": "لا توجد مصروفات هذا الشهر",
+      "financialTrends": "الاتجاهات المالية لآخر 6 أشهر",
+      "sixMonthTrend": "اتجاه 6 أشهر",
+      "avgMonthlyIncome": "متوسط الدخل الشهري",
+      "avgMonthlyExpenses": "متوسط المصروفات الشهرية",
+      "expenses": "المصروفات",
+      "income": "الدخل",
+      "recentTransactions": "أحدث المعاملات",
+      "viewAll": "عرض الكل",
+      "noTransactions": "لا توجد معاملات حديثة",
+      "noFinancialData": "لا توجد بيانات مالية متاحة لآخر 6 أشهر"
+    },
+    "tasks": {
+      "title": "المهام",
+      "totalTasks": "إجمالي المهام",
+      "totalTasksSubtitle": "جميع المهام",
+      "allTasks": "كل المهام",
+      "pendingTasks": "المهام المعلقة",
+      "pendingTasksSubtitle": "قيد التنفيذ",
+      "inProgress": "قيد التنفيذ",
+      "completedTasks": "المهام المكتملة",
+      "completedTasksSubtitle": "منتهية",
+      "finished": "منتهية",
+      "upcomingTasks": "القادمة (3 أيام)",
+      "upcomingTasksSubtitle": "الأيام الثلاثة القادمة",
+      "noUpcomingTasks": "لا توجد مهام قادمة",
+      "viewAll": "عرض جميع المهام",
+      "noTasks": "لا توجد مهام"
+    },
+    "planting": {
+      "title": "الزراعة",
+      "activeCycles": "دورات الإنتاج النشطة",
+      "activeCyclesSubtitle": "قيد التنفيذ",
+      "growthStatus": {
+        "title": "حالة النمو",
+        "seeded": "تمت الزراعة",
+        "growing": "قيد النمو",
+        "harvestReady": "جاهز للحصاد"
+      },
+      "irrigation": {
+        "title": "حالة الري",
+        "subtitle": "الحقول التي تم ريّها اليوم"
+      }
+    },
+    "orders": {
+      "title": "الطلبات",
+      "totalOrders": "إجمالي الطلبات",
+      "totalOrdersSubtitle": "جميع الطلبات",
+      "pendingOrders": "الطلبات المعلقة",
+      "pendingOrdersSubtitle": "بانتظار التنفيذ",
+      "completedOrders": "الطلبات المكتملة",
+      "completedOrdersSubtitle": "هذا الشهر",
+      "orderTrends": "اتجاهات الطلبات",
+      "orderTrendsSubtitle": "آخر 30 يوماً",
+      "volumeTrends": "اتجاه حجم الطلبات",
+      "clickToView": "انقر على أي تاريخ لعرض تفاصيل الطلبات",
+      "ordersLabel": "الطلبات:",
+      "clickForDetails": "انقر للتفاصيل",
+      "viewAll": "عرض جميع الطلبات",
+      "navigatingToOrders": "جارٍ الانتقال إلى صفحة الطلبات مع فلتر التاريخ..."
+    },
+    "alerts": {
+      "title": "التنبيهات",
+      "active": "نشط",
+      "allClear": "كل شيء على ما يرام!",
+      "noAlertsMessage": "لا توجد تنبيهات حالياً",
+      "types": {
+        "lowStock": "نقص في المخزون",
+        "expiredStock": "مخزون منتهي الصلاحية",
+        "healthAlerts": "تنبيهات صحية",
+        "weatherAlerts": "تنبيهات الطقس"
+      },
+      "descriptions": {
+        "lowStock": "منتجات أقل من الحد الأدنى",
+        "expiredStock": "منتجات منتهية الصلاحية",
+        "healthAlerts": "حيوانات تحتاج إلى متابعة",
+        "noSevereWeather": "لا توجد أحوال جوية خطيرة"
+      },
+      "severity": {
+        "high": "مرتفع",
+        "medium": "متوسط",
+        "low": "منخفض",
+        "priority": "الأولوية"
+      },
+      "lowStock": "عناصر منخفضة المخزون",
+      "lowStockSubtitle": "عناصر قاربت على النفاد",
+      "expiredStock": "مخزون منتهي الصلاحية",
+      "expiredStockSubtitle": "عناصر منتهية",
+      "healthAlerts": "تنبيهات صحية",
+      "healthAlertsSubtitle": "تتطلب الانتباه",
+      "viewAll": "عرض جميع التنبيهات",
+      "noAlerts": "لا توجد تنبيهات"
+    },
+    "livestock": {
+      "title": "الثروة الحيوانية",
+      "totalAnimals": "إجمالي الحيوانات",
+      "totalAnimalsSubtitle": "في المخزون",
+      "healthAlerts": "تنبيهات صحية",
+      "healthAlertsSubtitle": "تحتاج إلى متابعة",
+      "breedingStatus": "حالة التكاثر",
+      "breedingStatusSubtitle": "تكاثر نشط",
+      "feedingCompliance": "الالتزام بالتغذية",
+      "feedingComplianceSubtitle": "وفق الجدول",
+      "viewAll": "عرض جميع الحيوانات"
+    },
+    "inventory": {
+      "title": "المخزون والمعدات",
+      "lowStock": "نقص في المخزون",
+      "lowStockSubtitle": "عناصر أقل من الحد المطلوب",
+      "operationalEquipment": "معدات تعمل",
+      "operationalEquipmentSubtitle": "قيد التشغيل",
+      "maintenanceEquipment": "تحتاج إلى صيانة",
+      "maintenanceEquipmentSubtitle": "معدات",
+      "totalEquipment": "إجمالي المعدات",
+      "totalEquipmentSubtitle": "في المخزون",
+      "upcomingMaintenance": "صيانة قادمة",
+      "upcomingMaintenanceSubtitle": "خلال 30 يومًا"
+    },
+    "search": {
+      "placeholder": "البحث في لوحة التحكم...",
+      "filter": {
+        "all": "جميع الأقسام",
+        "overview": "نظرة عامة",
+        "finance": "المالية",
+        "tasks": "المهام",
+        "planting": "الزراعة",
+        "orders": "الطلبات",
+        "alerts": "التنبيهات",
+        "livestock": "الثروة الحيوانية",
+        "inventory": "المخزون",
+        "bySection": "تصفية حسب القسم"
+      }
+    },
+    "export": {
+      "button": "تصدير لوحة التحكم",
+      "title": "تصدير تقرير لوحة التحكم",
+      "description": "تصدير تقرير شامل عن الحالة الحالية للمزرعة",
+      "generating": "جارٍ إنشاء التقرير...",
+      "success": "تم تصدير لوحة التحكم بنجاح",
+      "columns": {
+        "metric": "المؤشر",
+        "value": "القيمة"
+      },
+      "formats": {
+        "csv": "تصدير كـ CSV",
+        "excel": "تصدير كـ Excel",
+        "pdf": "تصدير كـ PDF"
+      },
+      "reportTitle": "تقرير لوحة تحكم المزرعة",
+      "filenamePrefix": "تقرير-لوحة-التحكم"
+    },
+    "quickActions": {
+      "title": "إجراءات سريعة",
+      "quickLog": "سجل سريع",
+      "newOrder": "طلب جديد",
+      "createTask": "إنشاء مهمة",
+      "recordTransaction": "تسجيل معاملة",
+      "addProduct": "إضافة منتج",
+      "addTransaction": "إضافة معاملة",
+      "recordHarvest": "تسجيل الحصاد",
+      "addAnimal": "إضافة حيوان"
+    },
+    "alertDetails": {
+      "close": "إغلاق",
+      "lowStock": {
+        "title": "عناصر منخفضة المخزون",
+        "description": "منتجات تحتاج إلى إعادة الطلب",
+        "subtitle": "الحالي: {{current}} {{currentUnit}} | الحد الأدنى: {{min}} {{minUnit}}",
+        "badge": "مخزون منخفض",
+        "actionLabel": "عرض المخزون المنخفض",
+        "empty": "لا توجد عناصر منخفضة المخزون"
+      },
+      "expiredStock": {
+        "title": "منتجات منتهية الصلاحية",
+        "description": "منتجات تجاوزت تاريخ الصلاحية",
+        "subtitle": "انتهت الصلاحية في: {{date}}",
+        "unknownDate": "غير معروف",
+        "badge": "منتهي",
+        "actionLabel": "عرض المنتجات",
+        "empty": "لا توجد منتجات منتهية الصلاحية"
+      },
+      "healthAlerts": {
+        "title": "تنبيهات صحة الحيوانات",
+        "description": "حيوانات تحتاج إلى رعاية طبية",
+        "subtitle": "الحالة: {{status}} | الرقم: {{tag}}",
+        "unnamedAnimal": "حيوان غير معروف",
+        "unknownStatus": "غير معروف",
+        "notAvailable": "غير متاح",
+        "badge": "تنبيه",
+        "actionLabel": "عرض الحيوانات",
+        "empty": "لا توجد تنبيهات صحية",
+        "statusValues": {
+          "sick": "مريض",
+          "injured": "مصاب"
+        }
+      },
+      "weatherAlerts": {
+        "title": "تنبيهات الطقس",
+        "description": "تحذيرات طقس شديد لمنطقتك",
+        "actionLabel": "عرض الطقس",
+        "empty": "لا توجد تنبيهات طقس"
+      }
+    }
+  }
+}

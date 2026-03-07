@@ -1,0 +1,49 @@
+{
+  "taxes": {
+    "title": "Taxes",
+    "subtitle": "Manage tax rates and policies",
+    "addTax": "Add Tax",
+    "editTax": "Edit Tax",
+    "addNewTax": "Add New Tax",
+    "taxNameRequired": "Tax Name Required",
+    "taxRateRequired": "Tax Rate Required",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "all": "All Status",
+    "notes": "Notes",
+    "rateLabel": "Rate",
+    "name": "Name",
+    "created": "Created",
+    "actions": "Actions",
+    "activate": "Activate",
+    "loadingTaxes": "Loading taxes...",
+    "noTaxesFound": "No taxes found",
+    "placeholders": {
+      "taxName": "Enter tax name (e.g., Sales Tax, VAT)",
+      "taxRate": "Enter tax rate percentage",
+      "notes": "Add any additional notes about this tax"
+    },
+    "form": {
+      "saving": "Saving...",
+      "update": "Update",
+      "create": "Create"
+    },
+    "messages": {
+      "taxCreated": "Tax created successfully",
+      "taxUpdated": "Tax updated successfully",
+      "taxDeactivated": "Tax deactivated successfully",
+      "taxActivated": "Tax activated successfully",
+      "failedToSave": "Failed to save tax",
+      "failedToActivate": "Failed to activate tax",
+      "duplicateName": "A tax with this name already exists",
+      "invalidRate": "Please enter a valid tax rate"
+    },
+    "dialogs": {
+      "deleteTitle": "Deactivate Tax",
+      "deleteDescription": "Are you sure you want to deactivate {{name}}? This action will mark the tax as inactive but will not delete it.",
+      "deactivateTax": "Deactivate Tax"
+    }
+  }
+}
+

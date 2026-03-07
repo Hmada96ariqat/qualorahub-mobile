@@ -16,6 +16,7 @@ describe('crops contracts', () => {
       status: 'Planned',
       notes: 'Notes',
       fieldId: null,
+      cropGroupId: null,
       createdAt: '2026-03-02T00:00:00.000Z',
       updatedAt: '2026-03-02T00:00:00.000Z',
     });
@@ -23,6 +24,7 @@ describe('crops contracts', () => {
     expect(values).toEqual({
       cropName: 'Tomato',
       cropVariety: 'Cherry',
+      cropGroupId: '',
       notes: 'Notes',
     });
   });

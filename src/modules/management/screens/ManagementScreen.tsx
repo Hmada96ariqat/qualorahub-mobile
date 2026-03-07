@@ -17,10 +17,8 @@ import {
   ErrorState,
   FormField,
   FormValidationProvider,
-  HeaderActionGroup,
   ListRow,
   ModuleTabs,
-  NotificationHeaderButton,
   PillTabs,
   ProfileCard,
   PullToRefreshContainer,
@@ -28,9 +26,11 @@ import {
   SectionHeader,
   Skeleton,
   StatStrip,
+  SystemHeaderActions,
   useFormValidation,
   useToast,
 } from '../../../components';
+import { useAppI18n } from '../../../hooks/useAppI18n';
 import { useAuth } from '../../../providers/AuthProvider';
 import { palette, spacing, typography } from '../../../theme/tokens';
 import {
@@ -87,6 +87,7 @@ function toUserIcon(user: ManagedUser): string {
 }
 
 export function ManagementScreen() {
+  const { t } = useAppI18n();
   const { showToast } = useToast();
   const { accessSnapshot, hasMenuAccess } = useAuth();
   const roleSheetScrollRef = useRef<ScrollView | null>(null);
@@ -529,13 +530,15 @@ export function ManagementScreen() {
     <AppScreen padded={false}>
       <View style={styles.header}>
         <AppHeader
-          title="Management"
-          subtitle="Users, roles, and invites."
+          title={t('system', 'headers.management.title', 'Management')}
+          subtitle={t(
+            'system',
+            'headers.management.subtitle',
+            'Users, roles, invites, and access administration.',
+          )}
           menuButtonTestID="management-header-menu"
           rightAction={
-            <HeaderActionGroup>
-              <NotificationHeaderButton testID="management-header-notifications" />
-            </HeaderActionGroup>
+            <SystemHeaderActions notificationTestID="management-header-notifications" />
           }
         />
         <SearchBar

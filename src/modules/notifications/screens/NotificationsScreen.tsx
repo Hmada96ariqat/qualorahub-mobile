@@ -16,14 +16,14 @@ import {
   FilterBar,
   FormField,
   FormValidationProvider,
-  HeaderActionGroup,
-  NotificationHeaderButton,
   PullToRefreshContainer,
   SectionCard,
   Skeleton,
+  SystemHeaderActions,
   useFormValidation,
   useToast,
 } from '../../../components';
+import { useAppI18n } from '../../../hooks/useAppI18n';
 import { useAuth } from '../../../providers/AuthProvider';
 import { spacing } from '../../../theme/tokens';
 import { useManagedNotifications } from '../../../hooks/useManagedNotifications.hook';
@@ -49,6 +49,7 @@ function isVisible(state: AccessState): boolean {
 }
 
 export function NotificationsScreen() {
+  const { t } = useAppI18n();
   const { showToast } = useToast();
   const { accessSnapshot, hasMenuAccess } = useAuth();
   const notificationSheetScrollRef = useRef<ScrollView | null>(null);
@@ -210,12 +211,10 @@ export function NotificationsScreen() {
   return (
     <AppScreen padded={false}>
       <AppHeader
-        title="Notifications"
-        subtitle="In-app notification center."
+        title={t('system', 'headers.notifications.title', 'Notifications')}
+        subtitle={t('system', 'headers.notifications.subtitle', 'In-app notification center.')}
         rightAction={
-          <HeaderActionGroup>
-            <NotificationHeaderButton testID="notifications-header-notifications" />
-          </HeaderActionGroup>
+          <SystemHeaderActions notificationTestID="notifications-header-notifications" />
         }
       />
 

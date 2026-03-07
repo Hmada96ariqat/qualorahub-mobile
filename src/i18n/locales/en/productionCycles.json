@@ -1,0 +1,2467 @@
+{
+  "title": "Production Cycles",
+  "subtitle": "Manage and monitor your agricultural production cycles",
+  "list": {
+    "header": {
+      "title": "Production Cycles",
+      "subtitle": "Manage and monitor your agricultural production cycles",
+      "stats": {
+        "active": "{{count}} Active",
+        "total": "{{count}} Total",
+        "cost": "{{amount}}",
+        "labels": {
+          "activeCycles": "Active cycles",
+          "totalCost": "Total cost",
+          "totalCycles": "Total cycles"
+        }
+      }
+    },
+    "buttons": {
+      "startNewCycle": "Start New Cycle"
+    },
+    "filters": {
+      "title": "Filters & Search",
+      "status": {
+        "label": "Status",
+        "all": "All Statuses",
+        "active": "Active",
+        "closed": "Closed"
+      },
+      "field": {
+        "label": "Field",
+        "all": "All Fields",
+        "placeholder": "Select field"
+      },
+      "crop": {
+        "label": "Crop",
+        "all": "All Crops",
+        "placeholder": "Select crop"
+      },
+      "search": {
+        "label": "Search",
+        "placeholder": "Search by lot name..."
+      },
+      "activeFilters": {
+        "crop": "Crop: {{value}}",
+        "field": "Field: {{value}}",
+        "search": "Search: {{value}}",
+        "status": "Status: {{value}}"
+      },
+      "description": "Filter and search production cycles."
+    },
+    "table": {
+      "headers": {
+        "field": "Field",
+        "lot": "Lot",
+        "crop": "Crop",
+        "status": "Status",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "duration": "Duration",
+        "yield": "Yield",
+        "cost": "Cost",
+        "actions": "Actions"
+      },
+      "actions": {
+        "view": "View",
+        "close": "Close",
+        "operations": "Operations",
+        "addOperations": "Add Operations"
+      },
+      "status": {
+        "active": "Active",
+        "closed": "Closed"
+      },
+      "duration": "{{days}} days",
+      "noData": "No production cycles found",
+      "loading": "Loading cycles..."
+    },
+    "card": {
+      "endDateDuration": "End Date / Duration",
+      "startDate": "Start Date",
+      "yieldCost": "Yield / Cost"
+    },
+    "messages": {
+      "startCycleDenied": "You do not have permission to start a new production cycle."
+    },
+    "pagination": {
+      "next": "Next",
+      "page": "Page {{current}} of {{total}}",
+      "previous": "Previous"
+    },
+    "viewMode": {
+      "count": "{{count}} cycles",
+      "grid": "Grid",
+      "table": "Table"
+    }
+  },
+  "startDialog": {
+    "title": "Start Production Cycle",
+    "fields": {
+      "field": {
+        "label": "Field",
+        "placeholder": "Select a field"
+      },
+      "lot": {
+        "label": "Lot",
+        "placeholder": "Select a lot",
+        "placeholderNoField": "Select a field first",
+        "activeWarning": "This lot already has an active cycle."
+      },
+      "crop": {
+        "label": "Crop",
+        "placeholder": "Select a crop",
+        "createdOn": "Created: {{date}}",
+        "searchPlaceholder": "Search crops...",
+        "shortCode": "#{{code}}"
+      },
+      "startDate": {
+        "label": "Start Date"
+      },
+      "targetYield": {
+        "label": "Target Yield Value (optional)",
+        "placeholder": "e.g., 1000"
+      },
+      "targetYieldUnit": {
+        "label": "Target Yield Unit (optional)",
+        "placeholder": "Select unit",
+        "groups": {
+          "mass": "Mass",
+          "volume": "Volume",
+          "count": "Count",
+          "area": "Area",
+          "commodity": "Commodity",
+          "packages": "Packages",
+          "perArea": "Per Area"
+        }
+      },
+      "estimatedCost": {
+        "label": "Estimated Cost (optional)",
+        "placeholder": "e.g., 5000"
+      }
+    },
+    "buttons": {
+      "create": "Create",
+      "creating": "Creating...",
+      "cancel": "Cancel"
+    },
+    "messages": {
+      "success": "Production Cycle created",
+      "successDescription": "Status set to Active.",
+      "validationError": "Validation error",
+      "requiredFields": "Field, Lot, Crop and Start Date are required.",
+      "activeCycleExists": "Active Cycle Exists",
+      "activeCycleDescription": "Lot {{lotName}} already has an active Production Cycle.",
+      "failed": "Failed to create",
+      "unnamedField": "Unnamed field",
+      "unnamedLot": "Unnamed lot",
+      "unnamedCrop": "Unnamed crop",
+      "startDenied": "You do not have permission to start a production cycle."
+    },
+    "description": "Choose field, lot, crop, and start date to begin."
+  },
+  "closeDialog": {
+    "title": "Close Production Cycle",
+    "message": "Are you sure you want to close this production cycle? This action cannot be undone.",
+    "fields": {
+      "actualYield": {
+        "label": "Actual Yield Value",
+        "placeholder": "Enter final yield"
+      },
+      "actualYieldUnit": {
+        "label": "Actual Yield Unit",
+        "placeholder": "Select unit"
+      },
+      "endDate": {
+        "label": "End Date"
+      }
+    },
+    "buttons": {
+      "close": "Close Cycle",
+      "closing": "Closing...",
+      "cancel": "Cancel",
+      "confirm": "Close Cycle"
+    },
+    "messages": {
+      "success": "Cycle closed successfully",
+      "failed": "Failed to close cycle",
+      "closedTitle": "Production cycle closed",
+      "closedDescription": "The cycle was closed successfully."
+    },
+    "form": {
+      "actualCostHelp": "Override calculated actual cost if needed.",
+      "actualCostOverride": "Actual Cost Override",
+      "actualCostPlaceholder": "e.g., {{cost}}",
+      "attachments": "Attachments",
+      "attachmentsHelp": "Optional supporting files (PDF, images, docs).",
+      "endDate": "End Date",
+      "notes": "Notes",
+      "notesPlaceholder": "Add final notes about this cycle..."
+    },
+    "loadingSummary": "Loading cycle summary...",
+    "summary": {
+      "actualCostAuto": "Actual Cost (auto-calculated)",
+      "actualYieldAuto": "Actual Yield (auto-calculated)",
+      "crop": "Crop",
+      "duration": "Duration",
+      "durationValue": "{{days}} days",
+      "fieldLot": "Field & Lot",
+      "noClassifications": "No classifications yet",
+      "notAvailable": "Not available",
+      "notSet": "Not set",
+      "startDate": "Start Date",
+      "targetYield": "Target Yield",
+      "title": "Cycle Summary"
+    },
+    "validation": {
+      "invalidEndDateDescription": "End date cannot be earlier than the start date.",
+      "invalidEndDateTitle": "Invalid end date",
+      "missingEndDateDescription": "Please select an end date to close the cycle.",
+      "missingEndDateTitle": "End date required"
+    },
+    "warning": {
+      "message": "Closing a cycle will lock all operations and prevent further changes.",
+      "title": "This action is irreversible"
+    }
+  },
+  "detail": {
+    "header": {
+      "backToList": "Back to Production Cycles",
+      "closeCycle": "Close Cycle",
+      "labels": {
+        "start": "Start",
+        "duration": "Duration",
+        "area": "Area",
+        "target": "Target"
+      }
+    },
+    "modal": {
+      "title": "Cycle Overview",
+      "description": "View cycle performance and summary insights."
+    },
+    "snapshot": {
+      "title": "Cycle Snapshot",
+      "description": "Key metrics, cost breakdown, harvest outcomes, and notes.",
+      "show": "Show",
+      "hide": "Hide"
+    },
+    "phi": {
+      "badgeAriaLabel": "PHI restrictions active. Click to view details.",
+      "badge": "PHI Active",
+      "badgeWithDaysLeft": "PHI Active • {{days}}d left",
+      "title": "PHI restrictions",
+      "activeUntil": "Active until {{date}}",
+      "phiDays": "PHI: {{days}} days",
+      "safeDate": "Safe: {{date}}",
+      "unknownProduct": "Unknown product",
+      "status": {
+        "active": "Active",
+        "done": "Done"
+      }
+    },
+    "tabs": {
+      "overview": "Overview",
+      "operations": "Operations",
+      "financial": "Financial",
+      "timeline": "Timeline"
+    },
+    "overview": {
+      "kpis": {
+        "actualYield": {
+          "title": "Actual Yield",
+          "noYield": "No yield",
+          "achievement": "{{percent}}% of target",
+          "targetSet": "Target set, no yield yet",
+          "noTarget": "No target set"
+        },
+        "actualCost": {
+          "title": "Actual Cost",
+          "noCost": "No cost",
+          "perUnit": "{{cost}} per {{unit}}",
+          "costRecorded": "Cost recorded, no yield yet",
+          "noCosts": "No costs recorded"
+        },
+        "operations": {
+          "title": "Operations",
+          "none": "None",
+          "noOperations": "No operations",
+          "breakdown": "{{count}} {{type}}"
+        },
+        "waterUsed": {
+          "title": "Water Used",
+          "noWater": "No water",
+          "events": "{{count}} irrigation event",
+          "eventsPlural": "{{count}} irrigation events",
+          "noIrrigation": "No irrigation recorded"
+        }
+      },
+      "common": {
+        "total": "Total",
+        "operationsCount": "{{count}} operation",
+        "operationsCount_plural": "{{count}} operations",
+        "cost": "Cost",
+        "operations": "Operations",
+        "share": "Share"
+      },
+      "progressIndicators": {
+        "title": "Progress & Recent Activity",
+        "yieldProgress": {
+          "label": "Yield Progress",
+          "ofTarget": "{{percent}}% of target",
+          "noTarget": "No target yield set for progress tracking"
+        },
+        "recentChanges": {
+          "title": "Recent Changes",
+          "opsThisWeek": "+{{count}} op this week",
+          "opsThisWeek_plural": "+{{count}} ops this week",
+          "costThisWeek": "+{{amount}} cost this week",
+          "noRecentActivity": "No recent activity"
+        }
+      },
+      "messages": {
+        "loadFailed": "Error loading cycle summary"
+      },
+      "progress": {
+        "title": "Progress & Milestones",
+        "cycleProgress": "Cycle Progress",
+        "daysPassed": "{{days}} days passed",
+        "daysTotal": "{{total}} days total",
+        "completed": "{{percent}}% completed",
+        "milestones": {
+          "landPreparation": "Land Preparation",
+          "planting": "Planting",
+          "firstIrrigation": "First Irrigation",
+          "firstNutrient": "First Nutrient Application",
+          "harvesting": "Harvesting",
+          "notStarted": "Not started",
+          "completed": "Completed on {{date}}"
+        }
+      },
+      "costAnalysis": {
+        "costByStage": {
+          "title": "Cost by Stage",
+          "stages": {
+            "landPreparation": "Land Preparation",
+            "planting": "Planting",
+            "growing": "Growing",
+            "harvesting": "Harvesting",
+            "earlyPreparation": "Early Preparation",
+            "growthOperations": "Growth Operations",
+            "harvestPostHarvest": "Harvest & Post-harvest"
+          },
+          "noData": "No cost data available"
+        },
+        "costByType": {
+          "title": "Cost by Operation Type",
+          "types": {
+            "landPreparation": "Land Preparation",
+            "planting": "Planting",
+            "irrigation": "Irrigation",
+            "weedManagement": "Weed Management",
+            "nutrientApplication": "Nutrient Application",
+            "treatment": "Treatment",
+            "harvesting": "Harvesting"
+          },
+          "noData": "No operation costs recorded"
+        }
+      },
+      "harvestSummary": {
+        "title": "Harvest Outcome Summary",
+        "breakdownTitle": "Harvest Outcome Breakdown",
+        "profitVsCostTitle": "Profit vs Cost",
+        "profitVsCostTitleWithCrop": "Profit vs Cost — {{crop}}",
+        "totalHarvested": "Total Harvested",
+        "outcomes": {
+          "addedToWarehouse": "Added to Warehouse",
+          "soldDirect": "Sold Directly",
+          "waste": "Waste"
+        },
+        "noHarvest": "No harvest data available",
+        "quantity": "Quantity",
+        "totalSales": "Total Sales",
+        "totalCost": "Total Cost",
+        "profit": "Profit",
+        "loss": "Loss"
+      },
+      "recentActivity": {
+        "title": "Recent Activity",
+        "operations": "Recent Operations",
+        "viewAll": "View all operations",
+        "noOperations": "No operations recorded",
+        "navigation": {
+          "title": "{{type}} Operation",
+          "description": "Navigation not configured for {{type}} operations"
+        },
+        "table": {
+          "operation": "Operation",
+          "type": "Type",
+          "date": "Date",
+          "cost": "Cost",
+          "actions": "Actions"
+        },
+        "view": "View",
+        "open": "Open operation"
+      },
+      "notes": {
+        "title": "Notes & Attachments",
+        "notes": "Notes",
+        "attachments": "Attachments",
+        "addNote": "Add Note",
+        "notePlaceholder": "Add a note about this cycle...",
+        "noNotes": "No notes added",
+        "noAttachments": "No attachments uploaded",
+        "uploadAttachment": "Upload Attachment",
+        "deleteNote": "Delete note",
+        "confirmDelete": "Are you sure you want to delete this note?",
+        "attachmentFallback": "Attachment",
+        "currentUser": "Current user",
+        "previousNotes": "Previous Notes",
+        "system": "System",
+        "timestamp": "{{date}} {{time}}"
+      },
+      "pendingActions": {
+        "addHarvest": "Add Harvest",
+        "addNutrients": "Add Nutrients",
+        "addOperation": "Add Operation",
+        "title": "Pending Actions"
+      },
+      "reports": {
+        "exportCsv": "Export CSV",
+        "printPdf": "Print PDF",
+        "summary": {
+          "csv": {
+            "metric": "Metric",
+            "value": "Value"
+          },
+          "fields": {
+            "actualCost": "Actual Cost",
+            "actualYield": "Actual Yield",
+            "crop": "Crop",
+            "endDate": "End Date",
+            "field": "Field",
+            "lot": "Lot",
+            "startDate": "Start Date",
+            "status": "Status",
+            "targetYield": "Target Yield",
+            "totalOperations": "Total Operations"
+          },
+          "generatedLabel": "Generated on",
+          "sections": {
+            "basicInfo": "Basic Information",
+            "performance": "Performance"
+          },
+          "title": "Production Cycle Summary"
+        },
+        "title": "Reports",
+        "toasts": {
+          "export": {
+            "failedDescription": "Unable to export CSV.",
+            "failedTitle": "Export failed",
+            "noData": "No data available to export.",
+            "successDescription": "CSV downloaded successfully.",
+            "successTitle": "Export ready",
+            "title": "Export CSV"
+          },
+          "print": {
+            "failedDescription": "Unable to open the print window.",
+            "failedTitle": "Print failed",
+            "readyDescription": "The print window is ready.",
+            "readyTitle": "Print ready"
+          }
+        }
+      }
+    },
+    "operations": {
+      "title": "Operations",
+      "filterByType": "Filter by Operation Type",
+      "filters": {
+        "all": "All Operations",
+        "landPreparation": "Land Preparation",
+        "planting": "Planting",
+        "irrigation": "Irrigation",
+        "weedManagement": "Weed Management",
+        "nutrientApplication": "Nutrient Application",
+        "treatment": "IPM/Treatment",
+        "harvesting": "Harvesting",
+        "cultural": "ICM / Cultural"
+      },
+      "summary": {
+        "total": "Total",
+        "operations": "{{count}} operations",
+        "operationsCount": "# of operations",
+        "totalCost": "Total Cost: {{cost}}",
+        "totalOperationsCost": "Total Operations Cost (this phase)",
+        "plantingCost": "Planting Operations ({{count}}) - Total Cost: ${{cost}}",
+        "noOperationsYet": "No operations yet.",
+        "operationsWithCost": "{{label}} Operations ({{count}}) - Total Cost: {{cost}}"
+      },
+      "buttons": {
+        "addIrrigation": "+ Add Irrigation"
+      },
+      "table": {
+        "headers": {
+          "date": "Date",
+          "type": "Type",
+          "status": "Status",
+          "performedBy": "Performed By",
+          "qtyUnit": "Qty + Unit",
+          "cost": "Cost",
+          "notes": "Notes",
+          "attachments": "Attachments",
+          "actions": "Actions"
+        },
+        "loading": "Loading...",
+        "noAttachments": "None",
+        "attachmentDownload": "Download attachment {{index}}",
+        "attachmentLabel": "Attachment {{index}}",
+        "moreAttachments": "+{{count}} more"
+      },
+      "messages": {
+        "deleted": "Deleted",
+        "operationRemoved": "Operation removed",
+        "deleteFailed": "Delete failed",
+        "deleteOperationTitle": "Delete Operation",
+        "deleteConfirmation": "Are you sure you want to delete this operation? This action cannot be undone.",
+        "validation": "Validation",
+        "inputsRequireQtyWarehouse": "Product inputs require quantity and warehouse",
+        "updated": "Updated",
+        "added": "Added",
+        "operationText": "Operation",
+        "applied": "applied",
+        "savedAsDraft": "saved as draft",
+        "andStockAdjusted": "and stock adjusted",
+        "andStockOut": "and stock out vouchers created",
+        "saveFailed": "Save failed",
+        "applying": "Applying...",
+        "missingFieldsDescription": "Please fill out all required fields before saving.",
+        "missingFieldsTitle": "Missing required fields"
+      },
+      "empty": {
+        "noOperations": "No {{type}} operations found"
+      },
+      "common": {
+        "titles": {
+          "addOperation": "+ Add {{type}}",
+          "plantingDetails": "Planting Details",
+          "seedInputProducts": "Seed/Input Products"
+        },
+        "enabledPractices": {
+          "title": "Enabled practices for this crop",
+          "help": "Click a practice to quick add an operation.",
+          "noPermission": "You don't have permission to log this operation.",
+          "cycleClosed": "This cycle is closed. Logging is disabled.",
+          "loading": "Loading enabled practices...",
+          "noneEnabled": "No practices are enabled for this crop yet. Enable practices in Crop Operations.",
+          "enabledCount": "{{count}} enabled",
+          "enabledCount_plural": "{{count}} enabled"
+        },
+        "fields": {
+          "field": {
+            "label": "Field"
+          },
+          "lot": {
+            "label": "Lot"
+          },
+          "crop": {
+            "label": "Crop"
+          },
+          "date": {
+            "label": "Date",
+            "placeholder": "Select date"
+          },
+          "plantingDate": {
+            "label": "Planting Date"
+          },
+          "time": {
+            "label": "Time",
+            "placeholder": "HH:MM"
+          },
+          "duration": {
+            "label": "Duration (hours)",
+            "placeholder": "e.g., 2.5"
+          },
+          "labor": {
+            "label": "Labor Count",
+            "placeholder": "Number of workers"
+          },
+          "laborCost": {
+            "label": "Labor Cost",
+            "placeholder": "Total labor cost"
+          },
+          "equipmentCost": {
+            "label": "Equipment Cost",
+            "placeholder": "Equipment usage cost"
+          },
+          "materialCost": {
+            "label": "Material Cost",
+            "placeholder": "Materials/supplies cost"
+          },
+          "totalCost": {
+            "label": "Total Cost",
+            "labelWithNote": "Total Cost (auto-calculated from inputs, can override)",
+            "calculated": "Calculated automatically",
+            "costAutoCalculated": "Cost (auto-calculated from inputs, can override)"
+          },
+          "performedBy": {
+            "label": "Performed By",
+            "placeholder": "Select user or contact"
+          },
+          "practice": {
+            "label": "Practice (required)",
+            "placeholder": "Select practice",
+            "none": "No specific practice",
+            "validation": {
+              "required": "Practice is required."
+            }
+          },
+          "inputs": {
+            "label": "Inputs (optional)",
+            "addInput": "Add Input",
+            "product": "Product",
+            "productPlaceholder": "Select product",
+            "quantity": "Qty",
+            "qty": "Qty",
+            "qtyPlaceholder": "0",
+            "unit": "unit",
+            "warehouse": "Warehouse",
+            "warehousePlaceholder": "Select warehouse",
+            "available": "Available",
+            "batch": "Batch",
+            "batchPlaceholderFirst": "Select warehouse first",
+            "batchPlaceholderNone": "No batches (optional)",
+            "batchPlaceholder": "Select batch",
+            "noBatch": "No batch",
+            "noBatchTracking": "No batch tracking",
+            "unitCost": "Unit Cost",
+            "unitCostPlaceholder": "0.00",
+            "validationMessage": "Product inputs require quantity and warehouse"
+          },
+          "status": {
+            "label": "Status",
+            "draftNote": "Draft operations won't affect inventory. Applied operations will create stock adjustments."
+          },
+          "attachments": {
+            "label": "Attachments (optional)",
+            "chooseFiles": "Choose Files",
+            "noFile": "No file chosen"
+          },
+          "notes": {
+            "label": "Notes",
+            "placeholder": "Additional notes..."
+          },
+          "weather": {
+            "label": "Weather Conditions",
+            "placeholder": "e.g., Sunny, 25°C"
+          },
+          "soilCondition": {
+            "label": "Soil Condition",
+            "placeholder": "e.g., Moist, well-drained"
+          }
+        },
+        "validation": {
+          "dateRequired": "Date is required",
+          "futureDate": "Date cannot be in the future",
+          "beforeStart": "Date cannot be before cycle start date",
+          "afterEnd": "Date cannot be after cycle end date",
+          "invalidTime": "Invalid time format (HH:MM)",
+          "invalidNumber": "Must be a valid number",
+          "negativeNumber": "Cannot be negative",
+          "required": "This field is required"
+        },
+        "status": {
+          "draft": "📝 Draft",
+          "applied": "✅ Applied",
+          "placeholder": "Select status"
+        },
+        "buttons": {
+          "save": "Save",
+          "saving": "Saving...",
+          "cancel": "Cancel",
+          "delete": "Delete",
+          "edit": "Edit",
+          "view": "View",
+          "saveAsDraft": "Save as Draft",
+          "saveAsApplied": "Save as Applied",
+          "createAsDraft": "Create as Draft",
+          "createAsPlanted": "Create as Planted",
+          "apply": "Apply"
+        },
+        "messages": {
+          "success": "Operation saved successfully",
+          "failed": "Failed to save operation",
+          "deleteSuccess": "Operation deleted successfully",
+          "deleteFailed": "Failed to delete operation",
+          "confirmDelete": "Are you sure you want to delete this operation?"
+        },
+        "attachments": {
+          "choose": "Choose files",
+          "fallbackName": "Attachment",
+          "maxPerOperation": "Max {{max}} per operation",
+          "remaining": "{{count}} remaining",
+          "remove": "Remove",
+          "saved": "Saved",
+          "selected": "Selected ({{count}})",
+          "validation": {
+            "imagesOnlyDescription": "Only image files are allowed.",
+            "imagesOnlyTitle": "Images only",
+            "maxReachedDescription": "You can upload up to {{max}} attachments.",
+            "maxReachedTitle": "Maximum reached",
+            "tooManyDescription": "Only {{count}} more can be added (max {{max}}).",
+            "tooManyTitle": "Too many files"
+          }
+        }
+      },
+      "landPreparation": {
+        "title": "Land Preparation",
+        "addTitle": "Add Land Preparation",
+        "editTitle": "Edit Land Preparation",
+        "viewTitle": "Land Preparation Details",
+        "fields": {
+          "method": {
+            "label": "Preparation Method",
+            "placeholder": "Select method",
+            "options": {
+              "plowing": "Plowing",
+              "tilling": "Tilling",
+              "harrowing": "Harrowing",
+              "leveling": "Leveling",
+              "ridging": "Ridging",
+              "bedForming": "Bed Forming",
+              "other": "Other"
+            }
+          },
+          "depth": {
+            "label": "Depth (cm)",
+            "placeholder": "e.g., 30"
+          },
+          "area": {
+            "label": "Area Prepared",
+            "placeholder": "Area size"
+          },
+          "areaUnit": {
+            "label": "Area Unit",
+            "placeholder": "Select unit"
+          },
+          "equipment": {
+            "label": "Equipment Used",
+            "placeholder": "e.g., Tractor, Plow"
+          },
+          "fuelUsed": {
+            "label": "Fuel Used (L)",
+            "placeholder": "Liters of fuel"
+          }
+        },
+        "table": {
+          "headers": {
+            "date": "Date",
+            "method": "Method",
+            "area": "Area",
+            "depth": "Depth",
+            "equipment": "Equipment",
+            "cost": "Cost",
+            "actions": "Actions"
+          }
+        }
+      },
+      "planting": {
+        "title": "Planting",
+        "addTitle": "Add Planting Operation",
+        "editTitle": "Edit Planting Operation",
+        "viewTitle": "Planting Details",
+        "tableTitle": "Planting Operations ({{count}}) - Total Cost: ${{cost}}",
+        "addButton": "Add Planting",
+        "noOperations": "No planting operations found",
+        "status": {
+          "planted": "Planted",
+          "draft": "Draft"
+        },
+        "form": {
+          "addTitle": "Add Planting Operation",
+          "editTitle": "Edit Planting Operation",
+          "sections": {
+            "details": "Planting Details",
+            "inputs": "Seed/Input Products",
+            "notes": "Notes"
+          },
+          "fields": {
+            "crop": {
+              "label": "Crop"
+            },
+            "plantingDate": {
+              "label": "Planting Date",
+              "placeholder": "Pick a date"
+            },
+            "totalCost": {
+              "label": "Total Cost (auto-calculated from inputs, can override)"
+            },
+            "notes": {
+              "placeholder": "Add any additional notes about this planting operation..."
+            }
+          },
+          "buttons": {
+            "addInput": "Add Input",
+            "cancel": "Cancel",
+            "saving": "Saving...",
+            "createDraft": "Create as Draft",
+            "createPlanted": "Create as Planted",
+            "updateDraft": "Update as Draft",
+            "updatePlanted": "Update as Planted"
+          },
+          "validation": {
+            "title": "Validation",
+            "inputsRequired": "Product inputs require quantity and warehouse for planted status",
+            "insufficientStock": "Insufficient Stock",
+            "stockMessage": "Not enough {{product}} in stock. Available: {{available}}, Required: {{required}}"
+          },
+          "messages": {
+            "error": "Error",
+            "errorDescription": "Failed to save planting operation: {{error}}"
+          }
+        },
+        "fields": {
+          "method": {
+            "label": "Planting Method",
+            "placeholder": "Select method",
+            "options": {
+              "directSeeding": "Direct Seeding",
+              "transplanting": "Transplanting",
+              "broadcasting": "Broadcasting",
+              "drilling": "Drilling",
+              "dibbling": "Dibbling",
+              "other": "Other"
+            }
+          },
+          "seedVariety": {
+            "label": "Seed/Variety",
+            "placeholder": "e.g., Hybrid ABC-123"
+          },
+          "seedRate": {
+            "label": "Seed Rate",
+            "placeholder": "Seeds/plants per area"
+          },
+          "seedRateUnit": {
+            "label": "Seed Rate Unit",
+            "placeholder": "Select unit"
+          },
+          "depth": {
+            "label": "Planting Depth (cm)",
+            "placeholder": "e.g., 5"
+          },
+          "spacing": {
+            "label": "Plant Spacing (cm)",
+            "placeholder": "e.g., 30"
+          },
+          "rowSpacing": {
+            "label": "Row Spacing (cm)",
+            "placeholder": "e.g., 75"
+          },
+          "area": {
+            "label": "Area Planted",
+            "placeholder": "Area size"
+          },
+          "areaUnit": {
+            "label": "Area Unit",
+            "placeholder": "Select unit"
+          },
+          "seedSource": {
+            "label": "Seed Source",
+            "placeholder": "e.g., Local supplier"
+          },
+          "seedTreatment": {
+            "label": "Seed Treatment",
+            "placeholder": "Any pre-treatment applied"
+          }
+        },
+        "table": {
+          "crop": "Crop",
+          "date": "Date",
+          "totalCost": "Total Cost",
+          "status": "Status",
+          "actions": "Actions",
+          "headers": {
+            "date": "Date",
+            "method": "Method",
+            "variety": "Variety",
+            "area": "Area",
+            "seedRate": "Seed Rate",
+            "spacing": "Spacing",
+            "cost": "Cost",
+            "actions": "Actions"
+          }
+        },
+        "view": {
+          "lineCost": "Line cost",
+          "noInputs": "No inputs recorded."
+        }
+      },
+      "irrigation": {
+        "title": "Irrigation",
+        "addTitle": "+ Add Irrigation",
+        "editTitle": "Edit Irrigation",
+        "viewTitle": "Irrigation Details",
+        "form": {
+          "validation": {
+            "title": "Validation",
+            "volumeRequired": "Volume is required",
+            "insufficientStock": "Insufficient Stock",
+            "stockMessage": "Not enough {{product}} in stock. Available: {{available}}, Required: {{required}}"
+          },
+          "messages": {
+            "success": "Success",
+            "updated": "Operation updated successfully",
+            "updatedApplied": "Operation updated and applied successfully",
+            "createdApplied": "Operation created and applied successfully",
+            "savedDraft": "Operation saved as draft",
+            "failed": "Save failed"
+          }
+        },
+        "fields": {
+          "method": {
+            "label": "Method",
+            "placeholder": "Select method",
+            "options": {
+              "drip": "Drip",
+              "sprinkler": "Sprinkler",
+              "flood": "Flood",
+              "furrow": "Furrow",
+              "center_pivot": "Center Pivot",
+              "manual": "Manual",
+              "other": "Other",
+              "pivot": "Pivot",
+              "rainfed": "Rainfed",
+              "subsurface": "Subsurface",
+              "surface": "Surface"
+            }
+          },
+          "waterAmount": {
+            "label": "Total Water Volume",
+            "placeholder": "e.g., 10"
+          },
+          "waterUnit": {
+            "label": "Water Unit",
+            "placeholder": "Select unit",
+            "options": {
+              "liters": "Liters",
+              "gallons": "Gallons",
+              "cubic_meters": "Cubic Meters",
+              "acre_feet": "Acre-feet"
+            },
+            "customPlaceholder": "Custom unit"
+          },
+          "waterSource": {
+            "label": "Water Source",
+            "placeholder": "Select source",
+            "otherPlaceholder": "Specify water source",
+            "options": {
+              "municipal": "Municipal",
+              "other": "Other",
+              "rainwater": "Rainwater",
+              "reservoir": "Reservoir",
+              "river": "River",
+              "well": "Well"
+            }
+          },
+          "irrigatedArea": {
+            "label": "Irrigated Area",
+            "placeholder": "Area size"
+          },
+          "irrigatedAreaUnit": {
+            "label": "Area Unit",
+            "placeholder": "Select unit"
+          },
+          "waterQuality": {
+            "label": "Water Quality",
+            "placeholder": "e.g., pH 7.2, EC 1.5"
+          },
+          "pumpingHours": {
+            "label": "Pumping Hours",
+            "placeholder": "Hours of pumping"
+          },
+          "energyCost": {
+            "label": "Energy Cost",
+            "placeholder": "Electricity/fuel cost"
+          }
+        },
+        "table": {
+          "headers": {
+            "date": "Date",
+            "method": "Method",
+            "waterAmount": "Water",
+            "area": "Area",
+            "source": "Source",
+            "duration": "Duration",
+            "cost": "Cost",
+            "actions": "Actions"
+          }
+        }
+      },
+      "weedManagement": {
+        "title": "Weed Management",
+        "subtitle": "Track and manage weed control operations",
+        "addButton": "+ Add Weed Management",
+        "addTitle": "Add Weed Management",
+        "editTitle": "Edit Weed Management",
+        "viewTitle": "Weed Management Details",
+        "emptyState": "No weed management operations found",
+        "actions": {
+          "viewDetails": "View Details",
+          "edit": "Edit",
+          "delete": "Delete",
+          "markCompleted": "Mark Completed"
+        },
+        "status": {
+          "draft": "Draft",
+          "completed": "Completed"
+        },
+        "noOperations": "No weed management operations found",
+        "form": {
+          "sections": {
+            "operationDetails": "Operation Details",
+            "basicDetails": "Basic Details",
+            "methodDetails": "Method Details",
+            "reusableProducts": "Reusable Products",
+            "reusableProductsNote": "Products to deduct from inventory when applied"
+          },
+          "status": {
+            "draft": "Draft",
+            "completed": "Completed",
+            "inProgress": "In Progress",
+            "planned": "Planned"
+          },
+          "fields": {
+            "date": {
+              "label": "Date"
+            },
+            "status": {
+              "label": "Status",
+              "placeholder": "Select status"
+            },
+            "method": {
+              "label": "Control Method",
+              "placeholder": "Select control method"
+            },
+            "weedTypes": {
+              "label": "Weed Types",
+              "placeholder": "e.g., Broadleaf, Grasses"
+            },
+            "severity": {
+              "label": "Weed Severity",
+              "placeholder": "Select severity"
+            },
+            "herbicide": {
+              "label": "Herbicide Used",
+              "placeholder": "Product name (if applicable)"
+            },
+            "applicationRate": {
+              "label": "Application Rate"
+            },
+            "applicationRateUnit": {
+              "label": "Rate Unit",
+              "placeholder": "Select unit"
+            },
+            "treatedArea": {
+              "label": "Treated Area"
+            },
+            "treatedAreaUnit": {
+              "label": "Area Unit",
+              "placeholder": "Select unit"
+            },
+            "effectiveness": {
+              "label": "Effectiveness (%)",
+              "placeholder": "Estimated weed control %"
+            },
+            "cost": "Cost",
+            "totalCost": {
+              "label": "Total Cost",
+              "note": "Auto-calculated from products, can be overridden"
+            },
+            "totalProducts": "Total Products",
+            "productNumber": "Product {{number}}",
+            "batchNumber": "Batch Number",
+            "optional": "Optional",
+            "notesPlaceholder": "Add any additional notes about this weed management operation..."
+          },
+          "messages": {
+            "success": "Success",
+            "operationSaved": "Weed management operation saved successfully",
+            "operationUpdated": "Weed management operation updated successfully",
+            "operationCreated": "Weed management operation created successfully",
+            "error": "Error",
+            "saveFailed": "Failed to save weed management operation",
+            "stockValidation": "Stock will be validated when applying the operation",
+            "insufficientStock": "Insufficient stock for product: {{product}}",
+            "productRemoved": "Product removed"
+          },
+          "buttons": {
+            "addProduct": "Add Product",
+            "create": "Create",
+            "update": "Update",
+            "operation": "Operation",
+            "undo": "Undo"
+          }
+        },
+        "fields": {
+          "method": {
+            "label": "Control Method",
+            "placeholder": "Select method",
+            "options": {
+              "manual": "Manual Weeding",
+              "mechanical": "Mechanical",
+              "chemical": "Chemical (Herbicide)",
+              "mulching": "Mulching",
+              "biological": "Biological Control",
+              "integrated": "Integrated Management",
+              "other": "Other"
+            }
+          },
+          "weedTypes": {
+            "label": "Weed Types",
+            "placeholder": "e.g., Broadleaf, Grasses"
+          },
+          "severity": {
+            "label": "Weed Severity",
+            "placeholder": "Select severity",
+            "options": {
+              "low": "Low (< 25% coverage)",
+              "medium": "Medium (25-50% coverage)",
+              "high": "High (50-75% coverage)",
+              "severe": "Severe (> 75% coverage)"
+            }
+          },
+          "herbicide": {
+            "label": "Herbicide Used",
+            "placeholder": "Product name (if applicable)"
+          },
+          "applicationRate": {
+            "label": "Application Rate",
+            "placeholder": "Rate per area"
+          },
+          "applicationRateUnit": {
+            "label": "Rate Unit",
+            "placeholder": "Select unit"
+          },
+          "treatedArea": {
+            "label": "Treated Area",
+            "placeholder": "Area size"
+          },
+          "treatedAreaUnit": {
+            "label": "Area Unit",
+            "placeholder": "Select unit"
+          },
+          "effectiveness": {
+            "label": "Effectiveness (%)",
+            "placeholder": "Estimated weed control %"
+          }
+        },
+        "table": {
+          "date": "Date",
+          "cost": "Cost",
+          "reusableQty": "Reusable Qty",
+          "status": "Status",
+          "createdBy": "Created By",
+          "headers": {
+            "date": "Date",
+            "method": "Method",
+            "severity": "Severity",
+            "area": "Area",
+            "herbicide": "Herbicide",
+            "effectiveness": "Effectiveness",
+            "cost": "Cost",
+            "actions": "Actions"
+          }
+        },
+        "view": {
+          "reusableProductsTitle": "Reusable Products",
+          "summaryTitle": "Operation Summary",
+          "unknownProduct": "Unknown product",
+          "unknownWarehouse": "Unknown warehouse"
+        }
+      },
+      "nutrientApplication": {
+        "title": "Nutrient Applications",
+        "addButton": "Add Nutrient Application",
+        "addTitle": "New Nutrient Application",
+        "editTitle": "Edit Nutrient Application",
+        "viewTitle": "Nutrient Application Details",
+        "noOperations": "No nutrient applications recorded yet.",
+        "actions": {
+          "viewDetails": "View Details",
+          "edit": "Edit",
+          "applyOperation": "Apply Operation"
+        },
+        "messages": {
+          "deleted": "Success",
+          "operationDeleted": "Nutrient application deleted successfully",
+          "deleteFailed": "Failed to delete nutrient application",
+          "deleteConfirmation": "Are you sure you want to delete this nutrient application?",
+          "applied": "Success",
+          "operationApplied": "Nutrient application applied successfully",
+          "applyFailed": "Failed to apply nutrient application",
+          "applyConfirmation": "Are you sure you want to apply this nutrient application? This will deduct stock and cannot be undone.",
+          "error": "Error"
+        },
+        "form": {
+          "tabs": {
+            "basicInformation": "Basic Information",
+            "productsApplied": "Products Applied",
+            "nutrients": "Nutrients",
+            "notes": "Notes"
+          },
+          "sections": {
+            "appliedProducts": "Applied Products",
+            "macroNutrients": "Macro Nutrients",
+            "microNutrients": "Micro Nutrients"
+          },
+          "fields": {
+            "dateApplied": {
+              "label": "Date Applied",
+              "placeholder": "Pick a date"
+            },
+            "applicationMethod": {
+              "label": "Application Method",
+              "placeholder": "Select method",
+              "options": {
+                "broadcast": "Broadcast",
+                "drip": "Drip",
+                "foliar": "Foliar",
+                "banding": "Banding",
+                "other": "Other"
+              }
+            },
+            "status": {
+              "label": "Status"
+            },
+            "totalCost": {
+              "label": "Total Cost"
+            },
+            "product": "Product",
+            "productPlaceholder": "Select product",
+            "qty": "Qty",
+            "warehouse": "Warehouse",
+            "warehousePlaceholder": "Select warehouse",
+            "batch": {
+              "label": "Batch",
+              "placeholder": "Select batch",
+              "placeholderSelectWarehouse": "Select warehouse first",
+              "loading": "Loading...",
+              "available": "Available"
+            },
+            "unitCost": "Unit Cost",
+            "actions": "Actions",
+            "unit": "Unit",
+            "notes": {
+              "label": "Notes",
+              "placeholder": "Enter any additional notes about this nutrient application..."
+            }
+          },
+          "buttons": {
+            "addInput": "Add Input",
+            "cancel": "Cancel",
+            "saveAsDraft": "Save as Draft",
+            "createAsApplied": "Create as Applied"
+          },
+          "messages": {
+            "success": "Success",
+            "operationCreated": "Nutrient application created successfully",
+            "operationUpdated": "Nutrient application updated successfully",
+            "createdApplied": "Nutrient application created and applied successfully",
+            "saveFailed": "Failed to save nutrient application",
+            "error": "Error",
+            "noProductsYet": "No products added yet. Click \"Add Input\" to get started."
+          },
+          "validation": {
+            "atLeastOneProduct": "Add at least one product.",
+            "checkErrors": "Please check the form for errors.",
+            "nutrientValueMin": "Nutrient value must be 0 or more.",
+            "productRequired": "Product is required.",
+            "quantityMin": "Quantity must be greater than 0.",
+            "title": "Validation",
+            "totalCostMin": "Total cost must be 0 or more.",
+            "unitCostMin": "Unit cost must be 0 or more.",
+            "unitRequired": "Unit is required.",
+            "warehouseRequired": "Warehouse is required."
+          }
+        },
+        "fields": {
+          "applicationType": {
+            "label": "Application Type",
+            "placeholder": "Select type",
+            "options": {
+              "basal": "Basal Application",
+              "top_dressing": "Top Dressing",
+              "foliar": "Foliar Spray",
+              "fertigation": "Fertigation",
+              "side_dressing": "Side Dressing",
+              "broadcasting": "Broadcasting",
+              "banding": "Banding",
+              "other": "Other"
+            }
+          },
+          "nutrientType": {
+            "label": "Nutrient Type",
+            "placeholder": "Select type",
+            "options": {
+              "nitrogen": "Nitrogen (N)",
+              "phosphorus": "Phosphorus (P)",
+              "potassium": "Potassium (K)",
+              "npk": "NPK Compound",
+              "organic": "Organic Fertilizer",
+              "micronutrients": "Micronutrients",
+              "lime": "Lime",
+              "gypsum": "Gypsum",
+              "other": "Other"
+            }
+          },
+          "productName": {
+            "label": "Product Name",
+            "placeholder": "e.g., Urea, DAP, NPK 15-15-15"
+          },
+          "quantity": {
+            "label": "Quantity Applied",
+            "placeholder": "Amount"
+          },
+          "quantityUnit": {
+            "label": "Quantity Unit",
+            "placeholder": "Select unit",
+            "options": {
+              "kg": "Kilograms",
+              "g": "Grams",
+              "t": "Tonnes",
+              "lb": "Pounds",
+              "l": "Liters",
+              "ml": "Milliliters",
+              "gal": "Gallons"
+            }
+          },
+          "npkRatio": {
+            "label": "NPK Ratio",
+            "placeholder": "e.g., 15-15-15"
+          },
+          "applicationMethod": {
+            "label": "Application Method",
+            "placeholder": "How it was applied"
+          },
+          "treatedArea": {
+            "label": "Treated Area",
+            "placeholder": "Area size"
+          },
+          "treatedAreaUnit": {
+            "label": "Area Unit",
+            "placeholder": "Select unit"
+          },
+          "soilTestReference": {
+            "label": "Soil Test Reference",
+            "placeholder": "Test ID or date"
+          }
+        },
+        "table": {
+          "headers": {
+            "dateApplied": "Date Applied",
+            "cost": "Cost",
+            "productQty": "Product Qty",
+            "status": "Status",
+            "createdBy": "Created By",
+            "date": "Date",
+            "type": "Type",
+            "product": "Product",
+            "quantity": "Quantity",
+            "method": "Method",
+            "area": "Area",
+            "actions": "Actions"
+          },
+          "notSet": "Not set",
+          "unknown": "Unknown"
+        },
+        "view": {
+          "expires": "Expires",
+          "unknownProduct": "Unknown product"
+        }
+      },
+      "treatment": {
+        "title": "Treatment Operations",
+        "addButton": "Add Treatment Operation",
+        "editButton": "Edit Treatment Operation",
+        "addTitle": "Add Treatment",
+        "editTitle": "Edit Treatment",
+        "viewTitle": "Treatment Details",
+        "noOperations": "No treatment operations recorded yet.",
+        "loading": "Loading treatment operations...",
+        "status": {
+          "draft": "Draft",
+          "applied": "Applied"
+        },
+        "dialog": {
+          "addTitle": "Add Treatment Operation",
+          "editTitle": "Edit Treatment Operation",
+          "addDescription": "Fill in the details to add a new treatment operation.",
+          "editDescription": "Update the treatment operation details below.",
+          "viewTitle": "Treatment Operation Details",
+          "deleteTitle": "Delete Treatment Operation",
+          "deleteDescription": "Are you sure you want to delete this treatment operation? This action cannot be undone."
+        },
+        "form": {
+          "sections": {
+            "basic": "Treatment Details",
+            "products": "Products Applied",
+            "notes": "Additional Notes"
+          },
+          "fields": {
+            "field": {
+              "label": "Field"
+            },
+            "lot": {
+              "label": "Lot"
+            },
+            "treatmentDate": {
+              "label": "Treatment Date",
+              "placeholder": "Pick a date",
+              "required": "Treatment Date *"
+            },
+            "treatmentType": {
+              "label": "Treatment Type",
+              "placeholder": "Select treatment type",
+              "required": "Treatment Type *",
+              "options": {
+                "pesticide": "Pesticide",
+                "fungicide": "Fungicide",
+                "insecticide": "Insecticide",
+                "herbicide": "Herbicide",
+                "other": "Other"
+              }
+            },
+            "applicationMethod": {
+              "label": "Application Method",
+              "placeholder": "Select method",
+              "options": {
+                "spray": "Spray",
+                "drench": "Drench",
+                "inject": "Inject",
+                "soil": "Soil",
+                "other": "Other"
+              }
+            },
+            "treatmentLocation": {
+              "label": "Treatment Location",
+              "placeholder": "e.g., Leaf, Seed, Soil, Animal"
+            },
+            "daysUntilWithholdingEnd": {
+              "label": "Days Until End of Withholding Period",
+              "placeholder": "0",
+              "safeHarvestDate": "Safe harvest date: {{date}}"
+            },
+            "phiDays": {
+              "label": "PHI Days",
+              "placeholder": "0",
+              "safeHarvest": "Safe harvest date: {{date}}",
+              "helperMultipleProducts": "If multiple chemicals were applied, enter the longest PHI."
+            },
+            "retreatDate": {
+              "label": "Retreat Date",
+              "placeholder": "Optional retreat date"
+            },
+            "keywords": {
+              "label": "Keywords",
+              "placeholder": "Add keyword and press Enter",
+              "addButton": "Add"
+            },
+            "description": {
+              "label": "Description",
+              "placeholder": "Brief description of the treatment..."
+            },
+            "notes": {
+              "label": "Notes",
+              "placeholder": "Additional notes about the treatment..."
+            },
+            "targetPest": {
+              "label": "Target Pest/Disease",
+              "placeholder": "e.g., Aphids, Rust, Blight"
+            },
+            "severity": {
+              "label": "Infestation Severity",
+              "placeholder": "Select severity",
+              "options": {
+                "low": "Low",
+                "medium": "Medium",
+                "high": "High",
+                "severe": "Severe"
+              }
+            },
+            "productName": {
+              "label": "Product Name",
+              "placeholder": "Chemical/biological agent"
+            },
+            "activeIngredient": {
+              "label": "Active Ingredient",
+              "placeholder": "e.g., Cypermethrin"
+            },
+            "applicationRate": {
+              "label": "Application Rate",
+              "placeholder": "Rate per area"
+            },
+            "applicationRateUnit": {
+              "label": "Rate Unit",
+              "placeholder": "Select unit"
+            },
+            "concentration": {
+              "label": "Concentration (%)",
+              "placeholder": "Product concentration"
+            },
+            "waterVolume": {
+              "label": "Water Volume (L)",
+              "placeholder": "For spray mixture"
+            },
+            "treatedArea": {
+              "label": "Treated Area",
+              "placeholder": "Area size"
+            },
+            "treatedAreaUnit": {
+              "label": "Area Unit",
+              "placeholder": "Select unit"
+            },
+            "phi": {
+              "label": "PHI (days)",
+              "placeholder": "Pre-harvest interval"
+            },
+            "rei": {
+              "label": "REI (hours)",
+              "placeholder": "Re-entry interval"
+            }
+          },
+          "products": {
+            "title": "Products Applied",
+            "addButton": "Add Product",
+            "productNumber": "Product {{number}}",
+            "totalCost": "Total Cost: {{cost}}",
+            "fields": {
+              "product": {
+                "label": "Product",
+                "placeholder": "Select product",
+                "required": "Product *"
+              },
+              "quantity": {
+                "label": "Quantity",
+                "placeholder": "0",
+                "required": "Quantity *"
+              },
+              "unit": {
+                "label": "Unit",
+                "placeholder": "kg, liters, etc."
+              },
+              "warehouse": {
+                "label": "Warehouse",
+                "placeholder": "Select warehouse",
+                "required": "Warehouse *"
+              },
+              "batchNumber": {
+                "label": "Batch Number",
+                "placeholder": "Select batch",
+                "noBatch": "No Batch",
+                "batchWithQty": "{{batch}} (Qty: {{quantity}})"
+              },
+              "unitCost": {
+                "label": "Unit Cost",
+                "placeholder": "0.00"
+              },
+              "estimatedCost": {
+                "label": "Estimated Cost",
+                "placeholder": "0.00"
+              },
+              "recommendedDose": {
+                "label": "Recommended Dose",
+                "notAvailable": "Not provided"
+              },
+              "labelPhi": {
+                "label": "Label PHI"
+              },
+              "activeIngredientConcentration": {
+                "label": "Active Ingredient Concentration (%)"
+              },
+              "actualDoseUsed": {
+                "label": "Actual Dose Used",
+                "placeholder": "Enter dose used",
+                "overridden": "Overridden from recommended dose"
+              },
+              "activeIngredient": "Active ingredient",
+              "generalUse": "General usage",
+              "infoCollapse": "Collapse info",
+              "infoExpand": "Expand info",
+              "noInfo": "No product info available.",
+              "productForm": "Product form",
+              "reference": "Reference",
+              "selectProductInfo": "Select a product to view details.",
+              "targetOrganisms": "Target pests / diseases / weeds"
+            }
+          },
+          "buttons": {
+            "cancel": "Cancel",
+            "create": "Create Treatment",
+            "update": "Update Treatment",
+            "saving": "Saving...",
+            "apply": "Apply"
+          },
+          "validation": {
+            "productRequired": "Product is required",
+            "qtyPositive": "Quantity must be greater than 0",
+            "warehouseRequired": "Warehouse is required",
+            "unitCostNonNegative": "Unit cost must be non-negative",
+            "estimatedCostNonNegative": "Estimated cost must be non-negative",
+            "treatmentTypeRequired": "Treatment type is required",
+            "atLeastOneProduct": "At least one product is required",
+            "phiDaysRequired": "PHI Days is required when using pesticide products."
+          }
+        },
+        "table": {
+          "headers": {
+            "date": "Date",
+            "type": "Type",
+            "target": "Target",
+            "product": "Product",
+            "area": "Area",
+            "phi": "PHI",
+            "cost": "Cost",
+            "treatmentType": "Treatment Type",
+            "products": "Products",
+            "totalCost": "Total Cost",
+            "status": "Status",
+            "actions": "Actions"
+          },
+          "productsCount": "{{count}} product(s)",
+          "cost": "${{amount}}"
+        },
+        "view": {
+          "sections": {
+            "summary": "Treatment Summary",
+            "keywords": "Keywords",
+            "description": "Description",
+            "products": "Products Applied",
+            "vouchers": "Stock Vouchers",
+            "notes": "Notes",
+            "audit": "Audit Trail",
+            "metadata": "Metadata"
+          },
+          "fields": {
+            "treatmentDate": "Treatment Date",
+            "treatmentType": "Treatment Type",
+            "applicationMethod": "Application Method",
+            "treatmentLocation": "Treatment Location",
+            "withholdingPeriod": "Withholding Period",
+            "withholdingDays": "{{days}} days",
+            "safeHarvest": "Safe harvest: {{date}}",
+            "retreatDate": "Retreat Date",
+            "totalCost": "Total Cost",
+            "created": "Created",
+            "lastUpdated": "Last Updated",
+            "by": "by {{name}}"
+          },
+          "productsTable": {
+            "headers": {
+              "product": "Product",
+              "quantity": "Quantity",
+              "unit": "Unit",
+              "warehouse": "Warehouse",
+              "batch": "Batch",
+              "unitCost": "Unit Cost",
+              "totalCost": "Total Cost"
+            },
+            "fields": {
+              "recommendedDose": "Recommended Dose",
+              "actualDoseUsed": "Actual Dose Used",
+              "overridden": "Overridden",
+              "activeIngredientConcentration": "Active Ingredient Concentration (%)"
+            },
+            "noBatch": "N/A",
+            "unknownProduct": "Unknown Product",
+            "unknownWarehouse": "Unknown Warehouse"
+          }
+        },
+        "messages": {
+          "success": {
+            "created": "Treatment operation created successfully",
+            "updated": "Treatment operation updated successfully",
+            "deleted": "Treatment operation deleted successfully",
+            "applied": "Treatment operation applied successfully. Stock has been updated."
+          },
+          "error": {
+            "createFailed": "Failed to create treatment operation",
+            "updateFailed": "Failed to update treatment operation",
+            "deleteFailed": "Failed to delete treatment operation",
+            "applyFailed": "Failed to apply treatment operation",
+            "loadFailed": "Failed to load treatment operations"
+          }
+        }
+      },
+      "harvesting": {
+        "title": "Harvest Operations",
+        "addButton": "Add Harvest",
+        "addTitle": "Add Harvest",
+        "editTitle": "Edit Harvest",
+        "viewTitle": "Harvest Details",
+        "loading": "Loading operations...",
+        "noOperations": "No harvest operations recorded",
+        "status": {
+          "draft": "Draft",
+          "verified": "Verified",
+          "classified": "Classified"
+        },
+        "form": {
+          "dialogTitle": "Harvest Operation - Draft",
+          "fields": {
+            "field": {
+              "label": "Field"
+            },
+            "lot": {
+              "label": "Lot"
+            },
+            "crop": {
+              "label": "Crop"
+            },
+            "harvestDate": {
+              "label": "Harvest Date *",
+              "placeholder": "Pick a date"
+            },
+            "notes": {
+              "label": "Notes",
+              "placeholder": "Additional notes about the harvest..."
+            }
+          },
+          "totalHarvested": {
+            "title": "Total Harvested",
+            "computedFrom": "Computed from {{count}} worker entry",
+            "computedFrom_plural": "Computed from {{count}} worker entries"
+          },
+          "workerEntries": {
+            "title": "Worker Harvest Entries",
+            "addButton": "Add Worker",
+            "fields": {
+              "worker": {
+                "label": "Worker *",
+                "selectFromList": "Select from list",
+                "enterManually": "Enter manually",
+                "enterPlaceholder": "Enter worker name...",
+                "selectPlaceholder": "Select worker...",
+                "unknown": "Unknown worker"
+              },
+              "quantity": {
+                "label": "Quantity *"
+              },
+              "unit": {
+                "label": "Unit *",
+                "placeholder": "Select unit",
+                "options": {
+                  "bag": "bag",
+                  "box": "box",
+                  "crate": "crate",
+                  "kg": "kg",
+                  "lbs": "lbs",
+                  "tons": "tons"
+                }
+              },
+              "cost": {
+                "label": "Cost"
+              }
+            }
+          },
+          "buttons": {
+            "cancel": "Cancel",
+            "saving": "Saving...",
+            "saveAsDraft": "Save as Draft"
+          },
+          "validation": {
+            "atLeastOneWorker": "Add at least one worker.",
+            "quantityMin": "Quantity must be greater than 0.",
+            "unitRequired": "Unit is required.",
+            "workerRequired": "Worker is required."
+          }
+        },
+        "phiWarning": {
+          "title": "PHI restriction warning",
+          "descriptionWithDate": "One or more treatments still have an active PHI until {{date}}.",
+          "description": "One or more treatments still have an active PHI interval for this harvest date.",
+          "treatmentLabel": "Treatment on {{date}}",
+          "restrictedUntil": "Restricted until {{date}}",
+          "productPhiSummary": "PHI {{days}} days",
+          "statusActive": "PHI active ({{days}} days remaining)",
+          "statusDone": "PHI completed",
+          "proceedAnyway": "Proceed anyway",
+          "bannerTitle": "PHI Active — you are harvesting before safe harvest date ({{date}}).",
+          "viewDetails": "View details",
+          "hideDetails": "Hide details",
+          "phiLabel": "PHI"
+        },
+        "phiPrecheck": {
+          "title": "PHI Restriction Active",
+          "summary": "Earliest safe harvest: {{date}} ({{days}}d left)"
+        },
+        "fields": {
+          "harvestMethod": {
+            "label": "Harvest Method",
+            "placeholder": "Select method",
+            "options": {
+              "manual": "Manual",
+              "mechanical": "Mechanical",
+              "semi_mechanical": "Semi-mechanical",
+              "selective": "Selective Harvest",
+              "other": "Other"
+            }
+          },
+          "harvestStage": {
+            "label": "Harvest Stage",
+            "placeholder": "Select stage",
+            "options": {
+              "early": "Early",
+              "optimal": "Optimal",
+              "late": "Late",
+              "multiple": "Multiple Harvest"
+            }
+          },
+          "totalYield": {
+            "label": "Total Yield",
+            "placeholder": "Total harvested"
+          },
+          "yieldUnit": {
+            "label": "Yield Unit",
+            "placeholder": "Select unit"
+          },
+          "harvestedArea": {
+            "label": "Harvested Area",
+            "placeholder": "Area size"
+          },
+          "harvestedAreaUnit": {
+            "label": "Area Unit",
+            "placeholder": "Select unit"
+          },
+          "moisture": {
+            "label": "Moisture Content (%)",
+            "placeholder": "At harvest"
+          },
+          "temperature": {
+            "label": "Temperature (°C)",
+            "placeholder": "At harvest"
+          },
+          "storageLocation": {
+            "label": "Storage Location",
+            "placeholder": "Where stored"
+          },
+          "transportMethod": {
+            "label": "Transport Method",
+            "placeholder": "How transported"
+          },
+          "classification": {
+            "title": "Harvest Classification",
+            "premium": {
+              "label": "Premium Grade",
+              "placeholder": "Amount"
+            },
+            "standard": {
+              "label": "Standard Grade",
+              "placeholder": "Amount"
+            },
+            "processing": {
+              "label": "Processing Grade",
+              "placeholder": "Amount"
+            },
+            "waste": {
+              "label": "Waste/Reject",
+              "placeholder": "Amount"
+            }
+          },
+          "quality": {
+            "title": "Quality Parameters",
+            "size": {
+              "label": "Average Size",
+              "placeholder": "e.g., Large, 200g"
+            },
+            "color": {
+              "label": "Color",
+              "placeholder": "e.g., Green, Ripe"
+            },
+            "brix": {
+              "label": "Brix Level",
+              "placeholder": "Sugar content"
+            },
+            "defects": {
+              "label": "Defects (%)",
+              "placeholder": "Percentage with defects"
+            }
+          }
+        },
+        "table": {
+          "headers": {
+            "date": "Date",
+            "totalHarvested": "Total Harvested",
+            "workers": "Workers",
+            "categories": "Categories",
+            "status": "Status",
+            "method": "Method",
+            "yield": "Yield",
+            "area": "Area",
+            "moisture": "Moisture",
+            "quality": "Quality",
+            "cost": "Cost",
+            "actions": "Actions"
+          }
+        },
+        "verification": {
+          "title": "Harvest Verification",
+          "weighbridge": {
+            "label": "Weighbridge Ticket",
+            "placeholder": "Ticket number"
+          },
+          "verifiedBy": {
+            "label": "Verified By",
+            "placeholder": "Name of verifier"
+          },
+          "photos": {
+            "label": "Harvest Photos",
+            "upload": "Upload Photos"
+          },
+          "buttons": {
+            "cancel": "Cancel",
+            "confirm": "Verify",
+            "verifying": "Verifying..."
+          },
+          "description": "Confirm the harvested quantities and costs.",
+          "fields": {
+            "harvestingCost": "Harvesting Cost",
+            "harvestingCostHelp": "Final labor cost for this harvest.",
+            "harvestingCostPlaceholder": "0.00"
+          },
+          "summary": {
+            "harvestDate": "Harvest Date",
+            "totalHarvested": "Total Harvested",
+            "workerBreakdown": "Worker Breakdown",
+            "workerCount": "{{count}} workers",
+            "workerId": "ID: {{id}}",
+            "workers": "Workers"
+          },
+          "validation": {
+            "costMin": "Cost must be 0 or more."
+          }
+        },
+        "view": {
+          "title": "Harvest Operation Details",
+          "header": {
+            "harvestDate": "Harvest Date",
+            "workers": "Workers",
+            "workersCount": "{{count}} worker(s)",
+            "categories": "Categories",
+            "categoriesCount": "{{count}} category(s)",
+            "status": "Status"
+          },
+          "totalHarvested": "Total Harvested",
+          "workerBreakdown": {
+            "title": "Worker Breakdown",
+            "workerId": "ID: {{id}}"
+          },
+          "supervisorVerification": {
+            "title": "Supervisor Verification",
+            "verifiedBy": "Verified By",
+            "supervisor": "Supervisor",
+            "unknown": "Unknown",
+            "verifiedAt": "Verified At",
+            "harvestingCost": "Harvesting Cost"
+          },
+          "classification": {
+            "title": "Classification & Stock Entries",
+            "product": "Product",
+            "quantity": "Quantity",
+            "warehouse": "Warehouse",
+            "productionDate": "Production Date",
+            "expirationDate": "Expiration Date",
+            "salePrice": "Sale Price",
+            "totalSales": "Total Sales",
+            "profit": "Profit",
+            "wasteNote": "Recorded as waste (no stock or sales).",
+            "stockEntriesCreated": "Stock Entries Created",
+            "stockEntriesCount": "{{count}} stock entry created successfully",
+            "stockEntriesCount_plural": "{{count}} stock entries created successfully",
+            "classifiedBy": "Classified By",
+            "dataEntryOperator": "Data Entry Operator",
+            "classifiedAt": "Classified At"
+          },
+          "notes": {
+            "title": "Notes"
+          }
+        },
+        "actions": {
+          "classify": "Classify",
+          "verify": "Verify"
+        },
+        "wizard": {
+          "title": "Finalize Harvest",
+          "steps": {
+            "draft": "Step 1: Draft",
+            "verification": "Step 2: Verification",
+            "classification": "Step 3: Classification"
+          },
+          "stepDescriptions": {
+            "draft": "Step 1 of 3: enter or update draft harvest data.",
+            "verification": "Step 2 of 3: verify harvested totals and final cost.",
+            "classification": "Step 3 of 3: classify outputs and complete stock/sales records."
+          },
+          "buttons": {
+            "finalize": "Finalize"
+          },
+          "notReady": {
+            "saveDraftFirst": "Save draft data first to continue to verification.",
+            "verifyFirst": "Verify this harvest before classification."
+          }
+        },
+        "outcomes": {
+          "addedToWarehouse": "Added to Warehouse",
+          "soldDirect": "Sold Directly",
+          "waste": "Waste"
+        },
+        "classification": {
+          "addProduct": "Add Product",
+          "buttons": {
+            "cancel": "Cancel",
+            "creating": "Saving...",
+            "save": "Save"
+          },
+          "description": "Create stock entries for harvested products.",
+          "entriesTitle": "Classification Entries",
+          "wasteNote": "Waste will be recorded without stock or sales.",
+          "fields": {
+            "expirationDate": "Expiration Date",
+            "expirationDatePlaceholder": "Pick a date",
+            "outcome": "Outcome",
+            "product": "Product",
+            "productPlaceholder": "Select product",
+            "productionDate": "Production Date",
+            "productionDatePlaceholder": "Pick a date",
+            "quantity": "Quantity",
+            "quantityPlaceholder": "0",
+            "salePrice": "Sale Price (per unit)",
+            "unit": "Unit",
+            "warehouse": "Warehouse",
+            "warehousePlaceholder": "Select warehouse"
+          },
+          "summary": {
+            "remaining": "Remaining",
+            "totalClassified": "Total Classified",
+            "totalHarvested": "Total Harvested"
+          },
+          "title": "Harvest Classification",
+          "validation": {
+            "atLeastOne": "Add at least one classification.",
+            "exceedsHarvested": "Classified quantity ({{classified}}) exceeds harvested ({{harvested}}).",
+            "exceedsHarvestedAlert": "Classified total exceeds harvested amount ({{harvested}} {{unit}}).",
+            "mustMatchHarvested": "Total classified quantity must equal total harvested quantity.",
+            "productNameRequired": "Product name is required.",
+            "productRequired": "Product is required.",
+            "quantityPositive": "Quantity must be greater than 0.",
+            "remainingQuantity": "Remaining quantity to classify:",
+            "salePriceRequired": "Sale price is required for direct sales.",
+            "unitRequired": "Unit is required.",
+            "warehouseNameRequired": "Warehouse name is required.",
+            "warehouseRequired": "Warehouse is required."
+          }
+        }
+      },
+      "cultural": {
+        "cardTitle": "ICM / Cultural Operations ({{count}}) - Total Cost: {{cost}}",
+        "loading": "Loading...",
+        "buttons": {
+          "add": "Add ICM / Cultural",
+          "apply": "Apply"
+        },
+        "dialog": {
+          "addTitle": "Add Cultural Operation",
+          "editTitle": "Edit Cultural Operation",
+          "description": "Log canopy, training, post-harvest and other cultural operations."
+        },
+        "enabledPractices": {
+          "title": "Enabled cultural practices for this crop",
+          "help": "Click a practice to quick add an operation.",
+          "noPermission": "You don't have permission to log cultural operations. Enable Create permission for Production Cycles → ICM / Cultural.",
+          "cycleClosed": "This cycle is closed. Logging is disabled.",
+          "notEnabled": "ICM / Cultural is not enabled for this crop anymore. Historical records are visible, but logging new records is disabled.",
+          "loading": "Loading enabled practices...",
+          "noneEnabled": "No cultural practices are enabled for this crop yet. Enable CANOPY / POST_HARVEST practices in Crop Operations.",
+          "enabledCount": "{{count}} enabled",
+          "enabledCount_plural": "{{count}} enabled"
+        },
+        "table": {
+          "empty": "No cultural operations yet.",
+          "headers": {
+            "practice": "Practice",
+            "domain": "Domain",
+            "qty": "Qty"
+          }
+        },
+        "delete": {
+          "title": "Delete cultural operation?",
+          "description": "This action cannot be undone."
+        },
+        "form": {
+          "noPracticesWarning": "No cultural practices are enabled for this crop yet. Enable at least one CANOPY / POST_HARVEST practice in Crop Operations before logging.",
+          "operationDetails": "Operation Details",
+          "fieldLot": "Field: {{field}} • Lot: {{lot}}",
+          "practiceRequired": "Practice (required)",
+          "selectPractice": "Select practice",
+          "none": "None",
+          "quantity": "Quantity",
+          "unit": "Unit",
+          "selectUnit": "Select unit",
+          "attachment": "Attachment {{number}}",
+          "moreAttachments": "+{{count}} more",
+          "saveChanges": "Save Changes"
+        },
+        "view": {
+          "title": "Cultural Operation Details",
+          "created": "Created",
+          "lastUpdated": "Last Updated"
+        },
+        "domains": {
+          "CANOPY": "Canopy & Crop Load",
+          "POST_HARVEST": "Post-harvest Handling",
+          "OTHER": "Other"
+        },
+        "practice": {
+          "bagging_bunches": {
+            "label": "Bagging bunches",
+            "description": "Bagging bunches."
+          },
+          "bending_bunches": {
+            "label": "Bending bunches",
+            "description": "Bending bunches."
+          },
+          "cluster_thinning": {
+            "label": "Cluster thinning",
+            "description": "Cluster thinning."
+          },
+          "fruit_thinning": {
+            "label": "Fruit thinning",
+            "description": "Fruit thinning."
+          },
+          "inflorescences_cutting": {
+            "label": "Inflorescences cutting",
+            "description": "Inflorescences cutting."
+          },
+          "leaf_pruning": {
+            "label": "Leaf pruning",
+            "description": "Leaf pruning."
+          },
+          "offshoot_management": {
+            "label": "Offshoot management",
+            "description": "Offshoot/sucker management."
+          },
+          "pollination": {
+            "label": "Pollination",
+            "description": "Manual/assisted pollination."
+          },
+          "pruning": {
+            "label": "Pruning",
+            "description": "General pruning operation."
+          },
+          "pruning_remove_dead_branches": {
+            "label": "Pruning (remove dead branches)",
+            "description": "Remove dead branches."
+          },
+          "pruning_remove_diseased_parts": {
+            "label": "Pruning (remove diseased parts)",
+            "description": "Remove diseased plant parts/branches."
+          },
+          "shoot_pruning": {
+            "label": "Shoot pruning",
+            "description": "Shoot pruning."
+          },
+          "spines_cutting": {
+            "label": "Spines cutting",
+            "description": "Spines cutting."
+          },
+          "training_install_twines": {
+            "label": "Training (install twines)",
+            "description": "Training operation: install twines/supports."
+          },
+          "post_harvest_sanitation": {
+            "label": "Post-harvest sanitation",
+            "description": "Post-harvest sanitation."
+          },
+          "post_harvesting": {
+            "label": "Post-harvesting",
+            "description": "Post-harvesting operations."
+          },
+          "sorting_and_grading": {
+            "label": "Sorting and grading",
+            "description": "Sorting and grading."
+          }
+        },
+        "toasts": {
+          "created": "Cultural operation created successfully",
+          "createFailed": "Error creating cultural operation: {{error}}",
+          "updated": "Cultural operation updated successfully",
+          "updateFailed": "Error updating cultural operation: {{error}}",
+          "deleted": "Cultural operation deleted successfully",
+          "deleteFailed": "Error deleting cultural operation: {{error}}",
+          "applied": "Cultural operation applied successfully",
+          "applyFailed": "Error applying cultural operation: {{error}}"
+        }
+      },
+      "filterLayout": {
+        "grid": "Grid view",
+        "list": "List view"
+      },
+      "view": {
+        "audit": {
+          "asStatus": "Status: {{status}}",
+          "fromTo": "From {{from}} → {{to}}"
+        },
+        "emDash": "—",
+        "labels": {
+          "action": "Action",
+          "attachments": "Attachments",
+          "batch": "Batch: {{batch}}",
+          "category": "Category",
+          "created": "Created",
+          "createdBy": "Created By",
+          "date": "Date",
+          "description": "Description",
+          "duration": "Duration",
+          "durationValue": "{{hours}} hours",
+          "expiryDate": "Expiration Date",
+          "inputIndex": "Input #{{index}}",
+          "inputsUsed": "Inputs Used ({{count}})",
+          "lastUpdated": "Last Updated",
+          "lineTotal": "Line Total: {{total}}",
+          "manufacturingDate": "Manufacturing Date",
+          "notes": "Notes",
+          "operationId": "Operation ID",
+          "performedBy": "Performed By",
+          "product": "Product",
+          "quantityPricing": "Quantity & Pricing",
+          "quantityUnit": "Quantity + Unit",
+          "sku": "SKU: {{sku}}",
+          "source": "Source",
+          "status": "Status",
+          "totalCost": "Total Cost",
+          "totalInputsCost": "Total Inputs Cost",
+          "type": "Type",
+          "unitPricing": "{{cost}} per {{unit}}",
+          "user": "User",
+          "volume": "Volume"
+        },
+        "missingProduct": "Missing product (ID: {{id}})",
+        "noInputs": "No inputs recorded.",
+        "noneSelected": "None selected",
+        "notSet": "Not set",
+        "sections": {
+          "auditTrail": "Audit Trail",
+          "basicInfo": "Basic Information",
+          "inputsUsed": "Inputs Used",
+          "metadata": "Metadata",
+          "notes": "Notes",
+          "operationDetails": "Operation Details",
+          "performedBy": "Performed By"
+        },
+        "title": "Operation Details",
+        "unknownId": "Unknown ID",
+        "unknownStatus": "Unknown status",
+        "unknownUser": "Unknown user",
+        "user": "User"
+      }
+    },
+    "messages": {
+      "addHarvestDescription": "Harvest operation created successfully.",
+      "addHarvestTitle": "Harvest added",
+      "addNutrientsDescription": "Nutrient application created successfully.",
+      "addNutrientsTitle": "Nutrient application added",
+      "addOperationDescription": "Operation added successfully.",
+      "addOperationTitle": "Operation added",
+      "closeCycleDenied": "You do not have permission to close production cycles.",
+      "loading": "Loading production cycle...",
+      "navigationDescription": "No detail view is configured for {{type}} operations.",
+      "navigationTitle": "Navigation not available",
+      "notFound": "Production cycle not found",
+      "notesSaveFailedTitle": "Failed to save notes",
+      "notesSavedDescription": "Your notes were saved.",
+      "notesSavedTitle": "Notes saved",
+      "operationDenied": "You do not have permission to modify production cycle operations."
+    },
+    "summary": {
+      "durationValue": "{{days}} days",
+      "labels": {
+        "actualYield": "Actual Yield",
+        "area": "Area",
+        "duration": "Duration",
+        "endDate": "End Date",
+        "startDate": "Start Date",
+        "targetYield": "Target Yield"
+      },
+      "unknownField": "Unknown field",
+      "unknownLot": "Unknown lot"
+    }
+  },
+  "operations": {
+    "common": {
+      "buttons": {
+        "edit": "Edit",
+        "view": "View"
+      }
+    },
+    "irrigation": {
+      "title": "Irrigation",
+      "table": {
+        "headers": {
+          "date": "Date",
+          "method": "Method",
+          "source": "Source",
+          "waterAmount": "Water Amount",
+          "cost": "Cost",
+          "actions": "Actions"
+        }
+      }
+    },
+    "treatment": {
+      "title": "Treatment",
+      "addButton": "Add Treatment",
+      "noOperations": "No treatment operations recorded yet.",
+      "loading": "Loading treatment operations...",
+      "status": {
+        "draft": "Draft",
+        "applied": "Applied"
+      },
+      "table": {
+        "headers": {
+          "date": "Date",
+          "treatmentType": "Treatment Type",
+          "products": "Products",
+          "totalCost": "Total Cost",
+          "status": "Status",
+          "actions": "Actions"
+        },
+        "productsCount": "{{count}} product(s)"
+      },
+      "dialog": {
+        "addTitle": "Add Treatment Operation",
+        "editTitle": "Edit Treatment Operation",
+        "addDescription": "Fill in the details to add a new treatment operation.",
+        "editDescription": "Update the treatment operation details below.",
+        "deleteTitle": "Delete Treatment Operation",
+        "deleteDescription": "Are you sure you want to delete this treatment operation? This action cannot be undone."
+      },
+      "messages": {
+        "success": {
+          "created": "Treatment operation created successfully",
+          "updated": "Treatment operation updated successfully",
+          "deleted": "Treatment operation deleted successfully",
+          "applied": "Treatment operation applied successfully. Stock has been updated."
+        },
+        "error": {
+          "createFailed": "Failed to create treatment operation",
+          "deleteFailed": "Failed to delete treatment operation",
+          "applyFailed": "Failed to apply treatment operation"
+        }
+      }
+    }
+  },
+  "common": {
+    "units": {
+      "mass": {
+        "g": "g (Grams)",
+        "kg": "kg (Kilograms)",
+        "t": "t (Metric Tonnes)",
+        "lb": "lb (Pounds)",
+        "oz": "oz (Ounces)",
+        "st": "st (Stones)",
+        "ton_us": "ton (US Short Ton)",
+        "ton_imp": "ton (Imperial Long Ton)",
+        "cwt_us": "cwt (US Hundredweight, 100 lb)",
+        "cwt_imp": "cwt (Imperial Hundredweight, 112 lb)"
+      },
+      "volume": {
+        "ml": "mL (Milliliters)",
+        "l": "L (Liters)",
+        "gal": "gal (Gallons)",
+        "gal_imp": "gal (Imperial Gallons)",
+        "fl_oz": "fl oz (Fluid Ounces)",
+        "cup": "cup (Cups)",
+        "pt": "pt (Pints)",
+        "qt": "qt (Quarts)",
+        "bbl": "bbl (Barrels)",
+        "m3": "m³ (Cubic Meters)",
+        "ft3": "ft³ (Cubic Feet)",
+        "floz_us": "fl oz (US Fluid Ounces)",
+        "gal_us": "gal (US Gallons)",
+        "hl": "hL (Hectoliters)",
+        "pt_us": "pt (US Pints)",
+        "qt_us": "qt (US Quarts)"
+      },
+      "count": {
+        "units": "units",
+        "pieces": "pieces",
+        "heads": "heads",
+        "plants": "plants",
+        "seeds": "seeds",
+        "dozen": "dozen",
+        "score": "score",
+        "gross": "gross",
+        "thousand": "thousand",
+        "bunches": "bunches",
+        "eggs": "eggs"
+      },
+      "area": {
+        "m2": "m² (Square Meters)",
+        "ha": "ha (Hectares)",
+        "acre": "acre (Acres)",
+        "ft2": "ft² (Square Feet)",
+        "yd2": "yd² (Square Yards)",
+        "perch": "perch (Perches)",
+        "rood": "rood (Roods)"
+      },
+      "packages": {
+        "bags": "bags",
+        "bales": "bales",
+        "boxes": "boxes",
+        "crates": "crates",
+        "pallets": "pallets",
+        "sacks": "sacks",
+        "trays": "trays"
+      },
+      "perArea": {
+        "bu_ac": "bu/ac (Bushels per acre)",
+        "cwt_ac": "cwt/ac (Hundredweight per acre)",
+        "kg_ha": "kg/ha (Kilograms per hectare)",
+        "lb_ac": "lb/ac (Pounds per acre)",
+        "t_ha": "t/ha (Tonnes per hectare)"
+      },
+      "commodity": {
+        "bushels": "bushels"
+      }
+    },
+    "status": {
+      "active": "Active",
+      "closed": "Closed",
+      "pending": "Pending",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "draft": "Draft",
+      "applied": "Applied",
+      "planned": "Planned"
+    },
+    "errors": {
+      "loadFailed": "Failed to load data",
+      "saveFailed": "Failed to save",
+      "deleteFailed": "Failed to delete",
+      "validationFailed": "Please check all required fields",
+      "networkError": "Network error. Please try again.",
+      "unauthorized": "You don't have permission to perform this action",
+      "notFound": "Resource not found"
+    },
+    "placeholders": {
+      "select": "Select...",
+      "search": "Search...",
+      "optional": "(optional)",
+      "required": "(required)",
+      "noData": "No data available",
+      "loading": "Loading..."
+    },
+    "tooltips": {
+      "info": "More information",
+      "help": "Click for help",
+      "required": "This field is required",
+      "calculated": "This value is calculated automatically"
+    }
+  }
+}

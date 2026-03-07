@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createField,
@@ -16,6 +16,7 @@ import {
   type InactiveFieldWithLots,
   type UpdateFieldRequest,
 } from '../../api/modules/fields';
+import { listLots, type LotSummary } from '../../api/modules/lots';
 import { useAuthSession } from '../../hooks/useAuthSession';
 
 function toErrorMessage(error: unknown): string {
@@ -30,6 +31,7 @@ function fieldsQueryKey(status: FieldStatusFilter) {
 }
 
 const FIELDS_INACTIVE_WITH_LOTS_QUERY_KEY = ['fields', 'inactive-with-lots'] as const;
+const FIELD_LOTS_QUERY_PREFIX = ['fields', 'detail-lots'] as const;
 
 export function useFieldsModule(statusFilter: FieldStatusFilter) {
   const { session } = useAuthSession();
@@ -114,6 +116,14 @@ export function useFieldsModule(statusFilter: FieldStatusFilter) {
         queryKey: ['fields', 'detail', fieldId],
         queryFn: () => getFieldById(token ?? '', fieldId),
       }),
+    loadFieldLots: useCallback(
+      (fieldId: string): Promise<LotSummary[]> =>
+        queryClient.fetchQuery({
+          queryKey: [...FIELD_LOTS_QUERY_PREFIX, fieldId] as const,
+          queryFn: () => listLots(token ?? '', { fieldId, status: 'all' }),
+        }),
+      [queryClient, token],
+    ),
     createField: (input: CreateFieldRequest) => createMutation.mutateAsync(input),
     updateField: (fieldId: string, input: UpdateFieldRequest) =>
       updateMutation.mutateAsync({ fieldId, input }),

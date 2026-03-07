@@ -1,0 +1,326 @@
+{
+  "finance": {
+    "title": "إدارة الأموال",
+    "description": "تتبّع الأموال الداخلة والخارجة باستخدام مجموعات مخصّصة",
+
+    "status": {
+      "online": "متصل",
+      "offline": "غير متصل",
+      "pending": "معلّق"
+    },
+
+    "actions": {
+      "add": "إضافة معاملة",
+      "addNew": "إضافة معاملة جديدة",
+      "edit": "تعديل المعاملة",
+      "update": "تحديث المعاملة",
+      "delete": "حذف المعاملة",
+      "reverse": "عكس المعاملة",
+      "export": "تصدير Excel",
+      "manageGroups": "إدارة المجموعة المالية",
+      "view": "عرض",
+      "cancel": "إلغاء",
+      "create": "إنشاء",
+      "save": "حفظ",
+      "processing": "جارٍ المعالجة...",
+      "clearAllFilters": "مسح جميع الفلاتر",
+      "download": "تنزيل",
+      "cancelEdit": "إلغاء التعديل",
+      "createGroup": "إنشاء مجموعة",
+      "updateGroup": "تحديث المجموعة",
+      "deleteGroup": "حذف المجموعة",
+      "addTransaction": "إضافة معاملة",
+      "updateTransaction": "تحديث المعاملة",
+      "reversing": "جارٍ العكس...",
+      "close": "إغلاق"
+    },
+
+    "summary": {
+      "totalMoneyIn": "إجمالي الأموال الداخلة",
+      "totalMoneyOut": "إجمالي الأموال الخارجة",
+      "netProfit": "صافي الربح"
+    },
+
+    "transactions": {
+      "title": "المعاملات",
+      "count": "المعاملات ({{count}})",
+      "moneyIn": "أموال داخلة",
+      "moneyOut": "أموال خارجة",
+      "income": "دخل",
+      "expense": "مصروف",
+      "reversed": "معكوسة",
+      "reversalEntry": "قيد عكس",
+      "noTransactionsFound": "لم يتم العثور على معاملات تطابق معاييرك.",
+      "showing": "عرض {{start}} إلى {{end}} من أصل {{total}} معاملة"
+    },
+
+    "transactionDialog": {
+      "title": {
+        "add": "إضافة معاملة جديدة",
+        "edit": "تعديل المعاملة"
+      },
+      "description": {
+        "add": "تسجيل إدخال جديد للأموال الداخلة أو الخارجة.",
+        "edit": "تحديث تفاصيل المعاملة."
+      },
+      "fields": {
+        "type": {
+          "label": "النوع",
+          "placeholder": "اختر النوع"
+        },
+        "group": {
+          "label": "المجموعة المالية",
+          "placeholder": "اختر المجموعة المالية {{type}}",
+          "noGroupsAvailable": "لا توجد مجموعات مالية {{type}} متاحة. أنشئ واحدة أولاً.",
+          "createNewGroup": "إنشاء مجموعة مالية جديدة"
+        },
+        "amount": {
+          "label": "المبلغ المدفوع",
+          "placeholder": "0.00"
+        },
+        "date": {
+          "label": "التاريخ"
+        },
+        "contact": {
+          "label": "جهة خارجية (اختياري)",
+          "placeholder": "اختر جهة اتصال",
+          "noContact": "بدون جهة اتصال",
+          "createNewContact": "إنشاء جهة اتصال جديدة"
+        },
+        "paymentMethod": {
+          "label": "طريقة الدفع",
+          "placeholder": "اختر طريقة الدفع",
+          "cash": "نقدًا",
+          "bankTransfer": "تحويل بنكي",
+          "cheque": "شيك"
+        },
+        "description": {
+          "label": "ملاحظات / وصف (اختياري)",
+          "placeholder": "أدخل أي تفاصيل ذات صلة"
+        },
+        "attachments": {
+          "label": "مرفقات (اختياري)",
+          "uploadPrompt": "ارفع الإيصالات أو الفواتير أو إثباتات الدفع"
+        }
+      }
+    },
+
+    "groupDialog": {
+      "title": "إدارة المجموعة المالية",
+      "description": "إنشاء وتعديل وإدارة مجموعاتك المالية المخصّصة للأموال الداخلة والخارجة.",
+      "form": {
+        "title": {
+          "create": "إنشاء مجموعة مالية جديدة",
+          "edit": "تعديل المجموعة المالية"
+        },
+        "fields": {
+          "name": {
+            "label": "اسم المجموعة المالية",
+            "placeholder": "مثال: وقود ومعدات، مبيعات محاصيل، مبيعات مواشي"
+          },
+          "type": {
+            "label": "النوع",
+            "placeholder": "اختر النوع"
+          }
+        }
+      },
+      "existingGroups": "المجموعات المالية الحالية",
+      "noGroups": "لا توجد مجموعات مالية بعد. أنشئ أول مجموعة مالية أعلاه."
+    },
+
+    "deleteGroupDialog": {
+      "title": "حذف مجموعة مالية",
+      "description": "هل أنت متأكد أنك تريد حذف المجموعة \"{{name}}\"؟ لا يمكن التراجع عن هذا الإجراء. ستبقى جميع المعاملات ضمن هذه المجموعة ولكن ستفقد ارتباطها بالمجموعة.",
+      "confirm": "حذف المجموعة",
+      "cancel": "إلغاء"
+    },
+    "deleteTransactionDialog": {
+      "title": "حذف المعاملة",
+      "description": "هل أنت متأكد أنك تريد حذف هذه المعاملة نهائيًا؟ لا يمكن التراجع عن هذا الإجراء.",
+      "confirm": "حذف المعاملة",
+      "cancel": "إلغاء"
+    },
+
+    "charts": {
+      "overview": "نظرة عامة مالية",
+      "moneyInByCategory": "الأموال الداخلة حسب الفئة",
+      "moneyOutByCategory": "الأموال الخارجة حسب الفئة",
+      "activeTransactionsOnly": "تعكس الرسوم البيانية المعاملات النشطة فقط.",
+      "amount": "المبلغ",
+      "other": "أخرى",
+      "totalIn": "إجمالي الداخل",
+      "totalOut": "إجمالي الخارج",
+      "noActiveTransactions": "لا توجد معاملات نشطة لهذا المخطط.",
+      "noTransactionsToDisplay": "لا توجد معاملات للعرض. أضف معاملات لرؤية التحليل حسب الفئة."
+    },
+
+    "transactionCard": {
+      "createdBy": "أنشأها:",
+      "contact": "جهة الاتصال:",
+      "payment": "الدفع:"
+    },
+
+    "transactionView": {
+      "title": "تفاصيل المعاملة",
+      "type": {
+        "income": "دخل",
+        "expense": "مصروف"
+      },
+      "fields": {
+        "date": "التاريخ",
+        "category": "الفئة",
+        "financeGroup": "المجموعة المالية",
+        "contact": "جهة الاتصال",
+        "paymentMethod": "طريقة الدفع"
+      },
+      "attachments": {
+        "title": "المرفقات",
+        "count": "المرفقات ({{count}})",
+        "download": "تنزيل"
+      },
+      "metadata": {
+        "created": "تاريخ الإنشاء:",
+        "id": "المعرّف:"
+      }
+    },
+
+    "reversalDialog": {
+      "title": "عكس المعاملة",
+      "alreadyReversed": "تم عكس هذه المعاملة مسبقًا ولا يمكن عكسها مرة أخرى.",
+      "transactionDetails": "تفاصيل المعاملة:",
+      "fields": {
+        "reason": {
+          "label": "سبب العكس *",
+          "placeholder": "يرجى توضيح سبب عكس هذه المعاملة...",
+          "helpText": "سيؤدي هذا إلى إنشاء معاملة {{oppositeType}} جديدة بنفس المبلغ لعكس هذا الإدخال."
+        }
+      },
+      "confirm": "عكس المعاملة",
+      "cancel": "إلغاء"
+    },
+
+    "filters": {
+      "title": "بحث وفلاتر",
+      "search": {
+        "placeholder": "ابحث في المعاملات..."
+      },
+      "datePeriod": {
+        "label": "الفترة الزمنية",
+        "allTime": "كل الوقت",
+        "yearToDate": "منذ بداية السنة",
+        "quarterly": "هذا الربع",
+        "monthly": "هذا الشهر",
+        "custom": "نطاق مخصص",
+        "from": "من",
+        "to": "إلى"
+      },
+      "group": {
+        "label": "المجموعة المالية",
+        "all": "كل المجموعات"
+      },
+      "categories": {
+        "label": "الفئات",
+        "all": "كل الفئات"
+      },
+      "contacts": {
+        "label": "جهات الاتصال",
+        "all": "كل جهات الاتصال"
+      }
+    },
+
+    "financialOverview": {
+      "title": "نظرة عامة مالية"
+    },
+
+    "table": {
+      "headers": {
+        "date": "التاريخ",
+        "type": "النوع",
+        "amount": "المبلغ",
+        "description": "الوصف",
+        "group": "المجموعة المالية",
+        "user": "المستخدم",
+        "contact": "جهة الاتصال",
+        "payment": "الدفع",
+        "actions": "الإجراءات"
+      }
+    },
+
+    "badges": {
+      "moneyIn": "أموال داخلة",
+      "moneyOut": "أموال خارجة"
+    },
+
+    "messages": {
+      "success": {
+        "transactionAdded": "تمت إضافة {{type}}",
+        "transactionAddedDescription": "تم تسجيل {{type}} جديدة بنجاح.",
+        "transactionUpdated": "تم تحديث {{type}}",
+        "transactionUpdatedDescription": "تم تحديث {{type}} بنجاح.",
+        "transactionReversed": "تم عكس المعاملة",
+        "transactionReversedDescription": "تم عكس المعاملة بنجاح.",
+        "transactionDeleted": "تم حذف المعاملة",
+        "transactionDeletedDescription": "تم حذف المعاملة نهائيًا.",
+        "groupCreated": "تم إنشاء المجموعة",
+        "groupCreatedDescription": "تم إنشاء المجموعة المالية {{type}} \"{{name}}\" وتحديدها.",
+        "groupUpdated": "تم تحديث المجموعة",
+        "groupUpdatedDescription": "تم تحديث المجموعة المالية {{type}} \"{{name}}\".",
+        "groupDeleted": "تم حذف المجموعة",
+        "groupDeletedDescription": "تم حذف المجموعة المالية \"{{name}}\". تم تحديث المعاملات المرتبطة لإزالة ارتباط المجموعة.",
+        "groupCreatedOffline": "تم إنشاء المجموعة (غير متصل)",
+        "groupCreatedOfflineDescription": "تم تحديدها وستتم المزامنة لاحقًا.",
+        "groupUpdatedOffline": "تم تحديث المجموعة (غير متصل)",
+        "groupUpdatedOfflineDescription": "ستتم المزامنة عند الاتصال.",
+        "contactCreated": "تم إنشاء جهة الاتصال",
+        "contactCreatedDescription": "تم إنشاء جهة الاتصال \"{{name}}\" وتحديدها.",
+        "contactCreatedOffline": "تم إنشاء جهة الاتصال (غير متصل)",
+        "contactCreatedOfflineDescription": "تم تحديدها وستتم المزامنة لاحقًا.",
+        "exportComplete": "اكتمل التصدير",
+        "exportCompleteDescription": "تم تصدير المعاملات إلى {{fileName}}",
+        "downloadStarted": "بدأ التنزيل",
+        "downloadStartedDescription": "جارٍ تنزيل {{fileName}}."
+      },
+      "error": {
+        "generic": "خطأ",
+        "validationError": "خطأ في التحقق",
+        "amountRequired": "يرجى إدخال مبلغ صالح أكبر من 0",
+        "groupRequired": "يرجى اختيار مجموعة مالية",
+        "dateRequired": "يرجى اختيار تاريخ",
+        "groupNameRequired": "اسم المجموعة مطلوب.",
+        "reasonRequired": "يرجى إدخال سبب العكس",
+        "transactionFailed": "فشل {{action}} المعاملة: {{error}}",
+        "groupFailed": "فشل {{action}} المجموعة المالية: {{error}}",
+        "contactFailed": "فشل إنشاء جهة الاتصال: {{error}}",
+        "deleteGroupFailed": "فشل تجهيز المجموعة للحذف: {{error}}",
+        "offlineError": "خطأ في وضع عدم الاتصال",
+        "offlineSaveFailed": "فشل الحفظ دون اتصال",
+        "offlineSaveContactFailed": "فشل حفظ جهة الاتصال دون اتصال",
+        "downloadFailed": "فشل التنزيل",
+        "downloadFailedDescription": "فشل تنزيل {{fileName}}.",
+        "fileUrlNotAvailable": "رابط الملف غير متاح.",
+        "reversalFailed": "فشل عكس المعاملة",
+        "transactionDeleteFailed": "فشل حذف المعاملة"
+      },
+      "permissions": {
+        "denied": "تم رفض الإذن",
+        "cannotManageGroups": "ليس لديك صلاحية لإدارة المجموعات المالية.",
+        "cannotPerformAction": "ليس لديك صلاحية لتنفيذ هذا الإجراء.",
+        "cannotReverseTransactions": "ليس لديك صلاحية لعكس المعاملات.",
+        "cannotAddContacts": "ليس لديك صلاحية لإضافة جهات اتصال.",
+        "cannotDeleteGroups": "ليس لديك صلاحية لحذف المجموعات.",
+        "cannotDeleteTransactions": "ليس لديك صلاحية لحذف المعاملات."
+      }
+    },
+
+    "contactDialog": {
+      "title": "إضافة جهة اتصال جديدة"
+    },
+
+    "validation": {
+      "amountPositive": "يجب أن يكون المبلغ أكبر من 0",
+      "groupRequired": "المجموعة المالية مطلوبة",
+      "dateRequired": "التاريخ مطلوب",
+      "reasonRequired": "سبب العكس مطلوب"
+    }
+  }
+}

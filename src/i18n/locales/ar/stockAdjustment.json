@@ -1,0 +1,228 @@
+{
+  "stockAdjustment": {
+    "title": "تسوية المخزون",
+    "subtitle": "إدارة سندات إدخال وإخراج المخزون مع تتبّع كامل",
+
+    "entryStock": "إدخال مخزون",
+    "outStock": "إخراج مخزون",
+    "newAdjustment": "تسوية جديدة",
+    "gridView": "عرض شبكي",
+    "tableView": "عرض جدولي",
+    "offline": "دون اتصال",
+    "pending": "قيد الانتظار",
+    "sync": "مزامنة",
+
+    "stats": {
+      "totalVouchers": "إجمالي السندات",
+      "draft": "مسودة",
+      "completed": "مكتملة",
+      "entry": "إدخال",
+      "out": "إخراج"
+    },
+
+    "filters": {
+      "title": "المرشحات",
+      "show": "إظهار",
+      "hide": "إخفاء",
+      "filters": "مرشحات",
+      "searchVouchers": "ابحث في السندات...",
+      "allStatus": "جميع الحالات",
+      "allTypes": "جميع الأنواع",
+      "reset": "إعادة ضبط"
+    },
+
+    "status": {
+      "draft": "مسودة",
+      "completed": "مكتملة",
+      "posted": "مُرحَّلة"
+    },
+
+    "dialogs": {
+      "createTitle": "إنشاء تسوية مخزون",
+      "createDescription": "أضف منتجات لتتبع تغييرات المخزون مع إدارة كاملة للدفعات وتواريخ الانتهاء",
+      "mobileEntryDescription": "إضافة مخزون إلى المستودع",
+      "mobileExitDescription": "سحب مخزون من المستودع",
+      "voucherDetails": "تفاصيل السند",
+      "viewVoucherDescription": "عرض معلومات السند كاملة وبنود الأصناف",
+      "deleteConfirmTitle": "حذف السند",
+      "deleteConfirmDescription": "هل أنت متأكد من حذف السند {{voucher}}؟ لا يمكن التراجع عن هذا الإجراء.",
+      "thisVoucher": "هذا السند"
+    },
+
+    "form": {
+      "sourceType": "نوع المصدر",
+      "selectSourceType": "اختر نوع المصدر",
+      "referenceNumber": "رقم المرجع",
+      "referencePlaceholder": "REF-001",
+      "date": "التاريخ",
+      "selectDate": "اختر التاريخ",
+      "contact": "جهة الاتصال",
+      "selectContact": "اختر جهة اتصال",
+      "noContactSelected": "لم يتم اختيار جهة اتصال",
+      "searchContacts": "ابحث في جهات الاتصال...",
+      "noContactsFound": "لم يتم العثور على جهات اتصال",
+      "notes": "ملاحظات",
+      "notesPlaceholder": "ملاحظات إضافية",
+      "addProducts": "إضافة منتجات",
+      "selectProductToAdd": "اختر منتجًا للإضافة...",
+      "searchProducts": "ابحث عن منتجات...",
+      "noProductsFound": "لم يتم العثور على منتجات",
+      "selectBatch": "اختر الدفعة",
+      "saveAsDraft": "حفظ كمسودة",
+      "postVoucher": "ترحيل السند",
+      "advancedMode": "الوضع المتقدم (تواريخ التصنيع والانتهاء)"
+    },
+
+    "sourceTypes": {
+      "entry": {
+        "yield": "حصاد/إنتاج",
+        "purchase": "شراء",
+        "production": "إنتاج",
+        "transfer": "تحويل وارد",
+        "adjustment": "تسوية مخزون",
+        "return": "مرتجع",
+        "donation": "تبرع",
+        "process": "معالجة",
+        "other": "أخرى"
+      },
+      "exit": {
+        "sale": "بيع",
+        "farm_usage": "استخدام مزرعة",
+        "transfer": "تحويل صادر",
+        "adjustment": "تسوية مخزون",
+        "damage": "تلف/فاقد",
+        "donation": "تبرع",
+        "loss_damage": "فاقد/تلف",
+        "return": "مرتجع",
+        "other": "أخرى"
+      }
+    },
+
+    "table": {
+      "info": "معلومات",
+      "reference": "المرجع",
+      "type": "النوع",
+      "contact": "جهة الاتصال",
+      "noContact": "لا توجد جهة اتصال",
+      "date": "التاريخ",
+      "status": "الحالة",
+      "lineItems": "بنود السند",
+      "items": "عنصر/عناصر",
+      "notes": "ملاحظات",
+      "actions": "الإجراءات",
+      "productName": "اسم المنتج",
+      "product": "المنتج",
+      "unknownProduct": "منتج غير معروف",
+      "barcode": "الباركود",
+      "sku": "رمز SKU",
+      "availableQty": "الكمية المتاحة",
+      "quantity": "الكمية",
+      "warehouse": "المستودع",
+      "selectWarehouse": "اختر المستودع",
+      "batchNumber": "رقم الدفعة",
+      "batchSelection": "اختيار الدفعة",
+      "manufacturingDate": "تاريخ التصنيع",
+      "expiryDate": "تاريخ الانتهاء",
+      "expiryDays": "أيام الانتهاء",
+      "available": "متاح",
+      "mfg": "تصنيع",
+      "exp": "انتهاء",
+      "selected": "مُختار",
+      "unknownBatch": "دفعة غير معروفة",
+      "days": "يوم/أيام"
+    },
+
+    "buttons": {
+      "saveAndPost": "حفظ وترحيل",
+      "hold": "تعليق",
+      "back": "رجوع",
+      "next": "التالي",
+      "draft": "مسودة",
+      "post": "ترحيل",
+      "cancel": "إلغاء",
+      "deleteVoucher": "حذف"
+    },
+
+    "messages": {
+      "productAlreadyAdded": "تمت إضافة المنتج مسبقًا",
+      "productAlreadyAddedDesc": "هذا المنتج موجود بالفعل في السند",
+      "contactRequired": "جهة الاتصال مطلوبة",
+      "contactRequiredDesc": "يرجى اختيار جهة اتصال لهذا السند",
+      "sourceTypeRequired": "نوع المصدر مطلوب",
+      "sourceTypeRequiredDesc": "يرجى اختيار نوع المصدر لهذا السند",
+      "noProductsAddedError": "لم تتم إضافة منتجات",
+      "noProductsAddedErrorDesc": "يرجى إضافة منتج واحد على الأقل إلى السند",
+      "entryTip": "أضف المنتجات باستخدام البحث أعلاه. فعّل الوضع المتقدم لإضافة تفاصيل الدفعة (تصنيع/انتهاء).",
+      "noProductsAdded": "لم تتم إضافة منتجات بعد",
+      "noProductsAddedOut": "لم تتم إضافة منتجات للإخراج بعد",
+      "noBatchesAvailable": "لا توجد دفعات متاحة",
+      "checkingStock": "جارٍ التحقق من المخزون...",
+      "added": "تمت الإضافة",
+      "quantityExceedsAvailableTitle": "الكمية تتجاوز المخزون المتاح",
+      "quantityExceedsAvailableDesc": "تجاوزت الحد. المتاح في المستودع المحدد: {{availableQuantity}}.",
+      "incompleteProductsTitle": "منتجات غير مكتملة",
+      "incompleteProductsDesc": "يرجى تعبئة المستودع والكمية لجميع المنتجات.",
+      "insufficientStock": "مخزون غير كافٍ",
+      "insufficientStockDesc": "{{product}} يتجاوز الكمية المتاحة في المستودع المحدد ({{availableQuantity}}).",
+      "insufficientStockSaveError": "مخزون غير كافٍ للمنتج {{product}}. المتاح: {{availableQuantity}}، المطلوب: {{requestedQuantity}}.",
+      "insufficientStockGenericError": "مخزون غير كافٍ. المتاح: {{availableQuantity}}، المطلوب: {{requestedQuantity}}.",
+      "insufficientStockRemainingError": "مخزون غير كافٍ. تعذّر خصم الكمية المتبقية: {{remainingQuantity}}.",
+      "exceedsWarehouseStock": "يتجاوز المخزون المتاح في هذا المستودع ({{availableQuantity}}).",
+      "draftSaved": "تم حفظ المسودة",
+      "draftSavedDesc": "تم حفظ السند كمسودة بنجاح",
+      "voucherPosted": "تم ترحيل السند",
+      "voucherPostedDesc": "تم ترحيل السند بنجاح وتحديث المخزون",
+      "userNotAuthenticated": "المستخدم غير مصادق عليه",
+      "farmNotFoundForUser": "لم يتم العثور على مزرعة للمستخدم",
+      "error": "خطأ",
+      "failedToSave": "فشل حفظ السند"
+    },
+
+    "summary": {
+      "recordsCount": "السجلات",
+      "totalAvailableQuantity": "إجمالي المتاح",
+      "totalQuantity": "إجمالي الكمية"
+    },
+
+    "wizard": {
+      "steps": {
+        "details": "التفاصيل",
+        "products": "المنتجات",
+        "review": "المراجعة"
+      },
+      "units": "وحدة",
+      "inventory": {
+        "unknownWarehouse": "مستودع غير معروف",
+        "locations": "مواقع",
+        "currentStockReadonly": "المخزون الحالي (للقراءة فقط)",
+        "totalAvailable": "إجمالي المتاح",
+        "selectedWarehouse": "المستودع المحدد",
+        "locationsSummary": "المواقع: {{locations}}",
+        "noLocationStockRecords": "لا توجد سجلات مخزون حسب الموقع بعد."
+      },
+      "review": {
+        "totalItems": "إجمالي العناصر",
+        "productsCount": "{{count}} منتج",
+        "productsHeading": "المنتجات ({{count}})",
+        "noWarehouse": "بدون مستودع"
+      }
+    },
+
+    "vouchers": {
+      "title": "سندات المخزون",
+      "description": "إدارة جميع سندات تسوية المخزون",
+      "noVouchersFound": "لم يتم العثور على سندات",
+      "noVouchersMatchFilters": "لا توجد سندات تطابق المرشحات الحالية",
+      "noVouchersCreated": "لم يتم إنشاء أي سندات بعد",
+      "createFirstVoucher": "إنشاء أول سند",
+      "productsInVoucher": "{{count}} منتجًا في هذا السند",
+      "more": "المزيد"
+    },
+
+    "tooltips": {
+      "viewDetails": "عرض التفاصيل",
+      "postVoucher": "ترحيل السند",
+      "deleteVoucher": "حذف السند"
+    }
+  }
+}

@@ -1,0 +1,506 @@
+{
+  "fields": {
+    "title": "Fields & Lots",
+    "subtitle": "Manage your farm fields and lots",
+    "offlineMode": "Offline mode",
+    "dataPendingSync": "Data pending sync",
+    
+    "tabs": {
+      "fields": "Fields",
+      "fieldFarm": "Field (Farm)",
+      "lots": "Lots"
+    },
+    
+    "filters": {
+      "title": "Search",
+      "allStatuses": "All Statuses"
+    },
+    
+    "toolbar": {
+      "searchPlaceholder": "Search fields...",
+      "viewDeactivated": "View Deactivated",
+      "addField": "Add Field",
+      "export": "Export"
+    },
+    
+    "cards": {
+      "area": "Area",
+      "location": "Location",
+      "created": "Created",
+      "soil": "Soil",
+      "irrigation": "Irrigation",
+      "hectares": "hectares",
+      "cycle": "Cycle",
+      "activeCycle": "Active Cycle",
+      "noActiveCycle": "No active production cycle",
+      "details": "Field overview",
+      "lotOverview": "Lot overview",
+      "startDate": "Start Date",
+      "daysIn_one": "{{count}} day in",
+      "daysIn_other": "{{count}} days in"
+    },
+
+    "table": {
+      "name": "Name",
+      "area": "Area",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "archived": "Archived",
+      "deactivated": "Deactivated",
+      "fallow": "Fallow",
+      "maintenance": "Maintenance"
+    },
+    
+    "actions": {
+      "edit": "Edit",
+      "view": "View",
+      "deactivate": "Deactivate",
+      "reactivate": "Reactivate",
+      "archive": "Archive"
+    },
+    
+    "view": {
+      "noFieldBoundary": "Field boundary not available for this lot.",
+      "noLotBoundary": "No boundary drawn for this lot."
+    },
+    
+    "empty": {
+      "noFields": "No fields found",
+      "noFieldsDescription": "Create your first field to start managing your farm areas",
+      "createFirstField": "Create First Field",
+      "noMatchingFields": "No fields match your search",
+      "noMatchingFieldsDescription": "Try adjusting your search term or clear the search",
+      "clearSearch": "Clear Search"
+    },
+    
+    "loading": {
+      "loadingFields": "Loading fields...",
+      "processing": "Processing..."
+    },
+    
+    "error": {
+      "failedToLoad": "Failed to load fields",
+      "failedToDeactivate": "Failed to deactivate field. Please try again.",
+      "failedToReactivate": "Failed to reactivate field",
+      "authenticationError": "Please sign in to save field data"
+    },
+    
+    "success": {
+      "fieldDeactivated": "Field Deactivated",
+      "fieldDeactivatedDescription": "{{fieldName}} has been deactivated successfully.",
+      "fieldReactivated": "Field has been reactivated successfully. You can now navigate back to see the updated status.",
+      "fieldCreated": "Field (Farm) created successfully",
+      "fieldUpdated": "Field has been updated successfully."
+    },
+    
+    "form": {
+      "addFieldTitle": "Add Field (Farm)",
+      "addFieldDescription": "Create a new field to organize your farm areas",
+      "editFieldTitle": "Edit Field (Farm)",
+      "editFieldDescription": "Update field information",
+      
+      "tabs": {
+        "basicInfo": "Basic Info",
+        "details": "Details",
+        "mapping": "Mapping"
+      },
+      
+      "basic": {
+        "fieldNameLabel": "Field Name",
+        "fieldNameRequired": "Field name is required",
+        "fieldNamePlaceholder": "Enter field name",
+        "locationLabel": "Location",
+        "locationPlaceholder": "Enter location",
+        "areaLabel": "Area",
+        "areaRequired": "Area must be positive",
+        "areaPlaceholder": "0.00",
+        "areaUnitLabel": "Area Unit",
+        "statusLabel": "Status",
+        "selectStatus": "Select status",
+        "selectUnit": "Select unit"
+      },
+      
+      "details": {
+        "soilTypeLabel": "Soil Type",
+        "soilTypePlaceholder": "Select soil type",
+        "irrigationTypeLabel": "Irrigation Type",
+        "irrigationTypePlaceholder": "Select irrigation type",
+        "soilConditionsLabel": "Soil Conditions",
+        "soilConditionsPlaceholder": "Describe soil conditions, drainage, pH, etc.",
+        "notesLabel": "Notes",
+        "notesPlaceholder": "Additional notes about this field..."
+      },
+      
+      "mapping": {
+        "fieldBoundariesLabel": "Field Boundaries",
+        "fieldBoundariesRequired": "Field boundaries are required (draw on map or enter area manually)",
+        "fieldBoundariesDescription": "Draw the boundaries of your field on the map (required)",
+        "calculatedAreaLabel": "Calculated Area",
+        "manualAreaEntryLabel": "Manual Area Entry",
+        "manualAreaPlaceholder": "Enter area manually",
+        "drawingModeActive": "Drawing mode active",
+        "drawingModeActiveDescription": "Click on the map to start drawing your field boundary. Double-click or click the first point to complete.",
+        "startDrawing": "Start Drawing",
+        "stopDrawing": "Stop Drawing",
+        "howToDrawYourField": "How to Draw Your Field",
+        "clickPointsToCreateBoundary": "Click points on the map to create a boundary",
+        "clickAnywhereToStartDrawing": "Click anywhere to start drawing",
+        "clickMultiplePoints": "Click multiple points on the map",
+        "completeShapeByClickingFirstPoint": "Complete the shape by clicking the first point",
+        "adjustPointsByDragging": "Adjust points by dragging them",
+        "searchAddressPlaceholder": "Search address (e.g., 123 Main St, Austin, TX)",
+        "searchAddressPlaceholderLoading": "Loading...",
+        "startTypingToSeeSuggestions": "Start typing to see suggestions, then select from the dropdown",
+        "loadingMap": "Loading map..."
+      },
+      
+      "buttons": {
+        "cancel": "Cancel",
+        "createField": "Create Field",
+        "updateField": "Update Field",
+        "saveChanges": "Save Changes",
+        "creating": "Creating...",
+        "updating": "Updating...",
+        "saving": "Saving..."
+      },
+      
+      "validation": {
+        "fieldNameRequired": "Field name is required",
+        "areaMustBePositive": "Area must be positive number",
+        "fieldBoundariesRequired": "Field boundaries are required",
+        "duplicateFieldName": "A field with this name already exists. Please choose a different name.",
+        "formError": "Please fix the highlighted fields"
+      }
+    },
+    
+    "archived": {
+      "title": "Archived Fields",
+      "description": "View and manage deactivated fields and lots",
+      "backToFields": "Back to Fields",
+      "back": "Back",
+      "searchPlaceholder": "Search archived fields...",
+      "searchMobilePlaceholder": "Search fields...",
+      "infoTitle": "About Archived Fields",
+      "infoDescription": "These fields are inactive. When you reactivate a field, its lots will remain inactive. You'll need to manually reactivate lots if needed.",
+      "noArchivedFields": "No archived fields",
+      "noArchivedFieldsDescription": "You don't have any archived fields yet.",
+      "noMatchingArchived": "No archived fields match your search.",
+      
+      "table": {
+        "name": "Name",
+        "areaHa": "Area (Ha)",
+        "location": "Location",
+        "inactiveLots": "Inactive Lots",
+        "deactivated": "Deactivated",
+        "actions": "Actions"
+      },
+      
+      "row": {
+        "notSpecified": "Not specified",
+        "lot": "lot",
+        "lots": "lots"
+      }
+    },
+    
+    "lots": {
+      "addLot": "Add Lot",
+      "title": "Lots",
+      "singularTitle": "Lot",
+      "searchPlaceholder": "Search lots...",
+      "searchLots": "Search lots...",
+      "loadingLots": "Loading lots...",
+      "filterLots": "Filter Lots",
+      "filterDescription": "Filter lots by status and other criteria",
+      "noLotsFound": "No lots found",
+      "createFirstLot": "Create First Lot",
+      "createFirstLotDescription": "Create your first lot to start managing your farm areas",
+      "noMatchingLots": "No lots match your search",
+      "noMatchingDescription": "Try adjusting your search term or clear the search to see all lots",
+      "clearSearch": "Clear Search",
+      "allLotsFiltered": "All lots are filtered out",
+      "allLotsFilteredDescription": "{{count}} lots available, but none match current filters",
+      
+      "filters": {
+        "title": "Search",
+        "allStatuses": "All Statuses"
+      },
+      
+      "table": {
+        "name": "Name",
+        "type": "Type",
+        "field": "Field",
+        "status": "Status",
+        "created": "Created",
+        "actions": "Actions",
+        "details": "Details"
+      },
+      
+      "permissions": {
+        "addDenied": "You do not have permission to add lots.",
+        "editDenied": "You do not have permission to edit lots.",
+        "deleteDenied": "You do not have permission to deactivate lots."
+      },
+      
+      "status": {
+        "all": "All Statuses",
+        "active": "Active",
+        "inactive": "Inactive",
+        "preparing": "Preparing"
+      },
+
+      "success": {
+        "updated": "Lot updated successfully"
+      },
+      
+      "form": {
+        "addTitle": "Add New Lot",
+        "addDescription": "Create a new lot for your field",
+        "editTitle": "Edit Lot",
+        "editDescription": "Update lot information",
+        "steps": {
+          "basic": "Basic Info",
+          "boundary": "Lot Boundary",
+          "notes": "Notes"
+        },
+        "boundaryHintTitle": "Draw lot boundary",
+        "boundaryHint": "Draw the lot inside the highlighted field boundary.",
+        "areaPercent": "Lot area is",
+        "areaPercentOf": "of the field",
+        "boundaryReady": "Boundary captured",
+        "clearBoundary": "Clear boundary",
+        "fieldRequiredTitle": "Field required",
+        "fieldRequiredMessage": "Select a field to continue.",
+        "fieldBoundaries": "Field Boundaries",
+        "acres": "Acres",
+        
+        "lotNameLabel": "Lot Name",
+        "lotNameRequired": "Lot name is required",
+        "lotNamePlaceholder": "Enter lot name",
+        
+        "fieldLabel": "Field",
+        "fieldRequired": "Field is required",
+        "fieldPlaceholder": "Select a field",
+        
+        "lotTypeLabel": "Lot Type",
+        "lotTypeRequired": "Lot type is required",
+        "lotTypePlaceholder": "Select lot type",
+        "specifyOtherLotType": "Specify Other Lot Type",
+        "specifyOtherPlaceholder": "Specify other lot type",
+        
+        "cropRotationLabel": "Crop Rotation Plan",
+        "cropRotationRequired": "Crop rotation plan is required",
+        "cropRotationPlaceholder": "Select rotation plan",
+        "specifyOtherRotation": "Specify Other Rotation Plan",
+        "specifyRotationPlaceholder": "Specify other rotation plan",
+        
+        "lightProfileLabel": "Light Profile",
+        "lightProfileRequired": "Light profile is required",
+        "lightProfilePlaceholder": "Select light profile",
+        
+        "weatherAlertsLabel": "Enable Weather Alerts",
+        
+        "notesLabel": "Notes",
+        "notesPlaceholder": "Additional notes about this lot",
+        
+        "calculatedArea": "Calculated Area",
+        "drawPolygonInstructions": "Draw a polygon on the map to calculate the area automatically",
+        "manualAreaEntry": "Manual Area Entry",
+        "enterAreaAcres": "Enter area in acres",
+        "manualAreaNote": "If you can't draw on the map, you can enter the area manually",
+        
+        "buttons": {
+          "cancel": "Cancel",
+          "createLot": "Create Lot",
+          "updateLot": "Update Lot",
+          "saving": "Saving..."
+        }
+      },
+      
+      "drawing": {
+        "mapFailedToLoad": "Map failed to load",
+        "mapFailedToLoadDescription": "Google Maps tiles did not load. This is often due to API key quota/billing or network restrictions.",
+        "outsideBoundary": "Outside boundary",
+        "outsideBoundaryDescription": "The lot must stay inside the field boundary.",
+        "lotOverlapsExisting": "Lot overlaps existing lot",
+        "lotOverlapsExistingReverted": "Cannot overlap \"{{lotName}}\". Reverted to previous boundary.",
+        "lotMustBeInsideField": "Lot must be inside field",
+        "lotMustBeInsideFieldDescription": "Draw the lot boundary only inside the highlighted field.",
+        "lotOverlapsExistingDrawInGreen": "This boundary overlaps \"{{lotName}}\". Draw only in the empty (green) area.",
+        "areaAlreadyOccupied": "Area already occupied",
+        "areaAlreadyOccupiedDescription": "This area is already used by \"{{name}}\". Draw only in the empty (green) area.",
+        "startPointMarkerTitle": "Start point — click near here to close polygon",
+        "instructionClickToStart": "Click inside the field to start drawing the lot boundary",
+        "instructionPoint1": "Click to add more points (1 point added)",
+        "instructionPoint2": "Click to add more points (2 points added)",
+        "instructionPointN": "{{count}} points — Click near the green start marker to close, or use the button below",
+        "completeDrawingButton": "Complete Drawing ({{count}} points)",
+        "mapUnavailable": "Map unavailable",
+        "loadingMap": "Loading map...",
+        "selectFieldWithBoundaries": "Select a field with boundaries to draw a lot.",
+        "existingLotName": "Existing lot"
+      },
+      
+      "types": {
+        "openLot": "Open Lot",
+        "greenhouse": "Greenhouse",
+        "shadeHouse": "Shade House",
+        "tunnelPolytunnel": "Tunnel/Polytunnel",
+        "nursery": "Nursery",
+        "growAreaPlantingArea": "Growing Area/Planting Area",
+        "orchard": "Orchard",
+        "vineyard": "Vineyard",
+        "livestockBarn": "Livestock Barn",
+        "livestockPastureGrazing": "Livestock Pasture/Grazing",
+        "storagePadWarehouse": "Storage Pad/Warehouse",
+        "other": "Other"
+      },
+      
+      "rotationPlans": {
+        "monoculture": "Monoculture",
+        "twoFieldRotation": "Two Field Rotation",
+        "threeFieldRotation": "Three Field Rotation",
+        "fourFieldRotation": "Four Field Rotation",
+        "coverCropping": "Cover Cropping",
+        "fallowPeriods": "Fallow Periods",
+        "intercropping": "Intercropping",
+        "other": "Other"
+      },
+      
+      "lightProfiles": {
+        "fullSun": "Full Sun",
+        "partialSun": "Partial Sun",
+        "partialShade": "Partial Shade",
+        "dappledShade": "Dappled Shade",
+        "fullShade": "Full Shade",
+        "indoorControlledLight": "Indoor Controlled Light"
+      },
+      
+      "confirmations": {
+        "deleteTitle": "Deactivate Lot",
+        "deleteDescription": "Are you sure you want to deactivate \"{{lotName}}\"? You can reactivate it later from Deactivated Lots.",
+        "deleteConfirm": "Deactivate",
+        "deleteCancel": "Cancel"
+      }
+    },
+    
+    "units": {
+      "acres": "Acres",
+      "hectares": "Hectares (Ha)",
+      "manzana": "Manzana (Mz)",
+      "squareMeters": "Square Meters",
+      "squareFeet": "Square Feet",
+      "hectare": "hectare",
+      "acre": "acre",
+      "ha": "Ha",
+      "ac": "ac",
+      "sqm": "sq m",
+      "sqft": "sq ft"
+    },
+    
+    "irrigation": {
+      "none": "None",
+      "drip": "Drip",
+      "sprinkler": "Sprinkler",
+      "pivot": "Pivot",
+      "surface": "Surface",
+      "subsurface": "Subsurface",
+      "rainfed": "Rainfed",
+      "reservoir": "Reservoir",
+      "river": "River",
+      "municipal": "Municipal",
+      "rainwater": "Rainwater",
+      "flood": "Flood",
+      "centerPivot": "Center Pivot",
+      "other": "Other"
+    },
+    
+    "soil": {
+      "clay": "Clay",
+      "loam": "Loam",
+      "sand": "Sand",
+      "silt": "Silt",
+      "peat": "Peat",
+      "chalk": "Chalk",
+      "saline": "Saline",
+      "sandy": "Sandy",
+      "mixed": "Mixed",
+      "other": "Other"
+    },
+    
+    "map": {
+      "startDrawing": "Start Drawing",
+      "clickToDraw": "Click to draw",
+      "deleteShape": "Delete shape",
+      "fullScreen": "Full screen",
+      "exitFullScreen": "Exit full screen",
+      "clickToStart": "Click to start, double-click to finish",
+      "dragPoints": "Drag points to adjust",
+      "drawingInstructions": "Click to start drawing, double-click to finish the boundary",
+      "adjustInstructions": "Drag points to adjust the boundary shape",
+      
+      "unitSelector": "Unit selector",
+      "calculatedArea": "Calculated area",
+      "manualAreaEntry": "Manual area entry",
+      "enterAreaManually": "Enter area manually",
+      
+      "errors": {
+        "mapFailedToLoad": "Map failed to load",
+        "locationPermissionDenied": "Location permission denied",
+        "drawingError": "Error occurred while drawing",
+        "polygonMustBeClosed": "Polygon must be closed",
+        "noSelfIntersections": "No self-intersections allowed",
+        "minimumThreePoints": "Minimum three points required",
+        "mapNotAvailable": "Map not available",
+        "apiKeyError": "Map API key error",
+        "offlineState": "Map unavailable in offline mode"
+      },
+      
+      "tools": {
+        "drawing": "Drawing tool",
+        "selection": "Selection tool",
+        "measurement": "Measurement tool",
+        "zoom": "Zoom tool"
+      },
+      
+      "aria": {
+        "editButton": "Edit map boundary",
+        "deleteButton": "Delete map boundary",
+        "viewButton": "View on map",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out",
+        "startDrawingButton": "Start drawing boundary",
+        "fullscreenButton": "Toggle fullscreen map view"
+      }
+    },
+    
+    "validation": {
+      "required": "This field is required",
+      "nameRequired": "Name is required",
+      "areaRequired": "Area is required",
+      "fieldRequired": "Field is required",
+      "boundariesRequired": "Boundaries are required",
+      "mustBePositive": "Must be a positive number",
+      "mustBeGreaterThanZero": "Must be greater than zero",
+      "maxLength": "Maximum {{max}} characters allowed",
+      "invalidEmail": "Invalid email format",
+      "invalidNumber": "Invalid number format",
+      "invalidDate": "Invalid date format",
+      "duplicateName": "This name is already in use",
+      "invalidArea": "Invalid area value",
+      "manualAreaRequired": "Manual area entry is required",
+      "polygonRequired": "Polygon boundaries are required",
+      "minimumArea": "Minimum area is {{min}}",
+      "maximumArea": "Maximum area is {{max}}",
+      "invalidGeometry": "Invalid geometry data",
+      "unsavedChanges": "You have unsaved changes",
+      "confirmDiscard": "Are you sure you want to discard your changes?",
+      "keepEditing": "Keep editing",
+      "discardChanges": "Yes, discard"
+    }
+  }
+}

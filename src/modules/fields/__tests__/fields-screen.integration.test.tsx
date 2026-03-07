@@ -79,6 +79,14 @@ describe('FieldsScreen integration', () => {
     ],
     housingUnitBoundaries: [],
   });
+  const loadFieldLotsMock = jest.fn().mockResolvedValue([
+    {
+      id: 'lot-1',
+      name: 'Lot A',
+      status: 'active',
+      shapePolygon: null,
+    },
+  ]);
 
   beforeEach(() => {
     mockReplace.mockClear();
@@ -86,6 +94,7 @@ describe('FieldsScreen integration', () => {
     reactivateMainMock.mockClear();
     reactivateDeactivatedMock.mockClear();
     loadFieldDetailMock.mockClear();
+    loadFieldLotsMock.mockClear();
 
     useFieldsModuleMock.mockReturnValue({
       fields: [fieldRecord],
@@ -101,6 +110,7 @@ describe('FieldsScreen integration', () => {
       errorMessage: null,
       refresh: async () => undefined,
       loadFieldDetail: loadFieldDetailMock,
+      loadFieldLots: loadFieldLotsMock,
       createField: createFieldMock,
       updateField: async () => fieldRecord,
       deactivateField: async () => fieldRecord,

@@ -1,0 +1,448 @@
+{
+  "contacts": {
+    "page": {
+      "title": "إدارة جهات الاتصال",
+      "subtitle": "إدارة الموردين والعملاء ومقدمي الخدمات",
+      "subtitleOffline": "إدارة الموردين والعملاء ومقدمي الخدمات (وضع عدم الاتصال)",
+      "pendingSync": "{{count}} بانتظار المزامنة",
+      "pendingSyncPlural": "{{count}} بانتظار المزامنة"
+    },
+
+    "filters": {
+      "title": "البحث والفلاتر",
+      "search": {
+        "placeholder": "ابحث عن جهات الاتصال بالاسم أو البريد الإلكتروني أو الهاتف أو الشركة أو العنوان أو الملاحظات..."
+      },
+      "status": {
+        "label": "الحالة",
+        "labelWithCount": "الحالة ({{count}})",
+        "active": "نشط",
+        "inactive": "غير نشط",
+        "archived": "مؤرشف",
+        "all": "جميع الحالات"
+      },
+      "types": {
+        "label": "الأنواع",
+        "labelWithCount": "الأنواع ({{count}})",
+        "searchPlaceholder": "ابحث في الأنواع...",
+        "noTypesFound": "لم يتم العثور على أنواع",
+        "all": "جميع الأنواع"
+      },
+      "countries": {
+        "label": "الدول",
+        "all": "جميع الدول",
+        "searchPlaceholder": "ابحث عن دولة...",
+        "noCountriesFound": "لم يتم العثور على دول"
+      },
+      "advanced": "متقدم",
+      "clearAll": "مسح الكل",
+      "clearAllFilters": "مسح جميع الفلاتر"
+    },
+
+    "actions": {
+      "add": "إضافة جهة اتصال",
+      "addNew": "إضافة جهة اتصال جديدة",
+      "addFirst": "أضف أول جهة اتصال",
+      "edit": "تعديل",
+      "editContact": "تعديل جهة الاتصال",
+      "delete": "حذف",
+      "deactivate": "تعطيل",
+      "activate": "تفعيل",
+      "view": "عرض",
+      "viewContact": "عرض جهة الاتصال",
+      "import": "استيراد",
+      "export": "تصدير",
+      "download": "تنزيل",
+      "upload": "رفع",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "update": "تحديث",
+      "create": "إنشاء",
+      "close": "إغلاق",
+      "processing": "جارٍ المعالجة...",
+      "saving": "جارٍ الحفظ...",
+      "loading": "جارٍ التحميل...",
+      "viewToggle": {
+        "grid": "عرض شبكي",
+        "table": "عرض جدولي"
+      }
+    },
+
+    "list": {
+      "headers": {
+        "contact": "جهة الاتصال",
+        "types": "الأنواع",
+        "company": "الشركة",
+        "contactInfo": "معلومات الاتصال",
+        "location": "الموقع",
+        "status": "الحالة",
+        "actions": "الإجراءات"
+      },
+      "emptyState": {
+        "title": "لا توجد جهات اتصال",
+        "description": "ابدأ بإضافة أول جهة اتصال.",
+        "noResults": "لا توجد نتائج",
+        "adjustFilters": "حاول تعديل الفلاتر أو مصطلحات البحث."
+      },
+      "pagination": {
+        "showing": "عرض {{start}} إلى {{end}} من {{total}} جهة اتصال",
+        "previous": "السابق",
+        "next": "التالي"
+      },
+      "loading": "جارٍ تحميل جهات الاتصال...",
+      "loadingMore": "جارٍ تحميل المزيد من جهات الاتصال..."
+    },
+
+    "card": {
+      "labels": {
+        "taxId": "الرقم الضريبي: {{taxId}}",
+        "moreTypes": "+{{count}}",
+        "noCompany": "غير متوفر",
+        "noEmail": "لا يوجد بريد إلكتروني",
+        "noPhone": "لا يوجد رقم هاتف",
+        "noLocation": "لا يوجد موقع",
+        "noNotes": "لا توجد ملاحظات"
+      },
+      "chips": {
+        "auditor": "مدقق",
+        "breeder": "مربّي",
+        "buyer": "مشتري",
+        "certifier": "جهة اعتماد",
+        "customer": "عميل",
+        "contact": "جهة اتصال",
+        "supplier": "مورد",
+        "serviceProvider": "مقدم خدمة"
+      }
+    },
+
+    "form": {
+      "titles": {
+        "add": "إضافة جهة اتصال جديدة",
+        "edit": "تعديل جهة الاتصال",
+        "view": "تفاصيل جهة الاتصال"
+      },
+      "sections": {
+        "basicInfo": "المعلومات الأساسية",
+        "contactDetails": "تفاصيل الاتصال",
+        "addressDetails": "تفاصيل العنوان",
+        "additionalInfo": "معلومات إضافية",
+        "attachments": "المرفقات"
+      },
+      "labels": {
+        "name": "اسم جهة الاتصال",
+        "contactTypes": "نوع جهة الاتصال",
+        "phone": "رقم الهاتف",
+        "email": "البريد الإلكتروني",
+        "company": "اسم الشركة",
+        "country": "الدولة",
+        "cityRegion": "المدينة / المنطقة",
+        "address": "العنوان",
+        "taxId": "الرقم الضريبي",
+        "notes": "ملاحظات",
+        "status": "الحالة",
+        "coordinates": "الإحداثيات",
+        "attachments": "المرفقات"
+      },
+      "placeholders": {
+        "name": "أدخل اسم جهة الاتصال",
+        "phone": "أدخل رقم الهاتف",
+        "email": "أدخل البريد الإلكتروني",
+        "company": "أدخل اسم الشركة",
+        "country": "اختر الدولة",
+        "cityRegion": "أدخل المدينة أو المنطقة",
+        "address": "أدخل العنوان الكامل",
+        "taxId": "أدخل الرقم الضريبي",
+        "notes": "أدخل أي ملاحظات إضافية...",
+        "contactTypesSearch": "ابحث عن أنواع جهات الاتصال...",
+        "customType": "إضافة نوع مخصص",
+        "status": "اختر الحالة"
+      },
+      "help": {
+        "contactTypes": "اختر نوعاً واحداً أو أكثر يوضح علاقة جهة الاتصال بالمزرعة.",
+        "email": "عنوان بريد إلكتروني صالح للتواصل",
+        "phone": "رقم الهاتف مع رمز الدولة إن وجد",
+        "taxId": "رقم التعريف الضريبي (اختياري)",
+        "attachments": "ارفع مستندات أو عقود أو ملفات متعلقة بجهة الاتصال"
+      },
+      "required": "*",
+      "optional": "(اختياري)",
+      "buttons": {
+        "addCustom": "إضافة مخصص",
+        "selectLocation": "تحديد الموقع",
+        "uploadFile": "رفع ملف",
+        "downloadFile": "تنزيل",
+        "removeFile": "إزالة"
+      }
+    },
+
+    "validation": {
+      "nameRequired": "اسم جهة الاتصال مطلوب",
+      "nameMinLength": "يجب ألا يقل اسم جهة الاتصال عن {{min}} أحرف",
+      "nameMaxLength": "يجب ألا يتجاوز اسم جهة الاتصال {{max}} حرفاً",
+      "typesRequired": "يجب اختيار نوع واحد على الأقل",
+      "emailInvalid": "يرجى إدخال بريد إلكتروني صالح",
+      "phoneInvalid": "يرجى إدخال رقم هاتف صالح",
+      "taxIdInvalid": "يرجى إدخال رقم ضريبي صالح",
+      "coordinatesInvalid": "الإحداثيات غير صالحة",
+      "fileTooBig": "لا يمكن أن يتجاوز حجم الملف {{maxSize}} ميجابايت",
+      "fileTypeNotSupported": "نوع الملف غير مدعوم. الأنواع المسموحة: {{allowedTypes}}",
+      "tooManyFiles": "لا يمكن رفع أكثر من {{maxFiles}} ملفات"
+    },
+
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "archived": "مؤرشف",
+      "pending": "قيد المراجعة",
+      "draft": "مسودة"
+    },
+
+    "confirm": {
+      "deactivate": {
+        "title": "تعطيل جهة الاتصال",
+        "description": "هل أنت متأكد من تعطيل \"{{name}}\"؟ سيتم نقل جهة الاتصال إلى حالة غير نشطة ويمكن إعادة تفعيلها لاحقاً.",
+        "confirmButton": "تعطيل",
+        "cancelButton": "إلغاء"
+      },
+      "delete": {
+        "title": "حذف جهة الاتصال",
+        "description": "هل أنت متأكد من حذف \"{{name}}\" نهائياً؟ لا يمكن التراجع عن هذا الإجراء وسيتم حذف جميع البيانات المرتبطة.",
+        "confirmButton": "حذف",
+        "cancelButton": "إلغاء"
+      },
+      "activate": {
+        "title": "تفعيل جهة الاتصال",
+        "description": "هل أنت متأكد من تفعيل \"{{name}}\"؟ سيتم نقل جهة الاتصال إلى الحالة النشطة.",
+        "confirmButton": "تفعيل",
+        "cancelButton": "إلغاء"
+      }
+    },
+
+    "toasts": {
+      "success": {
+        "created": "تم إنشاء جهة الاتصال",
+        "createdDescription": "تم إنشاء \"{{name}}\" بنجاح.",
+        "createdOffline": "تم إنشاء جهة الاتصال دون اتصال",
+        "createdOfflineDescription": "سيتم مزامنة \"{{name}}\" عند الاتصال.",
+        "updated": "تم تحديث جهة الاتصال",
+        "updatedDescription": "تم تحديث \"{{name}}\" بنجاح.",
+        "updatedOffline": "تم تحديث جهة الاتصال دون اتصال",
+        "updatedOfflineDescription": "سيتم مزامنة التغييرات عند الاتصال.",
+        "deleted": "تم حذف جهة الاتصال",
+        "deletedDescription": "تم حذف \"{{name}}\" نهائياً.",
+        "deactivated": "تم تعطيل جهة الاتصال",
+        "deactivatedDescription": "تم تعطيل \"{{name}}\".",
+        "deactivatedOffline": "تم تعطيل جهة الاتصال دون اتصال",
+        "activated": "تم تفعيل جهة الاتصال",
+        "activatedDescription": "تم تفعيل \"{{name}}\".",
+        "exported": "تم تصدير جهات الاتصال",
+        "exportedDescription": "تم تصدير {{count}} جهة اتصال بنجاح.",
+        "imported": "تم استيراد جهات الاتصال",
+        "importedDescription": "تم استيراد {{count}} جهة اتصال بنجاح.",
+        "fileUploaded": "تم رفع الملف",
+        "fileUploadedDescription": "تم رفع {{fileName}} بنجاح.",
+        "fileRemoved": "تمت إزالة الملف",
+        "fileRemovedDescription": "تمت إزالة الملف بنجاح."
+      },
+      "error": {
+        "generic": "خطأ",
+        "createFailed": "فشل إنشاء جهة الاتصال",
+        "createFailedDescription": "تعذر إنشاء \"{{name}}\". يرجى المحاولة مرة أخرى.",
+        "updateFailed": "فشل تحديث جهة الاتصال",
+        "updateFailedDescription": "تعذر تحديث \"{{name}}\". يرجى المحاولة مرة أخرى.",
+        "deleteFailed": "فشل حذف جهة الاتصال",
+        "deleteFailedDescription": "تعذر حذف \"{{name}}\". يرجى المحاولة مرة أخرى.",
+        "deactivateFailed": "فشل تعطيل جهة الاتصال",
+        "activateFailed": "فشل تفعيل جهة الاتصال",
+        "exportFailed": "فشل التصدير",
+        "exportFailedDescription": "تعذر تصدير جهات الاتصال. يرجى المحاولة مرة أخرى.",
+        "importFailed": "فشل الاستيراد",
+        "importFailedDescription": "تعذر استيراد جهات الاتصال. يرجى التحقق من تنسيق الملف.",
+        "loadFailed": "فشل تحميل جهات الاتصال",
+        "loadFailedDescription": "تعذر تحميل جهات الاتصال. يرجى تحديث الصفحة.",
+        "fileTooLarge": "الملف كبير جداً",
+        "fileTooLargeDescription": "حجم الملف يتجاوز الحد المسموح.",
+        "fileUploadFailed": "فشل رفع الملف",
+        "fileUploadFailedDescription": "تعذر رفع \"{{fileName}}\". يرجى المحاولة مرة أخرى.",
+        "fileDownloadFailed": "فشل التنزيل",
+        "fileDownloadFailedDescription": "تعذر تنزيل الملف. يرجى المحاولة مرة أخرى.",
+        "fileRemoveFailed": "فشل إزالة الملف",
+        "permissionDenied": "تم رفض الإذن",
+        "networkError": "خطأ في الشبكة",
+        "validationError": "خطأ في التحقق",
+        "somethingWentWrong": "حدث خطأ ما"
+      },
+      "warning": {
+        "unsavedChanges": "تغييرات غير محفوظة",
+        "unsavedChangesDescription": "لديك تغييرات غير محفوظة. هل أنت متأكد من المغادرة؟",
+        "duplicateName": "جهة اتصال مكررة",
+        "duplicateNameDescription": "توجد جهة اتصال بنفس الاسم.",
+        "offlineMode": "وضع عدم الاتصال",
+        "offlineModeDescription": "سيتم حفظ التغييرات محلياً ومزامنتها عند الاتصال."
+      },
+      "info": {
+        "syncing": "جارٍ المزامنة...",
+        "syncingDescription": "جارٍ مزامنة جهات الاتصال مع الخادم.",
+        "syncComplete": "اكتملت المزامنة",
+        "syncCompleteDescription": "تمت مزامنة جميع جهات الاتصال."
+      }
+    },
+
+    "import": {
+      "title": "استيراد جهات الاتصال",
+      "description": "استيراد جهات الاتصال من ملفات Excel أو CSV",
+      "steps": {
+        "upload": "رفع الملف",
+        "map": "ربط الحقول",
+        "preview": "معاينة البيانات",
+        "import": "استيراد جهات الاتصال"
+      },
+      "fileTypes": "التنسيقات المدعومة: Excel (.xlsx, .xls)، CSV (.csv)",
+      "maxFileSize": "الحد الأقصى لحجم الملف: {{size}} ميجابايت",
+      "dragAndDrop": "اسحب الملف هنا أو انقر للتصفح",
+      "selectFile": "اختيار ملف",
+      "processing": "جارٍ معالجة الملف...",
+      "mapping": {
+        "title": "ربط الأعمدة",
+        "description": "قم بمطابقة أعمدة الملف مع حقول جهات الاتصال",
+        "sourceColumn": "عمود المصدر",
+        "targetField": "الحقل الهدف",
+        "preview": "معاينة",
+        "required": "مطلوب",
+        "optional": "اختياري",
+        "ignore": "تجاهل هذا العمود",
+        "autoMapped": "تم الربط تلقائياً بناءً على أسماء الأعمدة"
+      },
+      "preview": {
+        "title": "معاينة بيانات الاستيراد",
+        "description": "راجع البيانات قبل الاستيراد",
+        "totalRows": "إجمالي الصفوف: {{count}}",
+        "validRows": "الصفوف الصالحة: {{count}}",
+        "errorRows": "الصفوف التي تحتوي على أخطاء: {{count}}",
+        "showErrors": "عرض الأخطاء فقط",
+        "showAll": "عرض الكل"
+      },
+      "progress": {
+        "uploading": "جارٍ الرفع...",
+        "processing": "جارٍ معالجة {{current}} من {{total}}...",
+        "importing": "جارٍ استيراد جهات الاتصال...",
+        "complete": "اكتمل الاستيراد!"
+      },
+      "errors": {
+        "fileRequired": "يرجى اختيار ملف للاستيراد",
+        "fileTooLarge": "الملف كبير جداً. الحد الأقصى {{maxSize}} ميجابايت",
+        "invalidFileType": "نوع الملف غير صالح. يرجى استخدام Excel أو CSV",
+        "mappingRequired": "يرجى ربط الحقول المطلوبة",
+        "noDataFound": "لم يتم العثور على بيانات في الملف",
+        "processingError": "خطأ أثناء معالجة الملف: {{error}}",
+        "importError": "خطأ أثناء استيراد جهات الاتصال: {{error}}"
+      },
+      "success": {
+        "imported": "تم استيراد {{count}} جهة اتصال بنجاح",
+        "skipped": "تم تجاوز {{count}} صفوف بسبب أخطاء"
+      }
+    },
+
+    "export": {
+      "title": "تصدير جهات الاتصال",
+      "description": "تصدير جهات الاتصال إلى Excel أو CSV",
+      "formats": {
+        "excel": "Excel (.xlsx)",
+        "csv": "CSV (.csv)"
+      },
+      "options": {
+        "allContacts": "جميع جهات الاتصال",
+        "filteredContacts": "جهات الاتصال المصفّاة ({{count}})",
+        "selectedContacts": "جهات الاتصال المحددة ({{count}})"
+      },
+      "fields": {
+        "title": "تحديد الحقول المراد تصديرها",
+        "selectAll": "تحديد الكل",
+        "selectNone": "إلغاء التحديد",
+        "name": "الاسم",
+        "contactTypes": "أنواع جهات الاتصال",
+        "email": "البريد الإلكتروني",
+        "phone": "الهاتف",
+        "company": "الشركة",
+        "country": "الدولة",
+        "cityRegion": "المدينة / المنطقة",
+        "address": "العنوان",
+        "taxId": "الرقم الضريبي",
+        "status": "الحالة",
+        "notes": "ملاحظات",
+        "createdAt": "تاريخ الإنشاء",
+        "updatedAt": "تاريخ التحديث"
+      },
+      "fileName": "contacts_export_{{date}}",
+      "downloading": "جارٍ تجهيز التنزيل...",
+      "success": "تم التصدير بنجاح"
+    },
+
+    "contactTypes": {
+      "auditor": "مدقق",
+      "breeder": "مربّي",
+      "buyer": "مشتري",
+      "certifier": "جهة اعتماد",
+      "customer": "عميل",
+      "contact": "جهة اتصال",
+      "supplier": "مورد",
+      "serviceProvider": "مقدم خدمة",
+      "distributor": "موزّع",
+      "retailer": "تاجر تجزئة",
+      "consultant": "مستشار",
+      "contractor": "مقاول",
+      "government": "جهة حكومية",
+      "ngo": "منظمة غير ربحية",
+      "financial": "مؤسسة مالية",
+      "logistics": "مقدم خدمات لوجستية",
+      "insurance": "مقدم خدمات تأمين",
+      "legal": "خدمات قانونية",
+      "veterinary": "خدمات بيطرية",
+      "custom": "نوع مخصص"
+    },
+
+    "attachments": {
+      "title": "المرفقات",
+      "count": "المرفقات ({{count}})",
+      "noAttachments": "لا توجد مرفقات",
+      "uploadPrompt": "ارفع مستندات أو عقود أو ملفات متعلقة بجهة الاتصال",
+      "dragDrop": "اسحب الملفات هنا أو انقر للرفع",
+      "maxSize": "الحد الأقصى {{size}} ميجابايت لكل ملف",
+      "allowedTypes": "الأنواع المسموحة: {{types}}",
+      "uploading": "جارٍ رفع {{count}} ملفات...",
+      "downloadAll": "تنزيل الكل",
+      "removeAll": "إزالة الكل"
+    },
+
+    "stats": {
+      "total": "إجمالي جهات الاتصال",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "byType": "حسب النوع",
+      "byCountry": "حسب الدولة",
+      "recentlyAdded": "أضيفت مؤخراً",
+      "pendingReview": "بانتظار المراجعة"
+    },
+
+    "common": {
+      "loading": "جارٍ التحميل...",
+      "noData": "لا توجد بيانات",
+      "error": "خطأ",
+      "success": "نجاح",
+      "warning": "تحذير",
+      "info": "معلومات",
+      "notAvailable": "غير متوفر",
+      "unknown": "غير معروف",
+      "all": "الكل",
+      "none": "لا شيء",
+      "other": "أخرى",
+      "custom": "مخصص",
+      "search": "بحث",
+      "filter": "تصفية",
+      "sort": "ترتيب",
+      "refresh": "تحديث",
+      "retry": "إعادة المحاولة",
+      "dismiss": "إغلاق"
+    }
+  }
+}

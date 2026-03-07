@@ -1,0 +1,49 @@
+{
+  "taxes": {
+    "title": "Impuestos",
+    "subtitle": "Administrar tasas impositivas y políticas",
+    "addTax": "Agregar Impuesto",
+    "editTax": "Editar Impuesto",
+    "addNewTax": "Agregar Nuevo Impuesto",
+    "taxNameRequired": "Nombre de Impuesto Requerido",
+    "taxRateRequired": "Tasa de Impuesto Requerida",
+    "status": "Estado",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "all": "Todos los Estados",
+    "notes": "Notas",
+    "rateLabel": "Tasa",
+    "name": "Nombre",
+    "created": "Creado",
+    "actions": "Acciones",
+    "activate": "Activar",
+    "loadingTaxes": "Cargando impuestos...",
+    "noTaxesFound": "No se encontraron impuestos",
+    "placeholders": {
+      "taxName": "Ingrese el nombre del impuesto (ej., Impuesto de Ventas, IVA)",
+      "taxRate": "Ingrese el porcentaje de la tasa impositiva",
+      "notes": "Agregue cualquier nota adicional sobre este impuesto"
+    },
+    "form": {
+      "saving": "Guardando...",
+      "update": "Actualizar",
+      "create": "Crear"
+    },
+    "messages": {
+      "taxCreated": "Impuesto creado exitosamente",
+      "taxUpdated": "Impuesto actualizado exitosamente",
+      "taxDeactivated": "Impuesto desactivado exitosamente",
+      "taxActivated": "Impuesto activado exitosamente",
+      "failedToSave": "Error al guardar impuesto",
+      "failedToActivate": "Error al activar impuesto",
+      "duplicateName": "Ya existe un impuesto con este nombre",
+      "invalidRate": "Por favor ingrese una tasa impositiva válida"
+    },
+    "dialogs": {
+      "deleteTitle": "Desactivar Impuesto",
+      "deleteDescription": "¿Está seguro de que desea desactivar {{name}}? Esta acción marcará el impuesto como inactivo pero no lo eliminará.",
+      "deactivateTax": "Desactivar Impuesto"
+    }
+  }
+}
+

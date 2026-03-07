@@ -20,7 +20,6 @@ import {
   HeaderIconButton,
   HeaderMenuButton,
   ListRow,
-  NotificationHeaderButton,
   PaginationFooter,
   PillTabs,
   ProfileCard,
@@ -30,6 +29,7 @@ import {
   SectionHeader,
   Skeleton,
   StatStrip,
+  SystemHeaderActions,
   UnderlineTabs,
   useFormValidation,
   useToast,
@@ -629,8 +629,7 @@ export function LotsScreen() {
           <HeaderMenuButton testID="lots-header-menu" />
           <Text style={styles.headerTitle}>{t('lots', 'title')}</Text>
         </View>
-        <View style={styles.headerActions}>
-          <NotificationHeaderButton testID="lots-header-notifications" />
+        <SystemHeaderActions notificationTestID="lots-header-notifications">
           {permissions.permissions.add ? (
             <HeaderIconButton
               icon="plus"
@@ -639,7 +638,7 @@ export function LotsScreen() {
               testID="lots-header-create"
             />
           ) : null}
-        </View>
+        </SystemHeaderActions>
       </View>
 
       {/* Search */}

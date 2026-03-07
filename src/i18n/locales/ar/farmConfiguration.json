@@ -1,0 +1,139 @@
+{
+  "farmConfiguration": {
+    "title": "إعدادات المزرعة",
+    "subtitle": "إدارة هوية المزرعة وإعدادات العمل والاشتراك",
+    "loading": "جارٍ تحميل الإعدادات...",
+    "viewOnly": "عرض فقط",
+    "buttons": {
+      "save": "حفظ التغييرات",
+      "saving": "جارٍ الحفظ...",
+      "addLink": "إضافة رابط",
+      "upload": "رفع",
+      "uploading": "جارٍ الرفع..."
+    },
+    "sections": {
+      "farmIdentity": {
+        "title": "هوية المزرعة",
+        "description": "المعلومات الأساسية وهوية العلامة التجارية للمزرعة"
+      },
+      "businessSubscription": {
+        "title": "العمل والاشتراك",
+        "description": "العملة والتوطين وتفاصيل الاشتراك"
+      }
+    },
+    "fields": {
+      "logo": {
+        "label": "شعار المزرعة",
+        "uploading": "جارٍ الرفع...",
+        "recommended": "يوصى بـ: 200×200 بكسل، PNG أو JPG"
+      },
+      "name": {
+        "label": "اسم المزرعة",
+        "placeholder": "أدخل اسم المزرعة",
+        "required": "اسم المزرعة *"
+      },
+      "email": {
+        "label": "بريد المزرعة الإلكتروني",
+        "placeholder": "contact@farm.com",
+        "required": "بريد المزرعة الإلكتروني *"
+      },
+      "mobile": {
+        "label": "هاتف المزرعة",
+        "placeholder": "+1 234 567 8900",
+        "helper": "لتنبيهات SMS أو واتساب"
+      },
+      "website": {
+        "label": "الموقع الإلكتروني",
+        "placeholder": "https://yourfarm.com"
+      },
+      "address": {
+        "label": "عنوان المزرعة",
+        "placeholder": "أدخل العنوان الفعلي أو البريدي"
+      },
+      "location": {
+        "label": "موقع المزرعة (دبوس الخريطة)",
+        "coordinates": "الإحداثيات"
+      },
+      "mediaLinks": {
+        "label": "روابط ووسائل التواصل",
+        "noLinks": "لم تتم إضافة أي روابط بعد. انقر \"إضافة رابط\" للبدء.",
+        "urlPlaceholder": "https://..."
+      },
+      "currency": {
+        "label": "العملة",
+        "required": "العملة *",
+        "placeholder": "اختر العملة",
+        "search": "ابحث عن عملة...",
+        "notFound": "لم يتم العثور على عملة."
+      },
+      "country": {
+        "label": "الدولة",
+        "required": "الدولة *",
+        "placeholder": "اختر الدولة",
+        "search": "ابحث عن دولة...",
+        "notFound": "لم يتم العثور على دولة."
+      },
+      "timezone": {
+        "label": "المنطقة الزمنية",
+        "required": "المنطقة الزمنية *",
+        "placeholder": "اختر المنطقة الزمنية",
+        "search": "ابحث عن منطقة زمنية...",
+        "notFound": "لم يتم العثور على منطقة زمنية."
+      },
+      "subscription": {
+        "label": "تفاصيل الاشتراك",
+        "plan": "الخطة",
+        "status": "الحالة",
+        "activationDate": "تاريخ التفعيل",
+        "expiryDate": "تاريخ الانتهاء",
+        "notAvailable": "غير متوفر"
+      }
+    },
+    "platforms": {
+      "website": "الموقع الإلكتروني",
+      "facebook": "فيسبوك",
+      "instagram": "إنستغرام",
+      "linkedin": "لينكدإن",
+      "youtube": "يوتيوب",
+      "whatsapp": "واتساب",
+      "twitter": "تويتر/إكس",
+      "tiktok": "تيك توك"
+    },
+    "subscriptionStatus": {
+      "active": "نشط",
+      "trial": "تجريبي",
+      "expired": "منتهي",
+      "cancelled": "ملغي"
+    },
+    "messages": {
+      "permissionDenied": {
+        "title": "تم رفض الإذن",
+        "description": "ليس لديك صلاحية لتعديل إعدادات المزرعة."
+      },
+      "noFarmFound": {
+        "title": "لم يتم العثور على مزرعة",
+        "description": "يرجى التواصل مع الدعم لإعداد مزرعتك."
+      },
+      "errorLoading": {
+        "title": "خطأ في تحميل البيانات",
+        "description": "فشل تحميل إعدادات المزرعة."
+      },
+      "logoUploaded": {
+        "title": "تم رفع الشعار",
+        "description": "تم رفع شعار المزرعة بنجاح."
+      },
+      "uploadFailed": {
+        "title": "فشل الرفع",
+        "description": "فشل رفع الشعار. يرجى المحاولة مرة أخرى."
+      },
+      "saveSuccess": {
+        "title": "نجاح",
+        "description": "تم حفظ إعدادات المزرعة بنجاح."
+      },
+      "saveError": {
+        "title": "خطأ",
+        "description": "فشل حفظ الإعدادات. يرجى المحاولة مرة أخرى."
+      }
+    }
+  }
+}

@@ -1,0 +1,295 @@
+{
+  "feedWater": {
+    "title": "Alimento y Agua",
+    "subtitle": "Administrá los horarios de alimentación y suministro de agua para {{housingUnitName}}",
+    "actions": {
+      "edit": "Editá",
+      "addRecord": "Agregá Registro",
+      "logFeedWater": "Registrar Alimento/Agua",
+      "cancel": "Cancelar",
+      "saveRecord": "Guardá Registro"
+    },
+    "cards": {
+      "feed": {
+        "title": "Gestión de Alimento"
+      },
+      "water": {
+        "title": "Gestión de Agua"
+      },
+      "details": {
+        "title": "Detalles de Gestión"
+      }
+    },
+    "form": {
+      "serviceType": {
+        "label": "Tipo de Servicio",
+        "placeholder": "Seleccioná el tipo de servicio",
+        "options": {
+          "dailyRoutine": "Rutina Diaria",
+          "waterMaintenance": "Mantenimiento de Agua",
+          "feedInspection": "Inspección de Alimento",
+          "equipmentCleaning": "Limpieza de Equipo",
+          "healthMonitoring": "Monitoreo de Salud",
+          "emergency": "Emergencia"
+        }
+      },
+      "performedBy": {
+        "label": "Realizado Por",
+        "placeholder": "Seleccioná la persona",
+        "none": "Sin Asignar"
+      },
+      "feedingSchedule": {
+        "label": "Horario de Alimentación",
+        "placeholder": "Seleccioná el horario",
+        "options": {
+          "onceDaily": "Una vez al día - 8AM",
+          "twiceDaily": "Dos veces al día - 6AM y 6PM",
+          "threeTimesDaily": "Tres veces al día - 6AM, 12PM y 6PM",
+          "fourTimesDaily": "Cuatro veces al día - 6AM, 12PM, 4PM y 8PM",
+          "continuous": "Continuo (ad libitum)",
+          "custom": "Horario Personalizado"
+        }
+      },
+      "waterSource": {
+        "label": "Fuente de Agua",
+        "placeholder": "Seleccioná la fuente de agua",
+        "options": {
+          "municipal": "Suministro de agua municipal",
+          "well": "Agua de pozo",
+          "filtered": "Sistema de agua filtrada",
+          "automatic": "Bebederos automáticos",
+          "manual": "Suministro manual de agua",
+          "rainwater": "Recolección de agua de lluvia"
+        }
+      },
+      "feedType": {
+        "label": "Tipo de Alimento",
+        "placeholder": "Seleccioná el tipo de alimento",
+        "options": {
+          "premium": "Pellets premium",
+          "standard": "Mezcla de alimento estándar",
+          "organic": "Alimento orgánico",
+          "grainMix": "Mezcla de granos",
+          "haySilage": "Heno y Ensilaje",
+          "custom": "Mezcla Personalizada"
+        }
+      },
+      "dailyFeedAmount": {
+        "label": "Cantidad Diaria de Alimento (kg)",
+        "placeholder": "Ingresá la cantidad diaria de alimento"
+      },
+      "waterConsumption": {
+        "label": "Consumo de Agua (L)",
+        "placeholder": "Ingresá el consumo diario de agua"
+      },
+      "feedingNotes": {
+        "label": "Notas de Alimentación",
+        "placeholder": "Agregá cualquier nota u observación"
+      }
+    },
+    "validation": {
+      "serviceTypeRequired": "El tipo de servicio es requerido"
+    },
+    "options": {
+      "serviceTypes": {
+        "feeding": "Alimentación",
+        "watering": "Agua",
+        "both": "Alimentación y Agua"
+      },
+      "feedingSchedules": {
+        "morning": "Mañana",
+        "afternoon": "Tarde",
+        "evening": "Noche",
+        "twiceDaily": "Dos veces al día",
+        "continuous": "Continuo"
+      },
+      "feedTypes": {
+        "hay": "Heno",
+        "grain": "Grano",
+        "pellets": "Pellets",
+        "silage": "Ensilaje",
+        "mixed": "Mezcla",
+        "other": "Otro"
+      },
+      "waterSources": {
+        "well": "Pozo",
+        "municipal": "Municipal",
+        "river": "Río/Arroyo",
+        "pond": "Estanque",
+        "rainwater": "Agua de lluvia",
+        "other": "Otro"
+      }
+    },
+    "labels": {
+      "unknownUser": "Usuario desconocido",
+      "unknownContact": "Contacto desconocido"
+    },
+    "permissions": {
+      "noView": "No tenés permiso para ver los registros de alimento y agua"
+    },
+    "header": {
+      "subtitle": "Seguimiento de consumo y costos para {{housingUnitName}}"
+    },
+    "dateRange": {
+      "today": "Hoy",
+      "last7Days": "Últimos 7 días",
+      "last30Days": "Últimos 30 días",
+      "custom": "Personalizado",
+      "startDate": "Fecha de inicio",
+      "endDate": "Fecha de fin"
+    },
+    "summary": {
+      "feedCost": "Costo de alimento",
+      "waterCost": "Costo de agua",
+      "totalForRange": "Total para el rango seleccionado",
+      "avgCostPerAnimalDay": "Costo promedio / animal / día",
+      "avgCostHelp": "(Costo de alimento + costo de agua) ÷ promedio de animales ÷ días en el rango",
+      "noAnimalsPeriod": "No se registraron animales en este período.",
+      "usingCurrentHeadcount": "Usando el conteo actual como estimación.",
+      "noAnimalsRecorded": "No hay animales registrados",
+      "basedOnAnimals": "Basado en {{count}} animal(es)",
+      "consumptionTrend": "Tendencia de consumo",
+      "feedLabel": "Alimento:",
+      "waterLabel": "Agua:",
+      "vsPreviousPeriod": "vs período anterior"
+    },
+    "logs": {
+      "title": "Registros de consumo",
+      "description": "Ver y administrar registros de consumo de alimento y agua para el rango seleccionado"
+    },
+    "status": {
+      "active": "Activo",
+      "draft": "Borrador",
+      "completed": "Completado",
+      "cancelled": "Cancelado",
+      "pending": "Pendiente"
+    },
+    "logsTable": {
+      "unknownUser": "Desconocido",
+      "exportSuccess": "Registros exportados a CSV",
+      "filters": {
+        "type": "Tipo:",
+        "hasExpense": "Con gasto:"
+      },
+      "actions": {
+        "exportCsv": "Exportar CSV"
+      },
+      "summary": {
+        "title": "Totales",
+        "feedQty": "Alimento: {{quantity}} kg",
+        "waterQty": "Agua: {{quantity}} L",
+        "feedCost": "Alimento: ${{amount}}",
+        "waterCost": "Agua: ${{amount}}"
+      },
+      "empty": "No se encontraron registros",
+      "labels": {
+        "expense": "Gasto:",
+        "feedType": "Alimento:",
+        "loggedBy": "Registrado por {{name}}"
+      },
+      "headers": {
+        "date": "Fecha",
+        "type": "Tipo",
+        "quantity": "Cantidad (kg/L)",
+        "expense": "Gasto",
+        "feedType": "Tipo de alimento",
+        "notes": "Notas",
+        "loggedBy": "Registrado por"
+      },
+      "delete": {
+        "title": "Eliminar registro de consumo",
+        "description": "¿Estás seguro de que querés eliminar este registro? Esta acción no se puede deshacer.",
+        "financeWarning": "La transacción financiera asociada también se eliminará."
+      }
+    },
+    "logForm": {
+      "title": "Registrar Alimento/Agua",
+      "subtitle": "Registrar consumo para {{housingUnitName}}",
+      "typeOptions": {
+        "feed": "Alimento",
+        "water": "Agua"
+      },
+      "fields": {
+        "type": {
+          "label": "Tipo",
+          "placeholder": "Seleccioná el tipo"
+        },
+        "date": {
+          "label": "Fecha",
+          "placeholder": "Seleccioná una fecha"
+        },
+        "quantity": {
+          "label": "Cantidad ({{unit}})",
+          "placeholder": "Ingresá la cantidad en {{unit}}"
+        },
+        "expense": {
+          "label": "Gasto total (Opcional)",
+          "placeholder": "Ingresá el monto del gasto"
+        },
+        "feedType": {
+          "label": "Tipo de alimento (Opcional)",
+          "placeholder": "p.ej., mezcla de maíz, heno",
+          "help": "Ingresá el tipo de alimento usado (no vinculado al inventario)"
+        },
+        "notes": {
+          "label": "Notas (Opcional)",
+          "placeholder": "Ingresá notas adicionales"
+        },
+        "attachToFinance": {
+          "label": "Adjuntar a Finanzas",
+          "description": "Crear un registro de 'Gasto Operativo: {{type}}' en Finanzas para este registro"
+        }
+      },
+      "actions": {
+        "save": "Guardar registro"
+      },
+      "validation": {
+        "typeRequired": "El tipo es requerido",
+        "dateRequired": "La fecha es requerida",
+        "quantityMin": "La cantidad debe ser mayor que 0",
+        "expenseMin": "El gasto debe ser 0 o mayor",
+        "attachToFinanceExpense": "Agregá un monto de gasto para adjuntar a Finanzas"
+      }
+    },
+    "units": {
+      "kg": "kg",
+      "l": "L"
+    },
+    "toasts": {
+      "created": "Registro de {{type}} creado exitosamente",
+      "createFailed": "Error al crear el registro de consumo",
+      "updated": "Registro de {{type}} actualizado exitosamente",
+      "updateFailed": "Error al actualizar el registro de consumo",
+      "deleted": "Registro de consumo eliminado exitosamente",
+      "deleteFailed": "Error al eliminar el registro de consumo"
+    },
+    "errors": {
+      "userNotAuthenticated": "Usuario no autenticado"
+    },
+    "display": {
+      "serviceType": "Tipo de Servicio",
+      "notSet": "Sin Configurar",
+      "schedule": "Horario",
+      "feedType": "Tipo de Alimento",
+      "dailyAmount": "Cantidad Diaria",
+      "waterSource": "Fuente de Agua",
+      "dailyConsumption": "Consumo Diario",
+      "status": "Estado",
+      "active": "activo",
+      "managedBy": "Administrado Por",
+      "notAssigned": "Sin Asignar",
+      "notes": "Notas"
+    },
+    "records": {
+      "recentTitle": "Registros Recientes",
+      "loading": "Cargando registros...",
+      "none": "Sin registros todavía",
+      "more": "+{{count}} registros más"
+    },
+    "messages": {
+      "saveSuccess": "Registro de alimento y agua guardado exitosamente",
+      "saveError": "Error al guardar el registro de alimento y agua",
+      "fetchError": "Error al obtener los registros de alimento y agua"
+    }
+  }
+}

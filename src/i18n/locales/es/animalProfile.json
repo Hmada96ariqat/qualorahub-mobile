@@ -1,0 +1,758 @@
+{
+  "animalProfile": {
+    "title": "Perfil de Animales",
+    "subtitle": "Gestiona el inventario de animales de tu finca",
+
+    "connectionStatus": {
+      "online": "En línea",
+      "offline": "Sin conexión",
+      "pending": "{{count}} pendientes de sincronizar"
+    },
+
+    "buttons": {
+      "addAnimal": "Agregar Animal"
+    },
+
+    "export": "Exportar",
+
+    "dashboard": {
+      "totalAnimals": "Total de Animales",
+      "registeredAnimals": "Animales registrados",
+      "taggedAnimals": "Animales Etiquetados",
+      "completionRate": "{{percent}}% tasa de finalización",
+      "healthStatus": "Estado de Salud",
+      "healthyAnimals": "Animales sanos",
+      "speciesCount": "Conteo de Especies",
+      "differentSpecies": "Especies diferentes"
+    },
+
+    "viewMode": {
+      "label": "Modo de Vista"
+    },
+
+    "dialog": {
+      "createTitle": "Agregar Nuevo Animal",
+      "editTitle": "Editar Animal",
+      "createDescription": "Complete los detalles para agregar un nuevo animal a su inventario",
+      "editDescription": "Actualizar la información del animal"
+    },
+
+    "filters": {
+      "title": "Filtros y búsqueda",
+      "status": "Estado de Salud",
+      "allStatuses": "Todos los estados",
+      "species": "Especie",
+      "allSpecies": "Todas las especies",
+      "sellingType": "Tipo de Venta",
+      "allSellingTypes": "Todos los tipos de venta",
+      "selling": "Vendiendo",
+      "buying": "Comprando",
+      "both": "Ambos",
+      "source": "Origen",
+      "allSources": "Todos los orígenes",
+      "fromFarm": "De la Finca",
+      "outside": "Externo",
+      "storefrontDisplay": "Mostrar en Tienda",
+      "allAnimals": "Todos los animales",
+      "onStorefront": "En Tienda",
+      "notOnStorefront": "No en Tienda",
+      "housingUnit": "Unidad de Alojamiento",
+      "allHousingUnits": "Todas las unidades de alojamiento",
+      "noHousingUnit": "Sin unidad de alojamiento",
+      "animalGroup": "Grupo de Animales",
+      "allGroups": "Todos los grupos",
+      "noGroup": "Sin grupo",
+      "applyFiltersClose": "Aplicar Filtros y Cerrar",
+      "filtersApplied": "Filtros Aplicados",
+      "filtersAppliedDesc": "La lista de animales ha sido filtrada según sus criterios."
+    },
+
+    "search": {
+      "placeholder": "Buscar por ID de etiqueta, nombre o raza..."
+    },
+
+    "registry": {
+      "title": "Registro de Animales",
+      "description": "Lista completa de todos los animales en su finca"
+    },
+
+    "messages": {
+      "loading": "Cargando animales...",
+      "noAnimals": "No se encontraron animales",
+      "clickAddAnimal": "Haga clic en 'Agregar Animal' para comenzar"
+    },
+
+    "cards": {
+      "unnamed": "Animal Sin Nombre",
+      "unnamedShort": "Sin nombre",
+      "tag": "Etiqueta",
+      "mode": "Modo",
+      "quantity": "Cantidad",
+      "weight": "Peso",
+      "age": "Edad",
+      "viewProfile": "Ver Perfil"
+    },
+
+    "table": {
+      "nameTag": "Nombre/Etiqueta",
+      "species": "Especie",
+      "mode": "Modo",
+      "health": "Salud",
+      "weight": "Peso",
+      "actions": "Acciones"
+    },
+
+    "dialogs": {
+      "deactivateTitle": "Desactivar Animal",
+      "deactivateDescription": "¿Estás seguro de que deseas desactivar este animal? Se quitará de las listas activas y podrá reactivarse después."
+    },
+
+    "tabs": {
+      "profileInfo": "Información del Perfil",
+      "healthCheck": "Revisión de Salud",
+      "yieldRecord": "Registro de Producción"
+    },
+
+    "profileModal": {
+      "title": "Perfil del Animal",
+      "description": "Viendo detalles de {{name}}",
+      "thisAnimal": "este animal"
+    },
+
+    "profile": {
+      "basicInformation": "Información Básica",
+      "productionPhysical": "Detalles de Producción y Físicos",
+      "healthInformation": "Información de Salud",
+      "financialInformation": "Información Financiera",
+      "additionalInformation": "Información Adicional",
+      "name": "Nombre",
+      "tagNumber": "Número de Etiqueta",
+      "species": "Especie",
+      "breed": "Raza",
+      "gender": "Género",
+      "birthDate": "Fecha de Nacimiento",
+      "trackingMode": "Modo de Seguimiento",
+      "quantity": "Cantidad",
+      "weight": "Peso",
+      "productionType": "Tipo de Producción",
+      "reproductiveStatus": "Estado Reproductivo",
+      "geneticInfo": "Información Genética",
+      "healthStatus": "Estado de Salud",
+      "lastVetVisit": "Última Visita Veterinaria",
+      "diseaseHistory": "Historial de Enfermedades",
+      "healthNotes": "Notas de Salud",
+      "source": "Origen",
+      "ownershipStatus": "Estado de Propiedad",
+      "cost": "Costo",
+      "salePrice": "Precio de Venta",
+      "purchasePrice": "Precio de Compra",
+      "wholesalePrice": "Precio al Por Mayor",
+      "description": "Descripción",
+      "activeStatus": "Estado Activo",
+      "displayOnStorefront": "Mostrar en Tienda"
+    },
+
+    "common": {
+      "notProvided": "No proporcionado",
+      "notSpecified": "No especificado",
+      "notRecorded": "No registrado",
+      "notApplicable": "No aplica",
+      "noRecords": "Sin registros",
+      "noDiseaseHistory": "Sin historial de enfermedades",
+      "noAdditionalHealthNotes": "Sin notas de salud adicionales",
+      "notSet": "No establecido",
+      "noDescription": "Sin descripción",
+      "unknown": "Desconocido",
+      "unknownUser": "Usuario desconocido",
+      "unknownContact": "Contacto desconocido"
+    },
+
+    "units": {
+      "kg": "kg",
+      "liters": "litros",
+      "dozen": "docena",
+      "bpm": "lpm",
+      "rpm": "rpm",
+      "celsius": "°C"
+    },
+
+    "age": {
+      "label": "Edad: {{age}}",
+      "days": "{{count}} días",
+      "months": "{{count}} meses",
+      "years": "{{count}} años",
+      "yearsMonths": "{{years}} años {{months}} meses"
+    },
+
+    "species": {
+      "cattle": "Ganado",
+      "sheep": "Ovejas",
+      "goats": "Cabras",
+      "horses": "Caballos",
+      "pigs": "Cerdos",
+      "donkeys": "Burros",
+      "mules": "Mulas",
+      "buffalo": "Búfalos",
+      "yaks": "Yaks",
+      "camels": "Camellos",
+      "llamas": "Llamas",
+      "alpacas": "Alpacas",
+      "chickens": "Gallinas",
+      "ducks": "Patos",
+      "turkeys": "Pavos",
+      "geese": "Gansos",
+      "guinea_fowl": "Gallinas de Guinea",
+      "quails": "Codornices",
+      "pheasants": "Faisanes",
+      "peacocks": "Pavos reales",
+      "ostriches": "Avestruces",
+      "emus": "Emúes",
+      "rheas": "Ñandúes",
+      "rabbits": "Conejos",
+      "chinchillas": "Chinchillas",
+      "ferrets": "Hurones",
+      "guinea_pigs": "Cobayas",
+      "fish": "Peces",
+      "shrimp": "Camarones",
+      "oysters": "Ostras",
+      "mussels": "Mejillones",
+      "crabs": "Cangrejos",
+      "lobsters": "Langostas marinas",
+      "seaweed": "Algas",
+      "bees": "Abejas",
+      "silkworms": "Gusanos de seda",
+      "crickets": "Grillos",
+      "mealworms": "Gusanos de la harina",
+      "locusts": "Langostas",
+      "deer": "Ciervos",
+      "elk": "Alces",
+      "bison": "Bisontes",
+      "kangaroos": "Canguros",
+      "crocodiles": "Cocodrilos",
+      "snakes": "Serpientes",
+      "iguanas": "Iguanas",
+      "turtles": "Tortugas",
+      "dogs": "Perros",
+      "cats": "Gatos",
+      "other": "Otro"
+    },
+
+    "healthStatus": {
+      "healthy": "Sano",
+      "sick": "Enfermo",
+      "under_treatment": "En Tratamiento",
+      "quarantined": "En Cuarentena",
+      "recovered": "Recuperado",
+      "dead": "Muerto",
+      "needs_attention": "Requiere Atención",
+      "emergency": "Emergencia"
+    },
+
+    "toasts": {
+      "animalRecord": "animal",
+      "createSuccess": "Creado {{name}} correctamente",
+      "updateSuccess": "Actualizado {{name}} correctamente",
+      "deactivateSuccess": "Animal desactivado correctamente",
+      "createError": "No se pudo crear el animal",
+      "updateError": "No se pudo actualizar el animal",
+      "deactivateError": "No se pudo desactivar el animal",
+      "splitGroupTitle": "Grupo dividido",
+      "splitGroupDescription": "Esto dividirá el grupo en animales individuales.",
+      "decrementSuccess": "Cantidad del grupo actualizada a {{count}}",
+      "decrementError": "No se pudo actualizar la cantidad del grupo",
+      "bulkCreateSuccess": "Grupo creado con {{count}} animales correctamente",
+      "bulkCreateError": "No se pudieron crear los animales"
+    },
+
+    "bulkAdd": {
+      "title": "Agregar Animales en Lote",
+      "description": "Crear múltiples animales a la vez",
+      "button": "Agregar en Lote",
+      "adding": "Agregando...",
+      "addCount": "Agregar {{count}}",
+      "formTitle": "Detalles de Animales en Lote",
+      "fields": {
+        "quantity": "Cantidad",
+        "quantityPlaceholder": "p. ej. 10",
+        "quantityHelp": "Máximo 25 animales por lote",
+        "tagPrefix": "Prefijo de Etiqueta",
+        "tagPrefixPlaceholder": "p. ej. VACA-",
+        "tagPrefixHelp": "Prefijo opcional para etiquetas generadas",
+        "tagStartNumber": "Número Inicial de Etiqueta",
+        "tagStartPlaceholder": "p. ej. 1001",
+        "tagStartHelp": "El primer número de etiqueta a usar",
+        "birthDateSame": "Misma fecha de nacimiento para todos",
+        "averageWeight": "Peso Promedio",
+        "averageWeightPlaceholder": "p. ej. 250",
+        "healthNotesPlaceholder": "Notas de salud para el grupo..."
+      },
+      "tagPreview": {
+        "label": "Vista previa de etiquetas:",
+        "none": "Sin etiquetas",
+        "single": "{{tag}}",
+        "multiple": "{{count}} etiquetas desde {{start}}",
+        "range": "{{start}} - {{end}}"
+      },
+      "mode": {
+        "title": "Modo de Carga en Lote",
+        "description": "Elige cómo deseas agregar animales",
+        "sameTitle": "Mismos detalles para todos",
+        "customizeTitle": "Personalizar cada animal",
+        "sameLabel": "Mismos detalles:",
+        "sameDescription": "Todos los animales comparten los mismos detalles.",
+        "customizeLabel": "Personalizar:",
+        "customizeDescription": "Editar detalles para cada animal."
+      }
+    },
+
+    "bulkWizard": {
+      "reviewTitle": "Revisión",
+      "stepLabel": "Paso {{current}} de {{total}}",
+      "reviewSummaryTitle": "Resumen de revisión ({{count}} animales)",
+      "animalBadge": "Animal {{index}}",
+      "weightLabel": "Peso:",
+      "statusLabel": "Estado:",
+      "housingLabel": "Alojamiento:",
+      "unknownHousing": "Unidad de alojamiento desconocida",
+      "notSet": "No establecido",
+      "addAllButton": "Agregar {{count}} animales",
+      "stepTitle": "Personalizar Animal {{current}} de {{total}}",
+      "detailsTitle": "Detalles del Animal {{index}}",
+      "fields": {
+        "nameOptional": "Nombre (opcional)",
+        "namePlaceholder": "Nombre opcional",
+        "healthNotesPlaceholder": "Notas de salud..."
+      },
+      "navigation": {
+        "previous": "Anterior",
+        "backToSetup": "Volver a configuración",
+        "reviewAll": "Revisar todo",
+        "next": "Siguiente"
+      }
+    },
+
+    "selection": {
+      "selectMultiple": "Seleccionar múltiples",
+      "selectAll": "Seleccionar todo",
+      "deselectAll": "Deseleccionar todo",
+      "deactivateSelected": "Desactivar seleccionados ({{count}})",
+      "noSelectionTitle": "No hay animales seleccionados",
+      "noSelectionDescription": "Selecciona al menos un animal para desactivar."
+    },
+
+    "pagination": {
+      "prev": "Anterior",
+      "next": "Siguiente",
+      "pageInfo": "Página {{page}} de {{total}}"
+    },
+
+    "group": {
+      "groupLabel": "Grupo",
+      "individualAnimals": "Animales Individuales",
+      "totalCount": "{{count}} en total",
+      "animalCount": "{{count}} animales",
+      "tagRange": {
+        "single": "Etiqueta {{tag}}",
+        "range": "Etiquetas {{start}} - {{end}}"
+      },
+      "actions": {
+        "viewGroup": "Ver grupo",
+        "editGroup": "Editar grupo",
+        "removeFromGroup": "Eliminar del grupo"
+      },
+      "moreAnimals": "+{{count}} animales más",
+      "clickToSeeAll": "Haz clic para ver todos",
+      "deleteDialog": {
+        "deleteGroupTitle": "Desactivar Grupo",
+        "deleteGroupDescription": "Esto desactivará todo el grupo.",
+        "warning": "El grupo se quitará de las listas activas y podrá reactivarse más adelante.",
+        "removeAnimalTitle": "Eliminar Animal",
+        "removeAnimalDescription": "Esto reducirá el tamaño del grupo a {{count}}.",
+        "updateNote": "Puedes editar el grupo más tarde.",
+        "deleteGroupAction": "Desactivar Grupo",
+        "removeAnimalAction": "Eliminar Animal"
+      },
+      "toasts": {
+        "createSuccess": "Grupo de animales creado correctamente",
+        "createError": "No se pudo crear el grupo de animales",
+        "updateSuccess": "Grupo de animales actualizado correctamente",
+        "updateError": "No se pudo actualizar el grupo de animales",
+        "deactivateSuccess": "Grupo de animales desactivado correctamente",
+        "deactivateError": "No se pudo desactivar el grupo de animales"
+      }
+    },
+
+    "bulkDeactivate": {
+      "title": "Desactivar Animales Seleccionados",
+      "description": "Estás a punto de desactivar {{count}} animales.",
+      "warning": "Se quitarán de las listas activas y podrán reactivarse más adelante.",
+      "action": "Desactivar {{count}}",
+      "success": "Se desactivaron {{count}} animales correctamente",
+      "error": "No se pudieron desactivar los animales seleccionados"
+    },
+
+    "images": {
+      "upload": "Subir",
+      "uploading": "Subiendo...",
+      "count": "{{count}} / {{max}} fotos",
+      "altAnimal": "Foto del animal",
+      "altAnimalIndex": "Foto del animal {{index}}",
+      "altAnimalImage": "Imagen del animal",
+      "altImageIndex": "Imagen {{index}}",
+      "counter": "{{current}} de {{total}}",
+      "errors": {
+        "loginRequired": "Inicia sesión para subir imágenes."
+      },
+      "toasts": {
+        "maxImagesTitle": "Límite de imágenes alcanzado",
+        "maxImagesDescription": "Puedes subir hasta {{count}} imágenes.",
+        "invalidFilesTitle": "Archivos inválidos",
+        "invalidFilesDescription": "Selecciona solo archivos de imagen.",
+        "uploadSuccess": "Se subieron {{count}} imagen(es) correctamente",
+        "uploadError": "No se pudieron subir las imágenes"
+      }
+    },
+
+    "errors": {
+      "userNotAuthenticated": "Usuario no autenticado",
+      "farmNotFound": "Finca no encontrada"
+    },
+
+    "individualAnimalProfile": {
+      "back": "Atrás",
+      "editAnimal": "Editar Animal",
+      "animalNotFound": "Animal no encontrado",
+      "animalNotFoundDescription": "No pudimos encontrar el animal que buscas.",
+      "backToAnimalProfile": "Volver al Perfil de Animales",
+      "unnamedAnimal": "Animal Sin Nombre",
+
+      "healthStatus": {
+        "healthy": "Sano",
+        "sick": "Enfermo",
+        "injured": "Herido",
+        "quarantine": "Cuarentena"
+      },
+
+      "stats": {
+        "age": "Edad",
+        "weight": "Peso",
+        "averageWeight": "Peso Promedio",
+        "healthChecks": "Revisiones de Salud",
+        "yieldRecords": "Registros de Producción",
+        "productionRecords": "Registros de Producción",
+        "born": "Nacido",
+        "unknown": "Desconocido",
+        "last": "Último",
+        "never": "Nunca"
+      },
+
+      "tabs": {
+        "profileInfo": "Información del Perfil",
+        "healthCheck": "Revisión de Salud",
+        "yieldProducts": "Productos de Rendimiento"
+      },
+
+      "sections": {
+        "basicInformation": "Información Básica",
+        "productionInformation": "Información de Producción",
+        "healthInformation": "Información de Salud",
+        "financialInformation": "Información Financiera",
+        "additionalInformation": "Información Adicional"
+      },
+
+      "fields": {
+        "tagNumber": "Número de Etiqueta",
+        "notAvailable": "No Disponible",
+        "name": "Nombre",
+        "species": "Especie",
+        "breed": "Raza",
+        "gender": "Género",
+        "birthDate": "Fecha de Nacimiento",
+        "productionType": "Tipo de Producción",
+        "reproductiveStatus": "Estado Reproductivo",
+        "trackingMode": "Modo de Seguimiento",
+        "quantity": "Cantidad",
+        "healthStatus": "Estado de Salud",
+        "lastVetVisit": "Última Visita Veterinaria",
+        "diseaseHistory": "Historial de Enfermedades",
+        "healthNotes": "Notas de Salud",
+        "cost": "Costo",
+        "salePrice": "Precio de Venta",
+        "purchasePrice": "Precio de Compra",
+        "wholesalePrice": "Precio al por Mayor"
+      },
+
+      "noNotes": "No hay notas disponibles",
+
+      "healthCheck": {
+        "title": "Revisión de Salud",
+        "onlineSynced": "En línea (sincronizado)",
+        "description": "Seguimiento y gestión de registros de salud de animales",
+        "addHealthCheck": "Agregar Revisión de Salud",
+        "addNewHealthCheck": "Agregar Nueva Revisión de Salud",
+        "editHealthCheck": "Editar Revisión de Salud",
+        "updateHealthCheck": "Actualizar información de revisión de salud",
+        "recordNewExamination": "Registrar un nuevo examen de salud para este animal",
+        "recordTitle": "Registrar Salud del Animal",
+        "recordDescription": "Documentar revisiones y observaciones de salud",
+        "searchPlaceholder": "Buscar revisiones de salud...",
+        "allStatuses": "Todos los Estados",
+        "allPerformers": "Todos los Realizadores",
+        "filters": {
+          "status": "Filtrar por estado",
+          "performedBy": "Realizado por"
+        },
+        "loading": "Cargando revisiones de salud...",
+        "noHealthChecks": "No se encontraron revisiones de salud",
+        "table": {
+          "date": "Fecha",
+          "performedBy": "Realizado Por",
+          "healthStatus": "Estado de Salud",
+          "weight": "Peso",
+          "nextCheckDue": "Próxima Revisión Programada",
+          "actions": "Acciones"
+        },
+        "delete": {
+          "title": "Eliminar Revisión de Salud",
+          "description": "¿Estás seguro de que deseas eliminar esta revisión de salud? Esta acción no se puede deshacer."
+        },
+        "validation": {
+          "dateRequired": "La fecha de revisión es obligatoria",
+          "performerRequired": "El realizador es obligatorio",
+          "healthStatusRequired": "El estado de salud es obligatorio"
+        },
+        "sampleContacts": {
+          "veterinarian": "Veterinario",
+          "specialist": "Especialista"
+        },
+        "form": {
+          "validationErrors": "Por favor corrija los siguientes errores:",
+          "tabs": {
+            "visitInfo": "Información de Visita",
+            "vitals": "Signos Vitales",
+            "examTreatment": "Examen y Tratamiento"
+          },
+          "visitInfo": {
+            "title": "Información de Visita",
+            "dateOfCheck": "Fecha de Revisión",
+            "pickDate": "Seleccionar fecha",
+            "performedBy": "Realizado Por",
+            "performedByPlaceholder": "Propietario / Trabajador / Veterinario",
+            "selectPerformer": "Seleccionar realizador",
+            "healthStatus": "Estado de Salud",
+            "selectHealthStatus": "Seleccionar estado de salud",
+            "summaryNotes": "Notas de Resumen",
+            "summaryNotesPlaceholder": "Resumen general de salud y observaciones..."
+          },
+          "vitalsSection": {
+            "title": "Signos Vitales (opcional)",
+            "temperature": "Temperatura (°C)",
+            "temperaturePlaceholder": "38.5",
+            "heartRate": "Frecuencia Cardíaca (lpm)",
+            "heartRatePlaceholder": "60",
+            "respiratoryRate": "Frecuencia Respiratoria (rpm)",
+            "respiratoryRatePlaceholder": "25",
+            "weight": "Peso (kg)",
+            "weightPlaceholder": "600"
+          },
+          "examSection": {
+            "title": "Examen Físico",
+            "findings": "Hallazgos del Examen Físico",
+            "findingsPlaceholder": "Condición corporal, calidad del pelaje, anormalidades visibles...",
+            "generalObservations": "Observaciones generales",
+            "generalObservationsPlaceholder": "Comportamiento, apetito, movilidad..."
+          },
+          "treatmentSection": {
+            "title": "Tratamientos",
+            "treatmentsGiven": "Tratamientos y Procedimientos Realizados",
+            "treatmentsPlaceholder": "Desparasitación, recorte de pezuñas, limpieza de heridas...",
+            "medicationsGiven": "Medicamentos Administrados (nombre + dosis)",
+            "medicationsPlaceholder": "Ivermectina 10ml, Penicilina 5ml...",
+            "recommendations": "Recomendaciones",
+            "recommendationsPlaceholder": "Cuidados posteriores, cambios en la dieta, descanso..."
+          },
+          "healthStatusOptions": {
+            "healthy": "Sano",
+            "needsAttention": "Requiere Atención",
+            "sick": "Enfermo",
+            "emergency": "Emergencia"
+          },
+          "followUp": {
+            "title": "Seguimiento",
+            "nextCheckDue": "Próxima revisión"
+          },
+          "attachments": {
+            "title": "Adjuntos",
+            "description": "Sube resultados de laboratorio o documentos (próximamente)",
+            "helper": "La carga de archivos estará disponible pronto"
+          },
+          "cancel": "Cancelar",
+          "saving": "Guardando...",
+          "updateHealthCheck": "Actualizar Revisión de Salud",
+          "createHealthCheck": "Crear Revisión de Salud"
+        },
+        "view": {
+          "title": "Detalles de Revisión de Salud",
+          "description": "Ver el registro completo de la revisión",
+          "date": "Fecha",
+          "performedBy": "Realizado Por",
+          "healthStatus": "Estado de Salud",
+          "followUpDate": "Fecha de seguimiento",
+          "vitalsTitle": "Signos vitales",
+          "temperature": "Temperatura",
+          "heartRate": "Frecuencia Cardíaca",
+          "respiratoryRate": "Frecuencia Respiratoria",
+          "weight": "Peso",
+          "examinationTitle": "Examen",
+          "physicalFindings": "Hallazgos del Examen Físico",
+          "generalObservations": "Observaciones generales",
+          "treatmentsTitle": "Tratamientos",
+          "treatmentsGiven": "Tratamientos realizados",
+          "medicationsGiven": "Medicamentos administrados",
+          "recommendations": "Recomendaciones"
+        },
+        "toasts": {
+          "createSuccess": "Revisión de salud registrada correctamente",
+          "createError": "No se pudo registrar la revisión de salud. Inténtalo de nuevo.",
+          "updateSuccess": "Revisión de salud actualizada correctamente",
+          "updateError": "No se pudo actualizar la revisión de salud. Inténtalo de nuevo.",
+          "deleteSuccess": "Revisión de salud eliminada correctamente",
+          "deleteError": "No se pudo eliminar la revisión de salud. Inténtalo de nuevo."
+        }
+      },
+
+      "yieldRecord": {
+        "title": "Registro de Producción",
+        "onlineSynced": "En línea (sincronizado)",
+        "description": "Seguimiento y gestión de registros de producción de animales",
+        "addYieldRecord": "Agregar Registro de Producción",
+        "addNewYieldRecord": "Agregar Nuevo Registro de Producción",
+        "editYieldRecord": "Editar Registro de Producción",
+        "updateYieldRecord": "Actualizar información del registro de producción",
+        "recordNewYield": "Registrar un nuevo rendimiento de producción para este animal",
+        "recordTitle": "Registrar Producción del Animal",
+        "recordDescription": "Documenta la producción con seguimiento de lotes",
+        "searchPlaceholder": "Buscar registros de producción...",
+        "allStatuses": "Todos los Estados",
+        "allWarehouses": "Todos los Almacenes",
+        "filters": {
+          "status": "Filtrar por estado",
+          "warehouse": "Filtrar por almacén"
+        },
+        "loading": "Cargando registros de producción...",
+        "noYieldRecords": "No se encontraron registros de producción",
+        "noProducts": "Sin productos",
+        "moreProducts": "+{{count}} más",
+        "table": {
+          "date": "Fecha",
+          "status": "Estado",
+          "products": "Productos",
+          "notes": "Notas",
+          "actions": "Acciones"
+        },
+        "delete": {
+          "title": "Eliminar Registro de Producción",
+          "description": "¿Estás seguro de que deseas eliminar este registro de producción? Esta acción no se puede deshacer."
+        },
+        "sampleWarehouses": {
+          "main": "Almacén Principal",
+          "coldStorage": "Cámara Fría",
+          "processing": "Unidad de Procesamiento"
+        },
+        "sampleProducts": {
+          "freshMilk": "Leche Fresca",
+          "eggs": "Huevos",
+          "honey": "Miel"
+        },
+        "sampleBatches": {
+          "first": "BATCH-001",
+          "second": "BATCH-002",
+          "third": "BATCH-003"
+        },
+        "validation": {
+          "productRequired": "El producto es obligatorio",
+          "quantityMin": "La cantidad debe ser mayor que 0",
+          "warehouseRequired": "El almacén es obligatorio",
+          "dateRequired": "La fecha es obligatoria",
+          "lineItemsRequired": "Se requiere al menos una línea de producto",
+          "expiryDaysMin": "Los días de caducidad deben ser al menos 1"
+        },
+        "toasts": {
+          "createSuccess": "Registro de producción guardado correctamente",
+          "createError": "No se pudo guardar el registro de producción. Inténtalo de nuevo.",
+          "updateSuccess": "Registro de producción actualizado correctamente",
+          "updateError": "No se pudo actualizar el registro de producción. Inténtalo de nuevo.",
+          "deleteSuccess": "Registro de producción eliminado correctamente",
+          "deleteError": "No se pudo eliminar el registro de producción. Inténtalo de nuevo."
+        },
+        "form": {
+          "updateDescription": "Actualizar el registro de producción",
+          "createDescription": "Registrar nuevo rendimiento de producción animal con seguimiento de lotes",
+          "date": "Fecha",
+          "pickDate": "Seleccionar fecha",
+          "performedBy": "Realizado Por",
+          "selectPerson": "Seleccionar persona",
+          "noOneSelected": "Nadie seleccionado",
+          "notes": "Notas",
+          "notesPlaceholder": "Recolectado durante el ordeño matutino...",
+          "yieldProductsTitle": "Productos de Rendimiento",
+          "addProductTitle": "Agregar Producto",
+          "selectProductButton": "Seleccionar un producto para agregar...",
+          "searchProducts": "Buscar productos...",
+          "pricePerUnit": "por",
+          "cancel": "Cancelar",
+          "noProductsYet": "Aún no se han agregado productos. Haga clic en \"Seleccionar un producto para agregar...\" para comenzar.",
+          "warehouse": "Almacén",
+          "selectWarehouse": "Seleccionar almacén",
+          "warehouseHelp": "Establece el valor predeterminado para las líneas de producto, salvo que se cambie",
+          "statusHelp": "Si está completado, crear automáticamente el comprobante de entrada",
+          "productLinesTitle": "Líneas de Producto",
+          "tableHeaders": {
+            "productName": "Nombre del producto *",
+            "barcode": "Código de barras",
+            "quantity": "Cantidad *",
+            "batchNumber": "Número de lote",
+            "warehouse": "Almacén"
+          },
+          "noBatchesAvailable": "No hay lotes disponibles",
+          "attachments": {
+            "title": "Adjuntos",
+            "description": "Subir informes de laboratorio o documentación (próximamente)",
+            "helper": "La carga de archivos estará disponible pronto"
+          },
+          "saving": "Creando...",
+          "productLine": {
+            "product": "Producto",
+            "selectProduct": "Seleccionar Producto",
+            "batch": "Lote",
+            "selectBatch": "Seleccionar lote",
+            "enterBatchNumber": "Ingresar número de lote",
+            "available": "Disponible",
+            "quantity": "Cantidad",
+            "quantityPlaceholder": "1",
+            "unitCost": "Costo Unitario",
+            "warehouse": "Almacén",
+            "selectWarehouse": "Seleccionar almacén",
+            "manufacturingDate": "Fecha de Fabricación",
+            "expiryDays": "Días de Caducidad",
+            "expiryDaysPlaceholder": "30",
+            "expiryDate": "Fecha de Caducidad",
+            "lineNotes": "Notas de Línea",
+            "lineNotesPlaceholder": "Notas adicionales para esta línea de producto..."
+          },
+          "status": "Estado",
+          "selectStatus": "Seleccionar estado",
+          "statusOptions": {
+            "draft": "Borrador",
+            "completed": "Completado"
+          },
+          "update": "Actualizar",
+          "create": "Crear",
+          "yieldRecord": "Registro de Producción"
+        }
+      },
+
+      "noneRecorded": "Ninguno Registrado"
+    }
+  }
+}

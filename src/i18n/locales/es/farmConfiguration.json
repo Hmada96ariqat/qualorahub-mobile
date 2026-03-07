@@ -1,0 +1,140 @@
+{
+  "farmConfiguration": {
+    "title": "Configuración de la Finca",
+    "subtitle": "Administrá la identidad, configuración de negocio y suscripción de tu finca",
+    "loading": "Cargando configuración...",
+    "viewOnly": "Solo Lectura",
+    "buttons": {
+      "save": "Guardar Cambios",
+      "saving": "Guardando...",
+      "addLink": "Agregar Enlace",
+      "upload": "Subir",
+      "uploading": "Subiendo..."
+    },
+    "sections": {
+      "farmIdentity": {
+        "title": "Identidad de la Finca",
+        "description": "Información básica y marca de tu finca"
+      },
+      "businessSubscription": {
+        "title": "Negocio y Suscripción",
+        "description": "Moneda, localización y detalles de suscripción"
+      }
+    },
+    "fields": {
+      "logo": {
+        "label": "Logo de la Finca",
+        "uploading": "Subiendo...",
+        "recommended": "Recomendado: 200x200px, PNG o JPG"
+      },
+      "name": {
+        "label": "Nombre de la Finca",
+        "placeholder": "Ingresá el nombre de la finca",
+        "required": "Nombre de la Finca *"
+      },
+      "email": {
+        "label": "Correo de la Finca",
+        "placeholder": "contacto@finca.com",
+        "required": "Correo de la Finca *"
+      },
+      "mobile": {
+        "label": "Teléfono de la Finca",
+        "placeholder": "+503 1234 5678",
+        "helper": "Para notificaciones por SMS o WhatsApp"
+      },
+      "website": {
+        "label": "Sitio Web",
+        "placeholder": "https://tufinca.com"
+      },
+      "address": {
+        "label": "Dirección de la Finca",
+        "placeholder": "Ingresá la dirección física o postal"
+      },
+      "location": {
+        "label": "Ubicación de la Finca (Pin del Mapa)",
+        "coordinates": "Coordenadas"
+      },
+      "mediaLinks": {
+        "label": "Redes Sociales y Enlaces",
+        "noLinks": "No hay enlaces agregados. Hacé clic en \"Agregar Enlace\" para comenzar.",
+        "urlPlaceholder": "https://..."
+      },
+      "currency": {
+        "label": "Moneda",
+        "required": "Moneda *",
+        "placeholder": "Seleccioná la moneda",
+        "search": "Buscar moneda...",
+        "notFound": "No se encontró moneda."
+      },
+      "country": {
+        "label": "País",
+        "required": "País *",
+        "placeholder": "Seleccioná el país",
+        "search": "Buscar país...",
+        "notFound": "No se encontró país."
+      },
+      "timezone": {
+        "label": "Zona Horaria",
+        "required": "Zona Horaria *",
+        "placeholder": "Seleccioná zona horaria",
+        "search": "Buscar zona horaria...",
+        "notFound": "No se encontró zona horaria."
+      },
+      "subscription": {
+        "label": "Detalles de Suscripción",
+        "plan": "Plan",
+        "status": "Estado",
+        "activationDate": "Fecha de Activación",
+        "expiryDate": "Fecha de Vencimiento",
+        "notAvailable": "N/D"
+      }
+    },
+    "platforms": {
+      "website": "Sitio Web",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn",
+      "youtube": "YouTube",
+      "whatsapp": "WhatsApp",
+      "twitter": "Twitter/X",
+      "tiktok": "TikTok"
+    },
+    "subscriptionStatus": {
+      "active": "ACTIVO",
+      "trial": "PRUEBA",
+      "expired": "VENCIDO",
+      "cancelled": "CANCELADO"
+    },
+    "messages": {
+      "permissionDenied": {
+        "title": "Permiso denegado",
+        "description": "No tenés permiso para modificar la configuración de la finca."
+      },
+      "noFarmFound": {
+        "title": "No se encontró finca",
+        "description": "Por favor contactá al soporte para configurar tu finca."
+      },
+      "errorLoading": {
+        "title": "Error al Cargar Datos",
+        "description": "No se pudo cargar la configuración de la finca."
+      },
+      "logoUploaded": {
+        "title": "Logo Subido",
+        "description": "El logo de la finca se subió exitosamente."
+      },
+      "uploadFailed": {
+        "title": "Error al Subir",
+        "description": "No se pudo subir el logo. Por favor intentá de nuevo."
+      },
+      "saveSuccess": {
+        "title": "Éxito",
+        "description": "La configuración de la finca se guardó exitosamente."
+      },
+      "saveError": {
+        "title": "Error",
+        "description": "No se pudo guardar la configuración. Por favor intentá de nuevo."
+      }
+    }
+  }
+}
+

@@ -1,0 +1,361 @@
+{
+  "common": {
+    "cancel": "Cancelar",
+    "create": "Crear",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "close": "Cerrar",
+    "view": "Ver",
+    "update": "Actualizar",
+    "yes": "Sí",
+    "no": "No",
+    "ok": "OK",
+    "confirm": "Confirmar",
+    "loading": "Cargando...",
+    "processing": "Procesando...",
+    "saving": "Guardando...",
+    "error": "Error",
+    "success": "Éxito",
+    "warning": "Advertencia",
+    "info": "Información",
+    "permissionDenied": "Permiso denegado",
+    "search": "Buscar",
+    "selectPerson": "Seleccionar persona",
+    "noneSelected": "Ninguno seleccionado",
+    "searchPlaceholder": "Buscar {{item}}...",
+    "noPersonFound": "No se encontró ninguna persona.",
+    "users": "Usuarios",
+    "contacts": "Contactos",
+    "unknownUser": "Usuario desconocido",
+    "unknownContact": "Contacto desconocido",
+    "filter": "Filtro",
+    "filters": "Filtros",
+    "clearAll": "Limpiar Todo",
+    "advanced": "Avanzado",
+    "simple": "Simple",
+    "export": "Exportar",
+    "import": "Importar",
+    "download": "Descargar",
+    "upload": "Subir",
+    "add": "Agregar",
+    "remove": "Quitar",
+    "actions": "Acciones",
+    "status": "Estado",
+    "date": "Fecha",
+    "days": "días",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "discount": "Descuento",
+    "tax": "Impuesto",
+    "name": "Nombre",
+    "email": "Correo",
+    "phone": "Teléfono",
+    "address": "Dirección",
+    "city": "Ciudad",
+    "notes": "Notas",
+    "hectares": "Hectáreas",
+    "noDataFound": "No se encontraron datos",
+    "loadingData": "Cargando datos...",
+    "pleaseWait": "Por favor espera...",
+    "optional": "Opcional",
+    "required": "Requerido",
+    "selectOption": "Selecciona una opción",
+    "createNew": "Crear nuevo",
+    "noOptionsFound": "No se encontraron opciones.",
+    "all": "Todos",
+    "none": "Ninguno",
+    "notAvailable": "N/D",
+    "deactivate": "Desactivar",
+    "reactivate": "Reactivar",
+    "activate": "Activar",
+    "resend": "Reenviar",
+    "revoke": "Revocar",
+    "retry": "Reintentar",
+    "apply": "Aplicar",
+    "reference": "Referencia",
+    "expand": "Expandir",
+    "collapse": "Contraer",
+    "showing": "Mostrando",
+    "of": "de",
+    "noResults": "Sin resultados",
+    "joinedOn": "Se unió el",
+    "lastUpdated": "Última Actualización",
+    "somethingWentWrong": "Algo salió mal",
+    "tryAgain": "Intentar nuevamente",
+    "previous": "Anterior",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "pageOf": "Página {{current}} de {{total}}",
+    "demo": {
+      "title": "Pruébalo tú mismo",
+      "shortLabel": "Demo",
+      "stepLabel": "Paso {{current}} de {{total}} — {{title}}",
+      "stepLabelCompact": "Paso {{current}} / {{total}}",
+      "getStarted": "Comenzar",
+      "next": "Siguiente",
+      "previous": "Anterior",
+      "closeDemo": "Cerrar demo",
+      "steps": {
+        "welcome": "Bienvenida",
+        "farmIdentity": "Identidad de la finca",
+        "cropSetup": "Configuración del cultivo",
+        "startCycle": "Inicio del ciclo",
+        "planting": "Siembra",
+        "maintenance": "Mantenimiento",
+        "wasteEvent": "Evento de desperdicio",
+        "harvest": "Cosecha",
+        "dashboard": "Panel",
+        "yieldInsights": "Insights de rendimiento",
+        "costSummary": "Resumen de costos",
+        "wasteInsights": "Insights de desperdicio",
+        "impact": "Impacto",
+        "complete": "Completado"
+      },
+      "shared": {
+        "demoFarmName": "Finca de demostración"
+      },
+      "welcome": {
+        "title": "Bienvenido a la demo de QualoraHub",
+        "description": "Descubre cómo QualoraHub simplifica la gestión agrícola. En solo unos minutos, simularás un ciclo completo de producción y verás insights reales.",
+        "cards": {
+          "cropManagement": {
+            "title": "Gestión de cultivos",
+            "description": "Configura tu cultivo y sigue su ciclo de producción"
+          },
+          "wasteTracking": {
+            "title": "Seguimiento de desperdicio",
+            "description": "Registra eventos de desperdicio para descubrir pérdidas ocultas"
+          },
+          "smartInsights": {
+            "title": "Insights inteligentes",
+            "description": "Obtén insights accionables de los datos de tu finca"
+          }
+        },
+        "learnTitle": "Lo que aprenderás:",
+        "learnItems": {
+          "productionCycles": "Cómo los ciclos de producción ayudan a seguir costos y rendimientos",
+          "operations": "Cómo las operaciones impactan tu rentabilidad",
+          "wasteTracking": "Cómo el seguimiento de desperdicio revela pérdidas ocultas",
+          "actionableInsights": "Cómo los datos se convierten en insights accionables"
+        }
+      },
+      "farmIdentity": {
+        "title": "Nombra tu finca",
+        "description": "Dale identidad a tu finca de demostración. Este nombre aparecerá en tu panel.",
+        "fieldLabel": "Nombre de la finca",
+        "placeholder": "ej., Finca Valle Verde",
+        "note": "💡 Esta es una demo: tus datos se mantienen locales y no se guardan en ningún lado."
+      },
+      "cropSetup": {
+        "title": "Selecciona tu cultivo",
+        "description": "Elige un tipo de cultivo y variedad para tu ciclo de producción.",
+        "cropTypeLabel": "Tipo de cultivo",
+        "cropTypePlaceholder": "Selecciona el tipo de cultivo",
+        "varietyLabel": "Variedad",
+        "varietyPlaceholder": "Selecciona una variedad",
+        "selectCropFirst": "Primero selecciona un cultivo",
+        "note": "🌱 Para esta demo, asumimos un campo y un lote de producción predeterminados.",
+        "cropTypes": {
+          "coffee": "Café",
+          "tomato": "Tomate",
+          "corn": "Maíz",
+          "wheat": "Trigo",
+          "rice": "Arroz",
+          "potato": "Papa",
+          "lettuce": "Lechuga"
+        },
+        "varieties": {
+          "arabica": "Arábica",
+          "robusta": "Robusta",
+          "liberica": "Liberica",
+          "roma": "Roma",
+          "cherry": "Cherry",
+          "beefsteak": "Beefsteak",
+          "heirloom": "Heirloom",
+          "sweetCorn": "Maíz dulce",
+          "dentCorn": "Maíz dentado",
+          "flintCorn": "Maíz duro",
+          "hardRed": "Rojo duro",
+          "softWhite": "Blanco suave",
+          "durum": "Durum",
+          "basmati": "Basmati",
+          "jasmine": "Jazmín",
+          "arborio": "Arborio",
+          "russet": "Russet",
+          "yukonGold": "Yukon Gold",
+          "redPotato": "Papa roja",
+          "romaine": "Romana",
+          "iceberg": "Iceberg",
+          "butterhead": "Mantecosa"
+        }
+      },
+      "startCycle": {
+        "title": "¡Ciclo de producción iniciado!",
+        "description": "Tu cultivo ya está activo. Sigamos su recorrido desde la siembra hasta la cosecha.",
+        "cycleDetails": "Detalles del ciclo",
+        "activeBadge": "Activo",
+        "labels": {
+          "crop": "Cultivo",
+          "startDate": "Fecha de inicio",
+          "location": "Ubicación"
+        },
+        "defaultLocation": "Campo 1, Lote A",
+        "whyTitle": "¿Por qué ciclos de producción?",
+        "whyDescription": "Los ciclos de producción te ayudan a seguir costos, rendimientos, desperdicio y desempeño de cada cultivo de principio a fin. Estos datos impulsan mejores decisiones."
+      },
+      "planting": {
+        "title": "Operación 1: Siembra",
+        "description": "Registra tu operación de siembra. Este es el primer paso de tu ciclo de producción.",
+        "methodLabel": "Método de siembra",
+        "methodPlaceholder": "Selecciona el método de siembra",
+        "methods": {
+          "directSeeding": "Siembra directa",
+          "transplanting": "Trasplante",
+          "seedlings": "Plántulas",
+          "cuttings": "Esquejes",
+          "grafting": "Injerto"
+        },
+        "costLabel": "Costo de siembra (opcional)",
+        "costPlaceholder": "ej., 500",
+        "costHint": "Incluye semillas, mano de obra y costos de equipo",
+        "note": "✅ Esta operación se registrará y contribuirá al costo total del ciclo."
+      },
+      "maintenance": {
+        "title": "Operación 2: Mantenimiento",
+        "description": "Registra los costos de riego y fertilización para seguir los gastos continuos.",
+        "irrigation": {
+          "title": "Riego",
+          "costLabel": "Costo de riego",
+          "costPlaceholder": "ej., 200",
+          "costHint": "Agua, equipo, mano de obra"
+        },
+        "fertilization": {
+          "title": "Fertilización",
+          "costLabel": "Costo de fertilización",
+          "costPlaceholder": "ej., 350",
+          "costHint": "Fertilizantes, aplicación, mano de obra"
+        },
+        "note": "💡 En un sistema real registrarías muchas más operaciones. Esta demo muestra un flujo simplificado."
+      },
+      "wasteEvent": {
+        "title": "Registrar un evento de desperdicio",
+        "description": "Esto es clave: el seguimiento del desperdicio revela pérdidas ocultas que suelen pasar desapercibidas.",
+        "wasteTypeLabel": "Tipo de desperdicio",
+        "wasteTypePlaceholder": "¿Qué se desperdició?",
+        "quantityLabel": "Cantidad (kg)",
+        "quantityPlaceholder": "ej., 25",
+        "reasonLabel": "Motivo",
+        "reasonPlaceholder": "¿Qué causó este desperdicio?",
+        "wasteTypes": {
+          "inputWaste": "Desperdicio de insumos (ej., pérdida de fertilizante)",
+          "cropDamage": "Daño al cultivo (ej., daño por plagas)"
+        },
+        "reasons": {
+          "spoilage": "Deterioro",
+          "overApplication": "Sobreaplicación",
+          "weatherDamage": "Daño por clima",
+          "handlingError": "Error de manipulación",
+          "pestDisease": "Plaga/enfermedad"
+        },
+        "whyTitle": "Por qué importa",
+        "whyDescription": "Registrar desperdicio hace visibles las pérdidas ocultas. Este desperdicio ahora está vinculado a tu ciclo de producción y aparecerá en tus insights."
+      },
+      "harvest": {
+        "title": "Operación 3: Cosecha",
+        "description": "¡Hora de cosechar! Ingresa tu rendimiento para completar el ciclo de producción.",
+        "quantityLabel": "Cantidad cosechada (kg)",
+        "quantityPlaceholder": "ej., 1500",
+        "quantityHint": "Rendimiento total de este ciclo de producción",
+        "completeTitle": "Ciclo completado",
+        "completeDescription": "Después de la cosecha cerraremos el ciclo y te mostraremos insights sobre costos, rendimiento y desperdicio de este periodo productivo."
+      },
+      "dashboardOverview": {
+        "title": "{{farmName}} — Resumen de la finca",
+        "description": "Tu panel personalizado con insights en tiempo real",
+        "cards": {
+          "totalYield": "Rendimiento total",
+          "totalCost": "Costo total",
+          "wasteLogged": "Desperdicio registrado"
+        }
+      },
+      "yieldInsights": {
+        "title": "Insights de rendimiento",
+        "description": "Sigue el desempeño de tu cosecha a lo largo del tiempo",
+        "chartCaption": "Rendimiento en el tiempo (datos simulados)"
+      },
+      "costSummary": {
+        "title": "Resumen de costos y producción",
+        "description": "Desglose de los costos de tu ciclo de producción",
+        "costLabels": {
+          "planting": "Siembra",
+          "irrigation": "Riego",
+          "fertilization": "Fertilización"
+        },
+        "totalProductionCost": "Costo total de producción",
+        "costPerKg": "Costo por kg"
+      },
+      "wasteInsights": {
+        "title": "Insights de desperdicio",
+        "description": "Entender tus pérdidas es el primer paso para reducirlas",
+        "totalWasteLogged": "Total de desperdicio registrado",
+        "wasteByReason": "Desperdicio por motivo",
+        "quote": "\"Este desperdicio normalmente pasaría desapercibido sin seguimiento\"",
+        "bullets": {
+          "reduceRepeatLosses": "Reducir pérdidas repetidas",
+          "improvePlanning": "Mejorar la planificación de insumos",
+          "increaseSustainability": "Incrementar la sostenibilidad"
+        }
+      },
+      "impact": {
+        "title": "El poder de la visibilidad",
+        "withoutTracking": {
+          "title": "Sin seguimiento",
+          "description": "Este desperdicio es invisible. Las pérdidas se acumulan en silencio, los costos quedan sin explicación y los mismos problemas se repiten temporada tras temporada."
+        },
+        "withQualoraHub": {
+          "title": "Con QualoraHub",
+          "description": "Cada pérdida se convierte en datos accionables. Ves patrones, identificas causas raíz y tomas decisiones informadas para reducir desperdicio con el tiempo."
+        },
+        "conclusion": "Mejor visibilidad → Mejores decisiones → Menos desperdicio"
+      },
+      "completion": {
+        "title": "¡Demo completada!",
+        "description": "Experimentaste un ciclo de producción simplificado. Las fincas reales registran mucho más detalle: múltiples operaciones, insumos detallados, clasificaciones de calidad y más.",
+        "createRealFarm": "Crear mi finca real",
+        "exploreFeatures": "Explorar funciones",
+        "note": "💡 ¿Listo para transformar la gestión de tu finca? Regístrate y comienza con acceso completo a todas las funciones de QualoraHub."
+      }
+    },
+    
+    "auth": {
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "forgotPasswordTitle": "¿Olvidaste tu contraseña?",
+      "forgotPasswordDesc": "Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
+      "sendResetLink": "Enviar enlace",
+      "checkEmail": "Revisa tu correo",
+      "checkEmailDesc": "Te enviamos un enlace para restablecer tu contraseña. El enlace expirará en 30 minutos.",
+      "tryDifferentEmail": "Probar otro correo",
+      "backToSignIn": "Volver a iniciar sesión",
+      "resetPasswordTitle": "Nueva contraseña",
+      "resetPasswordDesc": "Ingresa tu nueva contraseña. Asegúrate de que sea segura.",
+      "newPassword": "Nueva contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "updatePassword": "Actualizar contraseña",
+      "passwordUpdated": "¡Contraseña actualizada!",
+      "passwordUpdatedDesc": "Tu contraseña ha sido actualizada. Ya puedes iniciar sesión con tu nueva contraseña.",
+      "linkExpired": "Enlace expirado o inválido",
+      "linkExpiredDesc": "Este enlace ha expirado o es inválido. Por favor solicita uno nuevo.",
+      "requestNewLink": "Solicitar nuevo enlace",
+      "passwordRequirements": "Mínimo 6 caracteres con una mayúscula y un número",
+      "passwordsDoNotMatch": "Las contraseñas no coinciden",
+      "emailRequired": "El correo es requerido",
+      "invalidEmail": "Ingresa un correo válido",
+      "passwordRequired": "La contraseña es requerida",
+      "passwordTooShort": "La contraseña debe tener al menos 6 caracteres",
+      "passwordNeedsUppercase": "La contraseña debe contener al menos una mayúscula",
+      "passwordNeedsNumber": "La contraseña debe contener al menos un número",
+      "confirmPasswordRequired": "Por favor confirma tu contraseña"
+    }
+  }
+}

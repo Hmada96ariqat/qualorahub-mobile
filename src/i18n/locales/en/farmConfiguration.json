@@ -1,0 +1,140 @@
+{
+  "farmConfiguration": {
+    "title": "Farm Configuration",
+    "subtitle": "Manage your farm's identity, business settings, and subscription",
+    "loading": "Loading configuration...",
+    "viewOnly": "View Only",
+    "buttons": {
+      "save": "Save Changes",
+      "saving": "Saving...",
+      "addLink": "Add Link",
+      "upload": "Upload",
+      "uploading": "Uploading..."
+    },
+    "sections": {
+      "farmIdentity": {
+        "title": "Farm Identity",
+        "description": "Basic information and branding for your farm"
+      },
+      "businessSubscription": {
+        "title": "Business & Subscription",
+        "description": "Currency, localization, and subscription details"
+      }
+    },
+    "fields": {
+      "logo": {
+        "label": "Farm Logo",
+        "uploading": "Uploading...",
+        "recommended": "Recommended: 200x200px, PNG or JPG"
+      },
+      "name": {
+        "label": "Farm Name",
+        "placeholder": "Enter farm name",
+        "required": "Farm Name *"
+      },
+      "email": {
+        "label": "Farm Email",
+        "placeholder": "contact@farm.com",
+        "required": "Farm Email *"
+      },
+      "mobile": {
+        "label": "Farm Mobile",
+        "placeholder": "+1 234 567 8900",
+        "helper": "For SMS or WhatsApp notifications"
+      },
+      "website": {
+        "label": "Website",
+        "placeholder": "https://yourfarm.com"
+      },
+      "address": {
+        "label": "Farm Address",
+        "placeholder": "Enter physical or mailing address"
+      },
+      "location": {
+        "label": "Farm Location (Map Pin)",
+        "coordinates": "Coordinates"
+      },
+      "mediaLinks": {
+        "label": "Social Media & Links",
+        "noLinks": "No media links added yet. Click \"Add Link\" to get started.",
+        "urlPlaceholder": "https://..."
+      },
+      "currency": {
+        "label": "Currency",
+        "required": "Currency *",
+        "placeholder": "Select currency",
+        "search": "Search currency...",
+        "notFound": "No currency found."
+      },
+      "country": {
+        "label": "Country",
+        "required": "Country *",
+        "placeholder": "Select country",
+        "search": "Search country...",
+        "notFound": "No country found."
+      },
+      "timezone": {
+        "label": "Timezone",
+        "required": "Timezone *",
+        "placeholder": "Select timezone",
+        "search": "Search timezone...",
+        "notFound": "No timezone found."
+      },
+      "subscription": {
+        "label": "Subscription Details",
+        "plan": "Plan",
+        "status": "Status",
+        "activationDate": "Activation Date",
+        "expiryDate": "Expiry Date",
+        "notAvailable": "N/A"
+      }
+    },
+    "platforms": {
+      "website": "Website",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn",
+      "youtube": "YouTube",
+      "whatsapp": "WhatsApp",
+      "twitter": "Twitter/X",
+      "tiktok": "TikTok"
+    },
+    "subscriptionStatus": {
+      "active": "ACTIVE",
+      "trial": "TRIAL",
+      "expired": "EXPIRED",
+      "cancelled": "CANCELLED"
+    },
+    "messages": {
+      "permissionDenied": {
+        "title": "Permission denied",
+        "description": "You do not have permission to modify farm settings."
+      },
+      "noFarmFound": {
+        "title": "No Farm Found",
+        "description": "Please contact support to set up your farm."
+      },
+      "errorLoading": {
+        "title": "Error Loading Data",
+        "description": "Failed to load farm configuration."
+      },
+      "logoUploaded": {
+        "title": "Logo Uploaded",
+        "description": "Farm logo uploaded successfully."
+      },
+      "uploadFailed": {
+        "title": "Upload Failed",
+        "description": "Failed to upload logo. Please try again."
+      },
+      "saveSuccess": {
+        "title": "Success",
+        "description": "Farm configuration saved successfully."
+      },
+      "saveError": {
+        "title": "Error",
+        "description": "Failed to save configuration. Please try again."
+      }
+    }
+  }
+}
+

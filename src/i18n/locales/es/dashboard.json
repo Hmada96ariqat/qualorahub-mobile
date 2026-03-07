@@ -1,0 +1,309 @@
+{
+  "dashboard": {
+    "title": "Panel de Control",
+    "subtitle": "Resumen de las operaciones de tu finca",
+    "header": {
+      "goodMorning": "Buenos días",
+      "goodAfternoon": "Buenas tardes",
+      "goodEvening": "Buenas noches",
+      "farmer": "Agricultor",
+      "myFarm": "Mi Finca",
+      "searchExport": "Buscar y Exportar",
+      "lowStock": "Bajo inventario",
+      "unitsLeft": "unidades restantes",
+      "moreItems": "más",
+      "gettingStarted": "Primeros Pasos",
+      "onboarding": {
+        "sequentialHint": "Completá cada paso para desbloquear el siguiente",
+        "addFirstField": "Agregá tu primer campo",
+        "addFirstLot": "Agregá tu primer lote",
+        "addCrops": "Agregá cultivos",
+        "createProductionCycle": "Creá tu primer ciclo de producción",
+        "unlocks": {
+          "lot": "Desbloquea: Lote",
+          "crop": "Desbloquea: Cultivo",
+          "productionCycle": "Desbloquea: Ciclo de Producción"
+        }
+      }
+    },
+    "sections": {
+      "farmOverview": "Resumen de la Finca",
+      "finance": "Finanzas",
+      "tasks": "Tareas",
+      "planting": "Siembra",
+      "orders": "Pedidos",
+      "alerts": "Alertas",
+      "livestock": "Ganado",
+      "inventory": "Inventario y Equipos"
+    },
+    "farmOverview": {
+      "title": "🌾 Resumen de la Finca",
+      "activeCrops": "Cultivos Activos",
+      "activeCropsSubtitle": "Actualmente creciendo",
+      "activeWorkers": "Trabajadores Activos",
+      "activeWorkersSubtitle": "Trabajando hoy",
+      "dailyRevenue": "Ingresos Diarios",
+      "dailyExpense": "Gastos",
+      "criticalAlerts": "Alertas Críticas",
+      "criticalAlertsSubtitle": "Requiere atención",
+      "weather": {
+        "title": "Clima",
+        "myFarm": "Mi Finca",
+        "loading": "Cargando clima...",
+        "noLocation": "Datos de ubicación no disponibles",
+        "configureLocation": "Configurá la ubicación de la finca en ajustes",
+        "temperature": "Temperatura",
+        "humidity": "Humedad",
+        "windSpeed": "Velocidad del Viento",
+        "conditions": "Condiciones"
+      },
+      "season": {
+        "title": "Temporada y Etapa",
+        "currentSeason": "Temporada Actual",
+        "activeStages": "Etapas Activas",
+        "stage": "etapa",
+        "stages": "etapas"
+      },
+      "productionCycles": {
+        "title": "Ciclos de Producción Activos",
+        "subtitle": "Últimos 3 ciclos",
+        "viewAll": "Ver Todos",
+        "emptyTitle": "No hay ciclos de producción activos",
+        "emptyDescription": "Iniciá un ciclo para seguir el progreso y el rendimiento.",
+        "unnamedCrop": "Cultivo sin nombre",
+        "started": "Inicio",
+        "running": "En curso",
+        "days": "{{count}} días",
+        "target": "Objetivo",
+        "estimatedCost": "Costo estimado",
+        "viewFull": "Ver ciclo completo",
+        "activeStatus": "Activo"
+      },
+      "profitableCrops": {
+        "title": "Cultivos Más Rentables",
+        "subtitle": "Participación cosechada este año (sin desperdicio)",
+        "emptyTitle": "No hay datos de cosecha este año",
+        "emptyDescription": "Clasificá resultados de cosecha para visualizar los cultivos principales.",
+        "harvested": "Cosechado",
+        "others": "Otros",
+        "totalHarvested": "Total cosechado",
+        "topCrop": "Cultivo principal",
+        "unknownCrop": "Cultivo desconocido"
+      }
+    },
+    "finance": {
+      "title": "Finanzas",
+      "monthlyIncome": "Ingresos Mensuales",
+      "monthlyIncomeSubtitle": "Este mes",
+      "monthlyExpenses": "Gastos Mensuales",
+      "monthlyExpensesSubtitle": "Este mes",
+      "profit": "Ganancia",
+      "profitLoss": "Ganancia/Pérdida",
+      "profitLossSubtitle": "Resultado neto",
+      "netResult": "Resultado neto",
+      "topExpenses": "Principales Gastos",
+      "noExpenses": "Sin gastos este mes",
+      "financialTrends": "Tendencias Financieras de 6 Meses",
+      "sixMonthTrend": "Tendencia de 6 Meses",
+      "avgMonthlyIncome": "Promedio de Ingresos Mensuales",
+      "avgMonthlyExpenses": "Promedio de Gastos Mensuales",
+      "expenses": "Gastos",
+      "income": "Ingresos",
+      "recentTransactions": "Transacciones Recientes",
+      "viewAll": "Ver Todas",
+      "noTransactions": "No hay transacciones recientes",
+      "noFinancialData": "No hay datos financieros disponibles para los últimos 6 meses"
+    },
+    "tasks": {
+      "title": "Tareas",
+      "totalTasks": "Total de Tareas",
+      "totalTasksSubtitle": "Todas las tareas",
+      "allTasks": "Todas las tareas",
+      "pendingTasks": "Tareas Pendientes",
+      "pendingTasksSubtitle": "En progreso",
+      "inProgress": "En progreso",
+      "completedTasks": "Tareas Completadas",
+      "completedTasksSubtitle": "Finalizadas",
+      "finished": "Finalizadas",
+      "upcomingTasks": "Próximas (3 días)",
+      "upcomingTasksSubtitle": "Próximos 3 días",
+      "noUpcomingTasks": "No hay tareas próximas",
+      "viewAll": "Ver Todas las Tareas",
+      "noTasks": "No se encontraron tareas"
+    },
+    "planting": {
+      "title": "Siembra",
+      "activeCycles": "Ciclos de Producción Activos",
+      "activeCyclesSubtitle": "Ciclos en curso",
+      "growthStatus": {
+        "title": "Estado de Crecimiento",
+        "seeded": "Sembrado",
+        "growing": "Creciendo",
+        "harvestReady": "Listo para Cosechar"
+      },
+      "irrigation": {
+        "title": "Estado de Riego",
+        "subtitle": "Lotes regados hoy"
+      }
+    },
+    "orders": {
+      "title": "Pedidos",
+      "totalOrders": "Total de Pedidos",
+      "totalOrdersSubtitle": "Todos los pedidos",
+      "pendingOrders": "Pedidos Pendientes",
+      "pendingOrdersSubtitle": "Esperando cumplimiento",
+      "completedOrders": "Pedidos Completados",
+      "completedOrdersSubtitle": "Este mes",
+      "orderTrends": "Tendencias de Pedidos",
+      "orderTrendsSubtitle": "Últimos 30 días",
+      "volumeTrends": "Tendencias de Volumen de Pedidos",
+      "clickToView": "Hacé clic en cualquier fecha para ver pedidos detallados",
+      "ordersLabel": "Pedidos:",
+      "clickForDetails": "Hacé clic para ver detalles",
+      "viewAll": "Ver Todos los Pedidos",
+      "navigatingToOrders": "Redirigiendo a la página de pedidos con filtro de fecha..."
+    },
+    "alerts": {
+      "title": "Alertas",
+      "active": "activas",
+      "allClear": "¡Todo Despejado!",
+      "noAlertsMessage": "No hay alertas en este momento",
+      "types": {
+        "lowStock": "Poco Inventario",
+        "expiredStock": "Inventario Vencido",
+        "healthAlerts": "Alertas de Salud",
+        "weatherAlerts": "Alertas Meteorológicas"
+      },
+      "descriptions": {
+        "lowStock": "Productos por debajo del nivel mínimo",
+        "expiredStock": "Productos pasados de fecha de vencimiento",
+        "healthAlerts": "Animales que requieren atención",
+        "noSevereWeather": "Sin clima severo"
+      },
+      "severity": {
+        "high": "ALTA",
+        "medium": "MEDIA",
+        "low": "BAJA",
+        "priority": "Prioridad"
+      },
+      "lowStock": "Productos con Poco Inventario",
+      "lowStockSubtitle": "Productos escasos",
+      "expiredStock": "Inventario Vencido",
+      "expiredStockSubtitle": "Productos vencidos",
+      "healthAlerts": "Alertas de Salud",
+      "healthAlertsSubtitle": "Requiere atención",
+      "viewAll": "Ver Todas las Alertas",
+      "noAlerts": "No hay alertas"
+    },
+    "livestock": {
+      "title": "Ganado",
+      "totalAnimals": "Total de Animales",
+      "totalAnimalsSubtitle": "En inventario",
+      "healthAlerts": "Alertas de Salud",
+      "healthAlertsSubtitle": "Necesita atención",
+      "breedingStatus": "Estado de Reproducción",
+      "breedingStatusSubtitle": "Reproducción activa",
+      "feedingCompliance": "Cumplimiento de Alimentación",
+      "feedingComplianceSubtitle": "Según programa",
+      "viewAll": "Ver Todo el Ganado"
+    },
+    "inventory": {
+      "title": "Inventario y Equipos",
+      "lowStock": "Inventario Bajo",
+      "lowStockSubtitle": "Productos bajo el umbral",
+      "operationalEquipment": "Equipos Operacionales",
+      "operationalEquipmentSubtitle": "Funcionando",
+      "maintenanceEquipment": "Necesita Mantenimiento",
+      "maintenanceEquipmentSubtitle": "Equipos",
+      "totalEquipment": "Total de Equipos",
+      "totalEquipmentSubtitle": "En inventario",
+      "upcomingMaintenance": "Mantenimiento Próximo",
+      "upcomingMaintenanceSubtitle": "Próximos 30 días"
+    },
+    "search": {
+      "placeholder": "Buscar en el panel...",
+      "filter": {
+        "all": "Todas las Secciones",
+        "overview": "Resumen",
+        "finance": "Finanzas",
+        "tasks": "Tareas",
+        "planting": "Siembra",
+        "orders": "Pedidos",
+        "alerts": "Alertas",
+        "livestock": "Ganado",
+        "inventory": "Inventario",
+        "bySection": "Filtrar por sección"
+      }
+    },
+    "export": {
+      "button": "Exportar Panel",
+      "title": "Exportar Reporte del Panel",
+      "description": "Exportá un reporte completo del estado actual de tu finca",
+      "generating": "Generando reporte...",
+      "success": "Panel exportado exitosamente",
+      "columns": {
+        "metric": "Métrica",
+        "value": "Valor"
+      },
+      "formats": {
+        "csv": "Exportar como CSV",
+        "excel": "Exportar como Excel",
+        "pdf": "Exportar como PDF"
+      },
+      "reportTitle": "Reporte del Panel de la Finca",
+      "filenamePrefix": "reporte-panel"
+    },
+    "quickActions": {
+      "title": "Acciones Rápidas",
+      "quickLog": "Registro rápido",
+      "newOrder": "Nuevo Pedido",
+      "createTask": "Crear Tarea",
+      "recordTransaction": "Registrar Transacción",
+      "addProduct": "Agregar Producto",
+      "addTransaction": "Agregar Transacción",
+      "recordHarvest": "Registrar Cosecha",
+      "addAnimal": "Agregar Animal"
+    },
+    "alertDetails": {
+      "close": "Cerrar",
+      "lowStock": {
+        "title": "Productos con Poco Inventario",
+        "description": "Productos que necesitan reabastecimiento",
+        "subtitle": "Actual: {{current}} {{currentUnit}} | Mínimo: {{min}} {{minUnit}}",
+        "badge": "Poco Inventario",
+        "actionLabel": "Ver poco inventario",
+        "empty": "No se encontraron productos con poco inventario"
+      },
+      "expiredStock": {
+        "title": "Productos Vencidos",
+        "description": "Productos con fecha de vencimiento pasada",
+        "subtitle": "Vencido el: {{date}}",
+        "unknownDate": "Desconocido",
+        "badge": "Vencido",
+        "actionLabel": "Ver productos",
+        "empty": "No se encontraron productos vencidos"
+      },
+      "healthAlerts": {
+        "title": "Alertas de Salud Animal",
+        "description": "Animales que requieren atención médica",
+        "subtitle": "Estado: {{status}} | Etiqueta: {{tag}}",
+        "unnamedAnimal": "Animal desconocido",
+        "unknownStatus": "Desconocido",
+        "notAvailable": "N/D",
+        "badge": "Alerta",
+        "actionLabel": "Ver animales",
+        "empty": "No se encontraron alertas de salud",
+        "statusValues": {
+          "sick": "ENFERMO",
+          "injured": "HERIDO"
+        }
+      },
+      "weatherAlerts": {
+        "title": "Alertas Meteorológicas",
+        "description": "Advertencias de clima severo para tu zona",
+        "actionLabel": "Ver clima",
+        "empty": "No se encontraron alertas meteorológicas"
+      }
+    }
+  }
+}

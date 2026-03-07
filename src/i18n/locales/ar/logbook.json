@@ -1,0 +1,359 @@
+{
+  "logbook": {
+    "title": "سجل العمليات",
+    "sessionBadge": "الجلسة · {{count}} سجلات",
+    "flowStepLabel": "الخطوة {{current}} من {{total}} • {{title}}",
+    "defaultPracticeLabel": "عملية {{family}}",
+    "steps": {
+      "category": "ماذا أنجزت؟",
+      "entity": "اختر الكيان",
+      "family": "اختر الفئة",
+      "practice": "اختر الممارسة",
+      "form": "أدخل تفاصيل النشاط",
+      "success": "تم تسجيل النشاط"
+    },
+    "context": {
+      "fieldLabel": "الحقل",
+      "dateLabel": "التاريخ",
+      "noAccessibleFields": "لا توجد حقول متاحة",
+      "selectField": "اختر الحقل",
+      "allAccessibleFields": "كل الحقول المتاحة",
+      "selectedField": "الحقل المحدد"
+    },
+    "actions": {
+      "back": "رجوع",
+      "cancel": "إلغاء",
+      "saveLog": "حفظ السجل",
+      "saving": "جارٍ الحفظ...",
+      "logAnother": "تسجيل نشاط آخر",
+      "repeatSameOperation": "إعادة نفس العملية",
+      "finish": "إنهاء"
+    },
+    "categories": {
+      "cropOperation": "عملية محصول",
+      "equipmentUsage": "استخدام المعدات",
+      "equipmentMaintenance": "صيانة المعدات",
+      "animalFeedWater": "علف ومياه الحيوانات",
+      "animalHouseMaintenance": "صيانة مساكن الحيوانات",
+      "animalYield": "إنتاج الحيوانات",
+      "lotMaintenance": "صيانة القطعة"
+    },
+    "operationFamilies": {
+      "landPrep": "تهيئة الأرض",
+      "planting": "الزراعة",
+      "irrigation": "الري",
+      "nutrient": "إضافة المغذيات",
+      "treatment": "المعالجة",
+      "weedManagement": "مكافحة الأعشاب",
+      "cultural": "العمليات الزراعية",
+      "harvest": "الحصاد"
+    },
+    "cards": {
+      "cropOperationHint": "اختر عائلة المحصول والممارسة",
+      "directLogHint": "سجّل هذا النشاط مباشرة"
+    },
+    "search": {
+      "entities": "ابحث عن الكيانات...",
+      "practices": "ابحث عن الممارسات..."
+    },
+    "fallbacks": {
+      "fieldWorker": "عامل حقل",
+      "unknownLot": "قطعة غير معروفة",
+      "unknownField": "حقل غير معروف"
+    },
+    "emptyStates": {
+      "noActiveFields": "لم يتم العثور على حقول نشطة متاحة لحسابك.",
+      "noCategories": "لا توجد فئات تسجيل متاحة حسب الصلاحيات والخطة الحالية.",
+      "noEntities": "لا توجد كيانات متاحة للفئة المحددة.",
+      "noPractices": "لا توجد ممارسات مفعلة لهذا المحصول/العائلة.",
+      "category": {
+        "cropOperation": "لا توجد محاصيل نشطة ضمن دورات الإنتاج.",
+        "equipmentUsage": "لا توجد معدات متاحة.",
+        "equipmentMaintenance": "لا توجد معدات متاحة.",
+        "animalFeedWater": "لا توجد وحدات سكن حيواني متاحة.",
+        "animalHouseMaintenance": "لا توجد وحدات سكن حيواني متاحة.",
+        "animalYield": "لا توجد حيوانات نشطة.",
+        "lotMaintenance": "لا توجد قطع نشطة."
+      }
+    },
+    "form": {
+      "optionalLabel": "{{label}} (اختياري)",
+      "selectFieldPlaceholder": "اختر {{label}}",
+      "photos": "الصور",
+      "attachPhotos": "إرفاق صور العملية"
+    },
+    "success": {
+      "title": "تم تسجيل النشاط",
+      "recordLabel": "السجل #{{id}}",
+      "savedAsDraftPrefix": "تم الحفظ كمسودة:",
+      "sessionSummary": "هذه الجلسة · {{count}} سجلات"
+    },
+    "featureDisabled": {
+      "title": "ميزة السجل معطلة",
+      "description": "فعّل `VITE_LOGBOOK_ENABLED` للوصول إلى هذه الميزة."
+    },
+    "toasts": {
+      "loadError": {
+        "title": "تعذر تحميل السجل",
+        "description": "تعذر تحميل سياق الجلسة."
+      },
+      "permissionsChanged": {
+        "title": "تغيرت الصلاحيات",
+        "description": "الفئة السابقة لم تعد متاحة. يرجى اختيار نشاط آخر."
+      },
+      "missingSelection": {
+        "title": "اختيار ناقص",
+        "description": "اختر الفئة والكيان قبل الإرسال."
+      },
+      "missingField": {
+        "title": "حقل غير محدد",
+        "description": "اختر حقلاً قبل حفظ هذا السجل."
+      },
+      "missingCropSelection": {
+        "title": "اختيار المحصول غير مكتمل",
+        "description": "اختر عائلة العملية والممارسة قبل الإرسال."
+      },
+      "noCulturalPractice": {
+        "title": "لا توجد ممارسة زراعية مهيأة",
+        "description": "يرجى تفعيل ممارسة واحدة على الأقل ضمن العمليات الزراعية لهذا المحصول قبل الحفظ."
+      },
+      "validationRequired": {
+        "title": "التحقق مطلوب",
+        "description": "يرجى تصحيح الحقول المميزة ثم المحاولة مرة أخرى."
+      },
+      "photoUploadFailed": {
+        "title": "فشل رفع الصور",
+        "description": "تعذر رفع الصور المحددة."
+      },
+      "photoUploadAuthRequired": "سجّل الدخول مرة أخرى لرفع الصور.",
+      "savedAsDraft": {
+        "title": "تم الحفظ كمسودة",
+        "description": "تم حفظ السجل، لكن لا تزال هناك إجراءات متابعة مطلوبة."
+      },
+      "logSaved": {
+        "title": "تم حفظ السجل",
+        "description": "تم تسجيل النشاط بنجاح."
+      },
+      "sessionExpired": {
+        "title": "انتهت الجلسة",
+        "description": "يرجى تسجيل الدخول مرة أخرى. تم حفظ المسودة الخاصة بك."
+      },
+      "practiceUpdated": {
+        "title": "تم تحديث الممارسة",
+        "description": "الممارسة المحددة لم تعد متاحة. اختر ممارسة أخرى."
+      },
+      "permissionDenied": {
+        "title": "تم رفض الإذن",
+        "description": "لم يعد لديك إذن لإرسال هذه الفئة. يرجى اختيار نشاط آخر."
+      },
+      "selectionInvalid": {
+        "title": "الاختيار لم يعد صالحاً",
+        "description": "تغير الحقل أو الكيان المحدد. يرجى إعادة اختيار هدف النشاط."
+      },
+      "saveFailed": {
+        "title": "فشل الحفظ",
+        "description": "تعذر حفظ السجل الآن."
+      }
+    },
+    "validation": {
+      "required": "حقل {{field}} مطلوب.",
+      "positive": "يجب أن تكون قيمة {{field}} أكبر من 0.",
+      "invalidField": "قيمة {{field}} غير صالحة.",
+      "unsupportedField": "الحقل \"{{field}}\" غير مدعوم في هذا النموذج."
+    },
+    "productsEditor": {
+      "productsUsed": "المنتجات المستخدمة",
+      "addInput": "إضافة مدخل",
+      "noInputs": "لم تتم إضافة أي مدخلات بعد.",
+      "inputLabel": "مدخل #{{index}}",
+      "removeInput": "إزالة المدخل {{index}}",
+      "product": "المنتج",
+      "selectProduct": "اختر المنتج",
+      "searchProducts": "ابحث عن المنتجات...",
+      "warehouse": "المستودع",
+      "selectWarehouse": "اختر المستودع",
+      "quantity": "الكمية",
+      "available": "المتوفر: {{available}}",
+      "unit": "الوحدة",
+      "selectUnit": "اختر الوحدة",
+      "unitCostOptional": "تكلفة الوحدة (اختياري)",
+      "batch": "الدفعة",
+      "batchPlaceholder": "دفعة اختيارية",
+      "ipmDetails": "تفاصيل المكافحة المتكاملة / المعالجة",
+      "doseUsed": "الجرعة المستخدمة",
+      "recommendedDoseInline": "موصى به: {{dose}}{{unit}}",
+      "enterDoseUsed": "أدخل الجرعة المستخدمة",
+      "phiDays": "أيام PHI",
+      "recommendedDose": "الجرعة الموصى بها: {{dose}}{{unit}}",
+      "noCropGuidance": "لا توجد إرشادات للمحصول لهذا المنتج.",
+      "selectPesticideProduct": "اختر منتجاً من نوع المبيدات لإظهار حقول المكافحة المتكاملة."
+    },
+    "templates": {
+      "crop_operation_land_prep": {
+        "title": "سجل تهيئة الأرض",
+        "fields": {
+          "cost": { "label": "التكلفة", "placeholder": "0" },
+          "quantity": { "label": "الكمية", "placeholder": "0" },
+          "unit": {
+            "label": "الوحدة",
+            "options": { "ha": "ha", "acre": "acre", "m2": "m2" }
+          },
+          "inputs": { "label": "المنتجات المستخدمة" },
+          "notes": { "label": "ملاحظات", "placeholder": "ملاحظات اختيارية" }
+        }
+      },
+      "crop_operation_planting": {
+        "title": "سجل الزراعة",
+        "fields": {
+          "plantingDate": { "label": "تاريخ الزراعة" },
+          "inputs": { "label": "المنتجات المستخدمة" },
+          "notes": { "label": "ملاحظات", "placeholder": "ملاحظات اختيارية" }
+        }
+      },
+      "crop_operation_irrigation": {
+        "title": "سجل الري",
+        "fields": {
+          "method": { "label": "الطريقة", "placeholder": "ري بالتنقيط" },
+          "water_source": { "label": "مصدر المياه", "placeholder": "بئر" },
+          "volume_value": { "label": "الحجم", "placeholder": "100" },
+          "volume_unit": {
+            "label": "وحدة الحجم",
+            "options": { "L": "L", "m3": "m3" }
+          },
+          "duration_hours": { "label": "المدة (ساعات)", "placeholder": "2" },
+          "inputs": { "label": "المنتجات المستخدمة" },
+          "notes": { "label": "ملاحظات", "placeholder": "ملاحظات اختيارية" }
+        }
+      },
+      "crop_operation_nutrient": {
+        "title": "سجل إضافة المغذيات",
+        "fields": {
+          "dateApplied": { "label": "التاريخ" },
+          "applicationMethod": { "label": "طريقة التطبيق", "placeholder": "التسميد عبر الري" },
+          "products": { "label": "المنتجات المستخدمة" },
+          "totalCost": { "label": "إجمالي التكلفة", "placeholder": "0" },
+          "notes": { "label": "ملاحظات", "placeholder": "ملاحظات اختيارية" }
+        }
+      },
+      "crop_operation_treatment": {
+        "title": "سجل المعالجة",
+        "fields": {
+          "treatment_date": { "label": "التاريخ" },
+          "treatment_type": { "label": "نوع المعالجة", "placeholder": "رش مبيد فطري" },
+          "application_method": { "label": "طريقة التطبيق", "placeholder": "رش" },
+          "treatment_location": { "label": "الموقع", "placeholder": "القطاع الشمالي" },
+          "products": { "label": "المنتجات المستخدمة" },
+          "notes": { "label": "ملاحظات", "placeholder": "ملاحظات اختيارية" }
+        }
+      },
+      "crop_operation_weed_mgmt": {
+        "title": "سجل مكافحة الأعشاب",
+        "fields": {
+          "date": { "label": "التاريخ" },
+          "cost": { "label": "التكلفة", "placeholder": "0" },
+          "reusable_products": { "label": "المنتجات المستخدمة" },
+          "notes": { "label": "ملاحظات", "placeholder": "ملاحظات اختيارية" }
+        }
+      },
+      "crop_operation_cultural": {
+        "title": "سجل العمليات الزراعية",
+        "fields": {
+          "operationDate": { "label": "التاريخ" },
+          "quantity": { "label": "الكمية", "placeholder": "0" },
+          "unit": {
+            "label": "الوحدة",
+            "options": { "ha": "ha", "acre": "acre", "m2": "m2" }
+          },
+          "cost": { "label": "التكلفة", "placeholder": "0" },
+          "inputs": { "label": "المنتجات المستخدمة" },
+          "notes": { "label": "ملاحظات", "placeholder": "ملاحظات اختيارية" }
+        }
+      },
+      "crop_operation_harvest": {
+        "title": "سجل الحصاد",
+        "fields": {
+          "harvestDate": { "label": "التاريخ" },
+          "totalHarvestedQuantity": { "label": "إجمالي الكمية المحصودة", "placeholder": "1" },
+          "totalHarvestedUnit": {
+            "label": "الوحدة",
+            "options": { "kg": "kg", "g": "g", "t": "t", "lb": "lb" }
+          },
+          "workerName": { "label": "اسم العامل", "placeholder": "عامل حقل" },
+          "notes": { "label": "ملاحظات", "placeholder": "ملاحظات اختيارية" }
+        }
+      },
+      "equipment_usage_none": {
+        "title": "سجل استخدام المعدات",
+        "fields": {
+          "usage_purpose": { "label": "غرض الاستخدام", "placeholder": "حراثة الحقل" },
+          "operator_id": { "label": "المستخدم", "placeholder": "المستخدم الحالي" },
+          "date_used": { "label": "تاريخ الاستخدام" },
+          "total_hours_used": { "label": "إجمالي ساعات الاستخدام", "placeholder": "2" },
+          "fuel_consumables_used": { "label": "الوقود / المستهلكات المستخدمة", "placeholder": "ديزل" },
+          "cost": { "label": "التكلفة", "placeholder": "0" },
+          "notes": { "label": "ملاحظات", "placeholder": "ملاحظات اختيارية" }
+        }
+      },
+      "equipment_maintenance_none": {
+        "title": "سجل صيانة المعدات",
+        "fields": {
+          "service_type": {
+            "label": "نوع الخدمة",
+            "options": { "scheduled": "مجدولة", "preventive": "وقائية", "emergency": "طارئة" }
+          },
+          "date_performed": { "label": "تاريخ التنفيذ" },
+          "service_description": { "label": "وصف الخدمة", "placeholder": "صف أعمال الصيانة" },
+          "service_performed_by": { "label": "تم التنفيذ بواسطة", "placeholder": "user:<uuid> أو contact:<uuid>" },
+          "parts": { "label": "الأجزاء المستخدمة" },
+          "total_cost": { "label": "إجمالي التكلفة", "placeholder": "0" },
+          "notes": { "label": "ملاحظات", "placeholder": "ملاحظات اختيارية" }
+        }
+      },
+      "animal_feed_water_none": {
+        "title": "سجل العلف والمياه للحيوانات",
+        "fields": {
+          "type": { "label": "النوع", "options": { "Feed": "علف", "Water": "مياه" } },
+          "quantity": { "label": "الكمية", "placeholder": "1" },
+          "unit": { "label": "الوحدة", "options": { "kg": "kg", "L": "L" } },
+          "expense": { "label": "المصروف", "placeholder": "0" },
+          "feed_type": { "label": "نوع العلف", "placeholder": "علف بادئ" },
+          "attach_to_finance": { "label": "ربط بالمالية" },
+          "notes": { "label": "ملاحظات", "placeholder": "ملاحظات اختيارية" }
+        }
+      },
+      "animal_house_maintenance_none": {
+        "title": "سجل صيانة مساكن الحيوانات",
+        "fields": {
+          "date_performed": { "label": "التاريخ" },
+          "service_type": { "label": "نوع الخدمة", "placeholder": "تنظيف" },
+          "service_description": { "label": "الوصف", "placeholder": "صف العمل المنفذ" },
+          "total_cost": { "label": "إجمالي التكلفة", "placeholder": "0" },
+          "products_used": { "label": "المنتجات المستخدمة" },
+          "notes": { "label": "ملاحظات", "placeholder": "ملاحظات اختيارية" }
+        }
+      },
+      "animal_yield_none": {
+        "title": "سجل إنتاج الحيوانات",
+        "fields": {
+          "date": { "label": "التاريخ" },
+          "status": { "label": "الحالة", "placeholder": "مسودة" },
+          "line_items": { "label": "عناصر السطور المستخدمة" },
+          "notes": { "label": "ملاحظات", "placeholder": "ملاحظات اختيارية" }
+        }
+      },
+      "lot_maintenance_none": {
+        "title": "سجل صيانة القطعة",
+        "fields": {
+          "cost": { "label": "التكلفة", "placeholder": "0" },
+          "quantity": { "label": "الكمية", "placeholder": "0" },
+          "unit": {
+            "label": "الوحدة",
+            "options": { "ha": "ha", "acre": "acre", "m2": "m2" }
+          },
+          "inputs": { "label": "المنتجات المستخدمة" },
+          "notes": { "label": "ملاحظات", "placeholder": "ملاحظات اختيارية" }
+        }
+      }
+    }
+  }
+}

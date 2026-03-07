@@ -26,7 +26,6 @@ import {
   HeaderMenuButton,
   ListRow,
   LogRow,
-  NotificationHeaderButton,
   PillTabs,
   ProfileCard,
   PullToRefreshContainer,
@@ -35,10 +34,12 @@ import {
   SectionHeader,
   Skeleton,
   StatStrip,
+  SystemHeaderActions,
   UnderlineTabs,
   useFormValidation,
   useToast,
 } from '../../../components';
+import { useAppI18n } from '../../../hooks/useAppI18n';
 import type { DotBadgeVariant, ListRowIconVariant, QuickAction } from '../../../components';
 import { palette } from '../../../theme/tokens';
 import {
@@ -154,6 +155,7 @@ function toUsageAmountLabel(trackUsage: string | null | undefined): string {
 /* ─── Component ─── */
 
 export function EquipmentScreen() {
+  const { t } = useAppI18n();
   const { showToast } = useToast();
   const equipmentFormScrollRef = useRef<ScrollView | null>(null);
   const equipmentFormValidation = useFormValidation<'name'>(equipmentFormScrollRef);
@@ -887,17 +889,18 @@ export function EquipmentScreen() {
         <View style={styles.headerTop}>
           <View style={styles.headerLead}>
             <HeaderMenuButton testID="equipment-header-menu" />
-            <Text style={styles.headerTitle}>Equipment</Text>
+            <Text style={styles.headerTitle}>
+              {t('sidebar', 'items.equipment', 'Equipment')}
+            </Text>
           </View>
-          <View style={styles.headerBtns}>
-            <NotificationHeaderButton testID="equipment-header-notifications" />
+          <SystemHeaderActions notificationTestID="equipment-header-notifications">
             <HeaderIconButton
               icon="alert-circle-outline"
               onPress={() => setMaintenanceAlertsVisible(true)}
               badgeDot={overdueCount > 0}
             />
             <HeaderIconButton icon="plus" onPress={openCreateEquipmentForm} filled />
-          </View>
+          </SystemHeaderActions>
         </View>
         <SearchBar
           value={searchValue}

@@ -1,0 +1,295 @@
+{
+  "users": {
+    "title": "Gestión de Usuarios y Roles",
+    "description": "Crea roles personalizados con permisos y administra usuarios a través de incorporación segura basada en invitaciones",
+    
+    "tabs": {
+      "users": "Usuarios",
+      "roles": "Roles", 
+      "pendingInvites": "Invitaciones Pendientes"
+    },
+
+    "usersTab": {
+      "title": "👤 Administración de Usuarios",
+      "searchPlaceholder": "Buscar por nombre, correo o móvil...",
+      "filterByRole": "Filtrar por rol",
+      "filterByStatus": "Filtrar por estado",
+      "allRoles": "Todos los Roles",
+      "allStatus": "Todos los Estados",
+      "createNewUser": "Crear Nuevo Usuario",
+      "noUsersFound": "No se encontraron usuarios",
+      "loadingUsers": "Cargando usuarios...",
+      "showingUsers": "Mostrando {{from}}-{{to}} de {{total}} usuarios"
+    },
+
+    "userCard": {
+      "joinedOn": "Se unió el {{date}}",
+      "viewUser": "Ver",
+      "editUser": "Editar", 
+      "deactivateUser": "Desactivar",
+      "activateUser": "Activar",
+      "emailLabel": "Correo",
+      "phoneLabel": "Móvil"
+    },
+
+    "stats": {
+      "totalUsers": "Total de Usuarios",
+      "activeUsers": "Usuarios Activos", 
+      "pendingUsers": "Usuarios Pendientes",
+      "inactiveUsers": "Usuarios Inactivos"
+    },
+
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "pending": "Pendiente",
+      "invited": "Invitado",
+      "suspended": "Suspendido"
+    },
+
+    "roles": {
+      "admin": "Administrador",
+      "manager": "Gerente", 
+      "staff": "Personal",
+      "viewer": "Visualizador"
+    },
+
+    "rolesTab": {
+      "title": "🔐 Administración de Roles",
+      "createNewRole": "Crear Nuevo Rol",
+      "editRole": "Editar",
+      "deleteRole": "Eliminar",
+      "noRolesFound": "No se encontraron roles",
+      "loadingRoles": "Cargando roles...",
+      "permissions": "Permisos",
+      "globalAccess": "Acceso global a todos los campos",
+      "limitedAccess": "Limitado a {{count}} campo(s) específico(s)",
+      "permissionView": "Ver",
+      "permissionAdd": "Agregar", 
+      "permissionEdit": "Editar",
+      "permissionDelete": "Eliminar"
+    },
+
+    "pendingInvitesTab": {
+      "title": "📧 Invitaciones Pendientes",
+      "noPendingInvites": "No hay invitaciones pendientes",
+      "loadingInvites": "Cargando invitaciones...",
+      "expireDate": "Vence el: {{date}}",
+      "resendInvite": "Reenviar",
+      "revokeInvite": "Revocar",
+      "deleteInvite": "Eliminar Invitación"
+    },
+
+    "createUserDialog": {
+      "title": "Crear Nuevo Usuario",
+      "fullName": "Nombre Completo",
+      "fullNamePlaceholder": "Ingrese el nombre completo",
+      "nickName": "Apodo",
+      "nickNamePlaceholder": "Nombre amigable o corto",
+      "emailAddress": "Dirección de Correo",
+      "emailPlaceholder": "Ingrese la dirección de correo",
+      "emailHelper": "Utilizado como ID principal de inicio de sesión. Debe ser único.",
+      "mobileNumber": "Número de Móvil", 
+      "mobilePlaceholder": "Ingrese el número de móvil",
+      "userRole": "Rol de Usuario",
+      "userRolePlaceholder": "Seleccione un rol",
+      "status": "Estado",
+      "attachments": "Archivos Adjuntos",
+      "inviteFlowTitle": "📧 Creación de Usuario y Flujo de Invitación",
+      "inviteFlowItems": [
+        "Se enviará un correo de invitación seguro a la dirección del usuario",
+        "El correo contiene un enlace con tiempo limitado (vence en 24 horas)", 
+        "El usuario hace clic en el enlace para establecer su contraseña y obtener acceso",
+        "No se requiere contraseña por parte del administrador"
+      ],
+      "createUserButton": "Crear Usuario y Enviar Invitación",
+      "sendingInvite": "Enviando Invitación...",
+      "cancel": "Cancelar"
+    },
+
+    "editUserDialog": {
+      "title": "Editar Usuario",
+      "fullName": "Nombre Completo",
+      "fullNamePlaceholder": "Ingrese el nombre completo",
+      "nickName": "Apodo", 
+      "nickNamePlaceholder": "Nombre amigable o corto",
+      "emailAddress": "Dirección de Correo",
+      "emailPlaceholder": "Ingrese la dirección de correo",
+      "emailHelper": "El correo no se puede cambiar después de la creación de la cuenta.",
+      "mobileNumber": "Número de Móvil",
+      "mobilePlaceholder": "Ingrese el número de móvil", 
+      "userRole": "Rol de Usuario",
+      "userRolePlaceholder": "Seleccione un rol",
+      "status": "Estado",
+      "attachments": "Archivos Adjuntos",
+      "updateUserButton": "Actualizar Usuario",
+      "updating": "Actualizando...",
+      "cancel": "Cancelar"
+    },
+
+    "userProfileDialog": {
+      "title": "Perfil de Usuario", 
+      "contactInformation": "Información de Contacto",
+      "accountDetails": "Detalles de la Cuenta",
+      "userId": "ID de Usuario",
+      "lastUpdated": "Última Actualización",
+      "attachments": "Archivos Adjuntos",
+      "close": "Cerrar",
+      "joinedOn": "Se unió el {{date}}"
+    },
+
+    "roleDialog": {
+      "createTitle": "Crear Nuevo Rol",
+      "editTitle": "Editar Rol", 
+      "roleName": "Nombre del Rol",
+      "roleNamePlaceholder": "ej., Supervisor de Campo, Gerente Financiero",
+      "permissionsMatrix": "Matriz de Permisos",
+      "module": "Módulo",
+      "add": "Agregar",
+      "edit": "Editar", 
+      "delete": "Eliminar",
+      "view": "Ver",
+      "exportImport": "Exportar/Importar",
+      "useFilters": "Usar Filtros",
+      "selectAll": "Seleccionar Todo",
+      "createRole": "Crear Rol",
+      "updateRole": "Actualizar Rol",
+      "saving": "Guardando...",
+      "cancel": "Cancelar"
+    },
+
+    "uploader": {
+      "clickToUpload": "Haga clic para subir",
+      "dragAndDrop": "o arrastre y suelte",
+      "acceptedTypes": "PDF, DOC, DOCX, PNG, JPG",
+      "maxSize": "Tamaño máximo {{size}} MB",
+      "uploadedFiles": "Archivos Subidos",
+      "removeFile": "Remover archivo"
+    },
+
+    "deactivateDialog": {
+      "title": "Desactivar Usuario",
+      "description": "¿Está seguro que desea desactivar a {{name}}? Ya no podrán acceder al sistema.",
+      "cancel": "Cancelar",
+      "deactivate": "Desactivar"
+    },
+
+    "deleteInviteDialog": {
+      "title": "Eliminar Invitación", 
+      "description": "¿Está seguro que desea eliminar esta invitación? Esta acción no se puede deshacer.",
+      "cancel": "Cancelar",
+      "delete": "Eliminar"
+    },
+
+    "deleteRoleDialog": {
+      "title": "Eliminar Rol",
+      "description": "¿Está seguro que desea eliminar este rol?",
+      "cancel": "Cancelar",
+      "delete": "Eliminar"
+    },
+
+    "validation": {
+      "required": "Este campo es requerido",
+      "invalidEmail": "Por favor ingrese una dirección de correo válida", 
+      "invalidPhone": "Por favor ingrese un número de teléfono válido",
+      "emailInUse": "Esta dirección de correo ya está en uso",
+      "fillRequiredFields": "Por favor complete todos los campos requeridos",
+      "fileTooLarge": "El tamaño del archivo excede el límite de {{size}} MB",
+      "unsupportedFileType": "Tipo de archivo no soportado",
+      "uploadFailed": "Error al subir el archivo"
+    },
+
+    "toasts": {
+      "userCreated": "¡Usuario creado exitosamente!",
+      "userCreationFailed": "Error al crear el usuario. Por favor intente nuevamente.",
+      "inviteSent": "¡Invitación enviada a {{email}}!",
+      "inviteSendFailed": "Error al enviar la invitación",
+      "userUpdated": "¡Usuario actualizado exitosamente!",
+      "userUpdateFailed": "Error al actualizar el usuario",
+      "userActivated": "¡Usuario activado exitosamente!",
+      "userDeactivated": "¡Usuario desactivado exitosamente!",
+      "userStatusUpdateFailed": "Error al actualizar el estado del usuario",
+      "roleCreated": "¡Rol creado exitosamente!",
+      "roleUpdated": "¡Rol actualizado exitosamente!",
+      "roleSaved": "¡Rol guardado exitosamente!",
+      "roleDeleted": "¡Rol eliminado exitosamente!",
+      "roleDeleteFailed": "Error al eliminar el rol",
+      "inviteResent": "¡Invitación reenviada exitosamente!",
+      "inviteResendFailed": "Error al reenviar la invitación", 
+      "inviteDeleted": "¡Invitación eliminada exitosamente!",
+      "inviteDeleteFailed": "Error al eliminar la invitación",
+      "filesUploaded": "{{count}} archivo(s) subido(s) exitosamente",
+      "fileUploadFailed": "Error al subir los archivos"
+    },
+
+    "emptyStates": {
+      "noUsers": "No se encontraron usuarios",
+      "noRoles": "No se encontraron roles",
+      "noInvites": "No hay invitaciones pendientes",
+      "loadingUsers": "Cargando usuarios...",
+      "loadingRoles": "Cargando roles...",
+      "loadingInvites": "Cargando invitaciones...",
+      "errorLoadingUsers": "No se pudieron cargar los usuarios. Reintentar",
+      "errorLoadingRoles": "No se pudieron cargar los roles. Reintentar",
+      "errorLoadingInvites": "No se pudieron cargar las invitaciones. Reintentar"
+    },
+
+    "pagination": {
+      "showing": "Mostrando {{from}}-{{to}} de {{total}}",
+      "noResults": "Sin resultados",
+      "loading": "Cargando..."
+    },
+
+    "modules": {
+      "Dashboard": "Panel de Control",
+      "Reports": "Reportes",
+      "Fields": "Campos",
+      "Lots": "Lotes",
+      "Equipment": "Equipos",
+      "Tasks": "Tareas",
+      "Finance": "Finanzas",
+      "Weather": "Clima",
+      "Crop Planning": "Planificación de Cultivos",
+      "Production Cycles": "Ciclos de Producción",
+      "Store Dashboard": "Panel de Tienda",
+      "Orders": "Pedidos",
+      "Order List": "Lista de Pedidos",
+      "Storefront": "Escaparate",
+      "Products": "Productos",
+      "Categories": "Categorías",
+      "Taxes": "Impuestos",
+      "Warehouses": "Bodegas",
+      "Stock Adjustment": "Ajuste de Inventario",
+      "Stock Count": "Conteo de Inventario",
+      "Animal Housing Unit": "Unidad de Alojamiento de Animales",
+      "Animal Profile": "Perfil de Animal",
+      "Users": "Usuarios",
+      "Contacts": "Contactos",
+      "Farm Settings": "Configuración de la Finca"
+    },
+
+    "adminPanel": {
+      "title": "Administración de Usuarios",
+      "description": "Administre todos los usuarios y sus permisos",
+      "searchUsers": "Buscar usuarios...",
+      "filterByType": "Filtrar por tipo",
+      "filterByStatus": "Filtrar por estado", 
+      "allTypes": "Todos los Tipos",
+      "regularUsers": "Usuarios Regulares",
+      "superAdmins": "Súper Administradores",
+      "allStatus": "Todos los Estados",
+      "user": "Usuario",
+      "type": "Tipo",
+      "status": "Estado",
+      "farm": "Finca",
+      "joined": "Se Unió",
+      "actions": "Acciones",
+      "regularUser": "Usuario Regular",
+      "superAdmin": "Súper Administrador", 
+      "noFarmAssigned": "Sin finca asignada",
+      "editUserRole": "Editar Rol de Usuario",
+      "selectRole": "Seleccionar rol",
+      "save": "Guardar"
+    }
+  }
+}

@@ -1,0 +1,295 @@
+{
+  "feedWater": {
+    "title": "العلف والماء",
+    "subtitle": "إدارة جداول التغذية وإمدادات المياه لـ {{housingUnitName}}",
+    "actions": {
+      "edit": "تعديل",
+      "addRecord": "إضافة سجل",
+      "logFeedWater": "تسجيل العلف/الماء",
+      "cancel": "إلغاء",
+      "saveRecord": "حفظ السجل"
+    },
+    "cards": {
+      "feed": {
+        "title": "إدارة العلف"
+      },
+      "water": {
+        "title": "إدارة المياه"
+      },
+      "details": {
+        "title": "تفاصيل الإدارة"
+      }
+    },
+    "form": {
+      "serviceType": {
+        "label": "نوع الخدمة",
+        "placeholder": "اختر نوع الخدمة",
+        "options": {
+          "dailyRoutine": "روتين يومي",
+          "waterMaintenance": "صيانة المياه",
+          "feedInspection": "تفقد العلف",
+          "equipmentCleaning": "تنظيف المعدات",
+          "healthMonitoring": "مراقبة الصحة",
+          "emergency": "طوارئ"
+        }
+      },
+      "performedBy": {
+        "label": "تم بواسطة",
+        "placeholder": "اختر شخصًا",
+        "none": "غير مخصص"
+      },
+      "feedingSchedule": {
+        "label": "جدول التغذية",
+        "placeholder": "اختر الجدول",
+        "options": {
+          "onceDaily": "مرة يوميًا - 8 صباحًا",
+          "twiceDaily": "مرتين يوميًا - 6 صباحًا و6 مساءً",
+          "threeTimesDaily": "ثلاث مرات يوميًا - 6 صباحًا، 12 ظهرًا و6 مساءً",
+          "fourTimesDaily": "أربع مرات يوميًا - 6 صباحًا، 12 ظهرًا، 4 مساءً و8 مساءً",
+          "continuous": "مستمر (بحرية)",
+          "custom": "جدول مخصص"
+        }
+      },
+      "waterSource": {
+        "label": "مصدر الماء",
+        "placeholder": "اختر مصدر الماء",
+        "options": {
+          "municipal": "إمداد مياه بلدي",
+          "well": "مياه بئر",
+          "filtered": "نظام مياه مُفلتر",
+          "automatic": "مشربات تلقائية",
+          "manual": "إمداد مياه يدوي",
+          "rainwater": "جمع مياه الأمطار"
+        }
+      },
+      "feedType": {
+        "label": "نوع العلف",
+        "placeholder": "اختر نوع العلف",
+        "options": {
+          "premium": "حبيبات ممتازة",
+          "standard": "خليط علف قياسي",
+          "organic": "علف عضوي",
+          "grainMix": "خليط حبوب",
+          "haySilage": "تبن وسيلاج",
+          "custom": "خليط مخصص"
+        }
+      },
+      "dailyFeedAmount": {
+        "label": "كمية العلف اليومية (كجم)",
+        "placeholder": "أدخل كمية العلف اليومية"
+      },
+      "waterConsumption": {
+        "label": "استهلاك الماء (لتر)",
+        "placeholder": "أدخل استهلاك الماء اليومي"
+      },
+      "feedingNotes": {
+        "label": "ملاحظات التغذية",
+        "placeholder": "أضف أي ملاحظات أو ملاحظات إضافية"
+      }
+    },
+    "validation": {
+      "serviceTypeRequired": "نوع الخدمة مطلوب"
+    },
+    "options": {
+      "serviceTypes": {
+        "feeding": "تغذية",
+        "watering": "سقي",
+        "both": "تغذية وماء"
+      },
+      "feedingSchedules": {
+        "morning": "صباح",
+        "afternoon": "بعد الظهر",
+        "evening": "مساء",
+        "twiceDaily": "مرتين يوميًا",
+        "continuous": "مستمر"
+      },
+      "feedTypes": {
+        "hay": "تبن",
+        "grain": "حبوب",
+        "pellets": "حبيبات",
+        "silage": "سيلاج",
+        "mixed": "علف مخلوط",
+        "other": "أخرى"
+      },
+      "waterSources": {
+        "well": "بئر",
+        "municipal": "بلدي",
+        "river": "نهر/جدول",
+        "pond": "بركة",
+        "rainwater": "مياه الأمطار",
+        "other": "أخرى"
+      }
+    },
+    "labels": {
+      "unknownUser": "مستخدم غير معروف",
+      "unknownContact": "جهة اتصال غير معروفة"
+    },
+    "permissions": {
+      "noView": "ليس لديك صلاحية لعرض سجلات العلف والماء"
+    },
+    "header": {
+      "subtitle": "تتبع الاستهلاك والتكاليف لـ {{housingUnitName}}"
+    },
+    "dateRange": {
+      "today": "اليوم",
+      "last7Days": "آخر 7 أيام",
+      "last30Days": "آخر 30 يومًا",
+      "custom": "مخصص",
+      "startDate": "تاريخ البداية",
+      "endDate": "تاريخ النهاية"
+    },
+    "summary": {
+      "feedCost": "تكلفة العلف",
+      "waterCost": "تكلفة المياه",
+      "totalForRange": "الإجمالي للنطاق المحدد",
+      "avgCostPerAnimalDay": "متوسط التكلفة / حيوان / يوم",
+      "avgCostHelp": "(تكلفة العلف + تكلفة المياه) ÷ متوسط العدد ÷ عدد الأيام في النطاق",
+      "noAnimalsPeriod": "لا توجد حيوانات مسجلة خلال هذه الفترة.",
+      "usingCurrentHeadcount": "استخدام العدد الحالي كتقدير.",
+      "noAnimalsRecorded": "لا توجد حيوانات مسجلة",
+      "basedOnAnimals": "بناءً على {{count}} حيوان",
+      "consumptionTrend": "اتجاه الاستهلاك",
+      "feedLabel": "العلف:",
+      "waterLabel": "الماء:",
+      "vsPreviousPeriod": "مقارنة بالفترة السابقة"
+    },
+    "logs": {
+      "title": "سجلات الاستهلاك",
+      "description": "عرض وإدارة سجلات استهلاك العلف والماء للنطاق المحدد"
+    },
+    "status": {
+      "active": "نشط",
+      "draft": "مسودة",
+      "completed": "مكتمل",
+      "cancelled": "ملغى",
+      "pending": "قيد الانتظار"
+    },
+    "logsTable": {
+      "unknownUser": "غير معروف",
+      "exportSuccess": "تم تصدير السجلات إلى CSV",
+      "filters": {
+        "type": "النوع:",
+        "hasExpense": "به تكلفة:"
+      },
+      "actions": {
+        "exportCsv": "تصدير CSV"
+      },
+      "summary": {
+        "title": "الإجماليات",
+        "feedQty": "العلف: {{quantity}} كجم",
+        "waterQty": "الماء: {{quantity}} لتر",
+        "feedCost": "العلف: ${{amount}}",
+        "waterCost": "الماء: ${{amount}}"
+      },
+      "empty": "لم يتم العثور على سجلات",
+      "labels": {
+        "expense": "التكلفة:",
+        "feedType": "العلف:",
+        "loggedBy": "تم التسجيل بواسطة {{name}}"
+      },
+      "headers": {
+        "date": "التاريخ",
+        "type": "النوع",
+        "quantity": "الكمية (كجم/لتر)",
+        "expense": "التكلفة",
+        "feedType": "نوع العلف",
+        "notes": "ملاحظات",
+        "loggedBy": "تم التسجيل بواسطة"
+      },
+      "delete": {
+        "title": "حذف سجل الاستهلاك",
+        "description": "هل أنت متأكد من حذف هذا السجل؟ لا يمكن التراجع عن هذا الإجراء.",
+        "financeWarning": "سيتم أيضًا حذف المعاملة المالية المرتبطة."
+      }
+    },
+    "logForm": {
+      "title": "تسجيل العلف/الماء",
+      "subtitle": "تسجيل الاستهلاك لـ {{housingUnitName}}",
+      "typeOptions": {
+        "feed": "علف",
+        "water": "ماء"
+      },
+      "fields": {
+        "type": {
+          "label": "النوع",
+          "placeholder": "اختر النوع"
+        },
+        "date": {
+          "label": "التاريخ",
+          "placeholder": "اختر تاريخًا"
+        },
+        "quantity": {
+          "label": "الكمية ({{unit}})",
+          "placeholder": "أدخل الكمية بـ {{unit}}"
+        },
+        "expense": {
+          "label": "إجمالي التكلفة (اختياري)",
+          "placeholder": "أدخل مبلغ التكلفة"
+        },
+        "feedType": {
+          "label": "نوع العلف (اختياري)",
+          "placeholder": "مثال: خليط ذرة، تبن",
+          "help": "أدخل نوع العلف المستخدم (غير مرتبط بالمخزون)"
+        },
+        "notes": {
+          "label": "ملاحظات (اختياري)",
+          "placeholder": "أدخل أي ملاحظات إضافية"
+        },
+        "attachToFinance": {
+          "label": "إرفاق بالمالية",
+          "description": "إنشاء سجل 'مصروف تشغيلي: {{type}}' في المالية لهذا السجل"
+        }
+      },
+      "actions": {
+        "save": "حفظ السجل"
+      },
+      "validation": {
+        "typeRequired": "النوع مطلوب",
+        "dateRequired": "التاريخ مطلوب",
+        "quantityMin": "يجب أن تكون الكمية أكبر من 0",
+        "expenseMin": "يجب أن تكون التكلفة 0 أو أكثر",
+        "attachToFinanceExpense": "أضف مبلغ تكلفة لإرفاقه بالمالية"
+      }
+    },
+    "units": {
+      "kg": "كجم",
+      "l": "لتر"
+    },
+    "toasts": {
+      "created": "تم إنشاء سجل {{type}} بنجاح",
+      "createFailed": "فشل إنشاء سجل الاستهلاك",
+      "updated": "تم تحديث سجل {{type}} بنجاح",
+      "updateFailed": "فشل تحديث سجل الاستهلاك",
+      "deleted": "تم حذف سجل الاستهلاك بنجاح",
+      "deleteFailed": "فشل حذف سجل الاستهلاك"
+    },
+    "errors": {
+      "userNotAuthenticated": "المستخدم غير مصادق"
+    },
+    "display": {
+      "serviceType": "نوع الخدمة",
+      "notSet": "غير محدد",
+      "schedule": "الجدول",
+      "feedType": "نوع العلف",
+      "dailyAmount": "الكمية اليومية",
+      "waterSource": "مصدر الماء",
+      "dailyConsumption": "الاستهلاك اليومي",
+      "status": "الحالة",
+      "active": "نشط",
+      "managedBy": "تدار بواسطة",
+      "notAssigned": "غير مخصص",
+      "notes": "ملاحظات"
+    },
+    "records": {
+      "recentTitle": "السجلات الأخيرة",
+      "loading": "جارٍ تحميل السجلات...",
+      "none": "لا توجد سجلات بعد",
+      "more": "+{{count}} سجلات أخرى"
+    },
+    "messages": {
+      "saveSuccess": "تم حفظ سجل العلف والماء بنجاح",
+      "saveError": "فشل حفظ سجل العلف والماء",
+      "fetchError": "فشل جلب سجلات العلف والماء"
+    }
+  }
+}

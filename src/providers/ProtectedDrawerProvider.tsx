@@ -5,6 +5,7 @@ import { ListRow } from '../components/lists/ListRow';
 import { SectionHeader } from '../components/layout/SectionHeader';
 import { DrawerSheet } from '../components/overlays/DrawerSheet';
 import { AppButton } from '../components/primitives/AppButton';
+import { useAppI18n } from '../hooks/useAppI18n';
 import { resolvePermissionKeys } from '../hooks/usePermissionGate';
 import {
   PROTECTED_NAVIGATION_GROUPS,
@@ -36,9 +37,56 @@ function isItemActive(item: ProtectedNavigationItem, pathname: string): boolean 
   return pathname === itemPath || pathname.startsWith(`${itemPath}/`);
 }
 
+function toGroupLabel(
+  groupKey: string,
+  translate: ReturnType<typeof useAppI18n>['t'],
+  fallback: string,
+): string {
+  return translate('system', `navigation.groups.${groupKey}`, fallback);
+}
+
+function toItemLabel(
+  itemKey: ProtectedNavigationItem['key'],
+  translate: ReturnType<typeof useAppI18n>['t'],
+  fallback: string,
+): string {
+  if (itemKey === 'inventory') {
+    return translate('system', 'navigation.items.inventory', fallback);
+  }
+  if (itemKey === 'crops') {
+    return translate('system', 'navigation.items.crops', fallback);
+  }
+  if (itemKey === 'management') {
+    return translate('system', 'navigation.items.management', fallback);
+  }
+  if (itemKey === 'account') {
+    return translate('system', 'navigation.items.account', fallback);
+  }
+
+  const sidebarKey =
+    itemKey === 'dashboard' ||
+    itemKey === 'fields' ||
+    itemKey === 'lots' ||
+    itemKey === 'tasks' ||
+    itemKey === 'equipment' ||
+    itemKey === 'orders' ||
+    itemKey === 'finance' ||
+    itemKey === 'livestock' ||
+    itemKey === 'contacts'
+      ? itemKey
+      : null;
+
+  if (!sidebarKey) {
+    return fallback;
+  }
+
+  return translate('sidebar', `items.${sidebarKey}`, fallback);
+}
+
 export function ProtectedDrawerProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
+  const { t } = useAppI18n();
   const { accessLoading, accessSnapshot, hasMenuAccess, signOut } = useAuth();
   const [visible, setVisible] = useState(false);
 
@@ -76,13 +124,13 @@ export function ProtectedDrawerProvider({ children }: { children: React.ReactNod
       {children}
       <DrawerSheet
         visible={visible}
-        title="Navigate"
+        title={t('system', 'drawer.title', 'Navigate')}
         subtitle={drawerSubtitle}
         onDismiss={() => setVisible(false)}
         testID="protected-navigation-drawer"
         footer={
           <AppButton
-            label="Sign Out"
+            label={t('system', 'drawer.signOut', 'Sign Out')}
             mode="outlined"
             tone="destructive"
             onPress={() => {
@@ -94,7 +142,10 @@ export function ProtectedDrawerProvider({ children }: { children: React.ReactNod
       >
         {groupedItems.map((group) => (
           <React.Fragment key={group.key}>
-            <SectionHeader title={group.label} trailing={`${group.items.length} modules`} />
+            <SectionHeader
+              title={toGroupLabel(group.key, t, group.label)}
+              trailing={String(group.items.length)}
+            />
             {group.items.map((item) => {
               const active = isItemActive(item, pathname);
               return (
@@ -102,7 +153,7 @@ export function ProtectedDrawerProvider({ children }: { children: React.ReactNod
                   key={item.key}
                   icon={item.icon}
                   iconVariant={item.group === 'commerce' ? 'amber' : item.group === 'operations' ? 'green' : 'neutral'}
-                  title={item.label}
+                  title={toItemLabel(item.key, t, item.label)}
                   subtitle={item.drawerSubtitle}
                   badge={active ? <AppBadge value="Now" variant="accent" /> : undefined}
                   accentBorder={active}

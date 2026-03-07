@@ -1,0 +1,303 @@
+{
+  "users": {
+    "title": "User & Role Management",
+    "description": "Create custom roles with permissions and manage users through secure invite-based onboarding",
+    
+    "tabs": {
+      "users": "Users",
+      "roles": "Roles", 
+      "pendingInvites": "Pending Invites"
+    },
+
+    "usersTab": {
+      "title": "👤 Users Management",
+      "searchPlaceholder": "Search by name, email, or mobile...",
+      "filterByRole": "Filter by role",
+      "filterByStatus": "Filter by status",
+      "allRoles": "All Roles",
+      "allStatus": "All Status",
+      "createNewUser": "Create New User",
+      "noUsersFound": "No users found",
+      "loadingUsers": "Loading users...",
+      "showingUsers": "Showing {{from}}-{{to}} of {{total}} users"
+    },
+
+    "userCard": {
+      "joinedOn": "Joined {{date}}",
+      "viewUser": "View",
+      "editUser": "Edit", 
+      "deactivateUser": "Deactivate",
+      "activateUser": "Activate",
+      "emailLabel": "Email",
+      "phoneLabel": "Mobile"
+    },
+
+    "stats": {
+      "totalUsers": "Total Users",
+      "activeUsers": "Active Users", 
+      "pendingUsers": "Pending Users",
+      "inactiveUsers": "Inactive Users"
+    },
+
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "pending": "Pending",
+      "invited": "Invited",
+      "suspended": "Suspended"
+    },
+
+    "roles": {
+      "admin": "Admin",
+      "manager": "Manager", 
+      "staff": "Staff",
+      "viewer": "Viewer"
+    },
+
+    "rolesTab": {
+      "title": "🔐 Role Management",
+      "createNewRole": "Create New Role",
+      "editRole": "Edit",
+      "deleteRole": "Delete",
+      "noRolesFound": "No roles found",
+      "loadingRoles": "Loading roles...",
+      "permissions": "Permissions",
+      "globalAccess": "Global access across all fields",
+      "limitedAccess": "Limited to {{count}} specific field(s)",
+      "permissionView": "View",
+      "permissionAdd": "Add", 
+      "permissionEdit": "Edit",
+      "permissionDelete": "Delete"
+    },
+
+    "pendingInvitesTab": {
+      "title": "📧 Pending Invites",
+      "noPendingInvites": "No pending invites",
+      "loadingInvites": "Loading invites...",
+      "expireDate": "Expires: {{date}}",
+      "resendInvite": "Resend",
+      "revokeInvite": "Revoke",
+      "deleteInvite": "Delete Invite"
+    },
+
+    "createUserDialog": {
+      "title": "Create New User",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Enter full name",
+      "nickName": "Nick Name",
+      "nickNamePlaceholder": "Friendly or short name",
+      "emailAddress": "Email Address",
+      "emailPlaceholder": "Enter email address",
+      "emailHelper": "Used as the primary login ID. Must be unique.",
+      "mobileNumber": "Mobile Number", 
+      "mobilePlaceholder": "Enter mobile number",
+      "userRole": "User Role",
+      "userRolePlaceholder": "Select a role",
+      "status": "Status",
+      "attachments": "Attachments",
+      "inviteFlowTitle": "📧 User Creation & Invite Flow",
+      "inviteFlowItems": [
+        "A secure invite email will be sent to the user's email address",
+        "The email contains a time-limited link (expires in 24 hours)", 
+        "User clicks the link to set their password and gain access",
+        "No password is required from the admin"
+      ],
+      "createUserButton": "Create User & Send Invite",
+      "sendingInvite": "Sending Invite...",
+      "cancel": "Cancel"
+    },
+
+    "editUserDialog": {
+      "title": "Edit User",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Enter full name",
+      "nickName": "Nick Name", 
+      "nickNamePlaceholder": "Friendly or short name",
+      "emailAddress": "Email Address",
+      "emailPlaceholder": "Enter email address",
+      "emailHelper": "Email cannot be changed after account creation.",
+      "mobileNumber": "Mobile Number",
+      "mobilePlaceholder": "Enter mobile number", 
+      "userRole": "User Role",
+      "userRolePlaceholder": "Select a role",
+      "status": "Status",
+      "attachments": "Attachments",
+      "updateUserButton": "Update User",
+      "updating": "Updating...",
+      "cancel": "Cancel"
+    },
+
+    "userProfileDialog": {
+      "title": "User Profile", 
+      "contactInformation": "Contact Information",
+      "accountDetails": "Account Details",
+      "userId": "User ID",
+      "lastUpdated": "Last Updated",
+      "attachments": "Attachments",
+      "close": "Close",
+      "joinedOn": "Joined {{date}}"
+    },
+
+    "roleDialog": {
+      "createTitle": "Create New Role",
+      "editTitle": "Edit Role", 
+      "roleName": "Role Name",
+      "roleNamePlaceholder": "e.g., Field Supervisor, Finance Manager",
+      "permissionsMatrix": "Permissions Matrix",
+      "module": "Module",
+      "add": "Add",
+      "edit": "Edit", 
+      "delete": "Delete",
+      "view": "View",
+      "exportImport": "Export/Import",
+      "useFilters": "Use Filters",
+      "selectAll": "Select All",
+      "createRole": "Create Role",
+      "updateRole": "Update Role",
+      "saving": "Saving...",
+      "cancel": "Cancel"
+    },
+
+    "roleForm": {
+      "warningTitle": "Security Warning",
+      "warningMessage": "You are the only user in this account. Removing Users module permissions will lock you out of user management. You cannot remove permissions that are currently enabled.",
+      "cannotRemovePermissions": "You cannot remove Users module permissions because you are the only user in this account. This would lock you out of user management.",
+      "required": "Required"
+    },
+
+    "uploader": {
+      "clickToUpload": "Click to upload",
+      "dragAndDrop": "or drag and drop",
+      "acceptedTypes": "PDF, DOC, DOCX, PNG, JPG",
+      "maxSize": "Max size {{size}} MB",
+      "uploadedFiles": "Uploaded Files",
+      "removeFile": "Remove file"
+    },
+
+    "deactivateDialog": {
+      "title": "Deactivate User",
+      "description": "Are you sure you want to deactivate {{name}}? They will no longer be able to access the system.",
+      "cancel": "Cancel",
+      "deactivate": "Deactivate"
+    },
+
+    "deleteInviteDialog": {
+      "title": "Delete Invite", 
+      "description": "Are you sure you want to delete this invite? This action cannot be undone.",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+
+    "deleteRoleDialog": {
+      "title": "Delete Role",
+      "description": "Are you sure you want to delete this role?",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+
+    "validation": {
+      "required": "This field is required",
+      "invalidEmail": "Please enter a valid email address", 
+      "invalidPhone": "Please enter a valid phone number",
+      "emailInUse": "This email address is already in use",
+      "fillRequiredFields": "Please fill in all required fields",
+      "fileTooLarge": "File size exceeds {{size}} MB limit",
+      "unsupportedFileType": "Unsupported file type",
+      "uploadFailed": "Failed to upload file"
+    },
+
+    "toasts": {
+      "userCreated": "User created successfully!",
+      "userCreationFailed": "Failed to create user. Please try again.",
+      "inviteSent": "Invite sent to {{email}}!",
+      "inviteSendFailed": "Failed to send invite",
+      "userUpdated": "User updated successfully!",
+      "userUpdateFailed": "Failed to update user",
+      "userActivated": "User activated successfully!",
+      "userDeactivated": "User deactivated successfully!",
+      "userStatusUpdateFailed": "Failed to update user status",
+      "roleCreated": "Role created successfully!",
+      "roleUpdated": "Role updated successfully!",
+      "roleSaved": "Role saved successfully!",
+      "roleDeleted": "Role deleted successfully!",
+      "roleDeleteFailed": "Failed to delete role",
+      "inviteResent": "Invite resent successfully!",
+      "inviteResendFailed": "Failed to resend invite", 
+      "inviteDeleted": "Invite deleted successfully!",
+      "inviteDeleteFailed": "Failed to delete invite",
+      "filesUploaded": "{{count}} file(s) uploaded successfully",
+      "fileUploadFailed": "Failed to upload files",
+      "permissionDenied": "You don't have permission to {{action}}"
+    },
+
+    "emptyStates": {
+      "noUsers": "No users found",
+      "noRoles": "No roles found",
+      "noInvites": "No pending invites",
+      "loadingUsers": "Loading users...",
+      "loadingRoles": "Loading roles...",
+      "loadingInvites": "Loading invites...",
+      "errorLoadingUsers": "Couldn't load users. Retry",
+      "errorLoadingRoles": "Couldn't load roles. Retry",
+      "errorLoadingInvites": "Couldn't load invites. Retry"
+    },
+
+    "pagination": {
+      "showing": "Showing {{from}}-{{to}} of {{total}}",
+      "noResults": "No results",
+      "loading": "Loading..."
+    },
+
+    "modules": {
+      "Dashboard": "Dashboard",
+      "Reports": "Reports",
+      "Fields": "Fields",
+      "Lots": "Lots",
+      "Equipment": "Equipment",
+      "Tasks": "Tasks",
+      "Finance": "Finance",
+      "Weather": "Weather",
+      "Crop Planning": "Crop Planning",
+      "Production Cycles": "Production Cycles",
+      "Store Dashboard": "Store Dashboard",
+      "Orders": "Orders",
+      "Order List": "Order List",
+      "Storefront": "Storefront",
+      "Products": "Products",
+      "Categories": "Categories",
+      "Taxes": "Taxes",
+      "Warehouses": "Warehouses",
+      "Stock Adjustment": "Stock Adjustment",
+      "Stock Count": "Stock Count",
+      "Animal Housing Unit": "Animal Housing Unit",
+      "Animal Profile": "Animal Profile",
+      "Users": "Users",
+      "Contacts": "Contacts",
+      "Farm Settings": "Farm Settings"
+    },
+
+    "adminPanel": {
+      "title": "User Management",
+      "description": "Manage all users and their permissions",
+      "searchUsers": "Search users...",
+      "filterByType": "Filter by type",
+      "filterByStatus": "Filter by status", 
+      "allTypes": "All Types",
+      "regularUsers": "Regular Users",
+      "superAdmins": "Super Admins",
+      "allStatus": "All Status",
+      "user": "User",
+      "type": "Type",
+      "status": "Status",
+      "farm": "Farm",
+      "joined": "Joined",
+      "actions": "Actions",
+      "regularUser": "Regular User",
+      "superAdmin": "Super Admin", 
+      "noFarmAssigned": "No farm assigned",
+      "editUserRole": "Edit User Role",
+      "selectRole": "Select role",
+      "save": "Save"
+    }
+  }
+}

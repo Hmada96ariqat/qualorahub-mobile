@@ -1,0 +1,506 @@
+{
+  "fields": {
+    "title": "الحقول والقطع",
+    "subtitle": "إدارة حقول المزرعة والقطع",
+    "offlineMode": "وضع عدم الاتصال",
+    "dataPendingSync": "بيانات بانتظار المزامنة",
+
+    "tabs": {
+      "fields": "الحقول",
+      "fieldFarm": "حقل (المزرعة)",
+      "lots": "القطع"
+    },
+
+    "filters": {
+      "title": "بحث",
+      "allStatuses": "جميع الحالات"
+    },
+
+    "toolbar": {
+      "searchPlaceholder": "ابحث عن الحقول...",
+      "viewDeactivated": "عرض المعطلة",
+      "addField": "إضافة حقل",
+      "export": "تصدير"
+    },
+
+    "cards": {
+      "area": "المساحة",
+      "location": "الموقع",
+      "created": "تاريخ الإنشاء",
+      "soil": "التربة",
+      "irrigation": "الري",
+      "hectares": "هكتار",
+      "cycle": "الدورة",
+      "activeCycle": "الدورة النشطة",
+      "noActiveCycle": "لا توجد دورة إنتاج نشطة",
+      "details": "نظرة عامة على الحقل",
+      "lotOverview": "نظرة عامة على القطعة",
+      "startDate": "تاريخ البدء",
+      "daysIn_one": "{{count}} يوم",
+      "daysIn_other": "{{count}} أيام"
+    },
+
+    "table": {
+      "name": "الاسم",
+      "area": "المساحة",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "archived": "مؤرشف",
+      "deactivated": "مُعطّل",
+      "fallow": "بور",
+      "maintenance": "صيانة"
+    },
+
+    "actions": {
+      "edit": "تعديل",
+      "view": "عرض",
+      "deactivate": "تعطيل",
+      "reactivate": "إعادة تفعيل",
+      "archive": "أرشفة"
+    },
+
+    "view": {
+      "noFieldBoundary": "حدود الحقل غير متاحة لهذه القطعة.",
+      "noLotBoundary": "لم يتم رسم حدود لهذه القطعة."
+    },
+
+    "empty": {
+      "noFields": "لم يتم العثور على حقول",
+      "noFieldsDescription": "أنشئ أول حقل لبدء إدارة مناطق مزرعتك",
+      "createFirstField": "إنشاء أول حقل",
+      "noMatchingFields": "لا توجد حقول تطابق البحث",
+      "noMatchingFieldsDescription": "جرّب تعديل مصطلح البحث أو امسح البحث",
+      "clearSearch": "مسح البحث"
+    },
+
+    "loading": {
+      "loadingFields": "جارٍ تحميل الحقول...",
+      "processing": "جارٍ المعالجة..."
+    },
+
+    "error": {
+      "failedToLoad": "فشل تحميل الحقول",
+      "failedToDeactivate": "فشل تعطيل الحقل. يرجى المحاولة مرة أخرى.",
+      "failedToReactivate": "فشل إعادة تفعيل الحقل",
+      "authenticationError": "يرجى تسجيل الدخول لحفظ بيانات الحقل"
+    },
+
+    "success": {
+      "fieldDeactivated": "تم تعطيل الحقل",
+      "fieldDeactivatedDescription": "تم تعطيل {{fieldName}} بنجاح.",
+      "fieldReactivated": "تمت إعادة تفعيل الحقل بنجاح. يمكنك الآن الرجوع لرؤية الحالة المحدّثة.",
+      "fieldCreated": "تم إنشاء حقل (المزرعة) بنجاح",
+      "fieldUpdated": "تم تحديث الحقل بنجاح."
+    },
+
+    "form": {
+      "addFieldTitle": "إضافة حقل (المزرعة)",
+      "addFieldDescription": "أنشئ حقلاً جديداً لتنظيم مناطق مزرعتك",
+      "editFieldTitle": "تعديل حقل (المزرعة)",
+      "editFieldDescription": "تحديث معلومات الحقل",
+
+      "tabs": {
+        "basicInfo": "معلومات أساسية",
+        "details": "تفاصيل",
+        "mapping": "الرسم على الخريطة"
+      },
+
+      "basic": {
+        "fieldNameLabel": "اسم الحقل",
+        "fieldNameRequired": "اسم الحقل مطلوب",
+        "fieldNamePlaceholder": "أدخل اسم الحقل",
+        "locationLabel": "الموقع",
+        "locationPlaceholder": "أدخل الموقع",
+        "areaLabel": "المساحة",
+        "areaRequired": "يجب أن تكون المساحة رقمًا موجبًا",
+        "areaPlaceholder": "0.00",
+        "areaUnitLabel": "وحدة المساحة",
+        "statusLabel": "الحالة",
+        "selectStatus": "اختر الحالة",
+        "selectUnit": "اختر الوحدة"
+      },
+
+      "details": {
+        "soilTypeLabel": "نوع التربة",
+        "soilTypePlaceholder": "اختر نوع التربة",
+        "irrigationTypeLabel": "نوع الري",
+        "irrigationTypePlaceholder": "اختر نوع الري",
+        "soilConditionsLabel": "حالة التربة",
+        "soilConditionsPlaceholder": "صف حالة التربة، الصرف، درجة الحموضة، إلخ.",
+        "notesLabel": "ملاحظات",
+        "notesPlaceholder": "ملاحظات إضافية حول هذا الحقل..."
+      },
+
+      "mapping": {
+        "fieldBoundariesLabel": "حدود الحقل",
+        "fieldBoundariesRequired": "حدود الحقل مطلوبة (ارسم على الخريطة أو أدخل المساحة يدويًا)",
+        "fieldBoundariesDescription": "ارسم حدود الحقل على الخريطة (مطلوب)",
+        "calculatedAreaLabel": "المساحة المحسوبة",
+        "manualAreaEntryLabel": "إدخال المساحة يدويًا",
+        "manualAreaPlaceholder": "أدخل المساحة يدويًا",
+        "drawingModeActive": "وضع الرسم نشط",
+        "drawingModeActiveDescription": "انقر على الخريطة لبدء رسم حدود الحقل. انقر نقرًا مزدوجًا أو انقر على النقطة الأولى لإكمال الرسم.",
+        "startDrawing": "بدء الرسم",
+        "stopDrawing": "إيقاف الرسم",
+        "howToDrawYourField": "كيفية رسم حقلك",
+        "clickPointsToCreateBoundary": "انقر على نقاط على الخريطة لإنشاء حدود",
+        "clickAnywhereToStartDrawing": "انقر في أي مكان لبدء الرسم",
+        "clickMultiplePoints": "انقر على نقاط متعددة على الخريطة",
+        "completeShapeByClickingFirstPoint": "أكمل الشكل بالنقر على النقطة الأولى",
+        "adjustPointsByDragging": "اضبط النقاط بسحبها",
+        "searchAddressPlaceholder": "ابحث عن عنوان (مثال: 123 شارع الرئيسي، الرياض)",
+        "searchAddressPlaceholderLoading": "جارٍ التحميل...",
+        "startTypingToSeeSuggestions": "ابدأ بالكتابة لرؤية الاقتراحات، ثم اختر من القائمة المنسدلة",
+        "loadingMap": "جارٍ تحميل الخريطة..."
+      },
+
+      "buttons": {
+        "cancel": "إلغاء",
+        "createField": "إنشاء حقل",
+        "updateField": "تحديث الحقل",
+        "saveChanges": "حفظ التغييرات",
+        "creating": "جارٍ الإنشاء...",
+        "updating": "جارٍ التحديث...",
+        "saving": "جارٍ الحفظ..."
+      },
+
+      "validation": {
+        "fieldNameRequired": "اسم الحقل مطلوب",
+        "areaMustBePositive": "يجب أن تكون المساحة رقمًا موجبًا",
+        "fieldBoundariesRequired": "حدود الحقل مطلوبة",
+        "duplicateFieldName": "يوجد حقل بهذا الاسم بالفعل. يرجى اختيار اسم مختلف.",
+        "formError": "يرجى تصحيح الحقول المميزة"
+      }
+    },
+
+    "archived": {
+      "title": "الحقول المؤرشفة",
+      "description": "عرض وإدارة الحقول والقطع المعطلة",
+      "backToFields": "العودة إلى الحقول",
+      "back": "رجوع",
+      "searchPlaceholder": "ابحث في الحقول المؤرشفة...",
+      "searchMobilePlaceholder": "ابحث عن الحقول...",
+      "infoTitle": "حول الحقول المؤرشفة",
+      "infoDescription": "هذه الحقول غير نشطة. عند إعادة تفعيل حقل، ستبقى قطعه غير نشطة. ستحتاج إلى إعادة تفعيل القطع يدويًا عند الحاجة.",
+      "noArchivedFields": "لا توجد حقول مؤرشفة",
+      "noArchivedFieldsDescription": "لا يوجد لديك حقول مؤرشفة بعد.",
+      "noMatchingArchived": "لا توجد حقول مؤرشفة تطابق البحث.",
+
+      "table": {
+        "name": "الاسم",
+        "areaHa": "المساحة (هكتار)",
+        "location": "الموقع",
+        "inactiveLots": "قطع غير نشطة",
+        "deactivated": "تم التعطيل",
+        "actions": "الإجراءات"
+      },
+
+      "row": {
+        "notSpecified": "غير محدد",
+        "lot": "قطعة",
+        "lots": "قطع"
+      }
+    },
+
+    "lots": {
+      "addLot": "إضافة قطعة",
+      "title": "القطع",
+      "singularTitle": "قطعة",
+      "searchPlaceholder": "ابحث عن القطع...",
+      "searchLots": "ابحث عن القطع...",
+      "loadingLots": "جارٍ تحميل القطع...",
+      "filterLots": "تصفية القطع",
+      "filterDescription": "تصفية القطع حسب الحالة ومعايير أخرى",
+      "noLotsFound": "لم يتم العثور على قطع",
+      "createFirstLot": "إنشاء أول قطعة",
+      "createFirstLotDescription": "أنشئ أول قطعة لبدء إدارة مناطق مزرعتك",
+      "noMatchingLots": "لا توجد قطع تطابق البحث",
+      "noMatchingDescription": "جرّب تعديل مصطلح البحث أو امسح البحث لعرض جميع القطع",
+      "clearSearch": "مسح البحث",
+      "allLotsFiltered": "تمت تصفية جميع القطع",
+      "allLotsFilteredDescription": "عدد القطع المتاحة {{count}}، لكن لا شيء يطابق الفلاتر الحالية",
+
+      "filters": {
+        "title": "بحث",
+        "allStatuses": "جميع الحالات"
+      },
+
+      "table": {
+        "name": "الاسم",
+        "type": "النوع",
+        "field": "الحقل",
+        "status": "الحالة",
+        "created": "تاريخ الإنشاء",
+        "actions": "الإجراءات",
+        "details": "التفاصيل"
+      },
+
+      "permissions": {
+        "addDenied": "ليس لديك صلاحية إضافة قطع.",
+        "editDenied": "ليس لديك صلاحية تعديل القطع.",
+        "deleteDenied": "ليس لديك صلاحية تعطيل القطع."
+      },
+
+      "status": {
+        "all": "جميع الحالات",
+        "active": "نشط",
+        "inactive": "غير نشط",
+        "preparing": "قيد التجهيز"
+      },
+
+      "success": {
+        "updated": "تم تحديث القطعة بنجاح"
+      },
+
+      "form": {
+        "addTitle": "إضافة قطعة جديدة",
+        "addDescription": "أنشئ قطعة جديدة للحقل",
+        "editTitle": "تعديل القطعة",
+        "editDescription": "تحديث معلومات القطعة",
+        "steps": {
+          "basic": "معلومات أساسية",
+          "boundary": "حدود القطعة",
+          "notes": "ملاحظات"
+        },
+        "boundaryHintTitle": "ارسم حدود القطعة",
+        "boundaryHint": "ارسم القطعة داخل حدود الحقل المظللة.",
+        "areaPercent": "مساحة القطعة هي",
+        "areaPercentOf": "من مساحة الحقل",
+        "boundaryReady": "تم حفظ الحدود",
+        "clearBoundary": "مسح الحدود",
+        "fieldRequiredTitle": "الحقل مطلوب",
+        "fieldRequiredMessage": "اختر حقلاً للمتابعة.",
+        "fieldBoundaries": "حدود الحقل",
+        "acres": "فدان",
+
+        "lotNameLabel": "اسم القطعة",
+        "lotNameRequired": "اسم القطعة مطلوب",
+        "lotNamePlaceholder": "أدخل اسم القطعة",
+
+        "fieldLabel": "الحقل",
+        "fieldRequired": "الحقل مطلوب",
+        "fieldPlaceholder": "اختر حقلاً",
+
+        "lotTypeLabel": "نوع القطعة",
+        "lotTypeRequired": "نوع القطعة مطلوب",
+        "lotTypePlaceholder": "اختر نوع القطعة",
+        "specifyOtherLotType": "تحديد نوع قطعة آخر",
+        "specifyOtherPlaceholder": "حدد نوع قطعة آخر",
+
+        "cropRotationLabel": "خطة تناوب المحاصيل",
+        "cropRotationRequired": "خطة تناوب المحاصيل مطلوبة",
+        "cropRotationPlaceholder": "اختر خطة التناوب",
+        "specifyOtherRotation": "تحديد خطة تناوب أخرى",
+        "specifyRotationPlaceholder": "حدد خطة تناوب أخرى",
+
+        "lightProfileLabel": "ملف الإضاءة",
+        "lightProfileRequired": "ملف الإضاءة مطلوب",
+        "lightProfilePlaceholder": "اختر ملف الإضاءة",
+
+        "weatherAlertsLabel": "تفعيل تنبيهات الطقس",
+
+        "notesLabel": "ملاحظات",
+        "notesPlaceholder": "ملاحظات إضافية حول هذه القطعة",
+
+        "calculatedArea": "المساحة المحسوبة",
+        "drawPolygonInstructions": "ارسم مضلعًا على الخريطة لحساب المساحة تلقائيًا",
+        "manualAreaEntry": "إدخال المساحة يدويًا",
+        "enterAreaAcres": "أدخل المساحة بالفدان",
+        "manualAreaNote": "إذا لم تستطع الرسم على الخريطة، يمكنك إدخال المساحة يدويًا",
+
+        "buttons": {
+          "cancel": "إلغاء",
+          "createLot": "إنشاء قطعة",
+          "updateLot": "تحديث القطعة",
+          "saving": "جارٍ الحفظ..."
+        }
+      },
+
+      "drawing": {
+        "mapFailedToLoad": "فشل تحميل الخريطة",
+        "mapFailedToLoadDescription": "لم يتم تحميل طبقات خرائط غوغل. غالباً بسبب الحصة/الفوترة أو قيود الشبكة.",
+        "outsideBoundary": "خارج الحدود",
+        "outsideBoundaryDescription": "يجب أن تبقى القطعة داخل حدود الحقل.",
+        "lotOverlapsExisting": "القطعة تتقاطع مع قطعة موجودة",
+        "lotOverlapsExistingReverted": "لا يمكن التقاطع مع \"{{lotName}}\". تم الرجوع إلى الحدود السابقة.",
+        "lotMustBeInsideField": "يجب أن تكون القطعة داخل الحقل",
+        "lotMustBeInsideFieldDescription": "ارسم حدود القطعة فقط داخل الحقل المظلّل.",
+        "lotOverlapsExistingDrawInGreen": "هذه الحدود تتقاطع مع \"{{lotName}}\". ارسم فقط في المنطقة الفارغة (الخضراء).",
+        "areaAlreadyOccupied": "المنطقة مستخدمة بالفعل",
+        "areaAlreadyOccupiedDescription": "هذه المنطقة مستخدمة من قِبَل \"{{name}}\". ارسم فقط في المنطقة الفارغة (الخضراء).",
+        "startPointMarkerTitle": "نقطة البداية — انقر قريباً منها لإغلاق المضلع",
+        "instructionClickToStart": "انقر داخل الحقل لبدء رسم حدود القطعة",
+        "instructionPoint1": "انقر لإضافة نقاط أخرى (نقطة واحدة مضافة)",
+        "instructionPoint2": "انقر لإضافة نقاط أخرى (نقطتان مضافتان)",
+        "instructionPointN": "{{count}} نقاط — انقر قرب علامة البداية الخضراء للإغلاق، أو استخدم الزر أدناه",
+        "completeDrawingButton": "إكمال الرسم ({{count}} نقاط)",
+        "mapUnavailable": "الخريطة غير متاحة",
+        "loadingMap": "جارٍ تحميل الخريطة...",
+        "selectFieldWithBoundaries": "اختر حقلاً له حدود لرسم قطعة.",
+        "existingLotName": "قطعة موجودة"
+      },
+
+      "types": {
+        "openLot": "قطعة مفتوحة",
+        "greenhouse": "بيت محمي",
+        "shadeHouse": "بيت مظلل",
+        "tunnelPolytunnel": "نفق/بيت بلاستيكي",
+        "nursery": "مشتل",
+        "growAreaPlantingArea": "منطقة نمو/منطقة زراعة",
+        "orchard": "بستان",
+        "vineyard": "كرم عنب",
+        "livestockBarn": "حظيرة ماشية",
+        "livestockPastureGrazing": "مرعى/رعي للماشية",
+        "storagePadWarehouse": "ساحة تخزين/مستودع",
+        "other": "أخرى"
+      },
+
+      "rotationPlans": {
+        "monoculture": "زراعة أحادية",
+        "twoFieldRotation": "تناوب حقلي ثنائي",
+        "threeFieldRotation": "تناوب حقلي ثلاثي",
+        "fourFieldRotation": "تناوب حقلي رباعي",
+        "coverCropping": "محاصيل تغطية",
+        "fallowPeriods": "فترات بور",
+        "intercropping": "زراعة بينية",
+        "other": "أخرى"
+      },
+
+      "lightProfiles": {
+        "fullSun": "شمس كاملة",
+        "partialSun": "شمس جزئية",
+        "partialShade": "ظل جزئي",
+        "dappledShade": "ظل مرقّط",
+        "fullShade": "ظل كامل",
+        "indoorControlledLight": "إضاءة داخلية مُتحكَّم بها"
+      },
+
+      "confirmations": {
+        "deleteTitle": "تعطيل القطعة",
+        "deleteDescription": "هل أنت متأكد أنك تريد تعطيل \"{{lotName}}\"؟ يمكنك إعادة تفعيلها لاحقًا من القطع المعطلة.",
+        "deleteConfirm": "تعطيل",
+        "deleteCancel": "إلغاء"
+      }
+    },
+
+    "units": {
+      "acres": "فدان",
+      "hectares": "هكتار (Ha)",
+      "manzana": "مانزانة (Mz)",
+      "squareMeters": "متر مربع",
+      "squareFeet": "قدم مربع",
+      "hectare": "هكتار",
+      "acre": "فدان",
+      "ha": "هكتار",
+      "ac": "فدان",
+      "sqm": "م²",
+      "sqft": "قدم²"
+    },
+
+    "irrigation": {
+      "none": "بدون",
+      "drip": "تنقيط",
+      "sprinkler": "رشاشات",
+      "pivot": "محوري",
+      "surface": "سطحي",
+      "subsurface": "تحت سطحي",
+      "rainfed": "بعلي",
+      "reservoir": "خزان",
+      "river": "نهر",
+      "municipal": "شبكة عامة",
+      "rainwater": "مياه أمطار",
+      "flood": "غمر",
+      "centerPivot": "محور مركزي",
+      "other": "أخرى"
+    },
+
+    "soil": {
+      "clay": "طينية",
+      "loam": "طميية",
+      "sand": "رملية",
+      "silt": "غرينية",
+      "peat": "خثية",
+      "chalk": "كلسية",
+      "saline": "ملحية",
+      "sandy": "رملية",
+      "mixed": "مختلطة",
+      "other": "أخرى"
+    },
+
+    "map": {
+      "startDrawing": "بدء الرسم",
+      "clickToDraw": "انقر للرسم",
+      "deleteShape": "حذف الشكل",
+      "fullScreen": "ملء الشاشة",
+      "exitFullScreen": "الخروج من ملء الشاشة",
+      "clickToStart": "انقر للبدء، وانقر مرتين للإنهاء",
+      "dragPoints": "اسحب النقاط للتعديل",
+      "drawingInstructions": "انقر لبدء الرسم، وانقر مرتين لإنهاء الحدود",
+      "adjustInstructions": "اسحب النقاط لتعديل شكل الحدود",
+
+      "unitSelector": "اختيار الوحدة",
+      "calculatedArea": "المساحة المحسوبة",
+      "manualAreaEntry": "إدخال المساحة يدويًا",
+      "enterAreaManually": "أدخل المساحة يدويًا",
+
+      "errors": {
+        "mapFailedToLoad": "فشل تحميل الخريطة",
+        "locationPermissionDenied": "تم رفض إذن الموقع",
+        "drawingError": "حدث خطأ أثناء الرسم",
+        "polygonMustBeClosed": "يجب إغلاق المضلع",
+        "noSelfIntersections": "لا يُسمح بتقاطع الحدود مع نفسها",
+        "minimumThreePoints": "يلزم ثلاث نقاط على الأقل",
+        "mapNotAvailable": "الخريطة غير متاحة",
+        "apiKeyError": "خطأ في مفتاح API للخريطة",
+        "offlineState": "الخريطة غير متاحة في وضع عدم الاتصال"
+      },
+
+      "tools": {
+        "drawing": "أداة الرسم",
+        "selection": "أداة التحديد",
+        "measurement": "أداة القياس",
+        "zoom": "أداة التكبير"
+      },
+
+      "aria": {
+        "editButton": "تعديل حدود الخريطة",
+        "deleteButton": "حذف حدود الخريطة",
+        "viewButton": "عرض على الخريطة",
+        "zoomIn": "تكبير",
+        "zoomOut": "تصغير",
+        "startDrawingButton": "بدء رسم الحدود",
+        "fullscreenButton": "تبديل عرض الخريطة بملء الشاشة"
+      }
+    },
+
+    "validation": {
+      "required": "هذا الحقل مطلوب",
+      "nameRequired": "الاسم مطلوب",
+      "areaRequired": "المساحة مطلوبة",
+      "fieldRequired": "الحقل مطلوب",
+      "boundariesRequired": "الحدود مطلوبة",
+      "mustBePositive": "يجب أن يكون رقمًا موجبًا",
+      "mustBeGreaterThanZero": "يجب أن يكون أكبر من صفر",
+      "maxLength": "الحد الأقصى {{max}} حرفًا",
+      "invalidEmail": "صيغة البريد الإلكتروني غير صحيحة",
+      "invalidNumber": "صيغة الرقم غير صحيحة",
+      "invalidDate": "صيغة التاريخ غير صحيحة",
+      "duplicateName": "هذا الاسم مستخدم بالفعل",
+      "invalidArea": "قيمة المساحة غير صحيحة",
+      "manualAreaRequired": "إدخال المساحة يدويًا مطلوب",
+      "polygonRequired": "حدود المضلع مطلوبة",
+      "minimumArea": "الحد الأدنى للمساحة هو {{min}}",
+      "maximumArea": "الحد الأقصى للمساحة هو {{max}}",
+      "invalidGeometry": "بيانات الهندسة غير صالحة",
+      "unsavedChanges": "لديك تغييرات غير محفوظة",
+      "confirmDiscard": "هل أنت متأكد أنك تريد تجاهل تغييراتك؟",
+      "keepEditing": "متابعة التعديل",
+      "discardChanges": "نعم، تجاهل"
+    }
+  }
+}

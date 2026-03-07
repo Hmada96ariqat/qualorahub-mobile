@@ -1,0 +1,266 @@
+{
+  "stockCount": {
+    "title": "Stock Count",
+    "subtitle": "Perform physical inventory counts and reconcile with system quantities",
+    
+    "newCount": "New Stock Count",
+    "back": "Back",
+    "createStockCount": "Create Stock Count",
+    "editStockCount": "Edit Stock Count",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "viewDetails": "View Details",
+    
+    "viewType": {
+      "table": "Table",
+      "grid": "Grid"
+    },
+    
+    "stats": {
+      "totalCounts": "Total Counts",
+      "totalShortages": "Total Shortages",
+      "totalExcesses": "Total Excesses"
+    },
+    
+    "filters": {
+      "title": "Filters",
+      "warehouse": "Warehouse",
+      "allWarehouses": "All Warehouses",
+      "status": "Status",
+      "allStatuses": "All Statuses",
+      "fromDate": "From Date",
+      "toDate": "To Date",
+      "selectDate": "Select date",
+      "clearFilters": "Clear Filters",
+      "offlineMode": "Offline Mode",
+      "syncOfflineData": "Sync Offline Data"
+    },
+    
+    "status": {
+      "draft": "Draft",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "posted": "Posted",
+      "cancelled": "Cancelled"
+    },
+    
+    "summary": {
+      "allStockCounts": "All Stock Counts",
+      "viewManageAll": "View and manage all your stock count records",
+      "noVariance": "No Variance",
+      "excess": "Excess",
+      "shortage": "Shortage",
+      "stockCountItems": "Stock Count Items",
+      "manageAdjustments": "Review and manage quantity adjustments",
+      "stockCountDetails": "Stock Count Details",
+      "reviewDetails": "Review the complete stock count information",
+      "backToList": "Back to List",
+      "countItemsTitle": "Count Items",
+      "itemsCount": "{{count}} items",
+      "itemsWithDifferences": "{{count}} with differences"
+    },
+    
+    "table": {
+      "reference": "Reference",
+      "warehouse": "Warehouse",
+      "countDate": "Count Date",
+      "status": "Status",
+      "items": "Items",
+      "variances": "Variances",
+      "created": "Created",
+      "actions": "Actions",
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete",
+      "unknown": "Unknown",
+      "info": "Info",
+      "productName": "Product Name",
+      "product": "Product",
+      "batchLot": "Batch/Lot",
+      "systemQty": "System Qty",
+      "countedQty": "Counted Qty",
+      "difference": "Difference",
+      "manufacturingDate": "Manufacturing Date",
+      "expiryDate": "Expiry Date",
+      "expiryDateDays": "Expiry Date",
+      "notes": "Notes",
+      "sku": "SKU",
+      "na": "N/A",
+      "noChange": "No Change",
+      "unknownProduct": "Unknown Product"
+    },
+    
+    "form": {
+      "warehouse": "Warehouse",
+      "selectWarehouse": "Select warehouse",
+      "countReference": "Count Reference",
+      "countReferenceDesc": "e.g., COUNT-2024-001",
+      "description": "Description",
+      "date": "Date",
+      "selectDate": "Select date",
+      "notes": "Notes",
+      "notesPlaceholder": "Add any relevant notes about this stock count",
+      "addProducts": "Add Products",
+      "searchProducts": "Search products by name or SKU...",
+      "createDescription": "Record physical inventory counts and reconcile discrepancies",
+      "updateDescription": "Update your stock count draft and finalize when ready"
+    },
+    
+    "buttons": {
+      "saveAsDraft": "Save as Draft",
+      "submitCount": "Complete Count",
+      "postCount": "Post Count",
+      "reopen": "Reopen",
+      "cancelCount": "Cancel Count"
+    },
+    
+    "messages": {
+      "pendingSync": "pending sync",
+      "processing": "Processing...",
+      "selectWarehouse": "Select Warehouse",
+      "selectWarehouseDesc": "Please select a warehouse first.",
+      "noInventory": "No Inventory",
+      "noInventoryDesc": "This product has no inventory in the selected warehouse.",
+      "productAlreadyAdded": "Product Already Added",
+      "productAlreadyAddedDesc": "This product is already in the count list.",
+      "noItems": "No items to count",
+      "warehouseRequired": "Please select a warehouse",
+      "draftUpdated": "Draft Updated",
+      "draftUpdatedDesc": "Draft stock count updated successfully.",
+      "stockCountCompleted": "Stock Count Completed",
+      "stockCountCompletedDesc": "Stock count completed! {{count}} items with differences updated.",
+      "draftSaved": "Draft Saved",
+      "draftSavedDesc": "Stock count saved as draft. You can continue editing later.",
+      "countedItemsDesc": "Counted {{total}} item(s). {{differences}} with differences updated.",
+      "error": "Error",
+      "errorSaving": "Failed to save stock count. Please try again.",
+      "deleteConfirmTitle": "Delete Stock Count",
+      "deleteConfirmDesc": "Are you sure you want to delete this stock count? This action cannot be undone.",
+      "confirmDelete": "Delete",
+      "discardChangesTitle": "Discard Changes",
+      "discardChangesDesc": "You have unsaved changes. Are you sure you want to discard them?",
+      "discardChanges": "Discard",
+      "keepEditing": "Keep Editing",
+      "postCountTitle": "Post Stock Count",
+      "postCountDesc": "Are you sure you want to post this stock count? This will update inventory quantities and cannot be undone.",
+      "postCount": "Post Count",
+      "reopenCountTitle": "Reopen Stock Count",
+      "reopenCountDesc": "Are you sure you want to reopen this stock count? This will allow editing again.",
+      "reopenCount": "Reopen",
+      "cancelCountTitle": "Cancel Stock Count",
+      "cancelCountDesc": "Are you sure you want to cancel this stock count? This action cannot be undone.",
+      "cancelCount": "Cancel Count",
+      "countDeleted": "Stock count deleted successfully",
+      "countPosted": "Stock count posted successfully",
+      "countReopened": "Stock count reopened successfully",
+      "countCancelled": "Stock count cancelled successfully",
+      "importSuccess": "Products imported successfully",
+      "importFailed": "Failed to import products. Please try again.",
+      "filterApplied": "Filters applied",
+      "filterCleared": "Filters cleared"
+    },
+    
+    "validation": {
+      "warehouseRequired": "Warehouse is required",
+      "countReferenceRequired": "Count reference is required",
+      "dateRequired": "Date is required",
+      "invalidDate": "Please select a valid date",
+      "atLeastOneProduct": "At least one product is required",
+      "quantityRequired": "Quantity is required",
+      "quantityMustBePositive": "Quantity must be a positive number",
+      "quantityTooLarge": "Quantity exceeds maximum allowed",
+      "invalidQuantity": "Please enter a valid quantity",
+      "negativeQuantity": "Quantity cannot be negative",
+      "duplicateProduct": "This product already exists in the list",
+      "permissionDenied": "You don't have permission to perform this action",
+      "networkError": "Network error. Please check your connection and try again.",
+      "serverError": "Server error. Please try again later."
+    },
+    
+    "noStockCountsFound": "No Stock Counts Found",
+    "startFirstStockCount": "Get started by creating your first stock count",
+    "adjustFilters": "Try adjusting your filters to see more results",
+    
+    "accessibility": {
+      "viewToggle": "Toggle view mode",
+      "datePickerIcon": "Open date picker",
+      "addProductIcon": "Add product",
+      "removeProductIcon": "Remove product",
+      "deleteIcon": "Delete stock count",
+      "backIcon": "Go back",
+      "loadingIndicator": "Loading...",
+      "savingIndicator": "Saving...",
+      "postingIndicator": "Posting...",
+      "processingIndicator": "Processing...",
+      "filterIcon": "Filter options",
+      "searchIcon": "Search products",
+      "calendarIcon": "Select date",
+      "warehouseIcon": "Warehouse",
+      "productIcon": "Product",
+      "variancePositive": "Positive variance",
+      "varianceNegative": "Negative variance",
+      "offlineMode": "Offline mode",
+      "onlineMode": "Online mode",
+      "syncData": "Sync offline data"
+    },
+    
+    "tooltips": {
+      "viewDetails": "View stock count details",
+      "editDraft": "Edit draft stock count",
+      "deleteCount": "Delete stock count",
+      "postCount": "Post and finalize stock count",
+      "saveAsDraft": "Save as draft for later",
+      "completeCount": "Complete and update inventory",
+      "clearFilters": "Clear all filters",
+      "syncOffline": "Sync offline changes"
+    },
+    
+    "advanced": {
+      "importFromCSV": "Import from CSV",
+      "exportToCSV": "Export to CSV",
+      "scanBarcode": "Scan Barcode",
+      "bulkActions": "Bulk Actions",
+      "selectAll": "Select All",
+      "deselectAll": "Deselect All",
+      "attachments": "Attachments",
+      "addAttachment": "Add Attachment",
+      "removeAttachment": "Remove Attachment"
+    },
+    
+    "batch": {
+      "batchNumber": "Batch Number",
+      "lotNumber": "Lot Number",
+      "serialNumber": "Serial Number",
+      "location": "Location",
+      "selectBatch": "Select Batch",
+      "noBatchesAvailable": "No batches available"
+    },
+    
+    "units": {
+      "uom": "UOM",
+      "unit": "Unit",
+      "pieces": "Pieces",
+      "kg": "kg",
+      "lbs": "lbs",
+      "liters": "L",
+      "gallons": "gal"
+    },
+    
+    "empty": {
+      "title": "No Products Added",
+      "description": "Start adding products to perform a stock count",
+      "action": "Add First Product"
+    },
+    
+    "badges": {
+      "draft": "Draft",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "posted": "Posted",
+      "cancelled": "Cancelled",
+      "offline": "Offline",
+      "synced": "Synced"
+    }
+  }
+}

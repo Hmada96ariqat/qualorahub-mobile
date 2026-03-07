@@ -1,0 +1,50 @@
+{
+  "sidebar": {
+    "brand": {
+      "title": "مدير المزرعة",
+      "subtitle": "منظومة الزراعة"
+    },
+    "search": {
+      "placeholder": "بحث..."
+    },
+    "loading": "جارٍ التحميل...",
+    "groups": {
+      "farm_operations": "عمليات المزرعة",
+      "planting": "الزراعة",
+      "store": "المتجر",
+      "inventory": "المخزون",
+      "livestock_management": "إدارة الثروة الحيوانية",
+      "management": "الإدارة"
+    },
+    "items": {
+      "dashboard": "لوحة التحكم",
+      "fields_and_lots": "الحقول والقطع",
+      "fields": "الحقول",
+      "lots": "القطع",
+      "equipment": "المعدات",
+      "tasks": "المهام",
+      "finance": "المالية",
+      "weather": "الطقس",
+      "reports": "التقارير",
+      "crop_planning": "تخطيط المحاصيل",
+      "production_cycles": "دورات الإنتاج",
+      "store_dashboard": "لوحة المتجر",
+      "order_list": "قائمة الطلبات",
+      "orders": "الطلبات",
+      "storefront": "واجهة المتجر",
+      "products": "المنتجات",
+      "categories": "الفئات",
+      "taxes": "الضرائب",
+      "warehouses": "المستودعات",
+      "stock_adjustment": "تعديل المخزون",
+      "animal_housing": "إيواء الحيوانات",
+      "animal_housing_unit": "وحدة إيواء الحيوانات",
+      "animal_profile": "ملف الحيوانات",
+      "livestock": "الثروة الحيوانية",
+      "users": "المستخدمون",
+      "contacts": "جهات الاتصال",
+      "settings": "الإعدادات",
+      "farm_configuration": "إعدادات المزرعة"
+    }
+  }
+}

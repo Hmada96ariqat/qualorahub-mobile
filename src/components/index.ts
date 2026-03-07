@@ -1,11 +1,13 @@
 export { AppScreen } from './layout/AppScreen';
 export { AppHeader } from './layout/AppHeader';
 export { HeaderMenuButton } from './layout/HeaderMenuButton';
+export { HeaderLanguageSwitcher } from './layout/HeaderLanguageSwitcher';
 export { AppSection } from './layout/AppSection';
 export { SectionCard } from './layout/SectionCard';
 export { AppTabs } from './layout/AppTabs';
 export type { AppTabOption } from './layout/AppTabs';
 export { HeaderActionGroup } from './layout/HeaderActionGroup';
+export { SystemHeaderActions } from './layout/SystemHeaderActions';
 export { StatStrip } from './layout/StatStrip';
 export type { StatItem } from './layout/StatStrip';
 export { PillTabs } from './layout/PillTabs';

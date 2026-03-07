@@ -1,0 +1,327 @@
+{
+  "finance": {
+    "title": "Money Management",
+    "description": "Track money in and money out with custom groups",
+    
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "pending": "pending"
+    },
+    
+    "actions": {
+      "add": "Add Transaction",
+      "addNew": "Add New Transaction",
+      "edit": "Edit Transaction",
+      "update": "Update Transaction",
+      "delete": "Delete Transaction",
+      "reverse": "Reverse Transaction",
+      "export": "Export Excel",
+      "manageGroups": "Manage Financial Group",
+      "view": "View",
+      "cancel": "Cancel",
+      "create": "Create",
+      "save": "Save",
+      "processing": "Processing...",
+      "clearAllFilters": "Clear All Filters",
+      "download": "Download",
+      "cancelEdit": "Cancel Edit",
+      "createGroup": "Create Group",
+      "updateGroup": "Update Group",
+      "deleteGroup": "Delete Group",
+      "addTransaction": "Add Transaction",
+      "updateTransaction": "Update Transaction",
+      "reversing": "Reversing...",
+      "close": "Close"
+    },
+    
+    "summary": {
+      "totalMoneyIn": "Total Money In",
+      "totalMoneyOut": "Total Money Out",
+      "netProfit": "Net Profit"
+    },
+    
+    "transactions": {
+      "title": "Transactions",
+      "count": "Transactions ({{count}})",
+      "moneyIn": "Money In",
+      "moneyOut": "Money Out",
+      "income": "income",
+      "expense": "expense",
+      "reversed": "Reversed",
+      "reversalEntry": "Reversal Entry",
+      "noTransactionsFound": "No transactions found matching your criteria.",
+      "showing": "Showing {{start}} to {{end}} of {{total}} transactions"
+    },
+    
+    "transactionDialog": {
+      "title": {
+        "add": "Add New Transaction",
+        "edit": "Edit Transaction"
+      },
+      "description": {
+        "add": "Record new money in or money out entry.",
+        "edit": "Update the transaction details."
+      },
+      "fields": {
+        "type": {
+          "label": "Type",
+          "placeholder": "Select type"
+        },
+        "group": {
+          "label": "Financial Group",
+          "placeholder": "Select {{type}} financial group",
+          "noGroupsAvailable": "No {{type}} financial groups available. Create one first.",
+          "createNewGroup": "Create new financial group"
+        },
+        "amount": {
+          "label": "Amount Paid",
+          "placeholder": "0.00"
+        },
+        "date": {
+          "label": "Date"
+        },
+        "contact": {
+          "label": "Third Party Contact (Optional)",
+          "placeholder": "Select contact",
+          "noContact": "No contact",
+          "createNewContact": "Create new contact"
+        },
+        "paymentMethod": {
+          "label": "Payment Method",
+          "placeholder": "Select payment method",
+          "cash": "Cash",
+          "bankTransfer": "Bank Transfer",
+          "cheque": "Cheque"
+        },
+        "description": {
+          "label": "Notes / Description (Optional)",
+          "placeholder": "Enter any relevant details"
+        },
+        "attachments": {
+          "label": "Attachments (Optional)",
+          "uploadPrompt": "Upload receipts, invoices, proofs of payment"
+        }
+      }
+    },
+    
+    "groupDialog": {
+      "title": "Manage Financial Group",
+      "description": "Create, edit, and manage your custom financial groups for money in and money out.",
+      "form": {
+        "title": {
+          "create": "Create New Financial Group",
+          "edit": "Edit Financial Group"
+        },
+        "fields": {
+          "name": {
+            "label": "Financial Group Name",
+            "placeholder": "e.g., Fuel & Equipment, Crop Sales, Livestock Sales"
+          },
+          "type": {
+            "label": "Type",
+            "placeholder": "Select type"
+          }
+        }
+      },
+      "existingGroups": "Existing Financial Groups",
+      "noGroups": "No financial groups created yet. Create your first financial group above."
+    },
+    
+    "deleteGroupDialog": {
+      "title": "Delete Financial Group",
+      "description": "Are you sure you want to delete the group \"{{name}}\"? This action cannot be undone. All transactions in this group will remain but lose their group association.",
+      "confirm": "Delete Group",
+      "cancel": "Cancel"
+    },
+    "deleteTransactionDialog": {
+      "title": "Delete Transaction",
+      "description": "Are you sure you want to permanently delete this transaction? This action cannot be undone.",
+      "confirm": "Delete Transaction",
+      "cancel": "Cancel"
+    },
+    
+    "charts": {
+      "overview": "Financial Overview",
+      "moneyInByCategory": "Money In by Category",
+      "moneyOutByCategory": "Money Out by Category",
+      "activeTransactionsOnly": "Charts reflect active transactions only.",
+      "amount": "Amount",
+      "other": "Other",
+      "totalIn": "Total In",
+      "totalOut": "Total Out",
+      "noActiveTransactions": "No active transactions for this chart.",
+      "noTransactionsToDisplay": "No transactions to display. Add some transactions to see category insights."
+    },
+    
+    "transactionCard": {
+      "createdBy": "Created by:",
+      "contact": "Contact:",
+      "payment": "Payment:"
+    },
+    
+    "transactionView": {
+      "title": "Transaction Details",
+      "type": {
+        "income": "INCOME",
+        "expense": "EXPENSE"
+      },
+      "fields": {
+        "date": "Date",
+        "category": "Category",
+        "financeGroup": "Financial Group",
+        "contact": "Contact",
+        "paymentMethod": "Payment Method"
+      },
+      "attachments": {
+        "title": "Attachments",
+        "count": "Attachments ({{count}})",
+        "download": "Download"
+      },
+      "metadata": {
+        "created": "Created:",
+        "id": "ID:"
+      }
+    },
+    
+    "reversalDialog": {
+      "title": "Reverse Transaction",
+      "alreadyReversed": "This transaction has already been reversed and cannot be reversed again.",
+      "transactionDetails": "Transaction Details:",
+      "fields": {
+        "reason": {
+          "label": "Reason for Reversal *",
+          "placeholder": "Please explain why this transaction is being reversed...",
+          "helpText": "This will create a new {{oppositeType}} transaction for the same amount to reverse this entry."
+        }
+      },
+      "confirm": "Reverse Transaction",
+      "cancel": "Cancel"
+    },
+    
+    "filters": {
+      "title": "Search & Filters",
+      "search": {
+        "placeholder": "Search transactions..."
+      },
+      "datePeriod": {
+        "label": "Date Period",
+        "allTime": "All Time",
+        "yearToDate": "Year to Date",
+        "quarterly": "This Quarter",
+        "monthly": "This Month",
+        "custom": "Custom Range",
+        "from": "From",
+        "to": "To"
+      },
+      "group": {
+        "label": "Financial Group",
+        "all": "All Groups"
+      },
+      "categories": {
+        "label": "Categories",
+        "all": "All categories"
+      },
+      "contacts": {
+        "label": "Contacts",
+        "all": "All contacts"
+      }
+    },
+    
+    "financialOverview": {
+      "title": "Financial Overview"
+    },
+    
+    "table": {
+      "headers": {
+        "date": "Date",
+        "type": "Type",
+        "amount": "Amount",
+        "description": "Description",
+        "group": "Financial Group",
+        "user": "User",
+        "contact": "Contact",
+        "payment": "Payment",
+        "actions": "Actions"
+      }
+    },
+    
+    "badges": {
+      "moneyIn": "Money In",
+      "moneyOut": "Money Out"
+    },
+    
+    "messages": {
+      "success": {
+        "transactionAdded": "{{type}} Added",
+        "transactionAddedDescription": "New {{type}} has been successfully recorded.",
+        "transactionUpdated": "{{type}} Updated",
+        "transactionUpdatedDescription": "The {{type}} has been successfully updated.",
+        "transactionReversed": "Transaction Reversed",
+        "transactionReversedDescription": "The transaction has been successfully reversed.",
+        "transactionDeleted": "Transaction Deleted",
+        "transactionDeletedDescription": "The transaction has been permanently deleted.",
+        "groupCreated": "Group Created",
+        "groupCreatedDescription": "{{type}} financial group \"{{name}}\" has been created and selected.",
+        "groupUpdated": "Group Updated",
+        "groupUpdatedDescription": "{{type}} financial group \"{{name}}\" has been updated.",
+        "groupDeleted": "Group Deleted",
+        "groupDeletedDescription": "Financial group \"{{name}}\" has been deleted. Related transactions have been updated to remove the group association.",
+        "groupCreatedOffline": "Group Created (Offline)",
+        "groupCreatedOfflineDescription": "Selected and will sync later.",
+        "groupUpdatedOffline": "Group Updated (Offline)",
+        "groupUpdatedOfflineDescription": "Will sync when online.",
+        "contactCreated": "Contact Created",
+        "contactCreatedDescription": "Contact \"{{name}}\" has been created and selected.",
+        "contactCreatedOffline": "Contact Created (Offline)",
+        "contactCreatedOfflineDescription": "Selected and will sync later.",
+        "exportComplete": "Export Complete",
+        "exportCompleteDescription": "Transactions exported to {{fileName}}",
+        "downloadStarted": "Download Started",
+        "downloadStartedDescription": "{{fileName}} is being downloaded."
+      },
+      "error": {
+        "generic": "Error",
+        "validationError": "Validation Error",
+        "amountRequired": "Please enter a valid amount greater than 0",
+        "groupRequired": "Please select a financial group",
+        "dateRequired": "Please select a date",
+        "groupNameRequired": "Group name is required.",
+        "groupNameExists": "A financial group with this name already exists.",
+        "reasonRequired": "Please provide a reason for the reversal",
+        "transactionFailed": "Failed to {{action}} transaction: {{error}}",
+        "groupFailed": "Failed to {{action}} financial group: {{error}}",
+        "contactFailed": "Failed to create contact: {{error}}",
+        "deleteGroupFailed": "Failed to prepare group for deletion: {{error}}",
+        "offlineError": "Offline Error",
+        "offlineSaveFailed": "Failed offline save",
+        "offlineSaveContactFailed": "Failed to save contact offline",
+        "downloadFailed": "Download Failed",
+        "downloadFailedDescription": "Failed to download {{fileName}}.",
+        "fileUrlNotAvailable": "File URL not available.",
+        "reversalFailed": "Failed to reverse transaction",
+        "transactionDeleteFailed": "Failed to delete transaction"
+      },
+      "permissions": {
+        "denied": "Permission denied",
+        "cannotManageGroups": "You do not have permission to manage financial groups.",
+        "cannotPerformAction": "You do not have permission to perform this action.",
+        "cannotReverseTransactions": "You do not have permission to reverse transactions.",
+        "cannotAddContacts": "You do not have permission to add contacts.",
+        "cannotDeleteGroups": "You do not have permission to delete groups.",
+        "cannotDeleteTransactions": "You do not have permission to delete transactions."
+      }
+    },
+    
+    "contactDialog": {
+      "title": "Add New Contact"
+    },
+    
+    "validation": {
+      "amountPositive": "Amount must be greater than 0",
+      "groupRequired": "Financial group is required",
+      "dateRequired": "Date is required",
+      "reasonRequired": "Reason for reversal is required"
+    }
+  }
+}

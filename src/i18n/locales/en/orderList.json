@@ -1,0 +1,643 @@
+{
+  "orderList": {
+    "page": {
+      "title": "Order Management",
+      "subtitle": "Manage all your customer orders and track their status",
+      "loading": "Loading orders...",
+      "noOrdersFound": "No orders found",
+      "noOrdersMatchFilters": "No orders match the current filters",
+      "ordersCount": "Orders",
+      "ordersHeading": "Orders"
+    },
+    "actions": {
+      "createOrder": "Create Order",
+      "exportAll": "Export All",
+      "exportFiltered": "Export Filtered",
+      "filters": "Filters",
+      "viewDetails": "View Details",
+      "saveChanges": "Save Changes",
+      "call": "Call",
+      "email": "Email",
+      "viewOnMap": "View on Map",
+      "removeItem": "Remove Item",
+      "acceptAndProceed": "Accept & Proceed",
+      "rejectOrder": "Reject Order",
+      "confirmReject": "Confirm Reject",
+      "delete": "Delete",
+      "edit": "Edit",
+      "editOrder": "Edit Order",
+      "view": "View",
+      "viewOrder": "View Order"
+    },
+    "filters": {
+      "title": "Search and Filter",
+      "simple": "Simple",
+      "advanced": "Advanced",
+      "clearAll": "Clear All",
+      "activeFilters": "Active Filters",
+      "search": {
+        "label": "Search",
+        "placeholder": "Order #, customer..."
+      },
+      "status": {
+        "label": "Status",
+        "placeholder": "All",
+        "all": "All"
+      },
+      "paymentMethod": {
+        "label": "Payment Method",
+        "placeholder": "All payment methods",
+        "all": "All payment methods"
+      },
+      "deliveryMethod": {
+        "label": "Delivery Method",
+        "placeholder": "All delivery methods",
+        "all": "All delivery methods"
+      },
+      "source": {
+        "label": "Order Source",
+        "placeholder": "All sources",
+        "all": "All sources",
+        "storefront": "🛒 Storefront",
+        "direct": "📝 Direct"
+      },
+      "dateRange": {
+        "label": "Date Range",
+        "placeholder": "All time",
+        "allTime": "All time",
+        "today": "Today",
+        "yesterday": "Yesterday",
+        "last7Days": "Last 7 days",
+        "last30Days": "Last 30 days",
+        "thisWeek": "This week",
+        "lastWeek": "Last week",
+        "thisMonth": "This month",
+        "lastMonth": "Last month",
+        "custom": "Custom range",
+        "startDate": "Start date",
+        "endDate": "End date"
+      },
+      "amount": {
+        "minAmount": "Min Amount ($)",
+        "maxAmount": "Max Amount ($)",
+        "minPlaceholder": "0",
+        "maxPlaceholder": "1000"
+      },
+      "city": {
+        "label": "Customer City",
+        "placeholder": "All cities",
+        "all": "All cities"
+      },
+      "badges": {
+        "search": "Search",
+        "status": "Status",
+        "payment": "Payment",
+        "delivery": "Delivery",
+        "source": "Source",
+        "city": "City"
+      },
+      "of": "of",
+      "openFilters": "Open filters",
+      "removeFilter": "Remove filter"
+    },
+    "table": {
+      "headers": {
+        "orderNumber": "Order #",
+        "customer": "Customer",
+        "date": "Date",
+        "status": "Status",
+        "total": "Total",
+        "source": "Source",
+        "actions": "Actions"
+      }
+    },
+    "createOrder": {
+      "title": "Create New Order",
+      "configuration": {
+        "title": "Order Configuration",
+        "subtitle": "Select pricing type for this order"
+      },
+      "priceType": {
+        "label": "Price Type",
+        "sale": "Sale Price",
+        "wholesale": "Wholesale Price",
+        "noPriceAvailable": "No {{priceType}} price available"
+      },
+      "customer": {
+        "title": "Customer Information",
+        "contactLabel": "Customer Contact",
+        "contactPlaceholder": "Select or add customer contact",
+        "contactRequired": "Please select a customer contact to continue",
+        "selectedContactDetails": "Selected Contact Details:",
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "city": "City",
+        "address": "Address",
+        "notSpecified": "Not specified",
+        "contactOptionalLabel": "Customer Contact (Optional)"
+      },
+      "delivery": {
+        "label": "Delivery Method",
+        "pickup": "Pickup",
+        "delivery": "Delivery (+$5.00)"
+      },
+      "payment": {
+        "label": "Payment Method",
+        "cash": "Cash",
+        "card": "Card",
+        "online": "Online"
+      },
+      "discount": {
+        "title": "Order Discount (Optional)",
+        "typeLabel": "Discount Type",
+        "valueLabel": "Discount Value",
+        "percentageLabel": "Percentage",
+        "amountLabel": "Amount ($)",
+        "noDiscount": "No discount",
+        "percentage": "Percentage (%)",
+        "fixed": "Fixed Amount ($)",
+        "percentagePlaceholder": "10",
+        "fixedPlaceholder": "5.00",
+        "applied": "Discount: ${{amount}}",
+        "discountAmount": "Discount",
+        "errorExceedsPercentage": "Percentage discount cannot exceed 100%",
+        "errorExceedsSubtotal": "Fixed discount cannot exceed subtotal"
+      },
+      "items": {
+        "title": "Order Items",
+        "browseProducts": "Browse Products",
+        "searchPlaceholder": "Search products...",
+        "noItemsSelected": "No items selected",
+        "addProductPrompt": "Add at least one product to create an order",
+        "addAtLeastOne": "Add at least one product to create an order",
+        "noProducts": "No active, for-sale products.",
+        "selectedItems": "Selected Items",
+        "unitPrice": "Unit Price",
+        "taxRate": "Tax Rate",
+        "itemPrice": "Item Price",
+        "tax": "Tax",
+        "total": "Total",
+        "removeItem": "Remove Item",
+        "sale": "Sale",
+        "notAvailable": "N/A",
+        "noPriceAvailable": "No {{priceType}} price available",
+        "noActiveProducts": "No active, for-sale products.",
+        "searchByNameSku": "Search products by name, SKU...",
+        "noItemsAddedYet": "No items added yet",
+        "addProductsToStart": "Add products to get started",
+        "sku": "SKU: {{sku}}"
+      },
+      "summary": {
+        "subtotal": "Subtotal",
+        "discount": "Discount",
+        "discountFixed": "Fixed",
+        "bindedTax": "Binded Tax",
+        "grandTotal": "Grand Total",
+        "title": "Order Summary"
+      },
+      "status": {
+        "label": "Order Status",
+        "pending": "Pending (No stock/income changes)",
+        "confirmed": "Confirmed (Auto-deduct stock & record income)",
+        "confirmedWarning": "Confirmed orders will automatically deduct stock quantities and create an income transaction record."
+      },
+      "notes": {
+        "label": "Notes",
+        "placeholder": "Optional notes for the order",
+        "labelOptional": "Notes (Optional)",
+        "dialogPlaceholder": "Add any additional notes about this order..."
+      },
+      "buttons": {
+        "create": "Create Order",
+        "creating": "Creating...",
+        "cancel": "Cancel"
+      },
+      "validation": {
+        "selectContact": "Please select a customer contact",
+        "addItems": "Please add at least one item to the order",
+        "priceNotAvailable": "Price Not Available",
+        "noPriceForType": "This product doesn't have a {{priceType}} price set."
+      },
+      "messages": {
+        "successConfirmed": "Order created and confirmed! Stock has been automatically deducted and income recorded.",
+        "successPending": "Order created as pending - no stock or income changes made.",
+        "errorCreating": "Error creating order"
+      },
+      "headerSubtitle": "Add products and customer information",
+      "steps": {
+        "products": "Products",
+        "customer": "Customer",
+        "details": "Details"
+      },
+      "navigation": {
+        "previous": "Previous",
+        "next": "Next"
+      },
+      "stockLimit": {
+        "title": "Insufficient stock",
+        "descriptionWithStockIn": "You have {{available}} qty of {{productName}} in inventory. Requested: {{attempted}}. To continue, add stock first.",
+        "descriptionNoAccess": "You have {{available}} qty of {{productName}} in inventory. Requested: {{attempted}}. This is the maximum allowed for confirmed orders.",
+        "cancel": "Cancel",
+        "close": "Close",
+        "stockIn": "Stock in"
+      }
+    },
+    "orderDetails": {
+      "title": "Order Details #{{orderNumber}}",
+      "customer": {
+        "title": "Customer Information"
+      },
+      "order": {
+        "title": "Order Information",
+        "payment": "Payment",
+        "method": "Method",
+        "date": "Date",
+        "total": "Total"
+      },
+      "items": {
+        "title": "Order Items",
+        "subtotal": "Subtotal",
+        "discount": "Discount",
+        "taxAndFees": "Tax & Fees",
+        "total": "Total"
+      },
+      "notes": {
+        "title": "Special Notes"
+      },
+      "alerts": {
+        "validationErrors": "Please fix the following issues before saving:",
+        "statusChangeBlocked": "This order has been processed and cannot be changed back to Binding, Pending or Cancelled status.",
+        "stockOutCreated": "Stock out record has been created for this order."
+      },
+      "stockVoucherNote": "Stock out for order #{{orderNumber}}",
+      "stockMovementNote": "Order #{{orderNumber}} - Batch: {{batch}}",
+      "voucherLineNote": "Order #{{orderNumber}}"
+    },
+    "statuses": {
+      "pending": "Pending",
+      "binding": "Binding",
+      "confirmed": "Confirmed",
+      "processing": "Processing",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled"
+    },
+    "statusDropdown": {
+      "pending": {
+        "label": "Pending",
+        "description": "Keep editable, no inventory impact"
+      },
+      "pendingReview": {
+        "label": "Pending Review",
+        "description": "Awaiting review"
+      },
+      "confirmed": {
+        "label": "Confirmed",
+        "description": "⚠️ Will lock order & auto-deduct stock"
+      },
+      "acceptOrder": {
+        "label": "Accept Order",
+        "description": "Accept and process"
+      },
+      "processing": {
+        "label": "Processing",
+        "description": "Order being prepared"
+      },
+      "shipped": {
+        "label": "Shipped",
+        "description": "Order shipped to customer"
+      },
+      "delivered": {
+        "label": "Delivered",
+        "description": "Order completed"
+      },
+      "cancelled": {
+        "label": "Cancelled",
+        "description": "Order cancelled"
+      },
+      "rejectOrder": {
+        "label": "Reject Order",
+        "description": "Reject this order"
+      },
+      "alert": {
+        "locked": "This order has been processed and cannot be reverted to Pending or Cancelled."
+      }
+    },
+    "storefrontReview": {
+      "title": "Storefront Order Review",
+      "notice": "This order was placed through your online storefront and requires review before processing.",
+      "rejectConfirmation": "Are you sure you want to reject this order? This action cannot be undone."
+    },
+    "statusConfirmation": {
+      "confirm": {
+        "title": "Confirm Order?",
+        "description": "This action will finalize the order and update stock and finance records. You won't be able to edit this order after confirming.",
+        "impacts": {
+          "stockDeduction": "Stock will be automatically deducted using FIFO method",
+          "incomeTransaction": "Income transaction will be created automatically",
+          "statusLocked": "Order status will be locked (no returns to pending)"
+        }
+      },
+      "update": {
+        "title": "Update Order Status?",
+        "description": "Changing status to \"{{newStatus}}\" will lock this order and prevent further modifications.",
+        "descriptionGeneric": "Are you sure you want to change the order status from \"{{currentStatus}}\" to \"{{newStatus}}\"?",
+        "impacts": {
+          "noEdit": "Order cannot be edited after this change",
+          "noRevert": "Status cannot be reverted to pending or cancelled"
+        }
+      },
+      "actionText": {
+        "confirmOrder": "Confirm Order",
+        "updateStatus": "Update Status",
+        "processing": "Processing...",
+        "acceptAndProceed": "Accept & Proceed"
+      },
+      "impactsIntro": "This action will:"
+    },
+    "batchSelection": {
+      "title": "Batch Allocation Required",
+      "description": "Select specific inventory batches for each product in this order. This ensures accurate stock tracking and FIFO compliance.",
+      "confirmButton": "Confirm Allocations",
+      "processing": "Processing...",
+      "cancelButton": "Cancel",
+      "validation": {
+        "fixIssues": "Please fix the following issues:",
+        "noBatchSelected": "{{productName}}: No batch allocation selected",
+        "allocationMismatch": "{{productName}}: allocated {{allocated}} but ordered {{ordered}}",
+        "exceedsStock": "{{productName}}: batch quantity exceeds available stock"
+      },
+      "completionStatus": "All products have been properly allocated. Ready to proceed."
+    },
+    "messages": {
+      "success": {
+        "orderUpdated": "Order updated successfully",
+        "orderDeleted": "Order deleted successfully",
+        "statusUpdated": "Order status updated successfully",
+        "statusUpdatedWithStock": "Order confirmed! Stock deducted and income recorded.",
+        "stockOutCreated": "Stock out record created successfully",
+        "exportCompleted": "Export completed",
+        "exportAll": "All orders have been exported to Excel",
+        "exportFiltered": "Filtered orders have been exported to Excel",
+        "title": "Success"
+      },
+      "error": {
+        "updatingOrder": "Error updating order",
+        "updatingStatus": "Error updating order status",
+        "deletingOrder": "Error deleting order",
+        "creatingStockOut": "Error creating stock out record",
+        "exportFailed": "Export failed",
+        "exportFailedDescription": "Failed to export orders",
+        "insufficientInventory": "Insufficient inventory",
+        "stockDeductionFailed": "Stock deduction failed",
+        "cannotChangeConfirmed": "Cannot change confirmed orders back to pending status",
+        "cannotRevertStatus": "Cannot change back to Binding, Pending or Cancelled after order has been processed",
+        "generic": "Error",
+        "requestedAvailableLine": "{{productName}}: requested {{requested}}, available {{available}}",
+        "exportFailedFilteredDescription": "Failed to export filtered orders"
+      },
+      "warning": {
+        "incomeRecordFailed": "Order confirmed but failed to create income record. Please add manually.",
+        "title": "Warning"
+      },
+      "permissions": {
+        "cannotCreate": "You do not have permission to create orders.",
+        "cannotEdit": "You do not have permission to update orders.",
+        "cannotDelete": "You do not have permission to delete orders.",
+        "cannotExport": "You do not have permission to export orders.",
+        "permissionDenied": "Permission denied"
+      }
+    },
+    "exports": {
+      "allOrders": "All orders",
+      "filteredOrders": "Filtered orders"
+    },
+    "kpi": {
+      "totalOrders": "Total Orders",
+      "confirmed": "Confirmed",
+      "pending": "Pending",
+      "revenue": "Revenue",
+      "clickableCard": "{{title}}: {{value}}. {{description}}. Click to filter"
+    },
+    "cards": {
+      "orderCard": "Order {{orderNumber}} card",
+      "statusLabel": "Status: {{status}}",
+      "moreActions": "More actions",
+      "openMenu": "Open menu",
+      "customerInfo": "Customer information",
+      "orderDetails": "Order details",
+      "items": "Items",
+      "itemSingular": "item",
+      "itemPlural": "items",
+      "total": "Total",
+      "delivery": "Delivery",
+      "pickup": "Pickup",
+      "quickActions": "Quick actions",
+      "created": "Created"
+    },
+    "sources": {
+      "storefront": "Storefront",
+      "direct": "Direct",
+      "manual": "Manual"
+    },
+    "paymentMethods": {
+      "cash": "Cash",
+      "card": "Card",
+      "online": "Online",
+      "null": "Not specified"
+    },
+    "deliveryMethods": {
+      "pickup": "Pickup",
+      "delivery": "Delivery",
+      "null": "Not specified"
+    },
+    "addContact": {
+      "title": "Add New Customer Contact",
+      "description": "Create a customer contact and use it in this order",
+      "selectContact": "Select contact",
+      "loadingContacts": "Loading contacts...",
+      "searchPlaceholder": "Search contacts...",
+      "contactsHeading": "Contacts",
+      "fields": {
+        "customerName": "Customer Name",
+        "customerNamePlaceholder": "Enter customer name",
+        "email": "Email",
+        "emailPlaceholder": "customer@email.com",
+        "phone": "Phone",
+        "phonePlaceholder": "Phone number",
+        "city": "City",
+        "cityPlaceholder": "City (optional)"
+      },
+      "validation": {
+        "nameRequired": "Customer name is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email address",
+        "phoneRequired": "Phone number is required",
+        "contactMethodRequired": "At least one of email or phone is required"
+      },
+      "errors": {
+        "loadingContacts": "Error loading contacts"
+      },
+      "empty": {
+        "noContactInfo": "No contact info",
+        "noContactsAvailable": "No contacts available. Add a new contact below.",
+        "noCustomerContacts": "No customer contacts found. Try searching or add a new contact."
+      },
+      "actions": {
+        "addNewContact": "Add New Contact",
+        "addContact": "Add Contact",
+        "adding": "Adding..."
+      }
+    },
+    "batchSelector": {
+      "title": "Batch Allocation",
+      "orderQty": "Order Qty: {{quantity}}",
+      "loadingBatches": "Loading batches...",
+      "fields": {
+        "batch": "Batch",
+        "selectBatch": "Select batch",
+        "quantity": "Quantity"
+      },
+      "empty": {
+        "noBatchNumber": "No batch #",
+        "unknownWarehouse": "Unknown warehouse",
+        "noBatchesAvailable": "No batches available for this product. Please check inventory levels."
+      },
+      "availableLine": "Available: {{quantity}} | {{warehouse}}",
+      "expiry": "Exp: {{date}}",
+      "max": "Max: {{quantity}}",
+      "actions": {
+        "remove": "Remove",
+        "addBatch": "Add Batch"
+      },
+      "allocatedLabel": "Allocated:",
+      "remaining": "({{quantity}} remaining)",
+      "errors": {
+        "exceedsOrderQuantity": "Total allocated ({{allocated}}) exceeds order quantity ({{ordered}})",
+        "exceedsStock": "Some batch quantities exceed available stock",
+        "failedToLoadBatches": "Failed to load batches: {{error}}"
+      }
+    },
+    "detailsPage": {
+      "backToOrders": "Back to Orders",
+      "placedOn": "Placed on {{date}}",
+      "notFoundTitle": "Order Not Found",
+      "notFoundDescription": "The order you're looking for doesn't exist.",
+      "batchAllocationInfo": "Batch allocation would be required for inventory tracking when processing this order."
+    },
+    "edit": {
+      "title": "Edit Order {{orderNumber}}",
+      "description": "Update customer, delivery, payment and notes",
+      "fields": {
+        "customerName": "Customer Name",
+        "customerEmail": "Customer Email",
+        "customerPhone": "Customer Phone",
+        "address": "Address",
+        "city": "City"
+      },
+      "actions": {
+        "save": "Save",
+        "saving": "Saving..."
+      },
+      "validation": {
+        "customerNameRequired": "Customer name is required",
+        "invalidEmail": "Invalid email"
+      }
+    },
+    "invoice": {
+      "title": "Invoice",
+      "printButton": "Print Invoice",
+      "farmLogoAlt": "Farm logo",
+      "farmNameFallback": "Farm Name",
+      "labels": {
+        "invoiceNumber": "Invoice #",
+        "date": "Date",
+        "status": "Status",
+        "phone": "Phone",
+        "email": "Email",
+        "website": "Website",
+        "paymentMethod": "Payment Method",
+        "deliveryMethod": "Delivery Method",
+        "source": "Source"
+      },
+      "sections": {
+        "billTo": "Bill To",
+        "orderDetails": "Order Details"
+      },
+      "table": {
+        "item": "Item",
+        "qty": "Qty",
+        "unitPrice": "Unit Price",
+        "tax": "Tax",
+        "total": "Total"
+      },
+      "empty": {
+        "noCustomerInfo": "No customer information provided",
+        "noLineItems": "No line items recorded for this order.",
+        "unknownProduct": "Unknown Product"
+      },
+      "errors": {
+        "farmDataNotLoaded": "Farm data not loaded",
+        "printWindowBlocked": "Could not open print window. Please check your popup blocker."
+      },
+      "thankYou": "Thank you for your business!"
+    },
+    "map": {
+      "title": "Location on Map",
+      "iframeTitle": "Location map",
+      "coordinates": "Coordinates: {{latitude}}, {{longitude}}",
+      "address": "Address: {{address}}"
+    },
+    "badge": {
+      "unreadOrders": "Unread Orders",
+      "noUnreadOrders": "No unread orders",
+      "viewAllOrders": "View All Orders",
+      "viewUnreadOrders": "View unread orders",
+      "enableOrderNotifications": "Enable order notifications"
+    },
+    "notifications": {
+      "newOrderReceived": "New Order Received!",
+      "orderFromCustomer": "Order from {{customerName}} - ${{amount}}"
+    },
+    "confirmation": {
+      "pageTitle": "Order Confirmation",
+      "notFoundTitle": "Order Not Found",
+      "notFoundDescription": "The order you're looking for doesn't exist or has been removed.",
+      "backToStore": "Back to Store",
+      "successTitle": "Order Placed Successfully!",
+      "successDescription": "Thank you for your order. We'll contact you soon to confirm the details.",
+      "orderNumber": "Order Number",
+      "deliveryFee": "Delivery Fee",
+      "deliveryInformation": "Delivery Information",
+      "pickupInformation": "Pickup Information",
+      "deliveryAddress": "Delivery Address:",
+      "deliveryContactMessage": "We'll contact you to schedule delivery.",
+      "pickupLocation": "Pickup Location:",
+      "pickupLocationDetails": "Green Valley Farm, 123 Farm Road, Farmville, State 12345",
+      "pickupContactMessage": "We'll contact you when your order is ready.",
+      "questionsMessage": "Have questions about your order? Contact us for help.",
+      "continueShopping": "Continue Shopping"
+    },
+    "publicManagement": {
+      "orderCardTitle": "Order {{orderNumber}}",
+      "deliveryDetails": "Delivery Details",
+      "farmPickup": "Farm Pickup",
+      "homeDelivery": "Home Delivery",
+      "deliveryFee": "Delivery Fee",
+      "actions": {
+        "confirming": "Confirming...",
+        "cancelOrder": "Cancel Order"
+      },
+      "messages": {
+        "orderConfirmedTitle": "Order confirmed",
+        "orderConfirmedDescription": "Stock quantities have been updated.",
+        "errorConfirmingOrder": "Error confirming order"
+      },
+      "empty": {
+        "noOrdersTitle": "No orders yet",
+        "noOrdersDescription": "Orders from your storefront will appear here."
+      }
+    }
+  }
+}

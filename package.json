@@ -10,6 +10,7 @@
     "api:pull": "curl -s http://127.0.0.1:3300/api/docs-json -o docs/api/openapi.json",
     "api:generate": "openapi-typescript docs/api/openapi.json -o src/api/generated/schema.ts",
     "api:sync": "npm run api:pull && npm run api:generate",
+    "i18n:sync": "node scripts/i18n/sync-web-locales.mjs",
     "api:verify": "node scripts/api/verify-openapi-responses.mjs",
     "check:boundaries": "node scripts/ci/check-import-boundaries.mjs",
     "docs:code-map": "node scripts/docs/generate-code-map.mjs",
@@ -28,7 +29,7 @@
     "@expo/metro-runtime": "~55.0.6",
     "@expo/vector-icons": "^15.0.2",
     "@hookform/resolvers": "^5.2.2",
-    "@react-native-async-storage/async-storage": "^3.0.1",
+    "@react-native-async-storage/async-storage": "2.2.0",
     "@react-native-community/datetimepicker": "8.6.0",
     "@tanstack/react-query": "^5.90.21",
     "@turf/area": "^7.3.4",
@@ -38,9 +39,11 @@
     "expo": "~55.0.4",
     "expo-constants": "~55.0.7",
     "expo-linking": "~55.0.7",
+    "expo-network": "~55.0.8",
     "expo-router": "~55.0.3",
     "expo-secure-store": "~55.0.8",
     "expo-status-bar": "~55.0.4",
+    "expo-updates": "~55.0.12",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-hook-form": "^7.71.2",
@@ -66,7 +69,7 @@
     "openapi-typescript": "^7.13.0",
     "prettier": "^3.8.1",
     "react-test-renderer": "19.2.0",
-    "typescript": "~5.9.2"
+    "typescript": "^5.9.3"
   },
   "private": true
 }

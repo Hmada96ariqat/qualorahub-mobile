@@ -1,0 +1,565 @@
+{
+  "animalHousing": {
+    "title": "Alojamiento Animal",
+    "subtitle": "Gestiona las unidades de alojamiento y instalaciones para animales",
+    
+    "connectionStatus": {
+      "online": "En línea",
+      "offline": "Sin conexión", 
+      "pending": "{{count}} cambio(s) pendiente(s) de sincronizar",
+      "connectionRestored": "Conexión Restaurada",
+      "connectionRestoredDesc": "Estás de vuelta en línea. Sincronizando datos...",
+      "connectionLost": "Conexión Perdida",
+      "connectionLostDesc": "Ahora estás sin conexión. Los cambios se guardarán localmente."
+    },
+
+    "dashboard": {
+      "totalUnits": "Unidades Totales",
+      "activeFacilities": "Instalaciones activas",
+      "capacity": "Capacidad Total",
+      "totalAnimalCapacity": "Capacidad total de animales",
+      "maintenanceDue": "Mantenimiento Pendiente",
+      "unitsRequiringAttention": "Unidades que requieren atención",
+      "animalTypes": "Tipos de Animales",
+      "differentAnimalTypes": "Diferentes tipos de animales"
+    },
+
+    "filters": {
+      "title": "Filtros y Búsqueda",
+      "description": "Filtrar unidades de alojamiento por varios criterios",
+      "show": "Mostrar Filtros",
+      "hide": "Ocultar Filtros",
+      "barnName": "Nombre del Corral",
+      "searchByBarnName": "Buscar por nombre del corral",
+      "status": "Estado",
+      "allStatuses": "Todos los Estados",
+      "ariaAll": "Todas las unidades de alojamiento",
+      "ariaActive": "Unidades de alojamiento activas",
+      "ariaInactive": "Unidades de alojamiento inactivas",
+      "field": "Campo",
+      "allFields": "Todos los Campos",
+      "animalType": "Tipo de Animal",
+      "allAnimalTypes": "Todos los Tipos de Animales",
+      "capacityRange": "Rango de Capacidad",
+      "minCapacity": "Capacidad Mínima",
+      "maxCapacity": "Capacidad Máxima",
+      "quickActions": "Acciones Rápidas"
+    },
+
+    "status": {
+      "active": "Activo",
+      "underMaintenance": "En Mantenimiento",
+      "under_maintenance": "En Mantenimiento",
+      "empty": "Vacío",
+      "outOfUse": "Fuera de Uso",
+      "out_of_use": "Fuera de Uso",
+      "inactive": "Inactivo"
+    },
+
+    "animalTypes": {
+      "cattle": "Ganado",
+      "cattleDairy": "Ganado (Lechero)",
+      "cattleBeef": "Ganado (Carne)", 
+      "sheep": "Ovejas",
+      "goats": "Cabras",
+      "chickens": "Pollos",
+      "chickensBroilers": "Pollos (Engorde)",
+      "chickensLayers": "Pollos (Ponedoras)",
+      "turkeys": "Pavos",
+      "ducks": "Patos",
+      "pigs": "Cerdos",
+      "horses": "Caballos",
+      "rabbits": "Conejos",
+      "bees": "Abejas (Colmenar)",
+      "fish": "Acuicultura (Peces)",
+      "other": "Otros"
+    },
+
+    "buttons": {
+      "add": "Agregar Unidad de Alojamiento",
+      "exportExcel": "Exportar Excel",
+      "clear": "Limpiar",
+      "resetAll": "Restablecer Todo",
+      "cancel": "Cancelar",
+      "delete": "Eliminar",
+      "edit": "Editar",
+      "view": "Ver",
+      "settings": "Configuración",
+      "reactivate": "Reactivar",
+      "removePermanently": "Eliminar del sistema",
+      "removing": "Eliminando..."
+    },
+
+    "searchResults": "{{count}} unidad(es) de alojamiento encontrada(s)",
+    "loading": "Cargando...",
+
+    "messages": {
+      "noUnitsFound": "No se encontraron unidades de alojamiento",
+      "clickToGetStarted": "Haz clic en 'Agregar Unidad de Alojamiento' para comenzar",
+      "offlinePermanentDeleteTitle": "Modo sin conexión",
+      "offlinePermanentDeleteDescription": "La eliminación permanente solo está disponible cuando estás en línea. Sincronizá cuando vuelvas a estar en línea.",
+      "moreCount": "+{{count}} más"
+    },
+
+    "grid": {
+      "capacity": "Capacidad",
+      "animals": "Animales",
+      "floor": "Piso",
+      "status": "Estado"
+    },
+
+    "table": {
+      "barnName": "Nombre del Corral",
+      "unitCode": "Código de Unidad", 
+      "location": "Ubicación",
+      "animalTypes": "Tipos de Animales",
+      "capacity": "Capacidad",
+      "status": "Estado",
+      "floorType": "Tipo de Piso",
+      "noField": "Sin campo",
+      "actions": "Acciones"
+    },
+
+    "form": {
+      "createTitle": "Crear Unidad de Alojamiento",
+      "editTitle": "Editar Unidad de Alojamiento",
+      "saving": "Guardando...",
+      "creating": "Creando...",
+      "updating": "Actualizando...",
+
+      "tabs": {
+        "basicInfo": "Información Básica",
+        "animals": "Animales",
+        "structure": "Estructura", 
+        "equipment": "Equipamiento"
+      },
+      "steps": {
+        "basic": "Información básica",
+        "boundary": "Límite del corral",
+        "animalsNotes": "Animales y notas"
+      },
+
+      "barnNameRequired": "Nombre del Corral *",
+      "barnNamePlaceholder": "Ingrese nombre del corral",
+      "unitCode": "Código de Unidad",
+      "unitCodePlaceholder": "Auto-generado o personalizado",
+      "field": "Campo",
+      "fieldRequired": "Campo *",
+      "selectField": "Seleccionar campo",
+      "fieldRequiredTitle": "Campo requerido",
+      "fieldRequiredMessage": "Seleccioná un campo para continuar.",
+      "boundaryHintTitle": "Dibujar límite del corral",
+      "boundaryHint": "Dibujá el corral dentro del límite del campo resaltado. Se muestran lotes y corrales existentes como referencia.",
+      "areaPercent": "El área del corral es",
+      "areaPercentOf": "del campo",
+      "boundaryReady": "Límite capturado",
+      "clearBoundary": "Borrar límite",
+      "capacity": "Capacidad",
+      "capacityPlaceholder": "Capacidad máxima de animales",
+      "currentStatus": "Estado Actual",
+      "selectStatus": "Seleccionar estado",
+      "biosecurityLevel": "Nivel de Bioseguridad",
+      "biosecurityPlaceholder": "Ingrese nivel de bioseguridad",
+      "dateBuilt": "Fecha de Construcción",
+      "selectDate": "Seleccionar fecha",
+      "notes": "Notas",
+      "notesPlaceholder": "Notas adicionales sobre esta unidad de alojamiento",
+
+      "animalTypes": "Tipos de Animales",
+      "animalTypeOther": "Otro Tipo de Animal",
+      "animalTypeOtherPlaceholder": "Especificar otro tipo de animal",
+
+      "floorType": "Tipo de Piso",
+      "selectFloorType": "Seleccionar tipo de piso",
+      "floorTypes": {
+        "concrete": "Concreto",
+        "dirt": "Tierra/Suelo",
+        "slatted": "Piso Enrejillado",
+        "raisedWire": "Alambre Elevado",
+        "deepLitter": "Cama Profunda",
+        "rubberMatting": "Alfombrilla de Goma",
+        "other": "Otro"
+      },
+
+      "ventilationType": "Tipo de Ventilación",
+      "selectVentilationType": "Seleccionar tipo de ventilación",
+      "ventilationTypes": {
+        "natural": "Natural",
+        "mechanical": "Mecánica", 
+        "tunnel": "Túnel",
+        "cross": "Cruzada",
+        "fanAssisted": "Asistida por Ventiladores",
+        "evaporativeCooling": "Enfriamiento Evaporativo",
+        "other": "Otro"
+      },
+
+      "drainageSystem": "Sistema de Drenaje",
+      "selectDrainageSystem": "Seleccionar sistema de drenaje",
+      "drainageSystems": {
+        "openChannel": "Canal Abierto",
+        "closedPipe": "Tubería Cerrada",
+        "slopedFloor": "Piso Inclinado",
+        "deepPit": "Fosa Profunda",
+        "none": "Ninguno",
+        "other": "Otro"
+      },
+
+      "attachedEquipment": "Equipamiento Adjunto",
+      "attachedEquipmentOther": "Otro Equipamiento",
+      "attachedEquipmentOtherPlaceholder": "Especificar otro equipamiento",
+      "equipment": {
+        "feeders": "Comederos",
+        "waterers": "Bebederos",
+        "automaticWateringSystem": "Sistema de Agua Automático",
+        "nestBoxes": "Cajas Nido",
+        "heatingLamps": "Lámparas de Calefacción",
+        "coolingFans": "Ventiladores de Enfriamiento",
+        "airFilters": "Filtros de Aire",
+        "mistingSystem": "Sistema de Nebulización",
+        "manureConveyor": "Transportador de Estiércol",
+        "wasteStorageTank": "Tanque de Almacenamiento de Desechos",
+        "monitoringSensors": "Sensores de Monitoreo",
+        "cctv": "CCTV/Vigilancia",
+        "other": "Otro"
+      },
+      "drawing": {
+        "mapFailedToLoad": "Error al cargar el mapa",
+        "mapFailedToLoadDescription": "Las capas de Google Maps no se cargaron. Suele deberse a cuota/facturación de la API o restricciones de red.",
+        "outsideBoundary": "Fuera del límite",
+        "outsideBoundaryDescription": "El corral debe permanecer dentro del límite del campo.",
+        "boundaryOverlapsExisting": "El límite se superpone con un área existente",
+        "boundaryOverlapsExistingReverted": "No puede superponerse con \"{{boundaryName}}\". Se revirtió al límite anterior.",
+        "boundaryMustBeInsideField": "El corral debe estar dentro del campo",
+        "boundaryMustBeInsideFieldDescription": "Dibujá el límite del corral solo dentro del campo resaltado.",
+        "boundaryOverlapsExistingDrawInFreeArea": "Este límite se superpone con \"{{boundaryName}}\". Dibujá solo en el área vacía.",
+        "areaAlreadyOccupied": "Área ya ocupada",
+        "areaAlreadyOccupiedDescription": "Esta área ya está en uso por \"{{name}}\". Dibujá solo en el área vacía.",
+        "startPointMarkerTitle": "Punto de inicio - hacé clic cerca para cerrar el polígono",
+        "instructionClickToStart": "Hacé clic dentro del campo para empezar a dibujar el límite del corral",
+        "instructionPoint1": "Hacé clic para agregar más puntos (1 punto agregado)",
+        "instructionPoint2": "Hacé clic para agregar más puntos (2 puntos agregados)",
+        "instructionPointN": "{{count}} puntos - Hacé clic cerca del marcador verde de inicio para cerrar, o usá el botón de abajo",
+        "completeDrawingButton": "Completar dibujo ({{count}} puntos)",
+        "mapUnavailable": "Mapa no disponible",
+        "loadingMap": "Cargando mapa...",
+        "selectFieldWithBoundaries": "Seleccioná un campo con límites para dibujar un corral.",
+        "existingBoundaryName": "Límite existente"
+      }
+    },
+
+    "dialog": {
+      "deleteTitle": "Eliminar Unidad de Alojamiento",
+      "deleteDescription": "¿Estás seguro de que quieres eliminar esta unidad de alojamiento? Esta acción no se puede deshacer.",
+      "permanentDeleteTitle": "Eliminar unidad de alojamiento del sistema",
+      "permanentDeleteDescription": "Esto eliminará permanentemente esta unidad de alojamiento de tu sistema. Esta acción no se puede deshacer.",
+      "permanentDeleteWarning": "Todos los datos asociados a esta unidad de alojamiento se perderán para siempre."
+    },
+
+    "view": {
+      "overview": "Resumen del alojamiento animal",
+      "details": "Detalles",
+      "noFieldBoundary": "El límite del campo no está disponible para esta unidad de alojamiento.",
+      "noBarnBoundary": "No hay un límite dibujado para esta unidad de alojamiento."
+    },
+
+    "validation": {
+      "barnNameRequired": "El nombre del corral es requerido",
+      "fieldRequired": "El campo es requerido",
+      "invalidCapacity": "Por favor ingrese una capacidad válida",
+      "invalidDate": "Por favor ingrese una fecha válida"
+    },
+
+    "toasts": {
+      "created": "La unidad de alojamiento se creó exitosamente.",
+      "createFailed": "Error al crear la unidad de alojamiento. Por favor intentá nuevamente.",
+      "updated": "La unidad de alojamiento se actualizó exitosamente.",
+      "updateFailed": "Error al actualizar la unidad de alojamiento. Por favor intentá nuevamente.",
+      "deleted": "La unidad de alojamiento se marcó como inactiva.",
+      "deleteFailed": "Error al eliminar la unidad de alojamiento. Por favor intentá nuevamente.",
+      "reactivated": "La unidad de alojamiento se reactivó exitosamente.",
+      "reactivateFailed": "Error al reactivar la unidad de alojamiento. Por favor intentá nuevamente.",
+      "removed": "La unidad de alojamiento se eliminó permanentemente del sistema.",
+      "removeFailed": "Error al eliminar la unidad de alojamiento. Por favor intentá nuevamente."
+    },
+
+    "errors": {
+      "userNotAuthenticated": "Usuario no autenticado"
+    },
+
+    "animalTypeDescriptions": {
+      "cattle": "El ganado requiere espacio suficiente para moverse cómodamente y acceder a alimento y agua.",
+      "cattleDairy": "El ganado lechero requiere espacio suficiente para moverse cómodamente y acceder al ordeño.",
+      "cattleBeef": "El ganado de carne necesita espacio para un crecimiento adecuado y acceso al alimento.",
+      "sheep": "Las ovejas requieren espacio suficiente para moverse y socializar.",
+      "goats": "Las cabras son activas y necesitan espacio para trepar y explorar.",
+      "chickens": "Los pollos requieren espacio para moverse, anidar y acceder a alimento y agua.",
+      "chickensBroilers": "Los pollos de engorde requieren espacio mínimo para un crecimiento adecuado.",
+      "chickensLayers": "Las gallinas ponedoras necesitan espacio para anidar y producir huevos.",
+      "turkeys": "Los pavos requieren más espacio que los pollos debido a su mayor tamaño.",
+      "ducks": "Los patos necesitan espacio para moverse y acceder al agua.",
+      "pigs": "Los cerdos requieren espacio suficiente para el comportamiento de hozar y comodidad.",
+      "horses": "Los caballos necesitan un espacio considerable para un alojamiento cómodo.",
+      "rabbits": "Los conejos necesitan espacio para saltar y moverse.",
+      "bees": "Las colmenas requieren separación para un manejo adecuado y recolección de miel.",
+      "fish": "La densidad de peces varía según la especie y la gestión de la calidad del agua.",
+      "other": "Asignación de espacio predeterminada para tipos de animales no especificados."
+    },
+
+    "export": {
+      "filename": "unidades-alojamiento",
+      "headers": {
+        "barnName": "Nombre del Corral",
+        "unitCode": "Código de Unidad",
+        "animalTypes": "Tipos de Animales", 
+        "capacity": "Capacidad",
+        "status": "Estado",
+        "dateBuilt": "Fecha de Construcción",
+        "floorType": "Tipo de Piso",
+        "ventilation": "Ventilación",
+        "drainage": "Drenaje",
+        "equipment": "Equipamiento",
+        "biosecurityLevel": "Nivel de Bioseguridad",
+        "notes": "Notas"
+      }
+    }
+  },
+  "housingUnit": {
+    "profile": {
+      "notFound": "Unidad de Alojamiento No Encontrada",
+      "notFoundDescription": "La unidad de alojamiento que buscás no existe o ha sido eliminada.",
+      "backToList": "Volver a Unidades de Alojamiento",
+      "editUnit": "Editá Unidad",
+      "stats": {
+        "currentAnimals": "Animales Actuales",
+        "ofCapacity": "de {{capacity}} capacidad",
+        "occupancyRate": "Tasa de Ocupación",
+        "currentUtilization": "Utilización actual",
+        "healthScore": "Puntuación de Salud",
+        "overallCondition": "Condición general",
+        "temperature": "Temperatura",
+        "avgTemperature": "Temperatura promedio"
+      },
+      "tabs": {
+        "maintenance": "Mantenimiento"
+      }
+    },
+    "maintenance": {
+      "title": "Registros de Mantenimiento",
+      "addMaintenance": "Agregá Mantenimiento",
+      "sync": "Sincronizá",
+      "syncing": "Sincronizando",
+      "pending": "{{count}} pendiente(s)",
+      "table": {
+        "date": "Fecha",
+        "serviceType": "Tipo de Servicio",
+        "performedBy": "Realizado Por",
+        "description": "Descripción",
+        "productsUsed": "Productos Usados",
+        "totalCost": "Costo Total",
+        "status": "Estado",
+        "actions": "Acciones",
+        "noDescription": "Sin descripción",
+        "productsLabel": "Productos:",
+        "moreCount": "+{{count}} más"
+      },
+      "status": {
+        "draft": "Borrador",
+        "inProgress": "En Progreso",
+        "completed": "Completado",
+        "cancelled": "Cancelado"
+      },
+      "dialog": {
+        "newTitle": "Nuevo Registro de Mantenimiento",
+        "editTitle": "Editá Registro de Mantenimiento",
+        "description": "Registrá actividades de mantenimiento para {{housingUnitName}}",
+        "serviceDetails": "Detalles del Servicio",
+        "serviceDate": "Fecha del Servicio",
+        "pickDate": "Seleccioná una fecha",
+        "serviceType": "Tipo de Servicio",
+        "selectServiceType": "Seleccioná el tipo de servicio",
+        "serviceTypes": {
+          "preventive": "Preventivo",
+          "corrective": "Correctivo",
+          "inspection": "Inspección",
+          "cleaning": "Limpieza",
+          "repair": "Reparación",
+          "replacement": "Reemplazo",
+          "emergency": "Emergencia",
+          "routine": "Rutina"
+        },
+        "performedBy": "Realizado Por",
+        "selectPerson": "Seleccioná la persona",
+        "serviceDescription": "Descripción del Servicio",
+        "descriptionPlaceholder": "Describí el trabajo de mantenimiento realizado...",
+        "productsUsed": "Productos Usados",
+        "selectProduct": "Seleccioná un producto para agregá...",
+        "product": "Producto",
+        "unknownProduct": "Producto Desconocido",
+        "unknownUser": "Usuario desconocido",
+        "unknownContact": "Contacto desconocido",
+        "batch": "Lote",
+        "selectBatch": "Seleccioná el lote",
+        "noBatchAvailable": "No hay lote disponible",
+        "quantity": "Cantidad",
+        "quantityPlaceholder": "0",
+        "available": "Disponible",
+        "unitCost": "Costo Unitario",
+        "totalCost": "Costo Total",
+        "notesAndAttachments": "Notas y Adjuntos",
+        "notes": "Notas",
+        "notesPlaceholder": "Agregá cualquier nota u observación adicional...",
+        "attachments": "Adjuntos",
+        "attachmentsHelp": "Subí fotos, facturas, informes de servicio o recibos de contratistas"
+      },
+      "messages": {
+        "noInventory": "Sin inventario disponible",
+        "noInventoryDesc": "No hay cantidad/lote disponible para el artículo seleccionado.",
+        "success": "Registro de mantenimiento {{action}}{{stockUpdate}}",
+        "created": "creado",
+        "updated": "actualizado",
+        "stockUpdated": " y stock actualizado",
+        "error": "Error al guardar el registro de mantenimiento",
+        "errorStockVoucher": "Registro de mantenimiento guardado pero falló al crear el comprobante de stock"
+      },
+      "validation": {
+        "serviceTypeRequired": "El tipo de servicio es requerido",
+        "costPositive": "El costo debe ser positivo"
+      },
+      "errors": {
+        "noAuthenticatedUser": "No hay usuario autenticado",
+        "farmNotFound": "No se encontró la granja",
+        "farmNotFoundForUser": "No se encontró la granja para el usuario",
+        "insufficientQuantity": "Cantidad insuficiente",
+        "availableQuantity": "La cantidad disponible es {{quantity}} {{unit}}",
+        "exceedsAvailableStock": "Supera el stock disponible ({{quantity}} {{unit}})"
+      },
+      "costSummary": {
+        "title": "Resumen de costos",
+        "calculatedTotal": "Total calculado:",
+        "finalTotal": "Costo total final (editable)"
+      },
+      "voucher": {
+        "sourceTypeOther": "Mantenimiento de unidad de alojamiento",
+        "autoNote": "Generado automáticamente del mantenimiento de la unidad de alojamiento - {{housingUnitId}}",
+        "usedNote": "Usado en el mantenimiento de la unidad de alojamiento - {{housingUnitId}}"
+      },
+      "toasts": {
+        "fetchFailed": "Error al obtener los registros de mantenimiento",
+        "saveFailed": "Error al guardar el registro de mantenimiento",
+        "deleted": "Registro de mantenimiento eliminado exitosamente",
+        "deleteFailed": "Error al eliminar el registro de mantenimiento"
+      },
+      "view": {
+        "title": "Detalles del registro de mantenimiento",
+        "downloadSuccess": "Archivo descargado exitosamente",
+        "downloadError": "Error al descargar el archivo",
+        "unknownSize": "Tamaño desconocido",
+        "labels": {
+          "datePerformed": "Fecha realizada:",
+          "serviceType": "Tipo de servicio:",
+          "status": "Estado:",
+          "totalCost": "Costo total:",
+          "recordId": "ID del registro:",
+          "sku": "SKU: {{sku}}",
+          "quantity": "Cant.: {{quantity}} {{unit}}",
+          "unitCost": "{{cost}} cada uno",
+          "fileSize": "{{size}} KB",
+          "created": "Creado:",
+          "updated": "Actualizado:"
+        },
+        "sections": {
+          "serviceDescription": "Descripción del servicio",
+          "productsUsed": "Productos usados ({{count}})",
+          "notes": "Notas",
+          "attachments": "Adjuntos ({{count}})"
+        }
+      }
+    }
+    ,
+    "profilePanel": {
+      "title": "Perfil de la unidad de alojamiento",
+      "subtitle": "Información básica de esta unidad de alojamiento",
+      "labels": {
+        "type": "Tipo",
+        "capacity": "Capacidad"
+      },
+      "values": {
+        "capacity": "{{count}} animales"
+      },
+      "messages": {
+        "notSpecified": "No especificado",
+        "moreCount": "+{{count}} más"
+      },
+      "location": {
+        "title": "Ubicación y contexto de la granja",
+        "subtitle": "Dónde se encuentra esta unidad de alojamiento",
+        "hierarchyLabel": "Jerarquía de ubicación",
+        "loadingField": "Cargando campo...",
+        "noFieldAssigned": "Sin campo asignado",
+        "farmNameLabel": "Nombre de la granja",
+        "assignedFieldLabel": "Campo asignado",
+        "areaLabel": "Área",
+        "noFieldAssignedDescription": "No hay un campo asignado a esta unidad de alojamiento"
+      }
+    },
+    "designCapacity": {
+      "title": "Capacidad de diseño y análisis de espacio",
+      "subtitle": "Análisis de densidad de alojamiento basado en estándares de la industria para {{animalType}}",
+      "utilizationRate": "Tasa de utilización",
+      "utilizationValue": "{{currentAnimals}} / {{designCapacity}} animales ({{percent}}%)",
+      "exceedsDesignCapacity": "El conteo actual supera la capacidad de diseño",
+      "totalArea": "Área total",
+      "totalAreaHint": "Espacio disponible de alojamiento",
+      "designCapacity": "Capacidad de diseño",
+      "designCapacityHint": "Máximo de animales por diseño",
+      "recommendedSpace": "Espacio recomendado/animal",
+      "recommendedSpaceHint": "Estándar de la industria para {{animalType}}",
+      "maxRecommended": "Máximo recomendado",
+      "maxRecommendedHint": "Basado en {{space}} m²/animal",
+      "currentStockingDensity": "Densidad actual",
+      "withinStandards": "Dentro de estándares",
+      "belowStandards": "Por debajo de estándares",
+      "perAnimal": "m² por animal",
+      "aboveRecommended": "{{percent}}% por encima del mínimo recomendado",
+      "belowRecommended": "{{percent}}% por debajo del mínimo recomendado",
+      "noAnimals": "No hay animales alojados actualmente",
+      "noteLabel": "Nota:"
+    },
+    "capacityStatus": {
+      "optimal": "Óptimo",
+      "near-capacity": "Cerca del límite",
+      "over-capacity": "Sobre capacidad",
+      "critical": "Crítico"
+    },
+    "capacityWarning": {
+      "titles": {
+        "critical": "Alerta crítica de hacinamiento",
+        "overCapacity": "Advertencia de sobrecapacidad",
+        "nearCapacity": "Aproximándose a la capacidad",
+        "notice": "Aviso de capacidad"
+      },
+      "messages": {
+        "criticalSubtitle": "Se requiere acción inmediata para garantizar el bienestar animal y el cumplimiento.",
+        "overCapacityIntro": "La densidad actual supera el espacio recomendado por animal para esta unidad.",
+        "recommendedPerAnimal": "Recomendado: {{space}} m² por animal para un bienestar óptimo",
+        "nearCapacity": "La unidad está al {{percent}}% de su capacidad de diseño. Considerá monitorear para evitar el hacinamiento."
+      },
+      "stats": {
+        "currentAnimals": "Animales actuales:",
+        "recommendedMax": "Máximo recomendado:",
+        "overCapacityBy": "Exceso de capacidad:",
+        "currentSpacePerAnimal": "Espacio actual/animal:"
+      },
+      "values": {
+        "overCapacityBy": "{{count}} animal(es)"
+      },
+      "actions": {
+        "title": "Acciones recomendadas:",
+        "relocate": "Reubicar {{count}} o más animales a otras unidades de alojamiento",
+        "reviewWelfare": "Revisar inmediatamente las condiciones de bienestar animal",
+        "checkSystems": "Verificar sistemas de ventilación y saneamiento",
+        "documentStatus": "Documentar el estado de capacidad para registros de cumplimiento"
+      }
+    }
+  }
+}

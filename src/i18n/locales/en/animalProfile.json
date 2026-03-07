@@ -1,0 +1,758 @@
+{
+  "animalProfile": {
+    "title": "Animal Profile",
+    "subtitle": "Manage your farm's animal inventory",
+
+    "connectionStatus": {
+      "online": "Online",
+      "offline": "Offline",
+      "pending": "{{count}} pending sync"
+    },
+
+    "buttons": {
+      "addAnimal": "Add Animal"
+    },
+
+    "export": "Export",
+
+    "dashboard": {
+      "totalAnimals": "Total Animals",
+      "registeredAnimals": "Registered animals",
+      "taggedAnimals": "Tagged Animals",
+      "completionRate": "{{percent}}% completion rate",
+      "healthStatus": "Health Status",
+      "healthyAnimals": "Healthy animals",
+      "speciesCount": "Species Count",
+      "differentSpecies": "Different species"
+    },
+
+    "viewMode": {
+      "label": "View Mode"
+    },
+
+    "dialog": {
+      "createTitle": "Add New Animal",
+      "editTitle": "Edit Animal",
+      "createDescription": "Fill in the details to add a new animal to your inventory",
+      "editDescription": "Update the animal information"
+    },
+
+    "filters": {
+      "title": "Filters & Search",
+      "status": "Health Status",
+      "allStatuses": "All statuses",
+      "species": "Species",
+      "allSpecies": "All species",
+      "sellingType": "Selling Type",
+      "allSellingTypes": "All selling types",
+      "selling": "Selling",
+      "buying": "Buying",
+      "both": "Both",
+      "source": "Source",
+      "allSources": "All sources",
+      "fromFarm": "From Farm",
+      "outside": "Outside",
+      "storefrontDisplay": "Storefront Display",
+      "allAnimals": "All animals",
+      "onStorefront": "On Storefront",
+      "notOnStorefront": "Not on Storefront",
+      "housingUnit": "Housing Unit",
+      "allHousingUnits": "All housing units",
+      "noHousingUnit": "No housing unit",
+      "animalGroup": "Animal Group",
+      "allGroups": "All groups",
+      "noGroup": "No group",
+      "applyFiltersClose": "Apply Filters & Close",
+      "filtersApplied": "Filters Applied",
+      "filtersAppliedDesc": "Animal list has been filtered according to your criteria."
+    },
+
+    "search": {
+      "placeholder": "Search by tag ID, name, or breed..."
+    },
+
+    "registry": {
+      "title": "Animal Registry",
+      "description": "Complete list of all animals in your farm"
+    },
+
+    "messages": {
+      "loading": "Loading animals...",
+      "noAnimals": "No animals found",
+      "clickAddAnimal": "Click 'Add Animal' to get started"
+    },
+
+    "cards": {
+      "unnamed": "Unnamed Animal",
+      "unnamedShort": "Unnamed",
+      "tag": "Tag",
+      "mode": "Mode",
+      "quantity": "Quantity",
+      "weight": "Weight",
+      "age": "Age",
+      "viewProfile": "View Profile"
+    },
+
+    "table": {
+      "nameTag": "Name/Tag",
+      "species": "Species",
+      "mode": "Mode",
+      "health": "Health",
+      "weight": "Weight",
+      "actions": "Actions"
+    },
+
+    "dialogs": {
+      "deactivateTitle": "Deactivate Animal",
+      "deactivateDescription": "Are you sure you want to deactivate this animal? It will be removed from active animal lists and can be reactivated later."
+    },
+
+    "tabs": {
+      "profileInfo": "Profile Info",
+      "healthCheck": "Health Check",
+      "yieldRecord": "Yield Record"
+    },
+
+    "profileModal": {
+      "title": "Animal Profile",
+      "description": "Viewing details for {{name}}",
+      "thisAnimal": "this animal"
+    },
+
+    "profile": {
+      "basicInformation": "Basic Information",
+      "productionPhysical": "Production & Physical Details",
+      "healthInformation": "Health Information",
+      "financialInformation": "Financial Information",
+      "additionalInformation": "Additional Information",
+      "name": "Name",
+      "tagNumber": "Tag Number",
+      "species": "Species",
+      "breed": "Breed",
+      "gender": "Gender",
+      "birthDate": "Birth Date",
+      "trackingMode": "Tracking Mode",
+      "quantity": "Quantity",
+      "weight": "Weight",
+      "productionType": "Production Type",
+      "reproductiveStatus": "Reproductive Status",
+      "geneticInfo": "Genetic Info",
+      "healthStatus": "Health Status",
+      "lastVetVisit": "Last Vet Visit",
+      "diseaseHistory": "Disease History",
+      "healthNotes": "Health Notes",
+      "source": "Source",
+      "ownershipStatus": "Ownership Status",
+      "cost": "Cost",
+      "salePrice": "Sale Price",
+      "purchasePrice": "Purchase Price",
+      "wholesalePrice": "Wholesale Price",
+      "description": "Description",
+      "activeStatus": "Active Status",
+      "displayOnStorefront": "Display on Storefront"
+    },
+
+    "common": {
+      "notProvided": "Not provided",
+      "notSpecified": "Not specified",
+      "notRecorded": "Not recorded",
+      "notApplicable": "Not applicable",
+      "noRecords": "No records",
+      "noDiseaseHistory": "No disease history",
+      "noAdditionalHealthNotes": "No additional health notes",
+      "notSet": "Not set",
+      "noDescription": "No description",
+      "unknown": "Unknown",
+      "unknownUser": "Unknown user",
+      "unknownContact": "Unknown contact"
+    },
+
+    "units": {
+      "kg": "kg",
+      "liters": "liters",
+      "dozen": "dozen",
+      "bpm": "bpm",
+      "rpm": "rpm",
+      "celsius": "°C"
+    },
+
+    "age": {
+      "label": "Age: {{age}}",
+      "days": "{{count}} days",
+      "months": "{{count}} months",
+      "years": "{{count}} years",
+      "yearsMonths": "{{years}} years {{months}} months"
+    },
+
+    "species": {
+      "cattle": "Cattle",
+      "sheep": "Sheep",
+      "goats": "Goats",
+      "horses": "Horses",
+      "pigs": "Pigs",
+      "donkeys": "Donkeys",
+      "mules": "Mules",
+      "buffalo": "Buffalo",
+      "yaks": "Yaks",
+      "camels": "Camels",
+      "llamas": "Llamas",
+      "alpacas": "Alpacas",
+      "chickens": "Chickens",
+      "ducks": "Ducks",
+      "turkeys": "Turkeys",
+      "geese": "Geese",
+      "guinea_fowl": "Guinea Fowl",
+      "quails": "Quails",
+      "pheasants": "Pheasants",
+      "peacocks": "Peacocks",
+      "ostriches": "Ostriches",
+      "emus": "Emus",
+      "rheas": "Rheas",
+      "rabbits": "Rabbits",
+      "chinchillas": "Chinchillas",
+      "ferrets": "Ferrets",
+      "guinea_pigs": "Guinea Pigs",
+      "fish": "Fish",
+      "shrimp": "Shrimp",
+      "oysters": "Oysters",
+      "mussels": "Mussels",
+      "crabs": "Crabs",
+      "lobsters": "Lobsters",
+      "seaweed": "Seaweed",
+      "bees": "Bees",
+      "silkworms": "Silkworms",
+      "crickets": "Crickets",
+      "mealworms": "Mealworms",
+      "locusts": "Locusts",
+      "deer": "Deer",
+      "elk": "Elk",
+      "bison": "Bison",
+      "kangaroos": "Kangaroos",
+      "crocodiles": "Crocodiles",
+      "snakes": "Snakes",
+      "iguanas": "Iguanas",
+      "turtles": "Turtles",
+      "dogs": "Dogs",
+      "cats": "Cats",
+      "other": "Other"
+    },
+
+    "healthStatus": {
+      "healthy": "Healthy",
+      "sick": "Sick",
+      "under_treatment": "Under Treatment",
+      "quarantined": "Quarantined",
+      "recovered": "Recovered",
+      "dead": "Dead",
+      "needs_attention": "Needs Attention",
+      "emergency": "Emergency"
+    },
+
+    "toasts": {
+      "animalRecord": "animal",
+      "createSuccess": "Created {{name}} successfully",
+      "updateSuccess": "Updated {{name}} successfully",
+      "deactivateSuccess": "Animal deactivated successfully",
+      "createError": "Failed to create animal",
+      "updateError": "Failed to update animal",
+      "deactivateError": "Failed to deactivate animal",
+      "splitGroupTitle": "Group Split",
+      "splitGroupDescription": "This will split the group into individual animals.",
+      "decrementSuccess": "Group quantity updated to {{count}}",
+      "decrementError": "Failed to update group quantity",
+      "bulkCreateSuccess": "Group created with {{count}} animals successfully",
+      "bulkCreateError": "Failed to create animals"
+    },
+
+    "bulkAdd": {
+      "title": "Bulk Add Animals",
+      "description": "Create multiple animals at once",
+      "button": "Bulk Add",
+      "adding": "Adding...",
+      "addCount": "Add {{count}}",
+      "formTitle": "Bulk Animal Details",
+      "fields": {
+        "quantity": "Quantity",
+        "quantityPlaceholder": "e.g. 10",
+        "quantityHelp": "Maximum 25 animals per batch",
+        "tagPrefix": "Tag Prefix",
+        "tagPrefixPlaceholder": "e.g. COW-",
+        "tagPrefixHelp": "Optional prefix for generated tags",
+        "tagStartNumber": "Tag Start Number",
+        "tagStartPlaceholder": "e.g. 1001",
+        "tagStartHelp": "The first tag number to use",
+        "birthDateSame": "Same birth date for all animals",
+        "averageWeight": "Average Weight",
+        "averageWeightPlaceholder": "e.g. 250",
+        "healthNotesPlaceholder": "Health notes for the group..."
+      },
+      "tagPreview": {
+        "label": "Tag preview:",
+        "none": "No tags",
+        "single": "{{tag}}",
+        "multiple": "{{count}} tags starting at {{start}}",
+        "range": "{{start}} - {{end}}"
+      },
+      "mode": {
+        "title": "Bulk Add Mode",
+        "description": "Choose how you want to add animals",
+        "sameTitle": "Same details for all",
+        "customizeTitle": "Customize each animal",
+        "sameLabel": "Same details:",
+        "sameDescription": "All animals share the same details.",
+        "customizeLabel": "Customize:",
+        "customizeDescription": "Edit details for each animal."
+      }
+    },
+
+    "bulkWizard": {
+      "reviewTitle": "Review",
+      "stepLabel": "Step {{current}} of {{total}}",
+      "reviewSummaryTitle": "Review Summary ({{count}} animals)",
+      "animalBadge": "Animal {{index}}",
+      "weightLabel": "Weight:",
+      "statusLabel": "Status:",
+      "housingLabel": "Housing:",
+      "unknownHousing": "Unknown housing unit",
+      "notSet": "Not set",
+      "addAllButton": "Add {{count}} Animals",
+      "stepTitle": "Customize Animal {{current}} of {{total}}",
+      "detailsTitle": "Animal {{index}} Details",
+      "fields": {
+        "nameOptional": "Name (optional)",
+        "namePlaceholder": "Optional name",
+        "healthNotesPlaceholder": "Health notes..."
+      },
+      "navigation": {
+        "previous": "Previous",
+        "backToSetup": "Back to setup",
+        "reviewAll": "Review all",
+        "next": "Next"
+      }
+    },
+
+    "selection": {
+      "selectMultiple": "Select multiple",
+      "selectAll": "Select all",
+      "deselectAll": "Deselect all",
+      "deactivateSelected": "Deactivate selected ({{count}})",
+      "noSelectionTitle": "No animals selected",
+      "noSelectionDescription": "Select at least one animal to deactivate."
+    },
+
+    "pagination": {
+      "prev": "Previous",
+      "next": "Next",
+      "pageInfo": "Page {{page}} of {{total}}"
+    },
+
+    "group": {
+      "groupLabel": "Group",
+      "individualAnimals": "Individual Animals",
+      "totalCount": "{{count}} total",
+      "animalCount": "{{count}} animals",
+      "tagRange": {
+        "single": "Tag {{tag}}",
+        "range": "Tags {{start}} - {{end}}"
+      },
+      "actions": {
+        "viewGroup": "View group",
+        "editGroup": "Edit group",
+        "removeFromGroup": "Remove from group"
+      },
+      "moreAnimals": "+{{count}} more animals",
+      "clickToSeeAll": "Click to see all",
+      "deleteDialog": {
+        "deleteGroupTitle": "Deactivate Group",
+        "deleteGroupDescription": "This will deactivate the entire group.",
+        "warning": "The group will be removed from active animal lists and can be reactivated later.",
+        "removeAnimalTitle": "Remove Animal",
+        "removeAnimalDescription": "This will reduce the group size to {{count}}.",
+        "updateNote": "You can edit the group later.",
+        "deleteGroupAction": "Deactivate Group",
+        "removeAnimalAction": "Remove Animal"
+      },
+      "toasts": {
+        "createSuccess": "Animal group created successfully",
+        "createError": "Failed to create animal group",
+        "updateSuccess": "Animal group updated successfully",
+        "updateError": "Failed to update animal group",
+        "deactivateSuccess": "Animal group deactivated successfully",
+        "deactivateError": "Failed to deactivate animal group"
+      }
+    },
+
+    "bulkDeactivate": {
+      "title": "Deactivate Selected Animals",
+      "description": "You are about to deactivate {{count}} animals.",
+      "warning": "They will be removed from active animal lists and can be reactivated later.",
+      "action": "Deactivate {{count}}",
+      "success": "Deactivated {{count}} animals successfully",
+      "error": "Failed to deactivate selected animals"
+    },
+
+    "images": {
+      "upload": "Upload",
+      "uploading": "Uploading...",
+      "count": "{{count}} / {{max}} photos",
+      "altAnimal": "Animal photo",
+      "altAnimalIndex": "Animal photo {{index}}",
+      "altAnimalImage": "Animal image",
+      "altImageIndex": "Image {{index}}",
+      "counter": "{{current}} of {{total}}",
+      "errors": {
+        "loginRequired": "Please sign in to upload images."
+      },
+      "toasts": {
+        "maxImagesTitle": "Image limit reached",
+        "maxImagesDescription": "You can upload up to {{count}} images.",
+        "invalidFilesTitle": "Invalid files",
+        "invalidFilesDescription": "Please select image files only.",
+        "uploadSuccess": "Uploaded {{count}} image(s) successfully",
+        "uploadError": "Failed to upload images"
+      }
+    },
+
+    "errors": {
+      "userNotAuthenticated": "User not authenticated",
+      "farmNotFound": "Farm not found"
+    },
+
+    "individualAnimalProfile": {
+      "back": "Back",
+      "editAnimal": "Edit Animal",
+      "animalNotFound": "Animal not found",
+      "animalNotFoundDescription": "We couldn't find the animal you're looking for.",
+      "backToAnimalProfile": "Back to Animal Profile",
+      "unnamedAnimal": "Unnamed Animal",
+
+      "healthStatus": {
+        "healthy": "Healthy",
+        "sick": "Sick",
+        "injured": "Injured",
+        "quarantine": "Quarantine"
+      },
+
+      "stats": {
+        "age": "Age",
+        "weight": "Weight",
+        "averageWeight": "Average Weight",
+        "healthChecks": "Health Checks",
+        "yieldRecords": "Yield Records",
+        "productionRecords": "Production Records",
+        "born": "Born",
+        "unknown": "Unknown",
+        "last": "Last",
+        "never": "Never"
+      },
+
+      "tabs": {
+        "profileInfo": "Profile Info",
+        "healthCheck": "Health Check",
+        "yieldProducts": "Yield Products"
+      },
+
+      "sections": {
+        "basicInformation": "Basic Information",
+        "productionInformation": "Production Information",
+        "healthInformation": "Health Information",
+        "financialInformation": "Financial Information",
+        "additionalInformation": "Additional Information"
+      },
+
+      "fields": {
+        "tagNumber": "Tag Number",
+        "notAvailable": "Not Available",
+        "name": "Name",
+        "species": "Species",
+        "breed": "Breed",
+        "gender": "Gender",
+        "birthDate": "Birth Date",
+        "productionType": "Production Type",
+        "reproductiveStatus": "Reproductive Status",
+        "trackingMode": "Tracking Mode",
+        "quantity": "Quantity",
+        "healthStatus": "Health Status",
+        "lastVetVisit": "Last Vet Visit",
+        "diseaseHistory": "Disease History",
+        "healthNotes": "Health Notes",
+        "cost": "Cost",
+        "salePrice": "Sale Price",
+        "purchasePrice": "Purchase Price",
+        "wholesalePrice": "Wholesale Price"
+      },
+
+      "noNotes": "No notes available",
+
+      "healthCheck": {
+        "title": "Health Check",
+        "onlineSynced": "Online (synced)",
+        "description": "Track and manage animal health check records",
+        "addHealthCheck": "Add Health Check",
+        "addNewHealthCheck": "Add New Health Check",
+        "editHealthCheck": "Edit Health Check",
+        "updateHealthCheck": "Update health check information",
+        "recordNewExamination": "Record a new health examination for this animal",
+        "recordTitle": "Record Animal Health",
+        "recordDescription": "Document health checks and observations",
+        "searchPlaceholder": "Search health checks...",
+        "allStatuses": "All Statuses",
+        "allPerformers": "All Performers",
+        "filters": {
+          "status": "Filter by status",
+          "performedBy": "Performed by"
+        },
+        "loading": "Loading health checks...",
+        "noHealthChecks": "No health checks found",
+        "table": {
+          "date": "Date",
+          "performedBy": "Performed By",
+          "healthStatus": "Health Status",
+          "weight": "Weight",
+          "nextCheckDue": "Next Check Due",
+          "actions": "Actions"
+        },
+        "delete": {
+          "title": "Delete Health Check",
+          "description": "Are you sure you want to delete this health check? This action cannot be undone."
+        },
+        "validation": {
+          "dateRequired": "Date of check is required",
+          "performerRequired": "Performed By is required",
+          "healthStatusRequired": "Health status is required"
+        },
+        "sampleContacts": {
+          "veterinarian": "Veterinarian",
+          "specialist": "Specialist"
+        },
+        "form": {
+          "validationErrors": "Please fix the following errors:",
+          "tabs": {
+            "visitInfo": "Visit Info",
+            "vitals": "Vitals",
+            "examTreatment": "Exam & Treatment"
+          },
+          "visitInfo": {
+            "title": "Visit Info",
+            "dateOfCheck": "Date of Check",
+            "pickDate": "Pick a date",
+            "performedBy": "Performed By",
+            "performedByPlaceholder": "Owner / Farm worker / Veterinarian",
+            "selectPerformer": "Select performer",
+            "healthStatus": "Health Status",
+            "selectHealthStatus": "Select health status",
+            "summaryNotes": "Summary Notes",
+            "summaryNotesPlaceholder": "Overall health summary and observations..."
+          },
+          "vitalsSection": {
+            "title": "Vitals (optional)",
+            "temperature": "Temperature (°C)",
+            "temperaturePlaceholder": "38.5",
+            "heartRate": "Heart Rate (bpm)",
+            "heartRatePlaceholder": "60",
+            "respiratoryRate": "Respiratory Rate (rpm)",
+            "respiratoryRatePlaceholder": "25",
+            "weight": "Weight (kg)",
+            "weightPlaceholder": "600"
+          },
+          "examSection": {
+            "title": "Physical Exam",
+            "findings": "Physical Exam Findings",
+            "findingsPlaceholder": "Body condition, coat quality, visible abnormalities...",
+            "generalObservations": "General Observations",
+            "generalObservationsPlaceholder": "Behavior, appetite, mobility..."
+          },
+          "treatmentSection": {
+            "title": "Treatments",
+            "treatmentsGiven": "Treatments & Procedures Given",
+            "treatmentsPlaceholder": "Deworming, hoof trimming, wound cleaning...",
+            "medicationsGiven": "Medications Given (name + dose)",
+            "medicationsPlaceholder": "Ivermectin 10ml, Penicillin 5ml...",
+            "recommendations": "Recommendations",
+            "recommendationsPlaceholder": "Follow-up care, diet changes, rest..."
+          },
+          "healthStatusOptions": {
+            "healthy": "Healthy",
+            "needsAttention": "Needs Attention",
+            "sick": "Sick",
+            "emergency": "Emergency"
+          },
+          "followUp": {
+            "title": "Follow-up",
+            "nextCheckDue": "Next check due"
+          },
+          "attachments": {
+            "title": "Attachments",
+            "description": "Upload lab results or documents (coming soon)",
+            "helper": "File upload functionality will be available soon"
+          },
+          "cancel": "Cancel",
+          "saving": "Saving...",
+          "updateHealthCheck": "Update Health Check",
+          "createHealthCheck": "Create Health Check"
+        },
+        "view": {
+          "title": "Health Check Details",
+          "description": "View the full health check record",
+          "date": "Date",
+          "performedBy": "Performed By",
+          "healthStatus": "Health Status",
+          "followUpDate": "Follow-up Date",
+          "vitalsTitle": "Vitals",
+          "temperature": "Temperature",
+          "heartRate": "Heart Rate",
+          "respiratoryRate": "Respiratory Rate",
+          "weight": "Weight",
+          "examinationTitle": "Examination",
+          "physicalFindings": "Physical Exam Findings",
+          "generalObservations": "General Observations",
+          "treatmentsTitle": "Treatments",
+          "treatmentsGiven": "Treatments Given",
+          "medicationsGiven": "Medications Administered",
+          "recommendations": "Recommendations"
+        },
+        "toasts": {
+          "createSuccess": "Health check recorded successfully",
+          "createError": "Failed to record health check. Please try again.",
+          "updateSuccess": "Health check updated successfully",
+          "updateError": "Failed to update health check. Please try again.",
+          "deleteSuccess": "Health check deleted successfully",
+          "deleteError": "Failed to delete health check. Please try again."
+        }
+      },
+
+      "yieldRecord": {
+        "title": "Yield Record",
+        "onlineSynced": "Online (synced)",
+        "description": "Track and manage animal production records",
+        "addYieldRecord": "Add Yield Record",
+        "addNewYieldRecord": "Add New Yield Record",
+        "editYieldRecord": "Edit Yield Record",
+        "updateYieldRecord": "Update yield record information",
+        "recordNewYield": "Record a new production yield for this animal",
+        "recordTitle": "Record Animal Yield",
+        "recordDescription": "Document product yield from animals with batch tracking",
+        "searchPlaceholder": "Search yield records...",
+        "allStatuses": "All Statuses",
+        "allWarehouses": "All Warehouses",
+        "filters": {
+          "status": "Filter by status",
+          "warehouse": "Filter by warehouse"
+        },
+        "loading": "Loading yield records...",
+        "noYieldRecords": "No yield records found",
+        "noProducts": "No products",
+        "moreProducts": "+{{count}} more",
+        "table": {
+          "date": "Date",
+          "status": "Status",
+          "products": "Products",
+          "notes": "Notes",
+          "actions": "Actions"
+        },
+        "delete": {
+          "title": "Delete Yield Record",
+          "description": "Are you sure you want to delete this yield record? This action cannot be undone."
+        },
+        "sampleWarehouses": {
+          "main": "Main Warehouse",
+          "coldStorage": "Cold Storage",
+          "processing": "Processing Unit"
+        },
+        "sampleProducts": {
+          "freshMilk": "Fresh Milk",
+          "eggs": "Eggs",
+          "honey": "Honey"
+        },
+        "sampleBatches": {
+          "first": "BATCH-001",
+          "second": "BATCH-002",
+          "third": "BATCH-003"
+        },
+        "validation": {
+          "productRequired": "Product is required",
+          "quantityMin": "Quantity must be greater than 0",
+          "warehouseRequired": "Warehouse is required",
+          "dateRequired": "Date is required",
+          "lineItemsRequired": "At least one product line is required",
+          "expiryDaysMin": "Expiry days must be at least 1"
+        },
+        "toasts": {
+          "createSuccess": "Yield record saved successfully",
+          "createError": "Failed to save yield record. Please try again.",
+          "updateSuccess": "Yield record updated successfully",
+          "updateError": "Failed to update yield record. Please try again.",
+          "deleteSuccess": "Yield record deleted successfully",
+          "deleteError": "Failed to delete yield record. Please try again."
+        },
+        "form": {
+          "updateDescription": "Update the yield record",
+          "createDescription": "Record new animal production yield with batch tracking",
+          "date": "Date",
+          "pickDate": "Pick a date",
+          "performedBy": "Performed By",
+          "selectPerson": "Select person",
+          "noOneSelected": "No one selected",
+          "notes": "Notes",
+          "notesPlaceholder": "Collected during morning milking...",
+          "yieldProductsTitle": "Yield Products",
+          "addProductTitle": "Add Product",
+          "selectProductButton": "Select a product to add...",
+          "searchProducts": "Search products...",
+          "pricePerUnit": "per",
+          "cancel": "Cancel",
+          "noProductsYet": "No products added yet. Click \"Select a product to add...\" to get started.",
+          "warehouse": "Warehouse",
+          "selectWarehouse": "Select warehouse",
+          "warehouseHelp": "Sets default for product lines unless overridden",
+          "statusHelp": "If Completed, auto-create Entry Voucher",
+          "productLinesTitle": "Product Lines",
+          "tableHeaders": {
+            "productName": "Product Name *",
+            "barcode": "Barcode",
+            "quantity": "Quantity *",
+            "batchNumber": "Batch Number",
+            "warehouse": "Warehouse"
+          },
+          "noBatchesAvailable": "No batches available",
+          "attachments": {
+            "title": "Attachments",
+            "description": "Upload lab test reports or documentation (coming soon)",
+            "helper": "File upload functionality will be available soon"
+          },
+          "saving": "Creating...",
+          "productLine": {
+            "product": "Product",
+            "selectProduct": "Select Product",
+            "batch": "Batch",
+            "selectBatch": "Select batch",
+            "enterBatchNumber": "Enter batch number",
+            "available": "Available",
+            "quantity": "Quantity",
+            "quantityPlaceholder": "1",
+            "unitCost": "Unit Cost",
+            "warehouse": "Warehouse",
+            "selectWarehouse": "Select warehouse",
+            "manufacturingDate": "Manufacturing Date",
+            "expiryDays": "Expiry Days",
+            "expiryDaysPlaceholder": "30",
+            "expiryDate": "Expiry Date",
+            "lineNotes": "Line Notes",
+            "lineNotesPlaceholder": "Additional notes for this product line..."
+          },
+          "status": "Status",
+          "selectStatus": "Select status",
+          "statusOptions": {
+            "draft": "Draft",
+            "completed": "Completed"
+          },
+          "update": "Update",
+          "create": "Create",
+          "yieldRecord": "Yield Record"
+        }
+      },
+
+      "noneRecorded": "None Recorded"
+    }
+  }
+}

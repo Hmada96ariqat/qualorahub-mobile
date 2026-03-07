@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { I18nManager, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { palette, spacing, typography } from '../../theme/tokens';
 import { HeaderMenuButton } from './HeaderMenuButton';
@@ -23,18 +23,19 @@ export function AppHeader({
   menuButtonTestID,
   testID,
 }: AppHeaderProps) {
+  const isRTL = I18nManager.isRTL;
   const resolvedLeftAction =
     leftAction ??
     (hideMenuButton ? null : <HeaderMenuButton testID={menuButtonTestID ?? 'app-header.menu'} />);
 
   return (
-    <View style={styles.container} testID={testID}>
+    <View style={[styles.container, isRTL ? styles.containerRtl : null]} testID={testID}>
       {resolvedLeftAction ? <View style={styles.leading}>{resolvedLeftAction}</View> : null}
       <View style={styles.content}>
         <Text style={styles.title}>{title}</Text>
         {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
       </View>
-      {rightAction ? <View style={styles.action}>{rightAction}</View> : null}
+      {rightAction ? <View style={[styles.action, isRTL ? styles.actionRtl : null]}>{rightAction}</View> : null}
     </View>
   );
 }
@@ -45,6 +46,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     gap: spacing.md,
+  },
+  containerRtl: {
+    flexDirection: 'row-reverse',
   },
   leading: {
     paddingTop: 2,
@@ -65,5 +69,8 @@ const styles = StyleSheet.create({
   },
   action: {
     alignItems: 'flex-end',
+  },
+  actionRtl: {
+    alignItems: 'flex-start',
   },
 });

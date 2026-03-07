@@ -1,0 +1,565 @@
+{
+  "animalHousing": {
+    "title": "Animal Housing",
+    "subtitle": "Manage your animal housing units and facilities",
+    
+    "connectionStatus": {
+      "online": "Online",
+      "offline": "Offline", 
+      "pending": "{{count}} change(s) pending sync",
+      "connectionRestored": "Connection Restored",
+      "connectionRestoredDesc": "You're back online. Syncing data...",
+      "connectionLost": "Connection Lost",
+      "connectionLostDesc": "You're now offline. Changes will be saved locally."
+    },
+
+    "dashboard": {
+      "totalUnits": "Total Units",
+      "activeFacilities": "Active facilities",
+      "capacity": "Total Capacity",
+      "totalAnimalCapacity": "Total animal capacity",
+      "maintenanceDue": "Maintenance Due",
+      "unitsRequiringAttention": "Units requiring attention",
+      "animalTypes": "Animal Types",
+      "differentAnimalTypes": "Different animal types"
+    },
+
+    "filters": {
+      "title": "Filters & Search",
+      "description": "Filter housing units by various criteria",
+      "show": "Show Filters",
+      "hide": "Hide Filters",
+      "barnName": "Barn Name",
+      "searchByBarnName": "Search by barn name",
+      "status": "Status",
+      "allStatuses": "All Statuses",
+      "ariaAll": "All housing units",
+      "ariaActive": "Active housing units",
+      "ariaInactive": "Inactive housing units",
+      "field": "Field",
+      "allFields": "All Fields",
+      "animalType": "Animal Type",
+      "allAnimalTypes": "All Animal Types",
+      "capacityRange": "Capacity Range",
+      "minCapacity": "Min Capacity",
+      "maxCapacity": "Max Capacity",
+      "quickActions": "Quick Actions"
+    },
+
+    "status": {
+      "active": "Active",
+      "underMaintenance": "Under Maintenance",
+      "under_maintenance": "Under Maintenance",
+      "empty": "Empty",
+      "outOfUse": "Out of Use",
+      "out_of_use": "Out of Use",
+      "inactive": "Inactive"
+    },
+
+    "animalTypes": {
+      "cattle": "Cattle",
+      "cattleDairy": "Cattle (Dairy)",
+      "cattleBeef": "Cattle (Beef)", 
+      "sheep": "Sheep",
+      "goats": "Goats",
+      "chickens": "Chickens",
+      "chickensBroilers": "Chickens (Broilers)",
+      "chickensLayers": "Chickens (Layers)",
+      "turkeys": "Turkeys",
+      "ducks": "Ducks",
+      "pigs": "Pigs",
+      "horses": "Horses",
+      "rabbits": "Rabbits",
+      "bees": "Bees (Apiary Unit)",
+      "fish": "Aquaculture (Fish)",
+      "other": "Other"
+    },
+
+    "buttons": {
+      "add": "Add Housing Unit",
+      "exportExcel": "Export Excel",
+      "clear": "Clear",
+      "resetAll": "Reset All",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "view": "View",
+      "settings": "Settings",
+      "reactivate": "Reactivate",
+      "removePermanently": "Remove from System",
+      "removing": "Removing..."
+    },
+
+    "searchResults": "{{count}} housing unit(s) found",
+    "loading": "Loading...",
+
+    "messages": {
+      "noUnitsFound": "No housing units found",
+      "clickToGetStarted": "Click 'Add Housing Unit' to get started",
+      "offlinePermanentDeleteTitle": "Offline Mode",
+      "offlinePermanentDeleteDescription": "Permanent deletion is only available when online. Please sync when you're back online.",
+      "moreCount": "+{{count}} more"
+    },
+
+    "grid": {
+      "capacity": "Capacity",
+      "animals": "Animals",
+      "floor": "Floor",
+      "status": "Status"
+    },
+
+    "table": {
+      "barnName": "Barn Name",
+      "unitCode": "Unit Code", 
+      "location": "Location",
+      "animalTypes": "Animal Types",
+      "capacity": "Capacity",
+      "status": "Status",
+      "floorType": "Floor Type",
+      "noField": "No field",
+      "actions": "Actions"
+    },
+
+    "form": {
+      "createTitle": "Create Housing Unit",
+      "editTitle": "Edit Housing Unit",
+      "saving": "Saving...",
+      "creating": "Creating...",
+      "updating": "Updating...",
+
+      "tabs": {
+        "basicInfo": "Basic Info",
+        "animals": "Animals",
+        "structure": "Structure", 
+        "equipment": "Equipment"
+      },
+      "steps": {
+        "basic": "Basic Info",
+        "boundary": "Barn Boundary",
+        "animalsNotes": "Animals & Notes"
+      },
+
+      "barnNameRequired": "Barn Name *",
+      "barnNamePlaceholder": "Enter barn name",
+      "unitCode": "Unit Code",
+      "unitCodePlaceholder": "Auto-generated or custom",
+      "field": "Field",
+      "fieldRequired": "Field *",
+      "selectField": "Select field",
+      "fieldRequiredTitle": "Field required",
+      "fieldRequiredMessage": "Select a field to continue.",
+      "boundaryHintTitle": "Draw barn boundary",
+      "boundaryHint": "Draw the barn inside the highlighted field boundary. Existing lots and barns are shown for guidance.",
+      "areaPercent": "Barn area is",
+      "areaPercentOf": "of the field",
+      "boundaryReady": "Boundary captured",
+      "clearBoundary": "Clear boundary",
+      "capacity": "Capacity",
+      "capacityPlaceholder": "Maximum animal capacity",
+      "currentStatus": "Current Status",
+      "selectStatus": "Select status",
+      "biosecurityLevel": "Biosecurity Level",
+      "biosecurityPlaceholder": "Enter biosecurity level",
+      "dateBuilt": "Date Built",
+      "selectDate": "Select date",
+      "notes": "Notes",
+      "notesPlaceholder": "Additional notes about this housing unit",
+
+      "animalTypes": "Animal Types",
+      "animalTypeOther": "Other Animal Type",
+      "animalTypeOtherPlaceholder": "Specify other animal type",
+
+      "floorType": "Floor Type",
+      "selectFloorType": "Select floor type",
+      "floorTypes": {
+        "concrete": "Concrete",
+        "dirt": "Dirt/Earth",
+        "slatted": "Slatted Floor",
+        "raisedWire": "Raised Wire",
+        "deepLitter": "Deep Litter",
+        "rubberMatting": "Rubber Matting",
+        "other": "Other"
+      },
+
+      "ventilationType": "Ventilation Type",
+      "selectVentilationType": "Select ventilation type",
+      "ventilationTypes": {
+        "natural": "Natural",
+        "mechanical": "Mechanical", 
+        "tunnel": "Tunnel",
+        "cross": "Cross",
+        "fanAssisted": "Fan-Assisted",
+        "evaporativeCooling": "Evaporative Cooling",
+        "other": "Other"
+      },
+
+      "drainageSystem": "Drainage System",
+      "selectDrainageSystem": "Select drainage system",
+      "drainageSystems": {
+        "openChannel": "Open Channel",
+        "closedPipe": "Closed Pipe",
+        "slopedFloor": "Sloped Floor",
+        "deepPit": "Deep Pit",
+        "none": "None",
+        "other": "Other"
+      },
+
+      "attachedEquipment": "Attached Equipment",
+      "attachedEquipmentOther": "Other Equipment",
+      "attachedEquipmentOtherPlaceholder": "Specify other equipment",
+      "equipment": {
+        "feeders": "Feeders",
+        "waterers": "Waterers",
+        "automaticWateringSystem": "Automatic Watering System",
+        "nestBoxes": "Nest Boxes",
+        "heatingLamps": "Heating Lamps",
+        "coolingFans": "Cooling Fans",
+        "airFilters": "Air Filters",
+        "mistingSystem": "Misting System",
+        "manureConveyor": "Manure Conveyor",
+        "wasteStorageTank": "Waste Storage Tank",
+        "monitoringSensors": "Monitoring Sensors",
+        "cctv": "CCTV/Surveillance",
+        "other": "Other"
+      },
+      "drawing": {
+        "mapFailedToLoad": "Map failed to load",
+        "mapFailedToLoadDescription": "Google Maps tiles did not load. This is often due to API key quota/billing or network restrictions.",
+        "outsideBoundary": "Outside boundary",
+        "outsideBoundaryDescription": "The barn must stay inside the field boundary.",
+        "boundaryOverlapsExisting": "Boundary overlaps an existing area",
+        "boundaryOverlapsExistingReverted": "Cannot overlap \"{{boundaryName}}\". Reverted to previous boundary.",
+        "boundaryMustBeInsideField": "Barn must be inside field",
+        "boundaryMustBeInsideFieldDescription": "Draw the barn boundary only inside the highlighted field.",
+        "boundaryOverlapsExistingDrawInFreeArea": "This boundary overlaps \"{{boundaryName}}\". Draw only in the empty area.",
+        "areaAlreadyOccupied": "Area already occupied",
+        "areaAlreadyOccupiedDescription": "This area is already used by \"{{name}}\". Draw only in the empty area.",
+        "startPointMarkerTitle": "Start point - click near here to close polygon",
+        "instructionClickToStart": "Click inside the field to start drawing the barn boundary",
+        "instructionPoint1": "Click to add more points (1 point added)",
+        "instructionPoint2": "Click to add more points (2 points added)",
+        "instructionPointN": "{{count}} points - Click near the green start marker to close, or use the button below",
+        "completeDrawingButton": "Complete Drawing ({{count}} points)",
+        "mapUnavailable": "Map unavailable",
+        "loadingMap": "Loading map...",
+        "selectFieldWithBoundaries": "Select a field with boundaries to draw a barn.",
+        "existingBoundaryName": "Existing boundary"
+      }
+    },
+
+    "dialog": {
+      "deleteTitle": "Delete Housing Unit",
+      "deleteDescription": "Are you sure you want to delete this housing unit? This action cannot be undone.",
+      "permanentDeleteTitle": "Remove Housing Unit from System",
+      "permanentDeleteDescription": "This will permanently remove this housing unit from your system. This action cannot be undone.",
+      "permanentDeleteWarning": "All data associated with this housing unit will be lost forever."
+    },
+
+    "view": {
+      "overview": "Animal housing overview",
+      "details": "Details",
+      "noFieldBoundary": "Field boundary not available for this housing unit.",
+      "noBarnBoundary": "No boundary drawn for this housing unit."
+    },
+
+    "validation": {
+      "barnNameRequired": "Barn name is required",
+      "fieldRequired": "Field is required",
+      "invalidCapacity": "Please enter a valid capacity",
+      "invalidDate": "Please enter a valid date"
+    },
+
+    "toasts": {
+      "created": "Housing unit has been created successfully.",
+      "createFailed": "Failed to create housing unit. Please try again.",
+      "updated": "Housing unit has been updated successfully.",
+      "updateFailed": "Failed to update housing unit. Please try again.",
+      "deleted": "Housing unit has been marked as inactive.",
+      "deleteFailed": "Failed to delete housing unit. Please try again.",
+      "reactivated": "Housing unit has been reactivated successfully.",
+      "reactivateFailed": "Failed to reactivate housing unit. Please try again.",
+      "removed": "Housing unit has been permanently removed from the system.",
+      "removeFailed": "Failed to remove housing unit. Please try again."
+    },
+
+    "errors": {
+      "userNotAuthenticated": "User not authenticated"
+    },
+
+    "animalTypeDescriptions": {
+      "cattle": "Cattle require adequate space for comfortable movement and access to feed and water.",
+      "cattleDairy": "Dairy cattle require adequate space for comfortable movement and milking access.",
+      "cattleBeef": "Beef cattle need space for proper growth and feed access.",
+      "sheep": "Sheep require adequate space for movement and social behavior.",
+      "goats": "Goats are active and need space for climbing and exploration.",
+      "chickens": "Chickens require space for movement, nesting, and access to feed and water.",
+      "chickensBroilers": "Broiler chickens require minimum space for proper growth.",
+      "chickensLayers": "Layer chickens need space for nesting and egg production.",
+      "turkeys": "Turkeys require more space than chickens due to their larger size.",
+      "ducks": "Ducks need space for movement and water access.",
+      "pigs": "Pigs require adequate space for rooting behavior and comfort.",
+      "horses": "Horses need significant space for comfortable housing.",
+      "rabbits": "Rabbits need space for hopping and basic movement.",
+      "bees": "Bee hives require spacing for proper management and honey collection.",
+      "fish": "Fish stocking density varies by species and water quality management.",
+      "other": "Default space allocation for unspecified animal types."
+    },
+
+    "export": {
+      "filename": "housing-units",
+      "headers": {
+        "barnName": "Barn Name",
+        "unitCode": "Unit Code",
+        "animalTypes": "Animal Types", 
+        "capacity": "Capacity",
+        "status": "Status",
+        "dateBuilt": "Date Built",
+        "floorType": "Floor Type",
+        "ventilation": "Ventilation",
+        "drainage": "Drainage",
+        "equipment": "Equipment",
+        "biosecurityLevel": "Biosecurity Level",
+        "notes": "Notes"
+      }
+    }
+  },
+  "housingUnit": {
+    "profile": {
+      "notFound": "Housing Unit Not Found",
+      "notFoundDescription": "The housing unit you're looking for doesn't exist or has been removed.",
+      "backToList": "Back to Housing Units",
+      "editUnit": "Edit Unit",
+      "stats": {
+        "currentAnimals": "Current Animals",
+        "ofCapacity": "of {{capacity}} capacity",
+        "occupancyRate": "Occupancy Rate",
+        "currentUtilization": "Current utilization",
+        "healthScore": "Health Score",
+        "overallCondition": "Overall condition",
+        "temperature": "Temperature",
+        "avgTemperature": "Average temperature"
+      },
+      "tabs": {
+        "maintenance": "Maintenance"
+      }
+    },
+    "maintenance": {
+      "title": "Maintenance Records",
+      "addMaintenance": "Add Maintenance",
+      "sync": "Sync",
+      "syncing": "Syncing",
+      "pending": "{{count}} pending",
+      "table": {
+        "date": "Date",
+        "serviceType": "Service Type",
+        "performedBy": "Performed By",
+        "description": "Description",
+        "productsUsed": "Products Used",
+        "totalCost": "Total Cost",
+        "status": "Status",
+        "actions": "Actions",
+        "noDescription": "No description",
+        "productsLabel": "Products:",
+        "moreCount": "+{{count}} more"
+      },
+      "status": {
+        "draft": "Draft",
+        "inProgress": "In Progress",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
+      "dialog": {
+        "newTitle": "New Maintenance Record",
+        "editTitle": "Edit Maintenance Record",
+        "description": "Record maintenance activities for {{housingUnitName}}",
+        "serviceDetails": "Service Details",
+        "serviceDate": "Service Date",
+        "pickDate": "Pick a date",
+        "serviceType": "Service Type",
+        "selectServiceType": "Select service type",
+        "serviceTypes": {
+          "preventive": "Preventive",
+          "corrective": "Corrective",
+          "inspection": "Inspection",
+          "cleaning": "Cleaning",
+          "repair": "Repair",
+          "replacement": "Replacement",
+          "emergency": "Emergency",
+          "routine": "Routine"
+        },
+        "performedBy": "Performed By",
+        "selectPerson": "Select person",
+        "serviceDescription": "Service Description",
+        "descriptionPlaceholder": "Describe the maintenance work performed...",
+        "productsUsed": "Products Used",
+        "selectProduct": "Select a product to add...",
+        "product": "Product",
+        "unknownProduct": "Unknown Product",
+        "unknownUser": "Unknown User",
+        "unknownContact": "Unknown Contact",
+        "batch": "Batch",
+        "selectBatch": "Select batch",
+        "noBatchAvailable": "No batch available",
+        "quantity": "Quantity",
+        "quantityPlaceholder": "0",
+        "available": "Available",
+        "unitCost": "Unit Cost",
+        "totalCost": "Total Cost",
+        "notesAndAttachments": "Notes & Attachments",
+        "notes": "Notes",
+        "notesPlaceholder": "Add any additional notes or observations...",
+        "attachments": "Attachments",
+        "attachmentsHelp": "Upload photos, invoices, service reports, or contractor receipts"
+      },
+      "messages": {
+        "noInventory": "No inventory available",
+        "noInventoryDesc": "There is no quantity/batch available for the selected item.",
+        "success": "Maintenance record {{action}}{{stockUpdate}}",
+        "created": "created",
+        "updated": "updated",
+        "stockUpdated": " and stock updated",
+        "error": "Failed to save maintenance record",
+        "errorStockVoucher": "Maintenance record saved but failed to create stock voucher"
+      },
+      "validation": {
+        "serviceTypeRequired": "Service type is required",
+        "costPositive": "Cost must be positive"
+      },
+      "errors": {
+        "noAuthenticatedUser": "No authenticated user",
+        "farmNotFound": "Farm not found",
+        "farmNotFoundForUser": "Farm not found for user",
+        "insufficientQuantity": "Insufficient quantity",
+        "availableQuantity": "Available quantity is {{quantity}} {{unit}}",
+        "exceedsAvailableStock": "Exceeds available stock ({{quantity}} {{unit}})"
+      },
+      "costSummary": {
+        "title": "Cost Summary",
+        "calculatedTotal": "Calculated Total:",
+        "finalTotal": "Final Total Cost (Editable)"
+      },
+      "voucher": {
+        "sourceTypeOther": "Housing Unit Maintenance",
+        "autoNote": "Auto-generated from housing unit maintenance - {{housingUnitId}}",
+        "usedNote": "Used in housing unit maintenance - {{housingUnitId}}"
+      },
+      "toasts": {
+        "fetchFailed": "Failed to fetch maintenance records",
+        "saveFailed": "Failed to save maintenance record",
+        "deleted": "Maintenance record deleted successfully",
+        "deleteFailed": "Failed to delete maintenance record"
+      },
+      "view": {
+        "title": "Maintenance Record Details",
+        "downloadSuccess": "File downloaded successfully",
+        "downloadError": "Failed to download file",
+        "unknownSize": "Unknown size",
+        "labels": {
+          "datePerformed": "Date Performed:",
+          "serviceType": "Service Type:",
+          "status": "Status:",
+          "totalCost": "Total Cost:",
+          "recordId": "Record ID:",
+          "sku": "SKU: {{sku}}",
+          "quantity": "Qty: {{quantity}} {{unit}}",
+          "unitCost": "{{cost}} each",
+          "fileSize": "{{size}} KB",
+          "created": "Created:",
+          "updated": "Updated:"
+        },
+        "sections": {
+          "serviceDescription": "Service Description",
+          "productsUsed": "Products Used ({{count}})",
+          "notes": "Notes",
+          "attachments": "Attachments ({{count}})"
+        }
+      }
+    }
+    ,
+    "profilePanel": {
+      "title": "Housing Unit Profile",
+      "subtitle": "Basic information about this housing unit",
+      "labels": {
+        "type": "Type",
+        "capacity": "Capacity"
+      },
+      "values": {
+        "capacity": "{{count}} animals"
+      },
+      "messages": {
+        "notSpecified": "Not specified",
+        "moreCount": "+{{count}} more"
+      },
+      "location": {
+        "title": "Location & Farm Context",
+        "subtitle": "Where this housing unit is located",
+        "hierarchyLabel": "Location Hierarchy",
+        "loadingField": "Loading field...",
+        "noFieldAssigned": "No field assigned",
+        "farmNameLabel": "Farm Name",
+        "assignedFieldLabel": "Assigned Field",
+        "areaLabel": "Area",
+        "noFieldAssignedDescription": "No field assigned to this housing unit"
+      }
+    },
+    "designCapacity": {
+      "title": "Design Capacity & Space Analysis",
+      "subtitle": "Stocking density analysis based on industry standards for {{animalType}}",
+      "utilizationRate": "Utilization Rate",
+      "utilizationValue": "{{currentAnimals}} / {{designCapacity}} animals ({{percent}}%)",
+      "exceedsDesignCapacity": "Current count exceeds design capacity",
+      "totalArea": "Total Area",
+      "totalAreaHint": "Available housing space",
+      "designCapacity": "Design Capacity",
+      "designCapacityHint": "Maximum animals by design",
+      "recommendedSpace": "Recommended Space/Animal",
+      "recommendedSpaceHint": "Industry standard for {{animalType}}",
+      "maxRecommended": "Max Recommended",
+      "maxRecommendedHint": "Based on {{space}} m²/animal",
+      "currentStockingDensity": "Current Stocking Density",
+      "withinStandards": "Within Standards",
+      "belowStandards": "Below Standards",
+      "perAnimal": "m² per animal",
+      "aboveRecommended": "{{percent}}% above recommended minimum",
+      "belowRecommended": "{{percent}}% below recommended minimum",
+      "noAnimals": "No animals currently housed",
+      "noteLabel": "Note:"
+    },
+    "capacityStatus": {
+      "optimal": "Optimal",
+      "near-capacity": "Near Capacity",
+      "over-capacity": "Over Capacity",
+      "critical": "Critical"
+    },
+    "capacityWarning": {
+      "titles": {
+        "critical": "Critical Overcrowding Alert",
+        "overCapacity": "Over Capacity Warning",
+        "nearCapacity": "Approaching Capacity",
+        "notice": "Capacity Notice"
+      },
+      "messages": {
+        "criticalSubtitle": "Immediate action required to ensure animal welfare and compliance.",
+        "overCapacityIntro": "Current stocking density exceeds recommended space per animal for this unit.",
+        "recommendedPerAnimal": "Recommended: {{space}} m² per animal for optimal welfare",
+        "nearCapacity": "Housing unit is at {{percent}}% of design capacity. Consider monitoring closely to prevent overcrowding."
+      },
+      "stats": {
+        "currentAnimals": "Current Animals:",
+        "recommendedMax": "Recommended Max:",
+        "overCapacityBy": "Over Capacity By:",
+        "currentSpacePerAnimal": "Current Space/Animal:"
+      },
+      "values": {
+        "overCapacityBy": "{{count}} animal(s)"
+      },
+      "actions": {
+        "title": "Recommended Actions:",
+        "relocate": "Relocate {{count}} or more animals to other housing units",
+        "reviewWelfare": "Review animal welfare conditions immediately",
+        "checkSystems": "Check ventilation and sanitation systems",
+        "documentStatus": "Document capacity status for compliance records"
+      }
+    }
+  }
+}

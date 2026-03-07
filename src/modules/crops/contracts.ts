@@ -16,8 +16,17 @@ export type CropFormMode = 'create' | 'edit';
 export type CropFormValues = {
   cropName: string;
   cropVariety: string;
+  cropGroupId: string;
   notes: string;
 };
+
+export const CROP_LIST_MODE_OPTIONS = [
+  { label: 'All', value: 'all' },
+  { label: 'Operational', value: 'active' },
+  { label: 'Inactive', value: 'inactive' },
+] as const;
+
+export type CropListMode = (typeof CROP_LIST_MODE_OPTIONS)[number]['value'];
 
 export type CycleFormValues = {
   fieldId: string;
@@ -108,6 +117,7 @@ export function toCropFormValues(crop?: CropSummary | null): CropFormValues {
     return {
       cropName: '',
       cropVariety: '',
+      cropGroupId: '',
       notes: '',
     };
   }
@@ -115,6 +125,7 @@ export function toCropFormValues(crop?: CropSummary | null): CropFormValues {
   return {
     cropName: crop.name,
     cropVariety: crop.variety ?? '',
+    cropGroupId: crop.cropGroupId ?? '',
     notes: crop.notes ?? '',
   };
 }

@@ -1,0 +1,448 @@
+{
+  "contacts": {
+    "page": {
+      "title": "Gestión de Contactos",
+      "subtitle": "Administrá tus proveedores, clientes y prestadores de servicios",
+      "subtitleOffline": "Administrá tus proveedores, clientes y prestadores de servicios (Modo Sin Conexión)",
+      "pendingSync": "{{count}} pendiente de sincronización",
+      "pendingSyncPlural": "{{count}} pendientes de sincronización"
+    },
+    
+    "filters": {
+      "title": "Búsqueda y Filtros",
+      "search": {
+        "placeholder": "Buscar contactos por nombre, email, teléfono, empresa, dirección o notas..."
+      },
+      "status": {
+        "label": "Estado",
+        "labelWithCount": "Estado ({{count}})",
+        "active": "Activo",
+        "inactive": "Inactivo", 
+        "archived": "Archivado",
+        "all": "Todos los Estados"
+      },
+      "types": {
+        "label": "Tipos",
+        "labelWithCount": "Tipos ({{count}})",
+        "searchPlaceholder": "Buscar tipos...",
+        "noTypesFound": "No se encontraron tipos",
+        "all": "Todos los Tipos"
+      },
+      "countries": {
+        "label": "Países", 
+        "all": "Todos los Países",
+        "searchPlaceholder": "Buscar países...",
+        "noCountriesFound": "No se encontraron países"
+      },
+      "advanced": "Avanzado",
+      "clearAll": "Limpiar Todo",
+      "clearAllFilters": "Limpiar Todos los Filtros"
+    },
+    
+    "actions": {
+      "add": "Agregar Contacto",
+      "addNew": "Agregar Nuevo Contacto",
+      "addFirst": "Agregá tu Primer Contacto",
+      "edit": "Editar",
+      "editContact": "Editar Contacto",
+      "delete": "Eliminar",
+      "deactivate": "Desactivar",
+      "activate": "Activar",
+      "view": "Ver",
+      "viewContact": "Ver Contacto",
+      "import": "Importar",
+      "export": "Exportar",
+      "download": "Descargar",
+      "upload": "Subir",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "update": "Actualizar",
+      "create": "Crear",
+      "close": "Cerrar",
+      "processing": "Procesando...",
+      "saving": "Guardando...",
+      "loading": "Cargando...",
+      "viewToggle": {
+        "grid": "Vista de cuadrícula",
+        "table": "Vista de tabla"
+      }
+    },
+    
+    "list": {
+      "headers": {
+        "contact": "Contacto",
+        "types": "Tipos",
+        "company": "Empresa",
+        "contactInfo": "Información de Contacto",
+        "location": "Ubicación",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "emptyState": {
+        "title": "No se encontraron contactos",
+        "description": "Comenzá agregando tu primer contacto.",
+        "noResults": "No se encontraron resultados",
+        "adjustFilters": "Probá ajustando tus filtros o términos de búsqueda."
+      },
+      "pagination": {
+        "showing": "Mostrando {{start}} a {{end}} de {{total}} contactos",
+        "previous": "Anterior",
+        "next": "Siguiente"
+      },
+      "loading": "Cargando contactos...",
+      "loadingMore": "Cargando más contactos..."
+    },
+    
+    "card": {
+      "labels": {
+        "taxId": "RUC/NIT: {{taxId}}",
+        "moreTypes": "+{{count}}",
+        "noCompany": "N/A",
+        "noEmail": "Sin email proporcionado",
+        "noPhone": "Sin teléfono proporcionado",
+        "noLocation": "Sin ubicación proporcionada",
+        "noNotes": "Sin notas"
+      },
+      "chips": {
+        "auditor": "Auditor",
+        "breeder": "Criador", 
+        "buyer": "Comprador",
+        "certifier": "Certificador",
+        "customer": "Cliente",
+        "contact": "Contacto",
+        "supplier": "Proveedor",
+        "serviceProvider": "Prestador de Servicios"
+      }
+    },
+    
+    "form": {
+      "titles": {
+        "add": "Agregar Nuevo Contacto",
+        "edit": "Editar Contacto",
+        "view": "Detalles del Contacto"
+      },
+      "sections": {
+        "basicInfo": "Información Básica",
+        "contactDetails": "Detalles de Contacto", 
+        "addressDetails": "Detalles de Dirección",
+        "additionalInfo": "Información Adicional",
+        "attachments": "Archivos Adjuntos"
+      },
+      "labels": {
+        "name": "Nombre del Contacto",
+        "contactTypes": "Tipo(s) de Contacto",
+        "phone": "Número de Teléfono",
+        "email": "Dirección de Email", 
+        "company": "Nombre de la Empresa",
+        "country": "País",
+        "cityRegion": "Ciudad / Región",
+        "address": "Dirección",
+        "taxId": "RUC/NIT",
+        "notes": "Notas",
+        "status": "Estado",
+        "coordinates": "Coordenadas",
+        "attachments": "Archivos Adjuntos"
+      },
+      "placeholders": {
+        "name": "Ingresá el nombre del contacto",
+        "phone": "Ingresá el número de teléfono",
+        "email": "Ingresá la dirección de email",
+        "company": "Ingresá el nombre de la empresa",
+        "country": "Seleccioná un país",
+        "cityRegion": "Ingresá ciudad o región", 
+        "address": "Ingresá la dirección completa",
+        "taxId": "Ingresá el número de identificación fiscal",
+        "notes": "Ingresá cualquier nota adicional...",
+        "contactTypesSearch": "Buscar tipos de contacto...",
+        "customType": "Agregar tipo de contacto personalizado",
+        "status": "Seleccioná estado"
+      },
+      "help": {
+        "contactTypes": "Seleccioná uno o más tipos de contacto que describan la relación de este contacto con tu finca.",
+        "email": "Dirección de email válida para comunicación",
+        "phone": "Número de teléfono incluyendo código de país/área si aplica",
+        "taxId": "Número de identificación fiscal empresarial (opcional)",
+        "attachments": "Subí documentos, contratos u otros archivos relacionados con este contacto"
+      },
+      "required": "*",
+      "optional": "(Opcional)",
+      "buttons": {
+        "addCustom": "Agregar Personalizado",
+        "selectLocation": "Seleccionar Ubicación",
+        "uploadFile": "Subir Archivo",
+        "downloadFile": "Descargar",
+        "removeFile": "Remover"
+      }
+    },
+    
+    "validation": {
+      "nameRequired": "El nombre del contacto es obligatorio",
+      "nameMinLength": "El nombre del contacto debe tener al menos {{min}} caracteres",
+      "nameMaxLength": "El nombre del contacto no puede exceder {{max}} caracteres",
+      "typesRequired": "Se requiere al menos un tipo de contacto",
+      "emailInvalid": "Por favor ingresá una dirección de email válida",
+      "phoneInvalid": "Por favor ingresá un número de teléfono válido",
+      "taxIdInvalid": "Por favor ingresá un formato de RUC/NIT válido",
+      "coordinatesInvalid": "Coordenadas inválidas proporcionadas",
+      "fileTooBig": "El tamaño del archivo no puede exceder {{maxSize}}MB",
+      "fileTypeNotSupported": "Tipo de archivo no soportado. Permitidos: {{allowedTypes}}",
+      "tooManyFiles": "No se pueden subir más de {{maxFiles}} archivos"
+    },
+    
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "archived": "Archivado",
+      "pending": "Pendiente",
+      "draft": "Borrador"
+    },
+    
+    "confirm": {
+      "deactivate": {
+        "title": "Desactivar Contacto",
+        "description": "¿Estás seguro que querés desactivar \"{{name}}\"? Este contacto será movido al estado inactivo y podrá ser reactivado luego.",
+        "confirmButton": "Desactivar",
+        "cancelButton": "Cancelar"
+      },
+      "delete": {
+        "title": "Eliminar Contacto", 
+        "description": "¿Estás seguro que querés eliminar permanentemente \"{{name}}\"? Esta acción no se puede deshacer y removerá todos los datos asociados.",
+        "confirmButton": "Eliminar",
+        "cancelButton": "Cancelar"
+      },
+      "activate": {
+        "title": "Activar Contacto",
+        "description": "¿Estás seguro que querés activar \"{{name}}\"? Este contacto será movido al estado activo.",
+        "confirmButton": "Activar", 
+        "cancelButton": "Cancelar"
+      }
+    },
+    
+    "toasts": {
+      "success": {
+        "created": "Contacto Creado",
+        "createdDescription": "\"{{name}}\" ha sido creado exitosamente.",
+        "createdOffline": "Contacto creado sin conexión",
+        "createdOfflineDescription": "\"{{name}}\" será sincronizado cuando esté en línea.",
+        "updated": "Contacto Actualizado",
+        "updatedDescription": "\"{{name}}\" ha sido actualizado exitosamente.",
+        "updatedOffline": "Contacto actualizado sin conexión",
+        "updatedOfflineDescription": "Los cambios serán sincronizados cuando esté en línea.",
+        "deleted": "Contacto Eliminado", 
+        "deletedDescription": "\"{{name}}\" ha sido eliminado permanentemente.",
+        "deactivated": "Contacto Desactivado",
+        "deactivatedDescription": "\"{{name}}\" ha sido desactivado.",
+        "deactivatedOffline": "Contacto desactivado sin conexión",
+        "activated": "Contacto Activado",
+        "activatedDescription": "\"{{name}}\" ha sido activado.",
+        "exported": "Contactos Exportados",
+        "exportedDescription": "{{count}} contactos exportados exitosamente.",
+        "imported": "Contactos Importados",
+        "importedDescription": "{{count}} contactos importados exitosamente.",
+        "fileUploaded": "Archivo Subido",
+        "fileUploadedDescription": "{{fileName}} subido exitosamente.",
+        "fileRemoved": "Archivo Removido",
+        "fileRemovedDescription": "Archivo removido exitosamente."
+      },
+      "error": {
+        "generic": "Error",
+        "createFailed": "Falló al crear contacto",
+        "createFailedDescription": "No se pudo crear \"{{name}}\". Por favor intentá de nuevo.",
+        "updateFailed": "Falló al actualizar contacto", 
+        "updateFailedDescription": "No se pudo actualizar \"{{name}}\". Por favor intentá de nuevo.",
+        "deleteFailed": "Falló al eliminar contacto",
+        "deleteFailedDescription": "No se pudo eliminar \"{{name}}\". Por favor intentá de nuevo.",
+        "deactivateFailed": "Falló al desactivar contacto",
+        "activateFailed": "Falló al activar contacto",
+        "exportFailed": "Falló la Exportación",
+        "exportFailedDescription": "No se pudieron exportar los contactos. Por favor intentá de nuevo.",
+        "importFailed": "Falló la Importación",
+        "importFailedDescription": "No se pudieron importar los contactos. Por favor verificá el formato del archivo.",
+        "loadFailed": "Falló al cargar contactos",
+        "loadFailedDescription": "No se pudieron cargar los contactos. Por favor refrescá la página.",
+        "fileTooLarge": "Archivo demasiado grande",
+        "fileTooLargeDescription": "El tamaño del archivo excede el límite máximo permitido.",
+        "fileUploadFailed": "Falló al subir archivo",
+        "fileUploadFailedDescription": "No se pudo subir \"{{fileName}}\". Por favor intentá de nuevo.",
+        "fileDownloadFailed": "Falló la descarga",
+        "fileDownloadFailedDescription": "No se pudo descargar el archivo. Por favor intentá de nuevo.",
+        "fileRemoveFailed": "Falló al remover archivo",
+        "permissionDenied": "Permiso denegado",
+        "networkError": "Error de red",
+        "validationError": "Error de validación",
+        "somethingWentWrong": "Algo salió mal"
+      },
+      "warning": {
+        "unsavedChanges": "Cambios sin Guardar",
+        "unsavedChangesDescription": "Tenés cambios sin guardar. ¿Estás seguro que querés salir?",
+        "duplicateName": "Contacto Duplicado",
+        "duplicateNameDescription": "Ya existe un contacto con este nombre.",
+        "offlineMode": "Modo Sin Conexión",
+        "offlineModeDescription": "Los cambios serán guardados localmente y sincronizados cuando esté en línea."
+      },
+      "info": {
+        "syncing": "Sincronizando...",
+        "syncingDescription": "Sincronizando contactos con el servidor.",
+        "syncComplete": "Sincronización Completa",
+        "syncCompleteDescription": "Todos los contactos han sido sincronizados."
+      }
+    },
+    
+    "import": {
+      "title": "Importar Contactos",
+      "description": "Importar contactos desde archivos Excel o CSV",
+      "steps": {
+        "upload": "Subir Archivo",
+        "map": "Mapear Campos", 
+        "preview": "Vista Previa de Datos",
+        "import": "Importar Contactos"
+      },
+      "fileTypes": "Formatos soportados: Excel (.xlsx, .xls), CSV (.csv)",
+      "maxFileSize": "Tamaño máximo de archivo: {{size}}MB",
+      "dragAndDrop": "Arrastrá y soltá tu archivo aquí, o hacé clic para navegar",
+      "selectFile": "Seleccionar Archivo",
+      "processing": "Procesando archivo...",
+      "mapping": {
+        "title": "Mapear tus Columnas",
+        "description": "Coincidí las columnas de tu archivo con los campos de contacto",
+        "sourceColumn": "Columna de Origen",
+        "targetField": "Campo Destino", 
+        "preview": "Vista Previa",
+        "required": "Obligatorio",
+        "optional": "Opcional",
+        "ignore": "Ignorar esta columna",
+        "autoMapped": "Auto-mapeado basado en nombres de columnas"
+      },
+      "preview": {
+        "title": "Vista Previa de Datos de Importación",
+        "description": "Revisá los datos antes de importar",
+        "totalRows": "Total de filas: {{count}}",
+        "validRows": "Filas válidas: {{count}}",
+        "errorRows": "Filas con errores: {{count}}",
+        "showErrors": "Mostrar solo errores",
+        "showAll": "Mostrar todo"
+      },
+      "progress": {
+        "uploading": "Subiendo...",
+        "processing": "Procesando {{current}} de {{total}}...",
+        "importing": "Importando contactos...",
+        "complete": "¡Importación completa!"
+      },
+      "errors": {
+        "fileRequired": "Por favor seleccioná un archivo para importar",
+        "fileTooLarge": "El archivo es demasiado grande. El tamaño máximo es {{maxSize}}MB",
+        "invalidFileType": "Tipo de archivo inválido. Por favor usá formato Excel o CSV",
+        "mappingRequired": "Por favor mapeá los campos obligatorios",
+        "noDataFound": "No se encontraron datos en el archivo",
+        "processingError": "Error procesando archivo: {{error}}",
+        "importError": "Error importando contactos: {{error}}"
+      },
+      "success": {
+        "imported": "Se importaron exitosamente {{count}} contactos",
+        "skipped": "{{count}} filas omitidas debido a errores"
+      }
+    },
+    
+    "export": {
+      "title": "Exportar Contactos", 
+      "description": "Exportá tus contactos a Excel o CSV",
+      "formats": {
+        "excel": "Excel (.xlsx)",
+        "csv": "CSV (.csv)"
+      },
+      "options": {
+        "allContacts": "Todos los contactos",
+        "filteredContacts": "Contactos filtrados ({{count}})",
+        "selectedContacts": "Contactos seleccionados ({{count}})"
+      },
+      "fields": {
+        "title": "Seleccionar campos para exportar",
+        "selectAll": "Seleccionar todo",
+        "selectNone": "No seleccionar nada",
+        "name": "Nombre",
+        "contactTypes": "Tipos de Contacto", 
+        "email": "Email",
+        "phone": "Teléfono",
+        "company": "Empresa",
+        "country": "País",
+        "cityRegion": "Ciudad/Región",
+        "address": "Dirección",
+        "taxId": "RUC/NIT",
+        "status": "Estado",
+        "notes": "Notas",
+        "createdAt": "Fecha de Creación",
+        "updatedAt": "Fecha de Actualización"
+      },
+      "fileName": "exportacion_contactos_{{date}}",
+      "downloading": "Preparando descarga...",
+      "success": "Exportación completada exitosamente"
+    },
+    
+    "contactTypes": {
+      "auditor": "Auditor",
+      "breeder": "Criador",
+      "buyer": "Comprador", 
+      "certifier": "Certificador",
+      "customer": "Cliente",
+      "contact": "Contacto",
+      "supplier": "Proveedor",
+      "serviceProvider": "Prestador de Servicios",
+      "distributor": "Distribuidor",
+      "retailer": "Minorista",
+      "consultant": "Consultor",
+      "contractor": "Contratista",
+      "government": "Entidad Gubernamental",
+      "ngo": "ONG/Sin Fines de Lucro",
+      "financial": "Institución Financiera",
+      "logistics": "Proveedor Logístico",
+      "insurance": "Proveedor de Seguros",
+      "legal": "Servicios Legales",
+      "veterinary": "Servicios Veterinarios",
+      "custom": "Tipo Personalizado"
+    },
+    
+    "attachments": {
+      "title": "Archivos Adjuntos",
+      "count": "Archivos Adjuntos ({{count}})",
+      "noAttachments": "Sin archivos adjuntos",
+      "uploadPrompt": "Subí documentos, contratos o archivos relacionados con este contacto",
+      "dragDrop": "Arrastrá archivos aquí o hacé clic para subir",
+      "maxSize": "Máx {{size}}MB por archivo",
+      "allowedTypes": "Tipos permitidos: {{types}}",
+      "uploading": "Subiendo {{count}} archivos...",
+      "downloadAll": "Descargar Todo",
+      "removeAll": "Remover Todo"
+    },
+    
+    "stats": {
+      "total": "Total de Contactos",
+      "active": "Activos", 
+      "inactive": "Inactivos",
+      "byType": "Por Tipo",
+      "byCountry": "Por País",
+      "recentlyAdded": "Agregados Recientemente",
+      "pendingReview": "Pendientes de Revisión"
+    },
+    
+    "common": {
+      "loading": "Cargando...",
+      "noData": "No hay datos disponibles",
+      "error": "Error",
+      "success": "Éxito",
+      "warning": "Advertencia", 
+      "info": "Información",
+      "notAvailable": "N/A",
+      "unknown": "Desconocido",
+      "all": "Todo",
+      "none": "Ninguno",
+      "other": "Otro",
+      "custom": "Personalizado",
+      "search": "Buscar",
+      "filter": "Filtrar",
+      "sort": "Ordenar",
+      "refresh": "Refrescar",
+      "retry": "Reintentar",
+      "dismiss": "Descartar"
+    }
+  }
+}

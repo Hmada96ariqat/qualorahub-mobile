@@ -1,0 +1,303 @@
+{
+  "users": {
+    "title": "إدارة المستخدمين والأدوار",
+    "description": "إنشاء أدوار مخصّصة مع صلاحيات وإدارة المستخدمين عبر نظام دعوات آمن",
+
+    "tabs": {
+      "users": "المستخدمون",
+      "roles": "الأدوار",
+      "pendingInvites": "الدعوات المعلّقة"
+    },
+
+    "usersTab": {
+      "title": "👤 إدارة المستخدمين",
+      "searchPlaceholder": "ابحث بالاسم أو البريد الإلكتروني أو رقم الهاتف...",
+      "filterByRole": "التصفية حسب الدور",
+      "filterByStatus": "التصفية حسب الحالة",
+      "allRoles": "جميع الأدوار",
+      "allStatus": "جميع الحالات",
+      "createNewUser": "إنشاء مستخدم جديد",
+      "noUsersFound": "لم يتم العثور على مستخدمين",
+      "loadingUsers": "جارٍ تحميل المستخدمين...",
+      "showingUsers": "عرض {{from}}-{{to}} من {{total}} مستخدم"
+    },
+
+    "userCard": {
+      "joinedOn": "انضم في {{date}}",
+      "viewUser": "عرض",
+      "editUser": "تعديل",
+      "deactivateUser": "تعطيل",
+      "activateUser": "تفعيل",
+      "emailLabel": "البريد الإلكتروني",
+      "phoneLabel": "الهاتف"
+    },
+
+    "stats": {
+      "totalUsers": "إجمالي المستخدمين",
+      "activeUsers": "المستخدمون النشطون",
+      "pendingUsers": "مستخدمون قيد الانتظار",
+      "inactiveUsers": "المستخدمون غير النشطين"
+    },
+
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "pending": "قيد الانتظار",
+      "invited": "تمت دعوته",
+      "suspended": "موقوف"
+    },
+
+    "roles": {
+      "admin": "مسؤول",
+      "manager": "مدير",
+      "staff": "موظف",
+      "viewer": "مُشاهد"
+    },
+
+    "rolesTab": {
+      "title": "🔐 إدارة الأدوار",
+      "createNewRole": "إنشاء دور جديد",
+      "editRole": "تعديل",
+      "deleteRole": "حذف",
+      "noRolesFound": "لم يتم العثور على أدوار",
+      "loadingRoles": "جارٍ تحميل الأدوار...",
+      "permissions": "الصلاحيات",
+      "globalAccess": "وصول شامل إلى جميع الحقول",
+      "limitedAccess": "محدود بـ {{count}} حقل/حقول محددة",
+      "permissionView": "عرض",
+      "permissionAdd": "إضافة",
+      "permissionEdit": "تعديل",
+      "permissionDelete": "حذف"
+    },
+
+    "pendingInvitesTab": {
+      "title": "📧 الدعوات المعلّقة",
+      "noPendingInvites": "لا توجد دعوات معلّقة",
+      "loadingInvites": "جارٍ تحميل الدعوات...",
+      "expireDate": "تنتهي في: {{date}}",
+      "resendInvite": "إعادة الإرسال",
+      "revokeInvite": "إلغاء",
+      "deleteInvite": "حذف الدعوة"
+    },
+
+    "createUserDialog": {
+      "title": "إنشاء مستخدم جديد",
+      "fullName": "الاسم الكامل",
+      "fullNamePlaceholder": "أدخل الاسم الكامل",
+      "nickName": "الاسم المختصر",
+      "nickNamePlaceholder": "اسم ودي أو مختصر",
+      "emailAddress": "البريد الإلكتروني",
+      "emailPlaceholder": "أدخل البريد الإلكتروني",
+      "emailHelper": "يُستخدم كمعرّف تسجيل الدخول الأساسي ويجب أن يكون فريدًا.",
+      "mobileNumber": "رقم الهاتف",
+      "mobilePlaceholder": "أدخل رقم الهاتف",
+      "userRole": "دور المستخدم",
+      "userRolePlaceholder": "اختر الدور",
+      "status": "الحالة",
+      "attachments": "المرفقات",
+      "inviteFlowTitle": "📧 إنشاء المستخدم ونظام الدعوة",
+      "inviteFlowItems": [
+        "سيتم إرسال رسالة دعوة آمنة إلى البريد الإلكتروني للمستخدم",
+        "تحتوي الرسالة على رابط صالح لمدة محدودة (24 ساعة)",
+        "ينقر المستخدم على الرابط لتعيين كلمة المرور والحصول على الوصول",
+        "لا يُطلب من المسؤول إدخال كلمة مرور"
+      ],
+      "createUserButton": "إنشاء المستخدم وإرسال الدعوة",
+      "sendingInvite": "جارٍ إرسال الدعوة...",
+      "cancel": "إلغاء"
+    },
+
+    "editUserDialog": {
+      "title": "تعديل المستخدم",
+      "fullName": "الاسم الكامل",
+      "fullNamePlaceholder": "أدخل الاسم الكامل",
+      "nickName": "الاسم المختصر",
+      "nickNamePlaceholder": "اسم ودي أو مختصر",
+      "emailAddress": "البريد الإلكتروني",
+      "emailPlaceholder": "أدخل البريد الإلكتروني",
+      "emailHelper": "لا يمكن تغيير البريد الإلكتروني بعد إنشاء الحساب.",
+      "mobileNumber": "رقم الهاتف",
+      "mobilePlaceholder": "أدخل رقم الهاتف",
+      "userRole": "دور المستخدم",
+      "userRolePlaceholder": "اختر الدور",
+      "status": "الحالة",
+      "attachments": "المرفقات",
+      "updateUserButton": "تحديث المستخدم",
+      "updating": "جارٍ التحديث...",
+      "cancel": "إلغاء"
+    },
+
+    "userProfileDialog": {
+      "title": "ملف المستخدم",
+      "contactInformation": "معلومات الاتصال",
+      "accountDetails": "تفاصيل الحساب",
+      "userId": "معرّف المستخدم",
+      "lastUpdated": "آخر تحديث",
+      "attachments": "المرفقات",
+      "close": "إغلاق",
+      "joinedOn": "انضم في {{date}}"
+    },
+
+    "roleDialog": {
+      "createTitle": "إنشاء دور جديد",
+      "editTitle": "تعديل الدور",
+      "roleName": "اسم الدور",
+      "roleNamePlaceholder": "مثال: مشرف الحقول، مدير المالية",
+      "permissionsMatrix": "مصفوفة الصلاحيات",
+      "module": "الوحدة",
+      "add": "إضافة",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "view": "عرض",
+      "exportImport": "تصدير/استيراد",
+      "useFilters": "استخدام المرشحات",
+      "selectAll": "تحديد الكل",
+      "createRole": "إنشاء الدور",
+      "updateRole": "تحديث الدور",
+      "saving": "جارٍ الحفظ...",
+      "cancel": "إلغاء"
+    },
+
+    "roleForm": {
+      "warningTitle": "تحذير أمني",
+      "warningMessage": "أنت المستخدم الوحيد في هذا الحساب. إزالة صلاحيات وحدة المستخدمين ستمنعك من إدارة المستخدمين. لا يمكنك إزالة الصلاحيات المفعّلة حاليًا.",
+      "cannotRemovePermissions": "لا يمكنك إزالة صلاحيات وحدة المستخدمين لأنك المستخدم الوحيد في هذا الحساب.",
+      "required": "مطلوب"
+    },
+
+    "uploader": {
+      "clickToUpload": "انقر للرفع",
+      "dragAndDrop": "أو اسحب وأفلت",
+      "acceptedTypes": "PDF، DOC، DOCX، PNG، JPG",
+      "maxSize": "الحد الأقصى {{size}} ميغابايت",
+      "uploadedFiles": "الملفات المرفوعة",
+      "removeFile": "إزالة الملف"
+    },
+
+    "deactivateDialog": {
+      "title": "تعطيل المستخدم",
+      "description": "هل أنت متأكد من تعطيل {{name}}؟ لن يتمكن من الوصول إلى النظام.",
+      "cancel": "إلغاء",
+      "deactivate": "تعطيل"
+    },
+
+    "deleteInviteDialog": {
+      "title": "حذف الدعوة",
+      "description": "هل أنت متأكد من حذف هذه الدعوة؟ لا يمكن التراجع عن هذا الإجراء.",
+      "cancel": "إلغاء",
+      "delete": "حذف"
+    },
+
+    "deleteRoleDialog": {
+      "title": "حذف الدور",
+      "description": "هل أنت متأكد من حذف هذا الدور؟",
+      "cancel": "إلغاء",
+      "delete": "حذف"
+    },
+
+    "validation": {
+      "required": "هذا الحقل مطلوب",
+      "invalidEmail": "يرجى إدخال بريد إلكتروني صالح",
+      "invalidPhone": "يرجى إدخال رقم هاتف صالح",
+      "emailInUse": "عنوان البريد الإلكتروني مستخدم بالفعل",
+      "fillRequiredFields": "يرجى تعبئة جميع الحقول المطلوبة",
+      "fileTooLarge": "حجم الملف يتجاوز الحد {{size}} ميغابايت",
+      "unsupportedFileType": "نوع ملف غير مدعوم",
+      "uploadFailed": "فشل رفع الملف"
+    },
+
+    "toasts": {
+      "userCreated": "تم إنشاء المستخدم بنجاح!",
+      "userCreationFailed": "فشل إنشاء المستخدم. حاول مرة أخرى.",
+      "inviteSent": "تم إرسال الدعوة إلى {{email}}!",
+      "inviteSendFailed": "فشل إرسال الدعوة",
+      "userUpdated": "تم تحديث المستخدم بنجاح!",
+      "userUpdateFailed": "فشل تحديث المستخدم",
+      "userActivated": "تم تفعيل المستخدم بنجاح!",
+      "userDeactivated": "تم تعطيل المستخدم بنجاح!",
+      "userStatusUpdateFailed": "فشل تحديث حالة المستخدم",
+      "roleCreated": "تم إنشاء الدور بنجاح!",
+      "roleUpdated": "تم تحديث الدور بنجاح!",
+      "roleSaved": "تم حفظ الدور بنجاح!",
+      "roleDeleted": "تم حذف الدور بنجاح!",
+      "roleDeleteFailed": "فشل حذف الدور",
+      "inviteResent": "تمت إعادة إرسال الدعوة بنجاح!",
+      "inviteResendFailed": "فشل إعادة إرسال الدعوة",
+      "inviteDeleted": "تم حذف الدعوة بنجاح!",
+      "inviteDeleteFailed": "فشل حذف الدعوة",
+      "filesUploaded": "تم رفع {{count}} ملف/ملفات بنجاح",
+      "fileUploadFailed": "فشل رفع الملفات",
+      "permissionDenied": "ليست لديك صلاحية {{action}}"
+    },
+
+    "emptyStates": {
+      "noUsers": "لا يوجد مستخدمون",
+      "noRoles": "لا توجد أدوار",
+      "noInvites": "لا توجد دعوات معلّقة",
+      "loadingUsers": "جارٍ تحميل المستخدمين...",
+      "loadingRoles": "جارٍ تحميل الأدوار...",
+      "loadingInvites": "جارٍ تحميل الدعوات...",
+      "errorLoadingUsers": "تعذّر تحميل المستخدمين. أعد المحاولة",
+      "errorLoadingRoles": "تعذّر تحميل الأدوار. أعد المحاولة",
+      "errorLoadingInvites": "تعذّر تحميل الدعوات. أعد المحاولة"
+    },
+
+    "pagination": {
+      "showing": "عرض {{from}}-{{to}} من {{total}}",
+      "noResults": "لا توجد نتائج",
+      "loading": "جارٍ التحميل..."
+    },
+
+    "modules": {
+      "Dashboard": "لوحة التحكم",
+      "Reports": "التقارير",
+      "Fields": "الحقول",
+      "Lots": "القطع",
+      "Equipment": "المعدات",
+      "Tasks": "المهام",
+      "Finance": "المالية",
+      "Weather": "الطقس",
+      "Crop Planning": "تخطيط المحاصيل",
+      "Production Cycles": "دورات الإنتاج",
+      "Store Dashboard": "لوحة المتجر",
+      "Orders": "الطلبات",
+      "Order List": "قائمة الطلبات",
+      "Storefront": "واجهة المتجر",
+      "Products": "المنتجات",
+      "Categories": "الفئات",
+      "Taxes": "الضرائب",
+      "Warehouses": "المستودعات",
+      "Stock Adjustment": "تسوية المخزون",
+      "Stock Count": "جرد المخزون",
+      "Animal Housing Unit": "وحدة إيواء الحيوانات",
+      "Animal Profile": "ملف الحيوان",
+      "Users": "المستخدمون",
+      "Contacts": "جهات الاتصال",
+      "Farm Settings": "إعدادات المزرعة"
+    },
+
+    "adminPanel": {
+      "title": "إدارة المستخدمين",
+      "description": "إدارة جميع المستخدمين وصلاحياتهم",
+      "searchUsers": "ابحث عن المستخدمين...",
+      "filterByType": "التصفية حسب النوع",
+      "filterByStatus": "التصفية حسب الحالة",
+      "allTypes": "جميع الأنواع",
+      "regularUsers": "مستخدمون عاديون",
+      "superAdmins": "مسؤولون عامّون",
+      "allStatus": "جميع الحالات",
+      "user": "المستخدم",
+      "type": "النوع",
+      "status": "الحالة",
+      "farm": "المزرعة",
+      "joined": "تاريخ الانضمام",
+      "actions": "الإجراءات",
+      "regularUser": "مستخدم عادي",
+      "superAdmin": "مسؤول عام",
+      "noFarmAssigned": "لا توجد مزرعة معيّنة",
+      "editUserRole": "تعديل دور المستخدم",
+      "selectRole": "اختر الدور",
+      "save": "حفظ"
+    }
+  }
+}

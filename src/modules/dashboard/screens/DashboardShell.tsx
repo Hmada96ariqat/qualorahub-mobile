@@ -12,7 +12,6 @@ import {
   ErrorState,
   HeaderMenuButton,
   ListRow,
-  NotificationHeaderButton,
   PillTabs,
   ProfileCard,
   PullToRefreshContainer,
@@ -21,9 +20,11 @@ import {
   SectionHeader,
   Skeleton,
   StatStrip,
+  SystemHeaderActions,
   type ListRowIconVariant,
   type QuickAction,
 } from '../../../components';
+import { useAppI18n } from '../../../hooks/useAppI18n';
 import { resolvePermissionKeys } from '../../../hooks/usePermissionGate';
 import { useAuth } from '../../../providers/AuthProvider';
 import { palette, spacing, typography } from '../../../theme/tokens';
@@ -94,6 +95,7 @@ function toGroupIconVariant(group: ProtectedNavigationGroupKey): ListRowIconVari
 }
 
 export function DashboardShell({ email }: Props) {
+  const { t } = useAppI18n();
   const router = useRouter();
   const { accessLoading, accessSnapshot, hasMenuAccess } = useAuth();
   const { snapshot, loading, refreshing, error, refresh } = useDashboardSnapshot();
@@ -109,6 +111,9 @@ export function DashboardShell({ email }: Props) {
     [context?.displayName, email],
   );
   const greetingLabel = `${toGreetingForNow()}, ${userDisplayName}`;
+  const signedInAsLabel = t('system', 'headers.dashboard.signedInAs', 'Signed in as {{email}}', {
+    email,
+  });
 
   useFocusEffect(
     React.useCallback(() => {
@@ -375,15 +380,13 @@ export function DashboardShell({ email }: Props) {
           <View style={styles.headerLead}>
             <HeaderMenuButton testID="dashboard-header-menu" />
             <View style={styles.headerCopy}>
-              <Text style={styles.headerTitle}>Dashboard</Text>
+              <Text style={styles.headerTitle}>{t('dashboard', 'title', 'Dashboard')}</Text>
               <Text style={styles.headerSubtitle}>
-                {hasFarmName ? farmDisplayName : `Signed in as ${email}`}
+                {hasFarmName ? farmDisplayName : signedInAsLabel}
               </Text>
             </View>
           </View>
-          <View style={styles.headerActions}>
-            <NotificationHeaderButton testID="dashboard-header-notifications" />
-          </View>
+          <SystemHeaderActions notificationTestID="dashboard-header-notifications" />
         </View>
 
         <PullToRefreshContainer
@@ -395,14 +398,14 @@ export function DashboardShell({ email }: Props) {
           <View style={styles.greetingBlock}>
             <Text style={styles.greetingTitle}>{greetingLabel}</Text>
             <Text style={styles.greetingSubtitle}>
-              {hasFarmName ? farmDisplayName : `Signed in as ${email}`}
+              {hasFarmName ? farmDisplayName : signedInAsLabel}
             </Text>
           </View>
 
           <ProfileCard
             icon="view-dashboard-outline"
             name={farmDisplayName}
-            subtitle={`Signed in as ${email}`}
+            subtitle={signedInAsLabel}
             cells={profileCells}
             testID="dashboard-profile-card"
           />

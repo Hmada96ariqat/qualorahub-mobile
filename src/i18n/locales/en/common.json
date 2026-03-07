@@ -1,0 +1,386 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "create": "Create",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "close": "Close",
+    "view": "View",
+    "update": "Update",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "processing": "Processing...",
+    "saving": "Saving...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    "permissionDenied": "Permission denied",
+    "search": "Search",
+    "selectPerson": "Select person",
+    "noneSelected": "None selected",
+    "searchPlaceholder": "Search {{item}}...",
+    "noPersonFound": "No person found.",
+    "users": "Users",
+    "contacts": "Contacts",
+    "unknownUser": "Unknown user",
+    "unknownContact": "Unknown contact",
+    "filter": "Filter",
+    "filters": "Filters",
+    "clearAll": "Clear All",
+    "advanced": "Advanced",
+    "simple": "Simple",
+    "export": "Export",
+    "import": "Import",
+    "download": "Download",
+    "upload": "Upload",
+    "add": "Add",
+    "remove": "Remove",
+    "actions": "Actions",
+    "status": "Status",
+    "date": "Date",
+    "days": "days",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "tax": "Tax",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "city": "City",
+    "notes": "Notes",
+    "hectares": "Hectares",
+    "noDataFound": "No data found",
+    "loadingData": "Loading data...",
+    "pleaseWait": "Please wait...",
+    "optional": "Optional",
+    "required": "Required",
+    "selectOption": "Select an option",
+    "createNew": "Create New",
+    "noOptionsFound": "No options found.",
+    "all": "All",
+    "none": "None",
+    "notAvailable": "N/A",
+    "deactivate": "Deactivate",
+    "reactivate": "Reactivate",
+    "activate": "Activate",
+    "resend": "Resend",
+    "revoke": "Revoke",
+    "retry": "Retry",
+    "apply": "Apply",
+    "reference": "Reference",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "showing": "Showing",
+    "of": "of",
+    "noResults": "No results",
+    "joinedOn": "Joined on",
+    "lastUpdated": "Last Updated",
+    "somethingWentWrong": "Something went wrong",
+    "tryAgain": "Try again",
+    "reset": "Reset",
+    "clear": "Clear",
+    "previous": "Previous",
+    "back": "Back",
+    "next": "Next",
+    "pageOf": "Page {{current}} of {{total}}",
+    "archive": "Archive",
+    "restore": "Restore",
+    "demo": {
+      "title": "Try It Yourself",
+      "shortLabel": "Demo",
+      "stepLabel": "Step {{current}} of {{total}} — {{title}}",
+      "stepLabelCompact": "Step {{current}} / {{total}}",
+      "getStarted": "Get Started",
+      "next": "Next",
+      "previous": "Previous",
+      "closeDemo": "Close Demo",
+      "steps": {
+        "welcome": "Welcome",
+        "farmIdentity": "Farm Identity",
+        "cropSetup": "Crop Setup",
+        "startCycle": "Start Cycle",
+        "planting": "Planting",
+        "maintenance": "Maintenance",
+        "wasteEvent": "Waste Event",
+        "harvest": "Harvest",
+        "dashboard": "Dashboard",
+        "yieldInsights": "Yield Insights",
+        "costSummary": "Cost Summary",
+        "wasteInsights": "Waste Insights",
+        "impact": "Impact",
+        "complete": "Complete"
+      },
+      "shared": {
+        "demoFarmName": "Demo Farm"
+      },
+      "welcome": {
+        "title": "Welcome to QualoraHub Demo",
+        "description": "Experience how QualoraHub simplifies farm management. In just a few minutes, you'll simulate a complete crop production cycle and see real insights.",
+        "cards": {
+          "cropManagement": {
+            "title": "Crop Management",
+            "description": "Set up your crop and track its production cycle"
+          },
+          "wasteTracking": {
+            "title": "Waste Tracking",
+            "description": "Log waste events to uncover hidden losses"
+          },
+          "smartInsights": {
+            "title": "Smart Insights",
+            "description": "See actionable insights from your farm data"
+          }
+        },
+        "learnTitle": "What you'll learn:",
+        "learnItems": {
+          "productionCycles": "How production cycles help track costs and yields",
+          "operations": "How operations affect your bottom line",
+          "wasteTracking": "How waste tracking reveals hidden losses",
+          "actionableInsights": "How data transforms into actionable insights"
+        }
+      },
+      "farmIdentity": {
+        "title": "Name Your Farm",
+        "description": "Give your demo farm an identity. This name will appear in your dashboard.",
+        "fieldLabel": "Farm Name",
+        "placeholder": "e.g., Green Valley Farm",
+        "note": "💡 This is a demo — your data stays local and is not saved anywhere."
+      },
+      "cropSetup": {
+        "title": "Select Your Crop",
+        "description": "Choose a crop type and variety for your production cycle.",
+        "cropTypeLabel": "Crop Type",
+        "cropTypePlaceholder": "Select crop type",
+        "varietyLabel": "Variety",
+        "varietyPlaceholder": "Select variety",
+        "selectCropFirst": "Select crop first",
+        "note": "🌱 For this demo, we assume one default field and production lot.",
+        "cropTypes": {
+          "coffee": "Coffee",
+          "tomato": "Tomato",
+          "corn": "Corn",
+          "wheat": "Wheat",
+          "rice": "Rice",
+          "potato": "Potato",
+          "lettuce": "Lettuce"
+        },
+        "varieties": {
+          "arabica": "Arabica",
+          "robusta": "Robusta",
+          "liberica": "Liberica",
+          "roma": "Roma",
+          "cherry": "Cherry",
+          "beefsteak": "Beefsteak",
+          "heirloom": "Heirloom",
+          "sweetCorn": "Sweet Corn",
+          "dentCorn": "Dent Corn",
+          "flintCorn": "Flint Corn",
+          "hardRed": "Hard Red",
+          "softWhite": "Soft White",
+          "durum": "Durum",
+          "basmati": "Basmati",
+          "jasmine": "Jasmine",
+          "arborio": "Arborio",
+          "russet": "Russet",
+          "yukonGold": "Yukon Gold",
+          "redPotato": "Red Potato",
+          "romaine": "Romaine",
+          "iceberg": "Iceberg",
+          "butterhead": "Butterhead"
+        }
+      },
+      "startCycle": {
+        "title": "Production Cycle Started!",
+        "description": "Your crop is now active. Let's track its journey from planting to harvest.",
+        "cycleDetails": "Cycle Details",
+        "activeBadge": "Active",
+        "labels": {
+          "crop": "Crop",
+          "startDate": "Start Date",
+          "location": "Location"
+        },
+        "defaultLocation": "Field 1, Lot A",
+        "whyTitle": "Why Production Cycles?",
+        "whyDescription": "Production cycles help you track costs, yields, waste, and performance for each crop from start to finish. This data drives better decisions."
+      },
+      "planting": {
+        "title": "Operation 1: Planting",
+        "description": "Log your planting operation. This is the first step in your production cycle.",
+        "methodLabel": "Planting Method",
+        "methodPlaceholder": "Select planting method",
+        "methods": {
+          "directSeeding": "Direct Seeding",
+          "transplanting": "Transplanting",
+          "seedlings": "Seedlings",
+          "cuttings": "Cuttings",
+          "grafting": "Grafting"
+        },
+        "costLabel": "Planting Cost (optional)",
+        "costPlaceholder": "e.g., 500",
+        "costHint": "Include seeds, labor, and equipment costs",
+        "note": "✅ This operation will be logged and contribute to your total cycle cost."
+      },
+      "maintenance": {
+        "title": "Operation 2: Maintenance",
+        "description": "Log irrigation and fertilization costs to track ongoing expenses.",
+        "irrigation": {
+          "title": "Irrigation",
+          "costLabel": "Irrigation Cost",
+          "costPlaceholder": "e.g., 200",
+          "costHint": "Water, equipment, labor"
+        },
+        "fertilization": {
+          "title": "Fertilization",
+          "costLabel": "Fertilization Cost",
+          "costPlaceholder": "e.g., 350",
+          "costHint": "Fertilizers, application, labor"
+        },
+        "note": "💡 In a real system, you'd log many more operations. This demo shows a simplified flow."
+      },
+      "wasteEvent": {
+        "title": "Log a Waste Event",
+        "description": "This is crucial — tracking waste reveals hidden losses that often go unnoticed.",
+        "wasteTypeLabel": "Waste Type",
+        "wasteTypePlaceholder": "What was wasted?",
+        "quantityLabel": "Quantity (kg)",
+        "quantityPlaceholder": "e.g., 25",
+        "reasonLabel": "Reason",
+        "reasonPlaceholder": "What caused this waste?",
+        "wasteTypes": {
+          "inputWaste": "Input Waste (e.g., fertilizer loss)",
+          "cropDamage": "Crop Damage (e.g., pest damage)"
+        },
+        "reasons": {
+          "spoilage": "Spoilage",
+          "overApplication": "Over-application",
+          "weatherDamage": "Weather Damage",
+          "handlingError": "Handling Error",
+          "pestDisease": "Pest/Disease"
+        },
+        "whyTitle": "Why This Matters",
+        "whyDescription": "Tracking waste makes hidden losses visible. This waste is now linked to your production cycle and will appear in your insights."
+      },
+      "harvest": {
+        "title": "Operation 3: Harvest",
+        "description": "Time to harvest! Enter your yield to complete the production cycle.",
+        "quantityLabel": "Harvested Quantity (kg)",
+        "quantityPlaceholder": "e.g., 1500",
+        "quantityHint": "Total yield from this production cycle",
+        "completeTitle": "Cycle Complete",
+        "completeDescription": "After harvest, we'll close the cycle and show you insights about costs, yield, and waste for this production period."
+      },
+      "dashboardOverview": {
+        "title": "{{farmName}} — Farm Overview",
+        "description": "Your personalized dashboard with real-time insights",
+        "cards": {
+          "totalYield": "Total Yield",
+          "totalCost": "Total Cost",
+          "wasteLogged": "Waste Logged"
+        }
+      },
+      "yieldInsights": {
+        "title": "Yield Insights",
+        "description": "Track your harvest performance over time",
+        "chartCaption": "Yield Over Time (Mock Data)"
+      },
+      "costSummary": {
+        "title": "Cost & Production Summary",
+        "description": "Breakdown of your production cycle costs",
+        "costLabels": {
+          "planting": "Planting",
+          "irrigation": "Irrigation",
+          "fertilization": "Fertilization"
+        },
+        "totalProductionCost": "Total Production Cost",
+        "costPerKg": "Cost per kg"
+      },
+      "wasteInsights": {
+        "title": "Waste Insights",
+        "description": "Understanding your losses is the first step to reducing them",
+        "totalWasteLogged": "Total Waste Logged",
+        "wasteByReason": "Waste by Reason",
+        "quote": "\"This waste would often go unnoticed without tracking\"",
+        "bullets": {
+          "reduceRepeatLosses": "Reduce repeat losses",
+          "improvePlanning": "Improve input planning",
+          "increaseSustainability": "Increase sustainability"
+        }
+      },
+      "impact": {
+        "title": "The Power of Visibility",
+        "withoutTracking": {
+          "title": "Without Tracking",
+          "description": "This waste is invisible. Losses accumulate silently, costs go unexplained, and the same problems repeat season after season."
+        },
+        "withQualoraHub": {
+          "title": "With QualoraHub",
+          "description": "Every loss becomes actionable data. You see patterns, identify root causes, and make informed decisions to reduce waste over time."
+        },
+        "conclusion": "Better visibility → Better decisions → Lower waste"
+      },
+      "completion": {
+        "title": "Demo Complete!",
+        "description": "You've experienced a simplified production cycle. Real farms track much more detail — multiple operations, detailed inputs, quality classifications, and more.",
+        "createRealFarm": "Create My Real Farm",
+        "exploreFeatures": "Explore Features",
+        "note": "💡 Ready to transform your farm management? Sign up to get started with full access to all QualoraHub features."
+      }
+    },
+    
+    "statuses": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "archived": "Archived",
+      "deactivated": "Deactivated"
+    },
+    
+    "empty": {
+      "noItemsFound": "No items found",
+      "noDataAvailable": "No data available",
+      "emptyState": "Nothing to show here yet"
+    },
+    
+    "connectivity": {
+      "online": "Online",
+      "offline": "Offline",
+      "connecting": "Connecting...",
+      "connected": "Connected",
+      "disconnected": "Disconnected"
+    },
+    
+    "auth": {
+      "forgotPassword": "Forgot password?",
+      "forgotPasswordTitle": "Forgot password?",
+      "forgotPasswordDesc": "Enter your email address and we'll send you a link to reset your password.",
+      "sendResetLink": "Send reset link",
+      "checkEmail": "Check your email",
+      "checkEmailDesc": "We've sent a password reset link to your email. The link will expire in 30 minutes.",
+      "tryDifferentEmail": "Try a different email",
+      "backToSignIn": "Back to Sign in",
+      "resetPasswordTitle": "Set new password",
+      "resetPasswordDesc": "Enter your new password below. Make sure it's secure.",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm password",
+      "updatePassword": "Update password",
+      "passwordUpdated": "Password updated!",
+      "passwordUpdatedDesc": "Your password has been successfully updated. You can now sign in with your new password.",
+      "linkExpired": "Link expired or invalid",
+      "linkExpiredDesc": "This password reset link has expired or is invalid. Please request a new one.",
+      "requestNewLink": "Request new link",
+      "passwordRequirements": "At least 6 characters with one uppercase letter and one number",
+      "passwordsDoNotMatch": "Passwords do not match",
+      "emailRequired": "Email is required",
+      "invalidEmail": "Please enter a valid email address",
+      "passwordRequired": "Password is required",
+      "passwordTooShort": "Password must be at least 6 characters",
+      "passwordNeedsUppercase": "Password must contain at least one uppercase letter",
+      "passwordNeedsNumber": "Password must contain at least one number",
+      "confirmPasswordRequired": "Please confirm your password"
+    }
+  }
+}

@@ -17,7 +17,6 @@ import {
   AppChip,
   AppDatePicker,
   AppHeader,
-  HeaderActionGroup,
   AppInput,
   AppListItem,
   AppScreen,
@@ -35,7 +34,6 @@ import {
   HeaderIconButton,
   HeaderMenuButton,
   ListRow,
-  NotificationHeaderButton,
   PaginationFooter,
   PillTabs,
   PullToRefreshContainer,
@@ -43,12 +41,14 @@ import {
   SectionHeader,
   Skeleton,
   StatStrip,
+  SystemHeaderActions,
   type QuickAction,
   type SelectOption,
   UnderlineTabs,
   useFormValidation,
   useToast,
 } from '../../../components';
+import { useAppI18n } from '../../../hooks/useAppI18n';
 import { useModuleActionPermissions } from '../../../hooks/useModuleActionPermissions';
 import { palette, spacing, typography } from '../../../theme/tokens';
 import {
@@ -195,6 +195,7 @@ function toYesNo(value: boolean): 'yes' | 'no' {
 }
 
 export function InventoryScreen() {
+  const { t } = useAppI18n();
   const { showToast } = useToast();
   const { loading: permissionsLoading, permissions: modulePermissions } =
     useModuleActionPermissions('inventory');
@@ -1881,10 +1882,11 @@ export function InventoryScreen() {
       <View style={styles.productHeaderTop}>
         <View style={styles.productHeaderLead}>
           <HeaderMenuButton testID="inventory-header-menu" />
-          <Text style={styles.productHeaderTitle}>Inventory</Text>
+          <Text style={styles.productHeaderTitle}>
+            {t('system', 'headers.inventory.title', 'Inventory')}
+          </Text>
         </View>
-        <View style={styles.productHeaderActions}>
-          <NotificationHeaderButton testID="inventory-header-notifications" />
+        <SystemHeaderActions notificationTestID="inventory-header-notifications">
           {modulePermissions.add ? (
             <HeaderIconButton
               icon="plus"
@@ -1897,7 +1899,7 @@ export function InventoryScreen() {
               }
             />
           ) : null}
-        </View>
+        </SystemHeaderActions>
       </View>
       <SearchBar
         value={searchValue}
@@ -1915,12 +1917,14 @@ export function InventoryScreen() {
   const legacyInventoryContent = (
     <AppScreen scroll>
       <AppHeader
-        title="Inventory Core"
-        subtitle="Manage products, categories, taxes, and warehouses with reusable module patterns."
+        title={t('system', 'headers.inventoryLegacy.title', 'Inventory Core')}
+        subtitle={t(
+          'system',
+          'headers.inventoryLegacy.subtitle',
+          'Manage products, categories, taxes, and warehouses with reusable module patterns.',
+        )}
         rightAction={
-          <HeaderActionGroup>
-            <NotificationHeaderButton testID="inventory-legacy-header-notifications" />
-          </HeaderActionGroup>
+          <SystemHeaderActions notificationTestID="inventory-legacy-header-notifications" />
         }
       />
 

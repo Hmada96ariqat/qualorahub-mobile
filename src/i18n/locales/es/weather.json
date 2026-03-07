@@ -1,0 +1,209 @@
+{
+  "weather": {
+    "title": "Clima",
+    "subtitle": "Monitoreá las condiciones climáticas en todas las ubicaciones de tu finca",
+    "liveData": "Datos en Vivo",
+    "lastUpdated": "Última actualización",
+    "buttons": {
+      "refresh": "Actualizar",
+      "alertRules": "Reglas de Alerta"
+    },
+    "location": {
+      "noSelection": "No Hay Ubicación Seleccionada",
+      "noSelectionDesc": "Seleccioná una ubicación del menú de arriba para ver los datos del clima.",
+      "noFields": "No se encontraron lotes. Las ubicaciones climáticas se crean desde lotes con límites definidos.",
+      "selectLocation": "Seleccioná una ubicación",
+      "unknown": "Ubicación desconocida"
+    },
+    "messages": {
+      "loadingWeather": "Cargando datos del clima...",
+      "noDataAvailable": "No hay datos del clima disponibles",
+      "selectLocationToView": "Seleccioná una ubicación para ver el clima"
+    },
+    "time": {
+      "now": "Ahora"
+    },
+    "days": {
+      "today": "Hoy"
+    },
+    "conditions": {
+      "noData": "Sin Datos",
+      "heavyRain": "Lluvia Fuerte",
+      "lightRain": "Lluvia Ligera",
+      "freezing": "Helada",
+      "cold": "Frío",
+      "cloudy": "Nublado",
+      "hot": "Caliente",
+      "sunny": "Soleado",
+      "partlyCloudy": "Parcialmente Nublado"
+    },
+    "comfort": {
+      "veryCold": "Muy Frío",
+      "cool": "Fresco",
+      "uncomfortable": "Incómodo",
+      "veryHot": "Muy Caliente",
+      "comfortable": "Agradable"
+    },
+    "insights": {
+      "title": "Recomendación agrícola",
+      "delaySpray": "Retrasá las operaciones de fumigación",
+      "highWind": "Viento fuerte - evitá fumigar",
+      "frostRisk": "Riesgo de helada - protegé los cultivos",
+      "heatStress": "Estrés por calor - aumentá el riego",
+      "dryConditions": "Condiciones secas - revisá el riego",
+      "idealConditions": "Condiciones ideales para trabajo de campo",
+      "monitorClosely": "Monitoreá las condiciones de cerca"
+    },
+    "metrics": {
+      "temperature": "Temperatura",
+      "feelsLike": "Sensación térmica",
+      "feelsLikeValue": "Sensación térmica {{value}}{{unit}}",
+      "humidity": "Humedad",
+      "wind": "Viento",
+      "pressure": "Presión",
+      "visibility": "Visibilidad",
+      "precipitation": "Precipitación",
+      "cloudCover": "Cobertura de Nubes",
+      "uv": "Índice UV"
+    },
+    "units": {
+      "celsius": "°C",
+      "fahrenheit": "°F",
+      "percent": "%",
+      "mph": "mph",
+      "kph": "km/h",
+      "inHg": "inHg",
+      "hPa": "hPa",
+      "mi": "mi",
+      "km": "km",
+      "mmPerHour": "mm/h",
+      "inPerHour": "in/h"
+    },
+    "forecast": {
+      "hourly": "Pronóstico por Hora",
+      "today": "Pronóstico de hoy",
+      "hourlyConditions": "Condiciones climáticas por hora",
+      "daily": "Pronóstico de 7 Días",
+      "sixDay": "Pronóstico de 6 días",
+      "high": "Máx",
+      "low": "Mín"
+    },
+    "alerts": {
+      "title": "Reglas de Alertas Climáticas",
+      "description": "Creá y gestioná alertas climáticas automatizadas para las ubicaciones de tu finca.",
+      "form": {
+        "title": {
+          "edit": "Editar Regla",
+          "create": "Crear Regla"
+        },
+        "ruleName": {
+          "label": "Nombre de la regla",
+          "placeholder": "Ingresá el nombre de la regla"
+        },
+        "location": {
+          "label": "Ubicación (Opcional)",
+          "placeholder": "Seleccioná una ubicación (opcional)",
+          "none": "Sin ubicación específica"
+        },
+        "condition": {
+          "label": "Condición Climática"
+        },
+        "operator": {
+          "label": "Operador"
+        },
+        "value": {
+          "label": "Valor",
+          "placeholder": "Ingresá un valor"
+        },
+        "unit": {
+          "label": "Unidad",
+          "placeholder": "p. ej., °C, %, mph"
+        },
+        "customMessage": {
+          "label": "Mensaje personalizado (Opcional)",
+          "placeholder": "Mensaje de alerta personalizado"
+        },
+        "severity": {
+          "label": "Severidad"
+        },
+        "notifications": {
+          "label": "Notificaciones",
+          "inApp": "Notificaciones en la app",
+          "email": "Notificaciones por correo",
+          "sms": "Notificaciones por SMS"
+        },
+        "actions": {
+          "save": "Guardar regla"
+        }
+      },
+      "list": {
+        "activeRules": "Reglas activas ({{count}})",
+        "createRule": "Crear Regla",
+        "noRules": {
+          "title": "Sin reglas de alerta",
+          "description": "Creá tu primera regla de alerta climática para recibir notificaciones cuando las condiciones cumplan tus criterios.",
+          "action": "Creá tu primera regla"
+        }
+      },
+      "details": {
+        "condition": "Condición",
+        "location": "Ubicación",
+        "customMessage": "Mensaje personalizado",
+        "notifications": "Notificaciones"
+      },
+      "notifications": {
+        "inApp": "En la app",
+        "email": "Correo",
+        "sms": "SMS"
+      },
+      "severity": {
+        "low": "Baja",
+        "medium": "Media",
+        "high": "Alta"
+      },
+      "metrics": {
+        "temperature": "Temperatura",
+        "humidity": "Humedad",
+        "windSpeed": "Velocidad del viento",
+        "precipitation": "Precipitación",
+        "frostRisk": "Riesgo de helada"
+      },
+      "operators": {
+        "greater_than": "Mayor que",
+        "less_than": "Menor que",
+        "equal_to": "Igual a",
+        "greater_equal": "Mayor o igual que",
+        "less_equal": "Menor o igual que"
+      },
+      "location": {
+        "unknown": "Ubicación desconocida",
+        "all": "Todas las ubicaciones",
+        "test": "Ubicación de prueba"
+      },
+      "actions": {
+        "test": "Probar"
+      },
+      "status": {
+        "enabled": "habilitada",
+        "disabled": "deshabilitada"
+      },
+      "toasts": {
+        "farmIdMissing": "No se encontró el ID de la finca. Asegurate de que tu perfil esté configurado correctamente.",
+        "ruleNameRequired": "El nombre de la regla es obligatorio",
+        "ruleUpdated": "Regla de alerta climática actualizada",
+        "ruleCreated": "Regla de alerta climática creada",
+        "ruleDeleted": "Regla de alerta climática eliminada",
+        "ruleSaveFailed": "No se pudo guardar la regla de alerta climática",
+        "ruleDeleteFailed": "No se pudo eliminar la regla de alerta climática",
+        "ruleUpdateFailed": "No se pudo actualizar la regla de alerta climática",
+        "ruleToggle": "Regla de alerta climática {{state}}",
+        "weatherUnavailable": "Los datos del clima o el usuario no están disponibles",
+        "testSentTitle": "Alerta de prueba enviada",
+        "testSentDescription": "Se envió la notificación de prueba para \"{{name}}\"",
+        "testFailedTitle": "Prueba fallida",
+        "testFailedDescription": "No se pudo enviar la alerta de prueba",
+        "testError": "No se pudo probar la alerta climática"
+      }
+    }
+  }
+}

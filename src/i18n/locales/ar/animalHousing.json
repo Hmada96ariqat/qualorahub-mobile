@@ -1,0 +1,541 @@
+{
+  "animalHousing": {
+    "title": "إسكان الحيوانات",
+    "subtitle": "إدارة وحدات ومرافق إسكان الحيوانات",
+    "connectionStatus": {
+      "online": "متصل",
+      "offline": "غير متصل",
+      "pending": "{{count}} تغييرات بانتظار المزامنة",
+      "connectionRestored": "تم استعادة الاتصال",
+      "connectionRestoredDesc": "أنت متصل مرة أخرى. جارٍ مزامنة البيانات...",
+      "connectionLost": "انقطع الاتصال",
+      "connectionLostDesc": "أنت الآن غير متصل. سيتم حفظ التغييرات محليًا."
+    },
+    "dashboard": {
+      "totalUnits": "إجمالي الوحدات",
+      "activeFacilities": "المرافق النشطة",
+      "capacity": "السعة الإجمالية",
+      "totalAnimalCapacity": "السعة الإجمالية للحيوانات",
+      "maintenanceDue": "صيانة مستحقة",
+      "unitsRequiringAttention": "وحدات تحتاج إلى اهتمام",
+      "animalTypes": "أنواع الحيوانات",
+      "differentAnimalTypes": "أنواع حيوانات مختلفة"
+    },
+    "filters": {
+      "title": "عوامل التصفية والبحث",
+      "description": "تصفية وحدات الإسكان حسب معايير مختلفة",
+      "show": "عرض عوامل التصفية",
+      "hide": "إخفاء عوامل التصفية",
+      "barnName": "اسم الحظيرة",
+      "searchByBarnName": "ابحث باسم الحظيرة",
+      "status": "الحالة",
+      "allStatuses": "كل الحالات",
+      "ariaAll": "جميع وحدات الإسكان",
+      "ariaActive": "وحدات الإسكان النشطة",
+      "ariaInactive": "وحدات الإسكان غير النشطة",
+      "field": "الحقل",
+      "allFields": "كل الحقول",
+      "animalType": "نوع الحيوان",
+      "allAnimalTypes": "كل أنواع الحيوانات",
+      "capacityRange": "نطاق السعة",
+      "minCapacity": "الحد الأدنى للسعة",
+      "maxCapacity": "الحد الأقصى للسعة",
+      "quickActions": "إجراءات سريعة"
+    },
+    "status": {
+      "active": "نشط",
+      "underMaintenance": "تحت الصيانة",
+      "under_maintenance": "تحت الصيانة",
+      "empty": "فارغ",
+      "outOfUse": "خارج الخدمة",
+      "out_of_use": "خارج الخدمة",
+      "inactive": "غير نشط"
+    },
+    "animalTypes": {
+      "cattle": "أبقار",
+      "cattleDairy": "أبقار (ألبان)",
+      "cattleBeef": "أبقار (لحم)",
+      "sheep": "أغنام",
+      "goats": "ماعز",
+      "chickens": "دواجن",
+      "chickensBroilers": "دواجن (لاحم)",
+      "chickensLayers": "دواجن (بيّاض)",
+      "turkeys": "ديك رومي",
+      "ducks": "بط",
+      "pigs": "خنازير",
+      "horses": "خيول",
+      "rabbits": "أرانب",
+      "bees": "نحل (منحل)",
+      "fish": "تربية أسماك",
+      "other": "أخرى"
+    },
+    "buttons": {
+      "add": "إضافة وحدة إسكان",
+      "exportExcel": "تصدير إكسل",
+      "clear": "مسح",
+      "resetAll": "إعادة تعيين الكل",
+      "cancel": "إلغاء",
+      "delete": "حذف",
+      "edit": "تعديل",
+      "view": "عرض",
+      "settings": "الإعدادات",
+      "reactivate": "إعادة تفعيل",
+      "removePermanently": "إزالة من النظام",
+      "removing": "جارٍ الإزالة..."
+    },
+    "searchResults": "تم العثور على {{count}} وحدة إسكان",
+    "loading": "جارٍ التحميل...",
+    "messages": {
+      "noUnitsFound": "لم يتم العثور على وحدات إسكان",
+      "clickToGetStarted": "انقر على \"إضافة وحدة إسكان\" للبدء",
+      "offlinePermanentDeleteTitle": "وضع عدم الاتصال",
+      "offlinePermanentDeleteDescription": "الحذف الدائم متاح فقط أثناء الاتصال. يرجى المزامنة عند عودتك للاتصال.",
+      "moreCount": "+{{count}} أخرى"
+    },
+    "grid": {
+      "capacity": "السعة",
+      "animals": "الحيوانات",
+      "floor": "الأرضية",
+      "status": "الحالة"
+    },
+    "table": {
+      "barnName": "اسم الحظيرة",
+      "unitCode": "رمز الوحدة",
+      "location": "الموقع",
+      "animalTypes": "أنواع الحيوانات",
+      "capacity": "السعة",
+      "status": "الحالة",
+      "floorType": "نوع الأرضية",
+      "noField": "لا يوجد حقل",
+      "actions": "الإجراءات"
+    },
+    "form": {
+      "createTitle": "إنشاء وحدة إسكان",
+      "editTitle": "تعديل وحدة إسكان",
+      "saving": "جارٍ الحفظ...",
+      "creating": "جارٍ الإنشاء...",
+      "updating": "جارٍ التحديث...",
+      "tabs": {
+        "basicInfo": "معلومات أساسية",
+        "animals": "الحيوانات",
+        "structure": "الهيكل",
+        "equipment": "المعدات"
+      },
+      "steps": {
+        "basic": "معلومات أساسية",
+        "boundary": "حدود الحظيرة",
+        "animalsNotes": "الحيوانات والملاحظات"
+      },
+      "barnNameRequired": "اسم الحظيرة *",
+      "barnNamePlaceholder": "أدخل اسم الحظيرة",
+      "unitCode": "رمز الوحدة",
+      "unitCodePlaceholder": "يُنشأ تلقائيًا أو مخصص",
+      "field": "الحقل",
+      "selectField": "اختر الحقل",
+      "fieldRequiredTitle": "الحقل مطلوب",
+      "fieldRequiredMessage": "اختر حقلاً للمتابعة.",
+      "boundaryHintTitle": "ارسم حدود الحظيرة",
+      "boundaryHint": "ارسم الحظيرة داخل حدود الحقل المظللة. يتم عرض القطع والحظائر الموجودة للإرشاد.",
+      "areaPercent": "مساحة الحظيرة هي",
+      "areaPercentOf": "من مساحة الحقل",
+      "boundaryReady": "تم حفظ الحدود",
+      "clearBoundary": "مسح الحدود",
+      "capacity": "السعة",
+      "capacityPlaceholder": "السعة القصوى للحيوانات",
+      "currentStatus": "الحالة الحالية",
+      "selectStatus": "اختر الحالة",
+      "biosecurityLevel": "مستوى الأمن الحيوي",
+      "biosecurityPlaceholder": "أدخل مستوى الأمن الحيوي",
+      "dateBuilt": "تاريخ البناء",
+      "selectDate": "اختر التاريخ",
+      "notes": "ملاحظات",
+      "notesPlaceholder": "ملاحظات إضافية حول وحدة الإسكان",
+      "animalTypes": "أنواع الحيوانات",
+      "animalTypeOther": "نوع حيوان آخر",
+      "animalTypeOtherPlaceholder": "حدد نوع حيوان آخر",
+      "floorType": "نوع الأرضية",
+      "selectFloorType": "اختر نوع الأرضية",
+      "floorTypes": {
+        "concrete": "خرسانة",
+        "dirt": "تراب/أرض",
+        "slatted": "أرضية شبكية",
+        "raisedWire": "سلك مرتفع",
+        "deepLitter": "فرشة عميقة",
+        "rubberMatting": "حصير مطاطي",
+        "other": "أخرى"
+      },
+      "ventilationType": "نوع التهوية",
+      "selectVentilationType": "اختر نوع التهوية",
+      "ventilationTypes": {
+        "natural": "طبيعية",
+        "mechanical": "ميكانيكية",
+        "tunnel": "نفق",
+        "cross": "متقاطعة",
+        "fanAssisted": "بمساعدة مراوح",
+        "evaporativeCooling": "تبريد تبخيري",
+        "other": "أخرى"
+      },
+      "drainageSystem": "نظام الصرف",
+      "selectDrainageSystem": "اختر نظام الصرف",
+      "drainageSystems": {
+        "openChannel": "قناة مفتوحة",
+        "closedPipe": "أنبوب مغلق",
+        "slopedFloor": "أرضية مائلة",
+        "deepPit": "حفرة عميقة",
+        "none": "لا يوجد",
+        "other": "أخرى"
+      },
+      "attachedEquipment": "معدات مرتبطة",
+      "attachedEquipmentOther": "معدات أخرى",
+      "attachedEquipmentOtherPlaceholder": "حدد معدات أخرى",
+      "equipment": {
+        "feeders": "معالف",
+        "waterers": "مشارب",
+        "automaticWateringSystem": "نظام سقي تلقائي",
+        "nestBoxes": "صناديق أعشاش",
+        "heatingLamps": "مصابيح تدفئة",
+        "coolingFans": "مراوح تبريد",
+        "airFilters": "مرشحات هواء",
+        "mistingSystem": "نظام رذاذ",
+        "manureConveyor": "ناقل روث",
+        "wasteStorageTank": "خزان نفايات",
+        "monitoringSensors": "حساسات مراقبة",
+        "cctv": "كاميرات مراقبة",
+        "other": "أخرى"
+      },
+      "drawing": {
+        "mapFailedToLoad": "فشل تحميل الخريطة",
+        "mapFailedToLoadDescription": "لم يتم تحميل طبقات خرائط غوغل. غالباً بسبب الحصة/الفوترة أو قيود الشبكة.",
+        "outsideBoundary": "خارج الحدود",
+        "outsideBoundaryDescription": "يجب أن تبقى الحظيرة داخل حدود الحقل.",
+        "boundaryOverlapsExisting": "الحدود تتقاطع مع منطقة موجودة",
+        "boundaryOverlapsExistingReverted": "لا يمكن التقاطع مع \"{{boundaryName}}\". تم الرجوع إلى الحدود السابقة.",
+        "boundaryMustBeInsideField": "يجب أن تكون الحظيرة داخل الحقل",
+        "boundaryMustBeInsideFieldDescription": "ارسم حدود الحظيرة فقط داخل الحقل المظلّل.",
+        "boundaryOverlapsExistingDrawInFreeArea": "هذه الحدود تتقاطع مع \"{{boundaryName}}\". ارسم فقط في المنطقة الفارغة.",
+        "areaAlreadyOccupied": "المنطقة مستخدمة بالفعل",
+        "areaAlreadyOccupiedDescription": "هذه المنطقة مستخدمة من قِبَل \"{{name}}\". ارسم فقط في المنطقة الفارغة.",
+        "startPointMarkerTitle": "نقطة البداية - انقر قريباً منها لإغلاق المضلع",
+        "instructionClickToStart": "انقر داخل الحقل لبدء رسم حدود الحظيرة",
+        "instructionPoint1": "انقر لإضافة نقاط أخرى (نقطة واحدة مضافة)",
+        "instructionPoint2": "انقر لإضافة نقاط أخرى (نقطتان مضافتان)",
+        "instructionPointN": "{{count}} نقاط - انقر قرب علامة البداية الخضراء للإغلاق، أو استخدم الزر أدناه",
+        "completeDrawingButton": "إكمال الرسم ({{count}} نقاط)",
+        "mapUnavailable": "الخريطة غير متاحة",
+        "loadingMap": "جارٍ تحميل الخريطة...",
+        "selectFieldWithBoundaries": "اختر حقلاً له حدود لرسم حظيرة.",
+        "existingBoundaryName": "حدود موجودة"
+      },
+      "fieldRequired": "الحقل مطلوب"
+    },
+    "dialog": {
+      "deleteTitle": "حذف وحدة الإسكان",
+      "deleteDescription": "هل أنت متأكد أنك تريد حذف وحدة الإسكان هذه؟ لا يمكن التراجع عن هذا الإجراء.",
+      "permanentDeleteTitle": "إزالة وحدة الإسكان من النظام",
+      "permanentDeleteDescription": "سيتم إزالة وحدة الإسكان هذه نهائيًا من نظامك. لا يمكن التراجع عن هذا الإجراء.",
+      "permanentDeleteWarning": "سيتم فقدان جميع البيانات المرتبطة بهذه الوحدة نهائيًا."
+    },
+
+    "view": {
+      "overview": "نظرة عامة على إسكان الحيوانات",
+      "details": "التفاصيل",
+      "noFieldBoundary": "حدود الحقل غير متاحة لهذه الوحدة.",
+      "noBarnBoundary": "لا توجد حدود مرسومة لهذه الوحدة."
+    },
+
+    "validation": {
+      "barnNameRequired": "اسم الحظيرة مطلوب",
+      "fieldRequired": "الحقل مطلوب",
+      "invalidCapacity": "يرجى إدخال سعة صالحة",
+      "invalidDate": "يرجى إدخال تاريخ صالح"
+    },
+    "toasts": {
+      "created": "تم إنشاء وحدة الإسكان بنجاح.",
+      "createFailed": "فشل إنشاء وحدة الإسكان. يرجى المحاولة مرة أخرى.",
+      "updated": "تم تحديث وحدة الإسكان بنجاح.",
+      "updateFailed": "فشل تحديث وحدة الإسكان. يرجى المحاولة مرة أخرى.",
+      "deleted": "تم وضع وحدة الإسكان كغير نشطة.",
+      "deleteFailed": "فشل حذف وحدة الإسكان. يرجى المحاولة مرة أخرى.",
+      "reactivated": "تمت إعادة تفعيل وحدة الإسكان بنجاح.",
+      "reactivateFailed": "فشل إعادة تفعيل وحدة الإسكان. يرجى المحاولة مرة أخرى.",
+      "removed": "تمت إزالة وحدة الإسكان نهائيًا من النظام.",
+      "removeFailed": "فشل إزالة وحدة الإسكان. يرجى المحاولة مرة أخرى."
+    },
+    "errors": {
+      "userNotAuthenticated": "المستخدم غير مصادق"
+    },
+    "animalTypeDescriptions": {
+      "cattle": "تحتاج الأبقار إلى مساحة كافية للحركة المريحة والوصول إلى العلف والماء.",
+      "cattleDairy": "تحتاج أبقار الألبان إلى مساحة كافية للحركة المريحة والوصول إلى الحلب.",
+      "cattleBeef": "تحتاج أبقار اللحم إلى مساحة للنمو السليم والوصول إلى العلف.",
+      "sheep": "تحتاج الأغنام إلى مساحة كافية للحركة والسلوك الاجتماعي.",
+      "goats": "الماعز نشطة وتحتاج إلى مساحة للتسلق والاستكشاف.",
+      "chickens": "تحتاج الدواجن إلى مساحة للحركة والتعشيش والوصول إلى العلف والماء.",
+      "chickensBroilers": "تحتاج دواجن اللاحم إلى مساحة مناسبة للنمو السليم.",
+      "chickensLayers": "تحتاج الدواجن البياضة إلى مساحة للتعشيش وإنتاج البيض.",
+      "turkeys": "يحتاج الديك الرومي إلى مساحة أكبر من الدواجن بسبب حجمه.",
+      "ducks": "تحتاج البط إلى مساحة للحركة والوصول إلى الماء.",
+      "pigs": "تحتاج الخنازير إلى مساحة كافية للسلوك الطبيعي والراحة.",
+      "horses": "تحتاج الخيول إلى مساحة كبيرة للإيواء المريح.",
+      "rabbits": "تحتاج الأرانب إلى مساحة للقفز والحركة الأساسية.",
+      "bees": "تحتاج خلايا النحل إلى مسافات مناسبة للإدارة الجيدة وجمع العسل.",
+      "fish": "تختلف كثافة الأسماك حسب النوع وإدارة جودة المياه.",
+      "other": "تخصيص مساحة افتراضي لأنواع الحيوانات غير المحددة."
+    },
+    "export": {
+      "filename": "housing-units",
+      "headers": {
+        "barnName": "اسم الحظيرة",
+        "unitCode": "رمز الوحدة",
+        "animalTypes": "أنواع الحيوانات",
+        "capacity": "السعة",
+        "status": "الحالة",
+        "dateBuilt": "تاريخ البناء",
+        "floorType": "نوع الأرضية",
+        "ventilation": "التهوية",
+        "drainage": "الصرف",
+        "equipment": "المعدات",
+        "biosecurityLevel": "مستوى الأمن الحيوي",
+        "notes": "ملاحظات"
+      }
+    }
+  },
+  "housingUnit": {
+    "profile": {
+      "notFound": "لم يتم العثور على وحدة الإسكان",
+      "notFoundDescription": "وحدة الإسكان التي تبحث عنها غير موجودة أو تمت إزالتها.",
+      "backToList": "العودة إلى وحدات الإسكان",
+      "editUnit": "تعديل الوحدة",
+      "stats": {
+        "currentAnimals": "الحيوانات الحالية",
+        "ofCapacity": "من سعة {{capacity}}",
+        "occupancyRate": "نسبة الإشغال",
+        "currentUtilization": "الاستخدام الحالي",
+        "healthScore": "مؤشر الصحة",
+        "overallCondition": "الحالة العامة",
+        "temperature": "درجة الحرارة",
+        "avgTemperature": "متوسط درجة الحرارة"
+      },
+      "tabs": {
+        "maintenance": "الصيانة"
+      }
+    },
+    "maintenance": {
+      "title": "سجلات الصيانة",
+      "addMaintenance": "إضافة صيانة",
+      "sync": "مزامنة",
+      "syncing": "جارٍ المزامنة",
+      "pending": "{{count}} بانتظار المزامنة",
+      "table": {
+        "date": "التاريخ",
+        "serviceType": "نوع الخدمة",
+        "performedBy": "تم بواسطة",
+        "description": "الوصف",
+        "productsUsed": "المنتجات المستخدمة",
+        "totalCost": "التكلفة الإجمالية",
+        "status": "الحالة",
+        "actions": "الإجراءات",
+        "noDescription": "لا يوجد وصف",
+        "productsLabel": "المنتجات:",
+        "moreCount": "+{{count}} أخرى"
+      },
+      "status": {
+        "draft": "مسودة",
+        "inProgress": "قيد التنفيذ",
+        "completed": "مكتمل",
+        "cancelled": "ملغى"
+      },
+      "dialog": {
+        "newTitle": "سجل صيانة جديد",
+        "editTitle": "تعديل سجل الصيانة",
+        "description": "تسجيل أنشطة الصيانة لـ {{housingUnitName}}",
+        "serviceDetails": "تفاصيل الخدمة",
+        "serviceDate": "تاريخ الخدمة",
+        "pickDate": "اختر تاريخًا",
+        "serviceType": "نوع الخدمة",
+        "selectServiceType": "اختر نوع الخدمة",
+        "serviceTypes": {
+          "preventive": "وقائية",
+          "corrective": "تصحيحية",
+          "inspection": "تفتيش",
+          "cleaning": "تنظيف",
+          "repair": "إصلاح",
+          "replacement": "استبدال",
+          "emergency": "طارئة",
+          "routine": "روتينية"
+        },
+        "performedBy": "تم بواسطة",
+        "selectPerson": "اختر شخصًا",
+        "serviceDescription": "وصف الخدمة",
+        "descriptionPlaceholder": "صف أعمال الصيانة المنفذة...",
+        "productsUsed": "المنتجات المستخدمة",
+        "selectProduct": "اختر منتجًا للإضافة...",
+        "product": "المنتج",
+        "unknownProduct": "منتج غير معروف",
+        "unknownUser": "مستخدم غير معروف",
+        "unknownContact": "جهة اتصال غير معروفة",
+        "batch": "الدفعة",
+        "selectBatch": "اختر الدفعة",
+        "noBatchAvailable": "لا توجد دفعة متاحة",
+        "quantity": "الكمية",
+        "quantityPlaceholder": "0",
+        "available": "متاح",
+        "unitCost": "تكلفة الوحدة",
+        "totalCost": "التكلفة الإجمالية",
+        "notesAndAttachments": "الملاحظات والمرفقات",
+        "notes": "ملاحظات",
+        "notesPlaceholder": "أضف أي ملاحظات أو ملاحظات إضافية...",
+        "attachments": "المرفقات",
+        "attachmentsHelp": "ارفع الصور أو الفواتير أو تقارير الخدمة أو إيصالات المتعهدين"
+      },
+      "messages": {
+        "noInventory": "لا يوجد مخزون متاح",
+        "noInventoryDesc": "لا توجد كمية/دفعة متاحة للعنصر المحدد.",
+        "success": "تم {{action}} سجل الصيانة{{stockUpdate}}",
+        "created": "إنشاء",
+        "updated": "تحديث",
+        "stockUpdated": " وتحديث المخزون",
+        "error": "فشل حفظ سجل الصيانة",
+        "errorStockVoucher": "تم حفظ سجل الصيانة ولكن فشل إنشاء قسيمة المخزون"
+      },
+      "validation": {
+        "serviceTypeRequired": "نوع الخدمة مطلوب",
+        "costPositive": "يجب أن تكون التكلفة موجبة"
+      },
+      "errors": {
+        "noAuthenticatedUser": "لا يوجد مستخدم مصادق",
+        "farmNotFound": "لم يتم العثور على المزرعة",
+        "farmNotFoundForUser": "لم يتم العثور على المزرعة للمستخدم",
+        "insufficientQuantity": "كمية غير كافية",
+        "availableQuantity": "الكمية المتاحة هي {{quantity}} {{unit}}",
+        "exceedsAvailableStock": "تتجاوز المخزون المتاح ({{quantity}} {{unit}})"
+      },
+      "costSummary": {
+        "title": "ملخص التكلفة",
+        "calculatedTotal": "الإجمالي المحسوب:",
+        "finalTotal": "إجمالي التكلفة النهائي (قابل للتعديل)"
+      },
+      "voucher": {
+        "sourceTypeOther": "صيانة وحدة الإسكان",
+        "autoNote": "تم إنشاؤه تلقائيًا من صيانة وحدة الإسكان - {{housingUnitId}}",
+        "usedNote": "تم استخدامه في صيانة وحدة الإسكان - {{housingUnitId}}"
+      },
+      "toasts": {
+        "fetchFailed": "فشل جلب سجلات الصيانة",
+        "saveFailed": "فشل حفظ سجل الصيانة",
+        "deleted": "تم حذف سجل الصيانة بنجاح",
+        "deleteFailed": "فشل حذف سجل الصيانة"
+      },
+      "view": {
+        "title": "تفاصيل سجل الصيانة",
+        "downloadSuccess": "تم تنزيل الملف بنجاح",
+        "downloadError": "فشل تنزيل الملف",
+        "unknownSize": "حجم غير معروف",
+        "labels": {
+          "datePerformed": "تاريخ التنفيذ:",
+          "serviceType": "نوع الخدمة:",
+          "status": "الحالة:",
+          "totalCost": "التكلفة الإجمالية:",
+          "recordId": "معرّف السجل:",
+          "sku": "رمز التخزين: {{sku}}",
+          "quantity": "الكمية: {{quantity}} {{unit}}",
+          "unitCost": "{{cost}} لكل وحدة",
+          "fileSize": "{{size}} كيلوبايت",
+          "created": "تم الإنشاء:",
+          "updated": "تم التحديث:"
+        },
+        "sections": {
+          "serviceDescription": "وصف الخدمة",
+          "productsUsed": "المنتجات المستخدمة ({{count}})",
+          "notes": "ملاحظات",
+          "attachments": "المرفقات ({{count}})"
+        }
+      }
+    },
+    "profilePanel": {
+      "title": "ملف وحدة الإسكان",
+      "subtitle": "معلومات أساسية حول وحدة الإسكان",
+      "labels": {
+        "type": "النوع",
+        "capacity": "السعة"
+      },
+      "values": {
+        "capacity": "{{count}} حيوانات"
+      },
+      "messages": {
+        "notSpecified": "غير محدد",
+        "moreCount": "+{{count}} أخرى"
+      },
+      "location": {
+        "title": "الموقع وسياق المزرعة",
+        "subtitle": "مكان وحدة الإسكان",
+        "hierarchyLabel": "تسلسل الموقع",
+        "loadingField": "جارٍ تحميل الحقل...",
+        "noFieldAssigned": "لا يوجد حقل مُعيَّن",
+        "farmNameLabel": "اسم المزرعة",
+        "assignedFieldLabel": "الحقل المعيَّن",
+        "areaLabel": "المساحة",
+        "noFieldAssignedDescription": "لا يوجد حقل مُعيَّن لوحدة الإسكان هذه"
+      }
+    },
+    "designCapacity": {
+      "title": "سعة التصميم وتحليل المساحة",
+      "subtitle": "تحليل كثافة الإسكان بناءً على معايير الصناعة لـ {{animalType}}",
+      "utilizationRate": "معدل الاستخدام",
+      "utilizationValue": "{{currentAnimals}} / {{designCapacity}} حيوان ({{percent}}%)",
+      "exceedsDesignCapacity": "العدد الحالي يتجاوز سعة التصميم",
+      "totalArea": "المساحة الإجمالية",
+      "totalAreaHint": "المساحة المتاحة للإسكان",
+      "designCapacity": "سعة التصميم",
+      "designCapacityHint": "الحد الأقصى للحيوانات حسب التصميم",
+      "recommendedSpace": "المساحة الموصى بها/حيوان",
+      "recommendedSpaceHint": "معيار الصناعة لـ {{animalType}}",
+      "maxRecommended": "الحد الأقصى الموصى به",
+      "maxRecommendedHint": "استنادًا إلى {{space}} م²/حيوان",
+      "currentStockingDensity": "الكثافة الحالية",
+      "withinStandards": "ضمن المعايير",
+      "belowStandards": "أقل من المعايير",
+      "perAnimal": "م² لكل حيوان",
+      "aboveRecommended": "{{percent}}% أعلى من الحد الأدنى الموصى به",
+      "belowRecommended": "{{percent}}% أقل من الحد الأدنى الموصى به",
+      "noAnimals": "لا توجد حيوانات في الإسكان حاليًا",
+      "noteLabel": "ملاحظة:"
+    },
+    "capacityStatus": {
+      "optimal": "مثالي",
+      "near-capacity": "قريب من الحد",
+      "over-capacity": "تجاوز السعة",
+      "critical": "حرج"
+    },
+    "capacityWarning": {
+      "titles": {
+        "critical": "تنبيه حرج للازدحام",
+        "overCapacity": "تحذير تجاوز السعة",
+        "nearCapacity": "قرب الامتلاء",
+        "notice": "تنبيه السعة"
+      },
+      "messages": {
+        "criticalSubtitle": "يلزم اتخاذ إجراء فوري لضمان رفاهية الحيوانات والامتثال.",
+        "overCapacityIntro": "كثافة الإسكان الحالية تتجاوز المساحة الموصى بها لكل حيوان في هذه الوحدة.",
+        "recommendedPerAnimal": "الموصى به: {{space}} م² لكل حيوان لرفاهية مثلى",
+        "nearCapacity": "وحدة الإسكان عند {{percent}}% من سعة التصميم. يُنصح بالمراقبة لتجنب الازدحام."
+      },
+      "stats": {
+        "currentAnimals": "الحيوانات الحالية:",
+        "recommendedMax": "الحد الأقصى الموصى به:",
+        "overCapacityBy": "تجاوز السعة بمقدار:",
+        "currentSpacePerAnimal": "المساحة الحالية/حيوان:"
+      },
+      "values": {
+        "overCapacityBy": "{{count}} حيوان"
+      },
+      "actions": {
+        "title": "إجراءات موصى بها:",
+        "relocate": "نقل {{count}} حيوان أو أكثر إلى وحدات إسكان أخرى",
+        "reviewWelfare": "مراجعة ظروف رفاهية الحيوانات فورًا",
+        "checkSystems": "فحص أنظمة التهوية والنظافة",
+        "documentStatus": "توثيق حالة السعة لسجلات الامتثال"
+      }
+    }
+  }
+}

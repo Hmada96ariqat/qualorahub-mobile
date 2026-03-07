@@ -1,0 +1,309 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Overview of your farm operations",
+    "header": {
+      "goodMorning": "Good morning",
+      "goodAfternoon": "Good afternoon",
+      "goodEvening": "Good evening",
+      "farmer": "Farmer",
+      "myFarm": "My Farm",
+      "searchExport": "Search & Export",
+      "lowStock": "Low stock",
+      "unitsLeft": "units left",
+      "moreItems": "more",
+      "gettingStarted": "Getting Started",
+      "onboarding": {
+        "sequentialHint": "Complete each step to unlock the next",
+        "addFirstField": "Add your first field",
+        "addFirstLot": "Add your first lot",
+        "addCrops": "Add crops",
+        "createProductionCycle": "Create your first production cycle",
+        "unlocks": {
+          "lot": "Unlocks: Lot",
+          "crop": "Unlocks: Crop",
+          "productionCycle": "Unlocks: Production Cycle"
+        }
+      }
+    },
+    "sections": {
+      "farmOverview": "Farm Overview",
+      "finance": "Finance",
+      "tasks": "Tasks",
+      "planting": "Planting",
+      "orders": "Orders",
+      "alerts": "Alerts",
+      "livestock": "Livestock",
+      "inventory": "Inventory & Equipment"
+    },
+    "farmOverview": {
+      "title": "🌾 Farm Overview",
+      "activeCrops": "Active Crops",
+      "activeCropsSubtitle": "Currently growing",
+      "activeWorkers": "Active Workers",
+      "activeWorkersSubtitle": "Working today",
+      "dailyRevenue": "Daily Revenue",
+      "dailyExpense": "Expense",
+      "criticalAlerts": "Critical Alerts",
+      "criticalAlertsSubtitle": "Requires attention",
+      "weather": {
+        "title": "Weather",
+        "myFarm": "My Farm",
+        "loading": "Loading weather...",
+        "noLocation": "Location data unavailable",
+        "configureLocation": "Configure farm location in settings",
+        "temperature": "Temperature",
+        "humidity": "Humidity",
+        "windSpeed": "Wind Speed",
+        "conditions": "Conditions"
+      },
+      "season": {
+        "title": "Season & Stage",
+        "currentSeason": "Current Season",
+        "activeStages": "Active Stages",
+        "stage": "stage",
+        "stages": "stages"
+      },
+      "productionCycles": {
+        "title": "Active Production Cycles",
+        "subtitle": "Newest 3 cycles",
+        "viewAll": "View All",
+        "emptyTitle": "No active production cycles",
+        "emptyDescription": "Start a cycle to track progress and performance.",
+        "unnamedCrop": "Unnamed Crop",
+        "started": "Started",
+        "running": "Running",
+        "days": "{{count}} days",
+        "target": "Target",
+        "estimatedCost": "Estimated Cost",
+        "viewFull": "View Full Cycle",
+        "activeStatus": "Active"
+      },
+      "profitableCrops": {
+        "title": "Most Profitable Crops",
+        "subtitle": "Harvested share this year (waste excluded)",
+        "emptyTitle": "No harvested data this year",
+        "emptyDescription": "Classify harvest outcomes to visualize top crops.",
+        "harvested": "Harvested",
+        "others": "Others",
+        "totalHarvested": "Total harvested",
+        "topCrop": "Top crop",
+        "unknownCrop": "Unknown crop"
+      }
+    },
+    "finance": {
+      "title": "Finance",
+      "monthlyIncome": "Monthly Income",
+      "monthlyIncomeSubtitle": "This month",
+      "monthlyExpenses": "Monthly Expenses",
+      "monthlyExpensesSubtitle": "This month",
+      "profit": "Profit",
+      "profitLoss": "Profit/Loss",
+      "profitLossSubtitle": "Net result",
+      "netResult": "Net result",
+      "topExpenses": "Top Expenses",
+      "noExpenses": "No expenses this month",
+      "financialTrends": "6-Month Financial Trends",
+      "sixMonthTrend": "6-Month Trend",
+      "avgMonthlyIncome": "Avg. Monthly Income",
+      "avgMonthlyExpenses": "Avg. Monthly Expenses",
+      "expenses": "Expenses",
+      "income": "Income",
+      "recentTransactions": "Recent Transactions",
+      "viewAll": "View All",
+      "noTransactions": "No recent transactions",
+      "noFinancialData": "No financial data available for the last 6 months"
+    },
+    "tasks": {
+      "title": "Tasks",
+      "totalTasks": "Total Tasks",
+      "totalTasksSubtitle": "All tasks",
+      "allTasks": "All tasks",
+      "pendingTasks": "Pending Tasks",
+      "pendingTasksSubtitle": "In progress",
+      "inProgress": "In progress",
+      "completedTasks": "Completed Tasks",
+      "completedTasksSubtitle": "Finished",
+      "finished": "Finished",
+      "upcomingTasks": "Upcoming (3 days)",
+      "upcomingTasksSubtitle": "Next 3 days",
+      "noUpcomingTasks": "No upcoming tasks",
+      "viewAll": "View All Tasks",
+      "noTasks": "No tasks found"
+    },
+    "planting": {
+      "title": "Planting",
+      "activeCycles": "Active Production Cycles",
+      "activeCyclesSubtitle": "Ongoing cycles",
+      "growthStatus": {
+        "title": "Growth Status",
+        "seeded": "Seeded",
+        "growing": "Growing",
+        "harvestReady": "Ready to Harvest"
+      },
+      "irrigation": {
+        "title": "Irrigation Status",
+        "subtitle": "Fields irrigated today"
+      }
+    },
+    "orders": {
+      "title": "Orders",
+      "totalOrders": "Total Orders",
+      "totalOrdersSubtitle": "All orders",
+      "pendingOrders": "Pending Orders",
+      "pendingOrdersSubtitle": "Awaiting fulfillment",
+      "completedOrders": "Completed Orders",
+      "completedOrdersSubtitle": "This month",
+      "orderTrends": "Order Trends",
+      "orderTrendsSubtitle": "Last 30 days",
+      "volumeTrends": "Order Volume Trends",
+      "clickToView": "Click on any date to view detailed orders",
+      "ordersLabel": "Orders:",
+      "clickForDetails": "Click for details",
+      "viewAll": "View All Orders",
+      "navigatingToOrders": "Navigating to orders page with date filter..."
+    },
+    "alerts": {
+      "title": "Alerts",
+      "active": "active",
+      "allClear": "All Clear!",
+      "noAlertsMessage": "No alerts at this time",
+      "types": {
+        "lowStock": "Low Stock",
+        "expiredStock": "Expired Stock",
+        "healthAlerts": "Health Alerts",
+        "weatherAlerts": "Weather Alerts"
+      },
+      "descriptions": {
+        "lowStock": "Products below minimum level",
+        "expiredStock": "Products past expiry date",
+        "healthAlerts": "Animals requiring attention",
+        "noSevereWeather": "No severe weather"
+      },
+      "severity": {
+        "high": "HIGH",
+        "medium": "MEDIUM",
+        "low": "LOW",
+        "priority": "Priority"
+      },
+      "lowStock": "Low Stock Items",
+      "lowStockSubtitle": "Items running low",
+      "expiredStock": "Expired Stock",
+      "expiredStockSubtitle": "Items expired",
+      "healthAlerts": "Health Alerts",
+      "healthAlertsSubtitle": "Requires attention",
+      "viewAll": "View All Alerts",
+      "noAlerts": "No alerts"
+    },
+    "livestock": {
+      "title": "Livestock",
+      "totalAnimals": "Total Animals",
+      "totalAnimalsSubtitle": "In inventory",
+      "healthAlerts": "Health Alerts",
+      "healthAlertsSubtitle": "Needs attention",
+      "breedingStatus": "Breeding Status",
+      "breedingStatusSubtitle": "Active breeding",
+      "feedingCompliance": "Feeding Compliance",
+      "feedingComplianceSubtitle": "On schedule",
+      "viewAll": "View All Livestock"
+    },
+    "inventory": {
+      "title": "Inventory & Equipment",
+      "lowStock": "Low Stock",
+      "lowStockSubtitle": "Items below threshold",
+      "operationalEquipment": "Operational Equipment",
+      "operationalEquipmentSubtitle": "Working",
+      "maintenanceEquipment": "Needs Maintenance",
+      "maintenanceEquipmentSubtitle": "Equipment",
+      "totalEquipment": "Total Equipment",
+      "totalEquipmentSubtitle": "In inventory",
+      "upcomingMaintenance": "Upcoming Maintenance",
+      "upcomingMaintenanceSubtitle": "Next 30 days"
+    },
+    "search": {
+      "placeholder": "Search dashboard...",
+      "filter": {
+        "all": "All Sections",
+        "overview": "Overview",
+        "finance": "Finance",
+        "tasks": "Tasks",
+        "planting": "Planting",
+        "orders": "Orders",
+        "alerts": "Alerts",
+        "livestock": "Livestock",
+        "inventory": "Inventory",
+        "bySection": "Filter by section"
+      }
+    },
+    "export": {
+      "button": "Export Dashboard",
+      "title": "Export Dashboard Report",
+      "description": "Export a comprehensive report of your farm's current status",
+      "generating": "Generating report...",
+      "success": "Dashboard exported successfully",
+      "columns": {
+        "metric": "Metric",
+        "value": "Value"
+      },
+      "formats": {
+        "csv": "Export as CSV",
+        "excel": "Export as Excel",
+        "pdf": "Export as PDF"
+      },
+      "reportTitle": "Farm Dashboard Report",
+      "filenamePrefix": "dashboard-report"
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "quickLog": "Quick Log",
+      "newOrder": "New Order",
+      "createTask": "Create Task",
+      "recordTransaction": "Record Transaction",
+      "addProduct": "Add Product",
+      "addTransaction": "Add Transaction",
+      "recordHarvest": "Record Harvest",
+      "addAnimal": "Add Animal"
+    },
+    "alertDetails": {
+      "close": "Close",
+      "lowStock": {
+        "title": "Low Stock Items",
+        "description": "Products that need reordering",
+        "subtitle": "Current: {{current}} {{currentUnit}} | Min: {{min}} {{minUnit}}",
+        "badge": "Low Stock",
+        "actionLabel": "View Low Stock",
+        "empty": "No low stock items found"
+      },
+      "expiredStock": {
+        "title": "Expired Products",
+        "description": "Products past their expiry date",
+        "subtitle": "Expired on: {{date}}",
+        "unknownDate": "Unknown",
+        "badge": "Expired",
+        "actionLabel": "View Products",
+        "empty": "No expired products found"
+      },
+      "healthAlerts": {
+        "title": "Animal Health Alerts",
+        "description": "Animals requiring medical attention",
+        "subtitle": "Status: {{status}} | Tag: {{tag}}",
+        "unnamedAnimal": "Unknown animal",
+        "unknownStatus": "Unknown",
+        "notAvailable": "N/A",
+        "badge": "Alert",
+        "actionLabel": "View Animals",
+        "empty": "No health alerts found",
+        "statusValues": {
+          "sick": "SICK",
+          "injured": "INJURED"
+        }
+      },
+      "weatherAlerts": {
+        "title": "Weather Alerts",
+        "description": "Severe weather warnings for your area",
+        "actionLabel": "View Weather",
+        "empty": "No weather alerts found"
+      }
+    }
+  }
+}

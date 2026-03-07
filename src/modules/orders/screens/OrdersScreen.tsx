@@ -24,7 +24,6 @@ import {
   HeaderIconButton,
   HeaderMenuButton,
   ListRow,
-  NotificationHeaderButton,
   PillTabs,
   ProfileCard,
   PullToRefreshContainer,
@@ -33,12 +32,14 @@ import {
   SectionHeader,
   Skeleton,
   StatStrip,
+  SystemHeaderActions,
   useFormValidation,
   useToast,
   type DotBadgeVariant,
   type InfoGridCell,
   type QuickAction,
 } from '../../../components';
+import { useAppI18n } from '../../../hooks/useAppI18n';
 import { palette } from '../../../theme/tokens';
 import {
   normalizeCreateOrderStatus,
@@ -122,6 +123,7 @@ function toInventoryItems(items: OrderItem[]) {
 }
 
 export function OrdersScreen() {
+  const { t } = useAppI18n();
   const { showToast } = useToast();
   const {
     farmContext,
@@ -1118,12 +1120,13 @@ export function OrdersScreen() {
       <View style={styles.header}>
         <View style={styles.headerLead}>
           <HeaderMenuButton testID="orders-header-menu" />
-          <Text style={styles.headerTitle}>Orders & Sales</Text>
+          <Text style={styles.headerTitle}>
+            {t('system', 'headers.orders.title', 'Orders & Sales')}
+          </Text>
         </View>
-        <View style={styles.headerActions}>
-          <NotificationHeaderButton testID="orders-header-notifications" />
+        <SystemHeaderActions notificationTestID="orders-header-notifications">
           <HeaderIconButton icon="plus" filled onPress={openCreateSheet} />
-        </View>
+        </SystemHeaderActions>
       </View>
 
       {/* Tab switcher */}

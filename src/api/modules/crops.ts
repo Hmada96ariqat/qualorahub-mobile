@@ -1,4 +1,4 @@
-import { apiClient } from '../client';
+import { ApiError, apiClient } from '../client';
 import type { operations } from '../generated/schema';
 import {
   isRecord,
@@ -31,6 +31,63 @@ export type UpdateProductionCycleOperationRequest =
 
 export type LogbookSubmitRequest =
   operations['LogbookController_submit_v1']['requestBody']['content']['application/json'];
+
+export type ReplaceCropPracticeMappingsRequest = {
+  practiceIds: string[];
+};
+
+export type HarvestWorkerRequest = {
+  workerId: string;
+  workerName: string;
+  quantity: number;
+  unit: string;
+  cost?: number;
+};
+
+export type CreateHarvestOperationRequest = {
+  harvestDate: string;
+  workers: HarvestWorkerRequest[];
+  totalHarvestedQuantity?: number | null;
+  totalHarvestedUnit?: string | null;
+  notes?: string | null;
+  attachments?: unknown[] | null;
+  practiceId?: string | null;
+};
+
+export type UpdateHarvestOperationRequest = Partial<CreateHarvestOperationRequest>;
+
+export type TreatmentOperationProductRequest = {
+  productId: string;
+  qty: number;
+  unit: string;
+  warehouseId: string;
+  batchNumber?: string | null;
+  unitCost: number;
+  estimatedCost: number;
+  recommendedDoseText?: string | null;
+  recommendedDoseUnit?: string | null;
+  doseUsedText?: string | null;
+  doseOverridden?: boolean;
+  activeIngredientConcentrationPercent?: string | null;
+  phiDays?: number | null;
+  restrictedUntilDate?: string | null;
+};
+
+export type CreateTreatmentOperationRequest = {
+  treatment_date: string;
+  treatment_type: string;
+  application_method?: string | null;
+  treatment_location?: string | null;
+  retreat_date?: string | null;
+  keywords?: string[] | null;
+  description?: string | null;
+  notes?: string | null;
+  products: TreatmentOperationProductRequest[];
+  attachments?: unknown[] | null;
+  practiceId?: string | null;
+};
+
+export type UpdateTreatmentOperationRequest = Partial<CreateTreatmentOperationRequest>;
 
 type ProductionCyclesResponse =
   operations['OrderWriteController_listProductionCycles_v1']['responses'][200]['content']['application/json'];
@@ -69,6 +126,26 @@ type LogbookPracticeCatalogResponse =
   operations['LogbookController_getPracticeCatalog_v1']['responses'][200]['content']['application/json'];
 type LogbookSubmitResponse =
   operations['LogbookController_submit_v1']['responses'][201]['content']['application/json'];
+type ListHarvestOperationsResponse =
+  operations['OrderWriteController_listHarvestOperations_v1']['responses'][200]['content']['application/json'];
+type CreateHarvestOperationResponse =
+  operations['OrderWriteController_createHarvestOperation_v1']['responses'][201]['content']['application/json'];
+type UpdateHarvestOperationResponse =
+  operations['OrderWriteController_updateHarvestOperation_v1']['responses'][200] extends {
+    content: { 'application/json': infer TPayload };
+  }
+    ? TPayload
+    : unknown;
+type ListTreatmentOperationsResponse =
+  operations['OrderWriteController_listTreatmentOperations_v1']['responses'][200]['content']['application/json'];
+type CreateTreatmentOperationResponse =
+  operations['OrderWriteController_createTreatmentOperation_v1']['responses'][201]['content']['application/json'];
+type UpdateTreatmentOperationResponse =
+  operations['OrderWriteController_updateTreatmentOperation_v1']['responses'][200] extends {
+    content: { 'application/json': infer TPayload };
+  }
+    ? TPayload
+    : unknown;
 
 export type LogbookSessionQuery = operations['LogbookController_getSession_v1']['parameters']['query'];
 export type LogbookPracticeCatalogQuery =
@@ -81,8 +158,28 @@ export type CropSummary = {
   status: string;
   notes: string | null;
   fieldId: string | null;
+  cropGroupId: string | null;
   createdAt: string;
   updatedAt: string;
+};
+
+export type CropGroupSummary = {
+  id: string;
+  code: string;
+  name: string;
+  description: string | null;
+};
+
+export type CropPracticeMapping = {
+  id: string;
+  code: string;
+  label: string;
+  domainArea: string;
+  operationFamily: string;
+  description: string | null;
+  isActive: boolean;
+  enabled: boolean;
+  relevance: string | null;
 };
 
 export type ProductionCycleSummary = {
@@ -142,6 +239,7 @@ export type LogbookEntityOption = {
   name: string;
   type: string;
   fieldId: string | null;
+  meta?: Record<string, unknown>;
 };
 
 export type LogbookSessionSnapshot = {
@@ -164,7 +262,14 @@ export type LogbookPracticeCatalog = {
   fieldId: string;
   date: string | null;
   practicesByFamily: Record<string, LogbookPracticeOption[]>;
+  practicesByCrop: Record<string, Record<string, LogbookPracticeOption[]>>;
   totalPractices: number;
+};
+
+export type LogbookSubmitWarning = {
+  code: string;
+  message: string;
+  details?: Record<string, unknown>;
 };
 
 export type LogbookSubmitResult = {
@@ -174,6 +279,65 @@ export type LogbookSubmitResult = {
   family: string | null;
   entityId: string | null;
   requiresFollowup: boolean;
+  warning?: LogbookSubmitWarning;
+};
+
+export type HarvestWorkerSummary = {
+  workerId: string;
+  workerName: string;
+  quantity: number;
+  unit: string;
+  cost: number | null;
+};
+
+export type HarvestOperationSummary = {
+  id: string;
+  cycleId: string | null;
+  harvestDate: string;
+  workers: HarvestWorkerSummary[];
+  totalHarvestedQuantity: number | null;
+  totalHarvestedUnit: string | null;
+  notes: string | null;
+  attachments: unknown[];
+  practiceId: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type TreatmentProductSummary = {
+  productId: string;
+  qty: number;
+  unit: string;
+  warehouseId: string;
+  batchNumber: string | null;
+  unitCost: number;
+  estimatedCost: number;
+  recommendedDoseText: string | null;
+  recommendedDoseUnit: string | null;
+  doseUsedText: string | null;
+  doseOverridden: boolean;
+  activeIngredientConcentrationPercent: string | null;
+  phiDays: number | null;
+  restrictedUntilDate: string | null;
+};
+
+export type TreatmentOperationSummary = {
+  id: string;
+  cycleId: string | null;
+  status: string;
+  treatmentDate: string;
+  treatmentType: string;
+  applicationMethod: string | null;
+  treatmentLocation: string | null;
+  retreatDate: string | null;
+  keywords: string[];
+  description: string | null;
+  notes: string | null;
+  products: TreatmentProductSummary[];
+  attachments: unknown[];
+  practiceId: string | null;
+  createdAt: string;
+  updatedAt: string;
 };
 
 function readNumber(value: unknown): number | null {
@@ -237,8 +401,42 @@ function parseCropSummary(payload: unknown): CropSummary | null {
     status: readFirstString(row, ['status'], 'unknown'),
     notes: readFirstNullableString(row, ['notes']),
     fieldId: readFirstNullableString(row, ['field_id']),
+    cropGroupId: readFirstNullableString(row, ['crop_group_id']),
     createdAt: readFirstString(row, ['created_at', 'createdAt']),
     updatedAt: readFirstString(row, ['updated_at', 'updatedAt']),
+  };
+}
+
+function parseCropGroupSummary(payload: unknown): CropGroupSummary | null {
+  if (!isRecord(payload)) return null;
+
+  const id = readString(payload, 'id');
+  if (!id) return null;
+
+  return {
+    id,
+    code: readString(payload, 'code'),
+    name: readFirstString(payload, ['name'], 'Crop group'),
+    description: readNullableString(payload, 'description'),
+  };
+}
+
+function parseCropPracticeMapping(payload: unknown): CropPracticeMapping | null {
+  if (!isRecord(payload)) return null;
+
+  const id = readString(payload, 'id');
+  if (!id) return null;
+
+  return {
+    id,
+    code: readString(payload, 'code'),
+    label: readFirstString(payload, ['label'], 'Operation'),
+    domainArea: readFirstString(payload, ['domain_area'], 'OTHER'),
+    operationFamily: readFirstString(payload, ['operation_family'], 'OTHER'),
+    description: readNullableString(payload, 'description'),
+    isActive: readBoolean(payload, 'is_active', true),
+    enabled: readBoolean(payload, 'enabled'),
+    relevance: readNullableString(payload, 'relevance'),
   };
 }
 
@@ -349,6 +547,7 @@ function parseLogbookEntity(payload: unknown): LogbookEntityOption | null {
     name: readString(payload, 'name', 'Entity'),
     type: readString(payload, 'type', 'UNKNOWN'),
     fieldId: readNullableString(payload, 'fieldId'),
+    meta: isRecord(payload.meta) ? payload.meta : undefined,
   };
 }
 
@@ -411,6 +610,7 @@ function parsePracticeCatalog(payload: unknown): LogbookPracticeCatalog {
       fieldId: '',
       date: null,
       practicesByFamily: {},
+      practicesByCrop: {},
       totalPractices: 0,
     };
   }
@@ -426,6 +626,26 @@ function parsePracticeCatalog(payload: unknown): LogbookPracticeCatalog {
     practicesByFamily[family] = parsedRows;
   }
 
+  const practicesByCrop: Record<string, Record<string, LogbookPracticeOption[]>> = {};
+  const cropMap = isRecord(payload.practicesByCrop) ? payload.practicesByCrop : {};
+
+  for (const [cropId, familyValue] of Object.entries(cropMap)) {
+    if (!isRecord(familyValue)) {
+      continue;
+    }
+
+    const cropFamilies: Record<string, LogbookPracticeOption[]> = {};
+    for (const [family, rows] of Object.entries(familyValue)) {
+      const parsedRows = (Array.isArray(rows) ? rows : [])
+        .map((row) => parsePracticeOption(row, family))
+        .filter((row): row is LogbookPracticeOption => Boolean(row));
+
+      cropFamilies[family] = parsedRows;
+    }
+
+    practicesByCrop[cropId] = cropFamilies;
+  }
+
   const totalPractices = Object.values(practicesByFamily).reduce(
     (sum, rows) => sum + rows.length,
     0,
@@ -435,6 +655,7 @@ function parsePracticeCatalog(payload: unknown): LogbookPracticeCatalog {
     fieldId: readString(payload, 'fieldId'),
     date: readNullableString(payload, 'date'),
     practicesByFamily,
+    practicesByCrop,
     totalPractices,
   };
 }
@@ -457,8 +678,161 @@ function parseLogbookSubmitResult(payload: unknown): LogbookSubmitResult {
     category: readFirstNullableString(payload, ['category']),
     family: readFirstNullableString(payload, ['family']),
     entityId: readFirstNullableString(payload, ['entityId']),
-    requiresFollowup: readBoolean(payload, 'requires_followup'),
+    requiresFollowup: readBoolean(payload, 'requires_followup') || readBoolean(payload, 'requiresFollowup'),
+    warning:
+      isRecord(payload.warning) &&
+      typeof payload.warning.code === 'string' &&
+      typeof payload.warning.message === 'string'
+        ? {
+            code: payload.warning.code,
+            message: payload.warning.message,
+            details: isRecord(payload.warning.details) ? payload.warning.details : undefined,
+          }
+        : undefined,
   };
+}
+
+function parseHarvestWorker(payload: unknown): HarvestWorkerSummary | null {
+  if (!isRecord(payload)) return null;
+  const workerId = readString(payload, 'workerId');
+  if (!workerId) return null;
+
+  return {
+    workerId,
+    workerName: readString(payload, 'workerName', 'Worker'),
+    quantity: readNumber(payload.quantity) ?? 0,
+    unit: readString(payload, 'unit', 'kg'),
+    cost: readNumber(payload.cost),
+  };
+}
+
+function parseHarvestOperation(payload: unknown): HarvestOperationSummary | null {
+  if (!isRecord(payload)) return null;
+  const row = isRecord(payload.harvestOperation) ? payload.harvestOperation : payload;
+  if (!isRecord(row)) return null;
+
+  const id = readString(row, 'id');
+  if (!id) return null;
+
+  return {
+    id,
+    cycleId: readFirstNullableString(row, ['cycle_id', 'production_cycle_id']),
+    harvestDate: readFirstString(row, ['harvest_date', 'harvestDate']),
+    workers: readArray(row, 'workers')
+      .map((entry) => parseHarvestWorker(entry))
+      .filter((entry): entry is HarvestWorkerSummary => Boolean(entry)),
+    totalHarvestedQuantity: readNumber(row.total_harvested_quantity ?? row.totalHarvestedQuantity),
+    totalHarvestedUnit: readFirstNullableString(row, ['total_harvested_unit', 'totalHarvestedUnit']),
+    notes: readFirstNullableString(row, ['notes']),
+    attachments: readArray(row, 'attachments'),
+    practiceId: readFirstNullableString(row, ['practice_id', 'practiceId']),
+    createdAt: readFirstString(row, ['created_at', 'createdAt']),
+    updatedAt: readFirstString(row, ['updated_at', 'updatedAt']),
+  };
+}
+
+function parseTreatmentProduct(payload: unknown): TreatmentProductSummary | null {
+  if (!isRecord(payload)) return null;
+  const productId = readString(payload, 'productId');
+  if (!productId) return null;
+
+  return {
+    productId,
+    qty: readNumber(payload.qty) ?? 0,
+    unit: readString(payload, 'unit'),
+    warehouseId: readString(payload, 'warehouseId'),
+    batchNumber: readFirstNullableString(payload, ['batchNumber', 'batch_number']),
+    unitCost: readNumber(payload.unitCost) ?? 0,
+    estimatedCost: readNumber(payload.estimatedCost) ?? 0,
+    recommendedDoseText: readFirstNullableString(payload, ['recommendedDoseText']),
+    recommendedDoseUnit: readFirstNullableString(payload, ['recommendedDoseUnit']),
+    doseUsedText: readFirstNullableString(payload, ['doseUsedText']),
+    doseOverridden: readBoolean(payload, 'doseOverridden'),
+    activeIngredientConcentrationPercent: readFirstNullableString(payload, [
+      'activeIngredientConcentrationPercent',
+    ]),
+    phiDays: readNumber(payload.phiDays),
+    restrictedUntilDate: readFirstNullableString(payload, ['restrictedUntilDate']),
+  };
+}
+
+function parseTreatmentOperation(payload: unknown): TreatmentOperationSummary | null {
+  if (!isRecord(payload)) return null;
+  const row = isRecord(payload.treatmentOperation) ? payload.treatmentOperation : payload;
+  if (!isRecord(row)) return null;
+
+  const id = readString(row, 'id');
+  if (!id) return null;
+
+  return {
+    id,
+    cycleId: readFirstNullableString(row, ['cycle_id', 'production_cycle_id']),
+    status: readFirstString(row, ['status'], 'draft'),
+    treatmentDate: readFirstString(row, ['treatment_date', 'treatmentDate']),
+    treatmentType: readFirstString(row, ['treatment_type', 'treatmentType']),
+    applicationMethod: readFirstNullableString(row, ['application_method', 'applicationMethod']),
+    treatmentLocation: readFirstNullableString(row, ['treatment_location', 'treatmentLocation']),
+    retreatDate: readFirstNullableString(row, ['retreat_date', 'retreatDate']),
+    keywords: readArray(row, 'keywords')
+      .map((entry) => String(entry ?? '').trim())
+      .filter((entry) => entry.length > 0),
+    description: readFirstNullableString(row, ['description']),
+    notes: readFirstNullableString(row, ['notes']),
+    products: readArray(row, 'products')
+      .map((entry) => parseTreatmentProduct(entry))
+      .filter((entry): entry is TreatmentProductSummary => Boolean(entry)),
+    attachments: readArray(row, 'attachments'),
+    practiceId: readFirstNullableString(row, ['practiceId', 'practice_id']),
+    createdAt: readFirstString(row, ['created_at', 'createdAt']),
+    updatedAt: readFirstString(row, ['updated_at', 'updatedAt']),
+  };
+}
+
+async function postWithOptionalTimeout<TResponse, TBody>(
+  path: string,
+  args: {
+    token: string;
+    body: TBody;
+    idempotencyKey: string;
+    timeoutMs?: number;
+  },
+): Promise<TResponse> {
+  if (!args.timeoutMs || args.timeoutMs <= 0) {
+    const { data } = await apiClient.post<TResponse, TBody>(path, {
+      token: args.token,
+      body: args.body,
+      idempotencyKey: args.idempotencyKey,
+    });
+    return data;
+  }
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), args.timeoutMs);
+
+  try {
+    const { data } = await apiClient.post<TResponse, TBody>(path, {
+      token: args.token,
+      body: args.body,
+      idempotencyKey: args.idempotencyKey,
+      signal: controller.signal,
+    });
+    return data;
+  } catch (error) {
+    if (error instanceof Error && error.name === 'AbortError') {
+      throw new ApiError({
+        status: 0,
+        code: 'REQUEST_TIMEOUT',
+        message: 'Request timed out.',
+        details: {
+          reason: 'REQUEST_TIMEOUT',
+        },
+      });
+    }
+
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 function normalizeCropPayload(
@@ -469,6 +843,22 @@ function normalizeCropPayload(
   return { payload };
 }
 
+function normalizeReplaceCropPracticeMappingsInput(
+  input: ReplaceCropPracticeMappingsRequest,
+): ReplaceCropPracticeMappingsRequest {
+  const uniquePracticeIds = Array.from(
+    new Set(
+      (Array.isArray(input.practiceIds) ? input.practiceIds : [])
+        .map((value) => String(value ?? '').trim())
+        .filter((value) => value.length > 0),
+    ),
+  );
+
+  return {
+    practiceIds: uniquePracticeIds,
+  };
+}
+
 export async function listProductionCycles(token: string): Promise<ProductionCycleSummary[]> {
   const { data } = await apiClient.get<ProductionCyclesResponse>('/production-cycles', { token });
   return parseList(data, parseProductionCycleSummary);
@@ -477,6 +867,46 @@ export async function listProductionCycles(token: string): Promise<ProductionCyc
 export async function listCrops(token: string): Promise<CropSummary[]> {
   const { data } = await apiClient.get<ListCropsResponse>('/crops', { token });
   return parseList(data, parseCropSummary);
+}
+
+export async function listCropGroups(token: string): Promise<CropGroupSummary[]> {
+  const { data } = await apiClient.get<unknown>('/operation-practices/crop-groups', { token });
+  return parseList(data, parseCropGroupSummary);
+}
+
+export async function listCropPracticeMappings(
+  token: string,
+  cropId: string,
+): Promise<CropPracticeMapping[]> {
+  const { data } = await apiClient.get<unknown>(`/operation-practices/crops/${cropId}/mappings`, {
+    token,
+  });
+  return parseList(data, parseCropPracticeMapping);
+}
+
+export async function replaceCropPracticeMappings(
+  token: string,
+  cropId: string,
+  input: ReplaceCropPracticeMappingsRequest,
+): Promise<number> {
+  const { data } = await apiClient.post<unknown, ReplaceCropPracticeMappingsRequest>(
+    `/operation-practices/crops/${cropId}/commands/replace-mappings`,
+    {
+      token,
+      body: normalizeReplaceCropPracticeMappingsInput(input),
+      idempotencyKey: `crop-practices-replace-${cropId}-${Date.now()}`,
+    },
+  );
+
+  if (isRecord(data)) {
+    const updatedRaw = readString(data, 'updated');
+    const updated = updatedRaw ? Number(updatedRaw) : Number.NaN;
+    if (Number.isFinite(updated)) {
+      return updated;
+    }
+  }
+
+  return input.practiceIds.length;
 }
 
 export async function createProductionCycle(
@@ -694,12 +1124,112 @@ export async function getLogbookPracticeCatalog(
 export async function submitLogbook(
   token: string,
   input: LogbookSubmitRequest,
+  options?: {
+    idempotencyKey?: string;
+    timeoutMs?: number;
+  },
 ): Promise<LogbookSubmitResult> {
-  const { data } = await apiClient.post<LogbookSubmitResponse, LogbookSubmitRequest>('/logbook/submit', {
-    token,
-    body: input,
-    idempotencyKey: `logbook-submit-${Date.now()}`,
-  });
+  const data = await postWithOptionalTimeout<LogbookSubmitResponse, LogbookSubmitRequest>(
+    '/logbook/submit',
+    {
+      token,
+      body: input,
+      idempotencyKey: options?.idempotencyKey ?? `logbook-submit-${Date.now()}`,
+      timeoutMs: options?.timeoutMs,
+    },
+  );
 
   return parseLogbookSubmitResult(data);
+}
+
+export async function listHarvestOperations(
+  token: string,
+  cycleId: string,
+): Promise<HarvestOperationSummary[]> {
+  const { data } = await apiClient.get<ListHarvestOperationsResponse>(
+    `/production-cycles/${cycleId}/harvest-operations`,
+    {
+      token,
+    },
+  );
+
+  return parseList(data, parseHarvestOperation);
+}
+
+export async function createHarvestOperation(
+  token: string,
+  cycleId: string,
+  input: CreateHarvestOperationRequest,
+): Promise<HarvestOperationSummary> {
+  const { data } = await apiClient.post<CreateHarvestOperationResponse, CreateHarvestOperationRequest>(
+    `/production-cycles/${cycleId}/harvest-operations`,
+    {
+      token,
+      body: input,
+    },
+  );
+
+  return parseFirst(data, parseHarvestOperation, 'Harvest operation create returned an empty payload.');
+}
+
+export async function updateHarvestOperation(
+  token: string,
+  operationId: string,
+  input: UpdateHarvestOperationRequest,
+): Promise<HarvestOperationSummary> {
+  const { data } = await apiClient.patch<UpdateHarvestOperationResponse, UpdateHarvestOperationRequest>(
+    `/harvest-operations/${operationId}`,
+    {
+      token,
+      body: input,
+    },
+  );
+
+  return parseFirst(data, parseHarvestOperation, 'Harvest operation update returned an empty payload.');
+}
+
+export async function listTreatmentOperations(
+  token: string,
+  cycleId: string,
+): Promise<TreatmentOperationSummary[]> {
+  const { data } = await apiClient.get<ListTreatmentOperationsResponse>(
+    `/production-cycles/${cycleId}/treatment-operations`,
+    {
+      token,
+    },
+  );
+
+  return parseList(data, parseTreatmentOperation);
+}
+
+export async function createTreatmentOperation(
+  token: string,
+  cycleId: string,
+  input: CreateTreatmentOperationRequest,
+): Promise<TreatmentOperationSummary> {
+  const { data } = await apiClient.post<CreateTreatmentOperationResponse, CreateTreatmentOperationRequest>(
+    `/production-cycles/${cycleId}/treatment-operations`,
+    {
+      token,
+      body: input,
+    },
+  );
+
+  return parseFirst(data, parseTreatmentOperation, 'Treatment operation create returned an empty payload.');
+}
+
+export async function updateTreatmentOperation(
+  token: string,
+  operationId: string,
+  input: UpdateTreatmentOperationRequest,
+): Promise<TreatmentOperationSummary> {
+  const { data } = await apiClient.patch<UpdateTreatmentOperationResponse, UpdateTreatmentOperationRequest>(
+    `/treatment-operations/${operationId}`,
+    {
+      token,
+      body: input,
+    },
+  );
+
+  return parseFirst(data, parseTreatmentOperation, 'Treatment operation update returned an empty payload.');
 }

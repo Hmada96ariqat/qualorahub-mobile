@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "temp-app",
-    "slug": "temp-app",
+    "name": "QualoraHub",
+    "slug": "qualorahub-mobile",
     "scheme": "qualorahub-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,7 +22,8 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.ahmadareiqat.qualorahubmobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -31,6 +32,18 @@
       "expo-router",
       "expo-secure-store",
       "@react-native-community/datetimepicker"
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "130164d6-3851-4fdd-a84d-993a3171745a"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/130164d6-3851-4fdd-a84d-993a3171745a"
+    }
   }
 }

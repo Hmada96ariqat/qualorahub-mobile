@@ -1,97 +1,118 @@
-export type I18nNamespace =
-  | 'fields'
-  | 'lots'
-  | 'units'
-  | 'soil'
-  | 'irrigation'
-  | 'map'
-  | 'validation'
-  | 'common';
+import arResources from './resources/ar';
+import enResources from './resources/en';
+import esResources from './resources/es';
+import { LANGUAGE_OPTIONS, SYSTEM_RESOURCES } from './system-resources';
+import type {
+  LanguageOption,
+  LanguageResourceBundle,
+  SupportedLanguage,
+  TranslationParams,
+  TranslationTree,
+  TranslationValue,
+} from './resources/types';
 
-const DICTIONARY: Record<I18nNamespace, Record<string, string>> = {
-  common: {
-    create: 'Create',
-    save: 'Save',
-    cancel: 'Cancel',
-    refresh: 'Refresh',
-    active: 'Active',
-    inactive: 'Inactive',
-    all: 'All',
-    grid: 'Grid',
-    table: 'Table',
-    next: 'Next',
-    previous: 'Previous',
-    noResults: 'No results found.',
-    permissionDenied: 'You do not have permission for this action.',
+export type { LanguageOption, SupportedLanguage, TranslationParams } from './resources/types';
+
+export type I18nDirection = 'ltr' | 'rtl';
+
+const RESOURCE_BUNDLES = {
+  ar: {
+    ...arResources,
+    ...SYSTEM_RESOURCES.ar,
   },
-  fields: {
-    title: 'Fields',
-    subtitle: 'Manage farm fields and lifecycle status.',
-    records: 'Field records',
-    create: 'Create Field',
-    edit: 'Edit Field',
-    view: 'Field details',
-    searchPlaceholder: 'Search fields',
-    noRowsTitle: 'No fields found',
-    noRowsMessage: 'Try a different search or create a new field.',
-    deactivateConfirm: 'Deactivate field?',
-    reactivateConfirm: 'Reactivate field?',
-    parentStatusGuard: 'Activate the parent field before reactivating this lot.',
+  en: {
+    ...enResources,
+    ...SYSTEM_RESOURCES.en,
   },
-  lots: {
-    title: 'Lots',
-    subtitle: 'Manage lot inventory and lifecycle status.',
-    records: 'Lot records',
-    create: 'Create Lot',
-    edit: 'Edit Lot',
-    view: 'Lot details',
-    searchPlaceholder: 'Search lots',
-    noRowsTitle: 'No lots found',
-    noRowsMessage: 'Try a different search or create a new lot.',
-    deactivateConfirm: 'Deactivate lot?',
-    reactivateConfirm: 'Reactivate lot?',
+  es: {
+    ...esResources,
+    ...SYSTEM_RESOURCES.es,
   },
-  units: {
-    hectares: 'Hectares',
-    acres: 'Acres',
-    manzana: 'Manzana',
-  },
-  soil: {
-    type: 'Soil type',
-    category: 'Soil category',
-    other: 'Other soil type',
-    conditions: 'Soil conditions',
-  },
-  irrigation: {
-    type: 'Irrigation type',
-    other: 'Other irrigation type',
-  },
-  map: {
-    boundary: 'Boundary map',
-    complete: 'Complete boundary',
-    undoPoint: 'Undo point',
-    clear: 'Clear',
-    snapHint: 'Tap near first point to close (15m).',
-    insideFieldError: 'Lot boundary must stay inside the selected field boundary.',
-    overlapError: 'Lot boundary overlaps an existing lot in this field.',
-    invalidRevert: 'Invalid edit reverted to the last valid boundary.',
-    fallback: 'Map unavailable. Use manual area fallback.',
-    drawingOptional: 'Boundary is optional. If provided, geometry rules are enforced.',
-  },
-  validation: {
-    fieldNameRequired: 'Field name is required.',
-    fieldBoundaryRequired: 'Field boundary is required unless manual area fallback is provided.',
-    lotNameRequired: 'Lot name is required.',
-    lotFieldRequired: 'Field selection is required.',
-    lotTypeRequired: 'Lot type is required.',
-    lotRotationRequired: 'Crop rotation plan is required.',
-    lotLightRequired: 'Light profile is required.',
-    polygonMinPoints: 'Boundary needs at least 3 points.',
-    polygonSelfIntersect: 'Boundary cannot self-intersect.',
-  },
+} as const satisfies Record<SupportedLanguage, LanguageResourceBundle>;
+
+const RTL_LANGUAGES: Record<SupportedLanguage, boolean> = {
+  ar: true,
+  en: false,
+  es: false,
 };
 
-export function t(namespace: I18nNamespace, key: string, fallback?: string): string {
-  const namespaced = DICTIONARY[namespace] ?? {};
-  return namespaced[key] ?? fallback ?? `${namespace}.${key}`;
+export const DEFAULT_LANGUAGE: SupportedLanguage = 'en';
+
+export type I18nNamespace = keyof (typeof RESOURCE_BUNDLES)[typeof DEFAULT_LANGUAGE];
+
+let currentLanguage: SupportedLanguage = DEFAULT_LANGUAGE;
+
+function resolveValue(tree: TranslationTree | undefined, key: string): TranslationValue | undefined {
+  return key.split('.').reduce<TranslationValue | undefined>((current, segment) => {
+    if (!current || typeof current === 'string' || Array.isArray(current)) {
+      return undefined;
+    }
+
+    return (current as TranslationTree)[segment];
+  }, tree);
+}
+
+function interpolate(input: string, params?: TranslationParams): string {
+  if (!params) {
+    return input;
+  }
+
+  return input.replace(/\{\{\s*(\w+)\s*\}\}/g, (token, key) => {
+    const replacement = params[key];
+    return replacement === undefined ? token : String(replacement);
+  });
+}
+
+export function normalizeLanguage(language: string | null | undefined): SupportedLanguage {
+  const base = (language ?? '').trim().toLowerCase().split('-')[0];
+  if (base === 'es' || base === 'ar' || base === 'en') {
+    return base;
+  }
+
+  return DEFAULT_LANGUAGE;
+}
+
+export function getCurrentLanguage(): SupportedLanguage {
+  return currentLanguage;
+}
+
+export function setCurrentLanguage(language: SupportedLanguage): void {
+  currentLanguage = language;
+}
+
+export function getSupportedLanguages(): ReadonlyArray<LanguageOption> {
+  return LANGUAGE_OPTIONS;
+}
+
+export function getLanguageOption(language: SupportedLanguage): LanguageOption {
+  const match = LANGUAGE_OPTIONS.find((option) => option.code === language);
+  return match ?? LANGUAGE_OPTIONS[0];
+}
+
+export function isLanguageRtl(language: SupportedLanguage): boolean {
+  return RTL_LANGUAGES[language];
+}
+
+export function getLanguageDirection(language: SupportedLanguage = currentLanguage): I18nDirection {
+  return isLanguageRtl(language) ? 'rtl' : 'ltr';
+}
+
+export function t(
+  namespace: I18nNamespace,
+  key: string,
+  fallback?: string,
+  params?: TranslationParams,
+): string {
+  const namespaced = RESOURCE_BUNDLES[currentLanguage][namespace];
+  const resolved = resolveValue(namespaced, key);
+
+  if (typeof resolved === 'string') {
+    return interpolate(resolved, params);
+  }
+
+  if (fallback) {
+    return interpolate(fallback, params);
+  }
+
+  return `${namespace}.${key}`;
 }

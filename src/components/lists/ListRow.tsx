@@ -1,5 +1,5 @@
 import React, { type ReactNode } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { I18nManager, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-paper';
 import { palette, radius } from '../../theme/tokens';
 
@@ -34,6 +34,7 @@ export function ListRow({
   onPress,
   testID,
 }: ListRowProps) {
+  const isRTL = I18nManager.isRTL;
   const iconColors = ICON_COLORS[iconVariant];
 
   return (
@@ -41,7 +42,8 @@ export function ListRow({
       onPress={onPress}
       style={({ pressed }) => [
         styles.row,
-        accentBorder && styles.accentBorder,
+        isRTL ? styles.rowRtl : null,
+        accentBorder && (isRTL ? styles.accentBorderRtl : styles.accentBorder),
         pressed && styles.pressed,
       ]}
       testID={testID}
@@ -62,7 +64,7 @@ export function ListRow({
         ) : null}
       </View>
       {badge}
-      <Icon source="chevron-right" size={16} color={palette.border} />
+      <Icon source={isRTL ? 'chevron-left' : 'chevron-right'} size={16} color={palette.border} />
     </Pressable>
   );
 }
@@ -83,8 +85,15 @@ const styles = StyleSheet.create({
     borderLeftWidth: 3,
     borderLeftColor: palette.destructive,
   },
+  accentBorderRtl: {
+    borderRightWidth: 3,
+    borderRightColor: palette.destructive,
+  },
   pressed: {
     backgroundColor: palette.muted,
+  },
+  rowRtl: {
+    flexDirection: 'row-reverse',
   },
   iconContainer: {
     width: 42,

@@ -1,0 +1,465 @@
+{
+  "marketing": {
+    "nav": {
+      "overview": "Resumen",
+      "about": "Acerca de",
+      "pricing": "Precios",
+      "blogs": "Blogs",
+      "signIn": "Iniciar sesión"
+    },
+    "footer": {
+      "brandDescription": "La plataforma completa de gestión agrícola. Da seguimiento a campos, cultivos, ganado, tareas y costos en un solo lugar.",
+      "resources": "Recursos",
+      "company": "Empresa",
+      "blog": "Blog",
+      "aboutUs": "Sobre nosotros",
+      "contact": "Contacto",
+      "requestDemo": "Solicitar una demo",
+      "rightsReserved": "Todos los derechos reservados.",
+      "madeWithCare": "Hecho con dedicación para agricultores de todo el mundo."
+    },
+    "home": {
+      "hero": {
+        "badge": "Plataforma de gestión agrícola",
+        "titlePrefix": "Gestiona tu finca con",
+        "titleHighlight": "una sola fuente de verdad.",
+        "description": "QualoraHub conecta campos, cultivos, ganado, tareas, inventario y costos en una sola plataforma para reducir desperdicios y tomar mejores decisiones.",
+        "trustChips": {
+          "traceabilityReady": "Listo para trazabilidad",
+          "wasteAnalytics": "Analítica de desperdicio",
+          "mobileFriendly": "Compatible con móvil",
+          "realTimeAlerts": "Alertas en tiempo real"
+        },
+        "preview": {
+          "title": "Resumen de la finca",
+          "subtitle": "Resumen de producción en tiempo real",
+          "live": "En vivo",
+          "chartAria": "Gráfico de distribución de producción",
+          "centerLabel": "Resumen",
+          "legend": {
+            "harvested": "Cosechado",
+            "planted": "Sembrado",
+            "inProgress": "En progreso",
+            "waste": "Desperdicio"
+          },
+          "totalYield": "Rendimiento total",
+          "totalYieldSuffix": "toneladas esta temporada",
+          "costEfficiency": "Eficiencia de costos",
+          "costEfficiencySuffix": "vs. trimestre anterior"
+        }
+      },
+      "valueCards": {
+        "title": "De problemas a resultados",
+        "subtitle": "QualoraHub te ayuda a resolver los mayores desafíos de la gestión agrícola."
+      },
+      "carousel": {
+        "dotAria": "Ir a la diapositiva {{number}}",
+        "slides": {
+          "reduceWaste": {
+            "title": "Reduce desperdicio y pérdidas",
+            "description": "Da seguimiento a cada entrada y salida para identificar ineficiencias y minimizar pérdidas poscosecha."
+          },
+          "costPerField": {
+            "title": "Costo por campo / cultivo",
+            "description": "Conoce tu costo real de producción con seguimiento detallado de gastos por campo, cultivo o ganado."
+          },
+          "taskExecution": {
+            "title": "Mejor ejecución de tareas",
+            "description": "Asigna, da seguimiento y completa tareas agrícolas con responsabilidad clara y actualizaciones en tiempo real."
+          },
+          "traceability": {
+            "title": "Trazabilidad y cumplimiento",
+            "description": "Mantén registros listos para auditoría para certificaciones, compradores y requisitos regulatorios."
+          }
+        }
+      },
+      "charts": {
+        "titlePrefix": "Los datos de tu finca,",
+        "titleHighlight": "resumidos al instante.",
+        "description": "Obtén insights accionables de tus operaciones agrícolas. Sigue el rendimiento de cosecha, monitorea costos por categoría e identifica tendencias para optimizar la producción.",
+        "bullets": {
+          "realTime": "Visualización de datos en tiempo real",
+          "costBreakdown": "Desglose de costos por campo o cultivo",
+          "exportReports": "Exporta informes para interesados"
+        },
+        "profitability": {
+          "title": "Rentabilidad por cultivo",
+          "subtitle": "Cosecha de la última temporada",
+          "tooltipProfit": "Ganancia",
+          "mostProfitable": "Más rentable",
+          "crops": {
+            "cherryTomatoes": "Tomates cherry",
+            "cucumbers": "Pepinos"
+          }
+        },
+        "costs": {
+          "title": "Costos por categoría",
+          "subtitle": "Desglose de la temporada actual",
+          "tooltipCost": "Costo",
+          "categories": {
+            "labor": "Mano de obra",
+            "inputs": "Insumos",
+            "fuel": "Combustible",
+            "transport": "Transporte",
+            "misc": "Varios"
+          }
+        },
+        "note": "Se muestran datos de ejemplo. Conecta tu finca para ver insights reales."
+      },
+      "photo": {
+        "alt": "Agricultor usando una tablet con software de gestión ganadera cerca de ganado",
+        "titlePrefix": "Diseñado para",
+        "titleHighlight": "una gestión ganadera más inteligente.",
+        "paragraph1": "Las operaciones ganaderas enfrentan problemas de salud no detectados y registros dispersos, lo que genera pérdidas, retrasos y riesgos de cumplimiento.",
+        "paragraph2": "QualoraHub soluciona esto centralizando salud animal, alertas y registros en un solo lugar para ayudarte a detectar problemas temprano, estar listo para auditorías y mantener a tus animales productivos y saludables."
+      },
+      "howItWorks": {
+        "title": "Cómo funciona",
+        "subtitle": "Comienza en minutos y ve resultados en tu primera temporada.",
+        "steps": {
+          "setup": {
+            "title": "Configura",
+            "description": "Configura la estructura de tu finca: campos, cultivos, ganado y miembros del equipo."
+          },
+          "track": {
+            "title": "Registra",
+            "description": "Registra actividades diarias, insumos, costos y rendimientos desde cualquier dispositivo."
+          },
+          "improve": {
+            "title": "Mejora",
+            "description": "Analiza tendencias, reduce ineficiencias y toma decisiones basadas en datos."
+          }
+        }
+      },
+      "cta": {
+        "title": "¿Listo para tomar el control de tu finca?",
+        "subtitle": "Únete a agricultores que gestionan mejor, reducen desperdicio y aumentan su productividad con QualoraHub.",
+        "button": "Contáctanos para una demo gratis",
+        "noCreditCard": "No se requiere tarjeta",
+        "freeExplore": "Gratis para explorar",
+        "cancelAnytime": "Cancela cuando quieras"
+      }
+    },
+    "pricing": {
+      "seo": {
+        "title": "Precios | QualoraHub",
+        "description": "Conoce la suite completa de gestión agrícola de QualoraHub y contáctanos para una cotización a medida.",
+        "ogTitle": "Precios de QualoraHub",
+        "ogDescription": "Una plataforma completa para operaciones, cultivos, ganadería, inventario, comercio, finanzas y gestión."
+      },
+      "hero": {
+        "badge": "Plataforma completa",
+        "titlePrefix": "Todo lo que tu finca necesita en",
+        "titleHighlight": "un solo plan.",
+        "description": "Un paquete integral que cubre operaciones, producción agrícola, ganadería, inventario, comercio, finanzas y gestión."
+      },
+      "plan": {
+        "badge": "Todas las funcionalidades incluidas",
+        "title": "Suite Completa de QualoraHub",
+        "subtitle": "Un paquete integral para operaciones agrícolas modernas.",
+        "cta": "Contáctanos para precios",
+        "ctaHint": "Comparte el perfil de tu finca y te enviaremos una propuesta a medida.",
+        "sections": {
+          "operations": {
+            "title": "Operaciones",
+            "description": "Gestiona el trabajo diario de la finca con visibilidad y coordinación claras.",
+            "items": {
+              "dashboard": "Panel de control",
+              "fieldsLots": "Campos y lotes",
+              "tasks": "Tareas",
+              "weather": "Clima",
+              "notificationsWarnings": "Notificaciones (Alertas)"
+            }
+          },
+          "cropProduction": {
+            "title": "Cultivo y producción",
+            "description": "Planifica y ejecuta ciclos productivos con control operativo estructurado.",
+            "items": {
+              "cropPlanning": "Planificación de cultivos",
+              "productionCycles": "Ciclos de producción",
+              "operationTracking": "Seguimiento de operaciones"
+            }
+          },
+          "livestock": {
+            "title": "Ganadería",
+            "description": "Gestiona alojamiento, perfiles y flujos de productividad animal.",
+            "items": {
+              "animalHousing": "Alojamiento animal",
+              "animalProfiles": "Perfiles de animales",
+              "healthYieldFeedWaterFlows": "Flujos de salud/rendimiento/alimentación-agua"
+            }
+          },
+          "inventory": {
+            "title": "Inventario",
+            "description": "Controla estructura de stock, valoración y ajustes de movimiento.",
+            "items": {
+              "products": "Productos",
+              "categories": "Categorías",
+              "taxes": "Impuestos",
+              "warehouses": "Almacenes",
+              "stockAdjustment": "Ajuste de inventario"
+            }
+          },
+          "commerceFinance": {
+            "title": "Comercio y finanzas",
+            "description": "Gestiona canales de venta y registros financieros en un flujo conectado.",
+            "items": {
+              "storeDashboard": "Panel de tienda",
+              "orders": "Pedidos",
+              "storefront": "Escaparate",
+              "finance": "Finanzas",
+              "salesFlows": "Flujos de ventas"
+            }
+          },
+          "managementInsights": {
+            "title": "Gestión e insights",
+            "description": "Administra equipos, relaciones y reportes para mejores decisiones.",
+            "items": {
+              "usersRoles": "Usuarios/Roles",
+              "contacts": "Contactos",
+              "reports": "Reportes",
+              "farmSettings": "Configuración de finca"
+            }
+          }
+        }
+      }
+    },
+    "about": {
+      "seo": {
+        "title": "Sobre QualoraHub | Software inteligente de gestión agrícola para agricultura moderna",
+        "description": "QualoraHub es una plataforma moderna de software de gestión agrícola que ayuda a gestionar cultivos, ganado, inventario, tareas y analítica. Diseñada para operaciones agrícolas reales.",
+        "keywords": "software de gestión agrícola, agricultura digital, operaciones agrícolas, plataforma agritech, agricultura inteligente, agricultura de precisión, analítica agrícola, software agrícola",
+        "ogTitle": "Sobre QualoraHub | Software inteligente de gestión agrícola",
+        "ogDescription": "Descubre cómo QualoraHub ayuda a gestionar cultivos, ganado, inventario y operaciones en una sola plataforma conectada."
+      },
+      "hero": {
+        "title": "QualoraHub - Gestión agrícola inteligente, diseñada para operaciones reales",
+        "subtitle": "Una plataforma moderna de software de gestión agrícola (FMS) diseñada para ayudar a gestionar cultivos, ganado, inventario, tareas y analítica en un sistema conectado.",
+        "description": "QualoraHub lleva la gestión agrícola centralizada a operaciones de todos los tamaños. Toma decisiones basadas en datos con visibilidad clara de costos, rendimientos y desempeño. Reduce trabajo manual reemplazando hojas de cálculo y herramientas desconectadas con una sola plataforma integrada."
+      },
+      "whyExists": {
+        "title": "Por qué existe QualoraHub",
+        "problem": {
+          "title": "El problema",
+          "items": {
+            "silos": "Las fincas dependen de hojas de cálculo, cuadernos y herramientas desconectadas que crean silos",
+            "scattered": "Los datos críticos están dispersos entre personas, sistemas y registros en papel",
+            "visibility": "Se toman decisiones sin visibilidad clara de costos, rendimiento o riesgo",
+            "time": "Se pierde tiempo buscando información y conciliando registros"
+          }
+        },
+        "solution": {
+          "title": "La solución",
+          "items": {
+            "platformStrong": "Una plataforma",
+            "platformRest": "que conecta todos los aspectos de la operación agrícola",
+            "truthStrong": "Una sola fuente de verdad",
+            "truthRest": "donde vive toda la información de la finca y es accesible",
+            "workflowStrong": "Diseñada para flujos de trabajo agrícolas diarios",
+            "workflowRest": "no para procesos de negocio genéricos",
+            "digitalStrong": "Agricultura digital",
+            "digitalRest": "que crece con tu operación"
+          }
+        }
+      },
+      "targetAudience": {
+        "title": "Para quién está hecho QualoraHub",
+        "subtitle": "Tanto si empiezas de forma simple como si gestionas operaciones complejas, QualoraHub escala con tus necesidades.",
+        "items": {
+          "cropFarms": {
+            "title": "Fincas de cultivos",
+            "description": "Operaciones de pequeña a gran escala que gestionan campos, siembra y cosecha"
+          },
+          "livestockOperations": {
+            "title": "Operaciones ganaderas",
+            "description": "Negocios de ganado bovino, avícola y otros que siguen salud y productividad"
+          },
+          "mixedFarms": {
+            "title": "Fincas mixtas",
+            "description": "Operaciones integradas que combinan producción agrícola y gestión ganadera"
+          },
+          "managersOwners": {
+            "title": "Gerentes y propietarios",
+            "description": "Tomadores de decisiones que buscan visibilidad de operaciones y desempeño diario"
+          },
+          "growingAgribusinesses": {
+            "title": "Agroempresas en crecimiento",
+            "description": "Operaciones en expansión que necesitan sistemas escalables para crecer"
+          }
+        }
+      },
+      "management": {
+        "title": "Qué te ayuda a gestionar QualoraHub",
+        "subtitle": "Herramientas completas para cada aspecto de la operación agrícola, del campo a las finanzas.",
+        "items": {
+          "cropField": {
+            "title": "Gestión de cultivos y campos",
+            "description": "Planifica calendarios de siembra, sigue etapas de crecimiento y gestiona actividades desde la siembra hasta la cosecha."
+          },
+          "livestock": {
+            "title": "Gestión ganadera",
+            "description": "Monitorea salud animal, sigue ciclos reproductivos y gestiona alimentación en todo tu hato."
+          },
+          "inventory": {
+            "title": "Inventario y control de insumos",
+            "description": "Controla semillas, fertilizantes, alimento y suministros con niveles de stock y registros de uso en tiempo real."
+          },
+          "tasks": {
+            "title": "Programación de tareas y operaciones",
+            "description": "Asigna trabajo, define fechas límite y asegura que las actividades se completen a tiempo."
+          },
+          "yieldWaste": {
+            "title": "Seguimiento de rendimiento y desperdicio",
+            "description": "Registra cantidades cosechadas, monitorea desperdicio e identifica oportunidades para mejorar la eficiencia."
+          },
+          "analytics": {
+            "title": "Analítica y rentabilidad",
+            "description": "Visualiza costos, ingresos y márgenes con reportes claros e insights accionables."
+          },
+          "compliance": {
+            "title": "Cumplimiento y trazabilidad",
+            "description": "Mantén registros listos para auditoría de certificaciones, inocuidad y requisitos regulatorios."
+          },
+          "records": {
+            "title": "Gestión de registros",
+            "description": "Registros centralizados accesibles en cualquier momento, reemplazando hojas dispersas y cuadernos."
+          }
+        }
+      },
+      "philosophy": {
+        "title": "Nuestra filosofía de producto",
+        "subtitle": "Cómo diseñamos funciones para agricultura inteligente y de precisión.",
+        "items": {
+          "simple": {
+            "title": "Simple primero, potente cuando lo necesites",
+            "description": "Empieza con lo básico y desbloquea funciones avanzadas a medida que creces."
+          },
+          "workflows": {
+            "title": "Construido alrededor de flujos reales del campo",
+            "description": "Diseñado entendiendo cómo operan realmente las fincas, no modelos teóricos."
+          },
+          "modular": {
+            "title": "Modular y escalable",
+            "description": "Usa solo los módulos que necesitas. Agrega más cuando tu operación crezca."
+          },
+          "connected": {
+            "title": "Datos conectados entre módulos",
+            "description": "La información fluye entre cultivos, ganado, inventario y finanzas sin fricción."
+          },
+          "clarity": {
+            "title": "Diseñado para claridad, no complejidad",
+            "description": "Interfaces limpias que muestran lo importante sin saturarte."
+          }
+        }
+      },
+      "faq": {
+        "title": "Preguntas frecuentes",
+        "subtitle": "Desafíos comunes en operaciones agrícolas y cómo los resuelve QualoraHub.",
+        "items": {
+          "records": {
+            "question": "¿Cómo reemplazan las fincas las hojas de cálculo y registros manuales?",
+            "answer": "QualoraHub ofrece registros centralizados en formato digital estructurado. En lugar de hojas dispersas y notas manuscritas, todos tus datos, desde actividades de cultivo hasta niveles de inventario, viven en una sola plataforma. Los paneles te dan visibilidad inmediata y los datos organizados facilitan encontrar históricos, seguir cambios y tomar decisiones informadas sin buscar en archivos."
+          },
+          "costs": {
+            "question": "¿Cómo pueden las fincas reducir desperdicio y costos de insumos?",
+            "answer": "Al seguir cada insumo, semillas, fertilizantes, combustible y alimento, QualoraHub te muestra exactamente a dónde van los recursos. Los registros de uso detectan sobreaplicaciones e ineficiencias. La analítica de desperdicio revela patrones para ajustar prácticas. Resultado: menos desperdicio, menores costos y mejor asignación de recursos basada en datos reales."
+          },
+          "yield": {
+            "question": "¿Cómo mejoran las fincas el rendimiento y la consistencia del cultivo?",
+            "answer": "QualoraHub conecta planificación de cultivos con ejecución de tareas y seguimiento de rendimiento. Planificas qué sembrar y cuándo, asignas tareas para cumplir el calendario y registras rendimientos reales. Con el tiempo, la analítica revela qué prácticas funcionan mejor, qué variedades rinden más, qué campos producen más y cómo el tiempo impacta resultados, para repetir el éxito."
+          },
+          "teams": {
+            "question": "¿Cómo pueden los equipos mantenerse alineados y responsables?",
+            "answer": "La gestión de tareas en QualoraHub te permite asignar trabajo con prioridades y fechas claras. Todos ven qué hacer, quién es responsable y qué está completado. La visibilidad operativa elimina mala comunicación y actividades perdidas: todo el equipo trabaja con la misma información."
+          },
+          "compliance": {
+            "question": "¿Cómo se mantienen las fincas en cumplimiento y listas para auditoría?",
+            "answer": "Los registros estructurados en QualoraHub crean una trazabilidad clara. Cada actividad, aplicación de insumos y cosecha se registra con fechas y detalles. Cuando un auditor o certificador solicita documentación, puedes generar reportes rápidamente. La trazabilidad desde el campo al producto ayuda a cumplir requisitos de inocuidad sin improvisar."
+          }
+        }
+      },
+      "sustainability": {
+        "title": "Sostenibilidad y agricultura más inteligente",
+        "description": "QualoraHub apoya prácticas sostenibles con mejor visibilidad y uso inteligente de recursos, no con palabras de moda, sino con herramientas prácticas para operar con mayor eficiencia.",
+        "items": {
+          "reducedInputWaste": {
+            "title": "Menor desperdicio de insumos",
+            "description": "Sigue exactamente qué entra a cada campo o corral, identifica excesos y optimiza dosis de aplicación."
+          },
+          "timing": {
+            "title": "Mejor timing y uso de recursos",
+            "description": "Programa actividades en momentos óptimos según datos, no suposiciones, reduciendo aplicaciones innecesarias."
+          },
+          "dataDriven": {
+            "title": "Sostenibilidad basada en datos",
+            "description": "Toma decisiones con datos reales de desempeño para mejorar eficiencia con el tiempo."
+          },
+          "profitability": {
+            "title": "Rentabilidad a largo plazo",
+            "description": "Las prácticas sostenibles reducen costos y mejoran rendimientos; QualoraHub te ayuda a medirlo y demostrarlo."
+          }
+        },
+        "quote": "La sostenibilidad no es una función, es el resultado de gestionar bien los recursos.",
+        "quoteCaption": "QualoraHub te da visibilidad para que cada insumo cuente."
+      },
+      "closing": {
+        "title": "La agricultura es compleja. La gestión no debería serlo.",
+        "description": "QualoraHub existe para hacer las operaciones diarias más claras y predecibles. Una plataforma. Datos claros. Mejores decisiones."
+      },
+      "cta": {
+        "title": "¿Listo para tomar el control de tu finca?",
+        "subtitle": "Únete a agricultores que gestionan mejor, reducen desperdicio y aumentan su productividad con QualoraHub.",
+        "button": "Contáctanos para una demo gratis",
+        "noCreditCard": "No se requiere tarjeta",
+        "freeExplore": "Gratis para explorar",
+        "cancelAnytime": "Cancela cuando quieras"
+      }
+    },
+    "auth": {
+      "logoAlt": "Qualora",
+      "nav": {
+        "overview": "Resumen",
+        "blogs": "Blogs"
+      },
+      "ctaSignIn": "Iniciar sesión",
+      "signInFailedTitle": "Error al iniciar sesión",
+      "welcomeBackToastTitle": "¡Bienvenido de nuevo!",
+      "signInSuccessDesc": "Inicio de sesión exitoso.",
+      "cardTitle": "Bienvenido de nuevo",
+      "cardSubtitle": "Inicia sesión en tu cuenta de QualoraHub",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "Correo",
+      "passwordLabel": "Contraseña",
+      "passwordPlaceholder": "••••••••",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "signingIn": "Iniciando sesión...",
+      "signIn": "Iniciar sesión",
+      "noAccount": "¿No tienes una cuenta?",
+      "contactUs": "Contáctanos",
+      "copyright": "© {{year}} Qualora. Todos los derechos reservados."
+    },
+    "contactDialog": {
+      "missingInfoTitle": "Información faltante",
+      "missingInfoDesc": "Por favor proporciona tu nombre y correo electrónico.",
+      "invalidEmailTitle": "Correo inválido",
+      "invalidEmailDesc": "Por favor ingresa un correo válido.",
+      "sentTitle": "¡Solicitud enviada!",
+      "sentDesc": "Te contactaremos pronto para agendar tu demo gratuita.",
+      "errorTitle": "Algo salió mal",
+      "errorDesc": "Por favor intenta de nuevo o contáctanos directamente.",
+      "title": "Solicita una demo gratis",
+      "description": "Completa el formulario y nos pondremos en contacto para agendar tu demo personalizada.",
+      "submit": "Enviar solicitud",
+      "fullName": "Nombre completo *",
+      "email": "Correo electrónico *",
+      "phone": "Número de teléfono",
+      "farmName": "Nombre de la finca",
+      "message": "Mensaje (opcional)",
+      "fullNamePlaceholder": "Juan Pérez",
+      "emailPlaceholder": "juan@ejemplo.com",
+      "phonePlaceholder": "+34 600 000 000",
+      "farmNamePlaceholder": "Finca Valle Verde",
+      "messagePlaceholder": "Cuéntanos sobre tu finca y lo que estás buscando..."
+    }
+  }
+}

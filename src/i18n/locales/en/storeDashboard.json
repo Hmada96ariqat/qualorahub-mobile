@@ -1,0 +1,156 @@
+{
+  "storeDashboard": {
+    "title": "Store Dashboard",
+    "subtitle": "Monitor your store performance and recent order activity",
+    "loadingDashboard": "Loading dashboard...",
+    
+    "totalOrders": "Total Orders",
+    "totalRevenue": "Total Revenue",
+    "avgOrderValue": "Avg. Order Value", 
+    "uniqueCustomers": "Unique Customers",
+    
+    "fromLastMonth": "from last month",
+    "perOrderAverage": "Per order average",
+    "totalCustomers": "Total customers",
+    
+    "todaysPerformance": "Today's Performance",
+    "ordersToday": "Orders Today",
+    "revenueToday": "Revenue Today", 
+    "thisMonth": "This Month",
+    "orders": "orders",
+    
+    "orderStatusDistribution": "Order Status Distribution",
+    
+    "status": {
+      "pending": "pending",
+      "confirmed": "confirmed",
+      "processing": "processing",
+      "shipped": "shipped",
+      "delivered": "delivered",
+      "cancelled": "cancelled",
+      "returned": "returned",
+      "refunded": "refunded",
+      "draft": "draft"
+    },
+    
+    "paymentMethods": "Payment Methods",
+    "paymentMethod": {
+      "cash": "Cash",
+      "card": "Card", 
+      "online": "Online",
+      "bankTransfer": "Bank Transfer",
+      "digitalWallet": "Digital Wallet",
+      "null": "Not Specified",
+      "other": "Other"
+    },
+    
+    "deliveryMethods": "Delivery Methods",
+    "deliveryMethod": {
+      "pickup": "Pickup",
+      "delivery": "Delivery",
+      "shipping": "Shipping", 
+      "null": "Not Specified",
+      "other": "Other"
+    },
+    
+    "orderSources": "Order Sources",
+    "orderSource": {
+      "storefront": "🛒 Storefront",
+      "direct": "📝 Direct",
+      "online": "Online",
+      "marketplace": "Marketplace",
+      "phone": "Phone",
+      "walkIn": "Walk-in"
+    },
+    
+    "percentage": "%",
+    "currency": "$",
+    "count": "count",
+    "growth": "growth", 
+    "trend": "trend",
+    
+    "noOrders": "No orders",
+    "noOrdersToday": "No orders today",
+    "noRevenueToday": "No revenue today",
+    "noData": "No data available",
+    "noDataAvailable": "No data available",
+    "loadingData": "Loading data...",
+    "errorLoadingData": "Error loading data",
+    
+    "performance": {
+      "excellent": "Excellent",
+      "good": "Good",
+      "average": "Average",
+      "poor": "Poor",
+      "improving": "Improving",
+      "declining": "Declining"
+    },
+    
+    "timePeriods": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "thisWeek": "This Week",
+      "lastWeek": "Last Week",
+      "thisMonth": "This Month",
+      "lastMonth": "Last Month",
+      "thisYear": "This Year"
+    },
+    
+    "stats": {
+      "total": "Total",
+      "average": "Average",
+      "median": "Median",
+      "highest": "Highest",
+      "lowest": "Lowest",
+      "change": "Change",
+      "comparison": "Comparison"
+    },
+    
+    "actions": {
+      "viewDetails": "View Details",
+      "export": "Export",
+      "refresh": "Refresh",
+      "filter": "Filter",
+      "sort": "Sort"
+    },
+    
+    "common": {
+      "value": "Value",
+      "count": "Count",
+      "amount": "Amount",
+      "quantity": "Quantity",
+      "rate": "Rate",
+      "ratio": "Ratio",
+      "increase": "Increase",
+      "decrease": "Decrease",
+      "unchanged": "Unchanged"
+    },
+    
+    "errors": {
+      "failedToLoad": "Failed to load dashboard data",
+      "connectionError": "Connection error",
+      "noPermission": "No permission to view data"
+    },
+    
+    "loading": {
+      "calculating": "Calculating metrics...",
+      "fetchingData": "Fetching data...",
+      "processingOrders": "Processing orders..."
+    },
+    
+    "tooltips": {
+      "totalOrders": "Total number of orders received",
+      "totalRevenue": "Total revenue generated from all orders",
+      "avgOrderValue": "Average value per order",
+      "uniqueCustomers": "Number of unique customers who placed orders",
+      "growthRate": "Percentage change compared to previous period"
+    },
+    
+    "zeroStates": {
+      "noOrdersYet": "No orders have been placed yet",
+      "noRevenueYet": "No revenue generated yet",
+      "noCustomersYet": "No customers registered yet",
+      "startSelling": "Start selling to see your metrics here"
+    }
+  }
+}

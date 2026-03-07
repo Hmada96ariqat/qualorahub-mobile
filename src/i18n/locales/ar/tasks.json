@@ -1,0 +1,833 @@
+{
+  "tasks": {
+    "title": "المهام",
+    "description": "إدارة شاملة للمهام الخاصة بعمليات مزرعتك",
+    "addNew": "إنشاء مهمة",
+    "backToTasks": "العودة إلى المهام",
+    "offlineMode": "وضع عدم الاتصال",
+    "syncing": "جارٍ المزامنة...",
+    "changesPendingSync": "تغييرات بانتظار المزامنة",
+
+    "actions": {
+      "add": "إضافة مهمة",
+      "create": "إنشاء مهمة",
+      "createNew": "إنشاء مهمة جديدة",
+      "edit": "تعديل",
+      "editTask": "تعديل المهمة",
+      "update": "تحديث المهمة",
+      "delete": "حذف",
+      "deleteTask": "حذف المهمة",
+      "view": "عرض",
+      "viewDetails": "عرض التفاصيل",
+      "duplicate": "نسخ",
+      "archive": "أرشفة",
+      "unarchive": "إلغاء الأرشفة",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "saveDraft": "حفظ كمسودة",
+      "saveAndAssign": "حفظ وتعيين",
+      "submit": "إرسال",
+      "reset": "إعادة ضبط",
+      "filter": "تصفية",
+      "filters": "مرشحات",
+      "search": "بحث",
+      "clearAllFilters": "مسح جميع المرشحات",
+      "refresh": "تحديث",
+      "export": "تصدير",
+      "exportTasks": "تصدير المهام",
+      "import": "استيراد",
+      "importTasks": "استيراد المهام",
+      "manageTemplates": "إدارة القوالب",
+      "useTemplate": "استخدام قالب",
+      "applyTemplate": "تطبيق القالب",
+      "close": "إغلاق",
+      "next": "التالي",
+      "previous": "السابق",
+      "finish": "إنهاء",
+      "processing": "جارٍ المعالجة...",
+      "admin": "مسؤول"
+    },
+
+    "views": {
+      "list": "قائمة",
+      "listView": "عرض القائمة",
+      "calendar": "تقويم",
+      "calendarView": "عرض التقويم",
+      "kanban": "كانبان",
+      "kanbanBoard": "لوحة كانبان",
+      "grid": "شبكة",
+      "table": "جدول"
+    },
+
+    "status": {
+      "draft": "مسودة",
+      "toDo": "للإنجاز",
+      "to_do": "للإنجاز",
+      "pending": "قيد الانتظار",
+      "inProgress": "قيد التنفيذ",
+      "in_progress": "قيد التنفيذ",
+      "completed": "مكتملة",
+      "cancelled": "ملغاة",
+      "archived": "مؤرشفة",
+      "all": "جميع الحالات",
+      "unknown": "حالة غير معروفة"
+    },
+
+    "priority": {
+      "low": "منخفضة",
+      "medium": "متوسطة",
+      "high": "مرتفعة",
+      "urgent": "عاجلة",
+      "all": "جميع الأولويات"
+    },
+
+    "types": {
+      "plantingCycle": "دورة زراعة",
+      "planting_cycle": "دورة زراعة",
+      "equipment": "معدات",
+      "animalHousing": "إيواء الحيوانات",
+      "animal_housing": "إيواء الحيوانات",
+      "animal": "حيوان",
+      "livestock": "ثروة حيوانية",
+      "maintenance": "صيانة",
+      "harvest": "حصاد",
+      "irrigation": "ري",
+      "pest_control": "مكافحة الآفات",
+      "pestControl": "مكافحة الآفات",
+      "fertilizer": "تسميد",
+      "inspection": "تفتيش",
+      "transport": "نقل",
+      "storage": "تخزين",
+      "sales": "مبيعات",
+      "administrative": "إدارية",
+      "other": "أخرى",
+      "all": "جميع الأنواع"
+    },
+
+    "categories": {
+      "soilPreparation": "تجهيز التربة",
+      "planting": "الزراعة",
+      "cultivation": "العناية بالمحصول",
+      "harvesting": "الحصاد",
+      "postHarvest": "ما بعد الحصاد",
+      "feeding": "التغذية",
+      "breeding": "التكاثر",
+      "healthCheck": "فحص صحي",
+      "vaccination": "تلقيح",
+      "cleaning": "تنظيف",
+      "repair": "إصلاح",
+      "inspection": "تفتيش",
+      "routine": "روتينية",
+      "emergency": "طارئة",
+      "scheduled": "مجدولة"
+    },
+
+    "wizard": {
+      "title": {
+        "create": "إنشاء مهمة جديدة",
+        "edit": "تعديل المهمة"
+      },
+      "subtitle": {
+        "create": "أعدّ مهمتك مع جميع التفاصيل اللازمة",
+        "edit": "حدّث معلومات المهمة وإعداداتها"
+      },
+      "steps": {
+        "basicDetails": {
+          "title": "التفاصيل الأساسية",
+          "description": "اسم المهمة ونوعها ووصفها",
+          "subtitle": "حدد المعلومات الأساسية لمهمتك"
+        },
+        "assignmentProgress": {
+          "title": "التعيين والتقدّم",
+          "description": "الحالة والأولوية والتعيينات",
+          "subtitle": "حدد أولوية المهمة وحالتها وعيّن أعضاء الفريق"
+        },
+        "time": {
+          "title": "الوقت",
+          "description": "الجدولة وتتبع الوقت",
+          "subtitle": "حدد التواريخ والمهل وتقديرات الوقت"
+        },
+        "costTracking": {
+          "title": "تتبع التكاليف",
+          "description": "تكاليف العمالة والوقود والمواد",
+          "subtitle": "تتبّع المصروفات وتكاليف الموارد"
+        }
+      },
+      "progress": "الخطوة {{current}} من {{total}}",
+      "completed": "مكتملة",
+      "optional": "اختيارية"
+    },
+
+    "form": {
+      "title": {
+        "create": "إنشاء مهمة جديدة",
+        "edit": "تعديل المهمة"
+      },
+      "description": {
+        "create": "املأ تفاصيل مهمتك الجديدة",
+        "edit": "قم بتحديث معلومات المهمة"
+      },
+      "sections": {
+        "basicInfo": "معلومات أساسية",
+        "basicDetails": "التفاصيل الأساسية",
+        "assignmentProgress": "التعيين والتقدّم",
+        "timeScheduling": "تتبع الوقت",
+        "costTracking": "تفصيل التكاليف",
+        "linkedAssets": "الأصول المرتبطة",
+        "checklist": "قائمة التحقق",
+        "attachments": "المرفقات",
+        "additionalInfo": "معلومات إضافية"
+      },
+      "fields": {
+        "title": {
+          "label": "اسم المهمة",
+          "placeholder": "أدخل اسم المهمة",
+          "required": "اسم المهمة مطلوب",
+          "helpText": "اختر اسمًا واضحًا ووصفيًا للمهمة"
+        },
+        "description": {
+          "label": "الوصف",
+          "placeholder": "سياق إضافي أو تعليمات",
+          "helpText": "أضف تفاصيل حول ما يجب تنفيذه"
+        },
+        "taskType": {
+          "label": "نوع المهمة",
+          "placeholder": "اختر نوع المهمة",
+          "required": "نوع المهمة مطلوب",
+          "helpText": "اختر التصنيف الأنسب لهذه المهمة"
+        },
+        "taskCategory": {
+          "label": "فئة المهمة",
+          "placeholder": "اختر الفئة",
+          "required": "فئة المهمة مطلوبة",
+          "helpText": "فئة محددة ضمن نوع المهمة"
+        },
+        "status": {
+          "label": "الحالة",
+          "placeholder": "اختر الحالة",
+          "required": "الحالة مطلوبة",
+          "helpText": "الوضع الحالي للمهمة"
+        },
+        "priority": {
+          "label": "الأولوية",
+          "placeholder": "اختر الأولوية",
+          "helpText": "مدى إلحاح أو أهمية هذه المهمة"
+        },
+        "taskColor": {
+          "label": "لون المهمة",
+          "helpText": "اختر لونًا للمساعدة في تمييز هذه المهمة"
+        },
+        "assignedUsers": {
+          "label": "مُسندة إلى",
+          "placeholder": "اختر المستخدمين...",
+          "noUsersAvailable": "لا يوجد مستخدمون متاحون للتعيين",
+          "usersSelected": "تم اختيار {{count}} مستخدم(ين)",
+          "helpText": "أعضاء الفريق المسؤولون عن هذه المهمة"
+        },
+        "startDateTime": {
+          "label": "تاريخ ووقت البدء",
+          "placeholder": "اختر تاريخ البدء",
+          "helpText": "متى يجب أن تبدأ هذه المهمة"
+        },
+        "dueDatetime": {
+          "label": "تاريخ ووقت الاستحقاق",
+          "placeholder": "اختر تاريخ الاستحقاق",
+          "helpText": "متى يجب إكمال هذه المهمة"
+        },
+        "estimatedHours": {
+          "label": "الساعات المقدّرة",
+          "placeholder": "0",
+          "helpText": "كم تتوقع أن تستغرق هذه المهمة"
+        },
+        "actualHours": {
+          "label": "الساعات الفعلية",
+          "placeholder": "0",
+          "helpText": "كم استغرقت هذه المهمة فعليًا"
+        },
+        "completedDate": {
+          "label": "تاريخ الإكمال",
+          "placeholder": "اختر تاريخ الإكمال"
+        },
+        "laborCost": {
+          "label": "تكلفة العمالة",
+          "placeholder": "0.00",
+          "helpText": "تكلفة العمالة لهذه المهمة"
+        },
+        "fuelCost": {
+          "label": "تكلفة الوقود",
+          "placeholder": "0.00",
+          "helpText": "مصروفات الوقود للمعدات المستخدمة"
+        },
+        "materialCost": {
+          "label": "تكلفة المواد",
+          "placeholder": "0.00",
+          "helpText": "تكلفة المواد واللوازم"
+        },
+        "totalCost": {
+          "label": "إجمالي التكلفة",
+          "calculated": "يُحسب تلقائيًا",
+          "helpText": "مجموع جميع تكاليف المهمة"
+        },
+        "linkedAssets": {
+          "label": "الأصول المرتبطة",
+          "fields": "الحقول",
+          "lots": "القطع",
+          "equipment": "المعدات",
+          "warehouses": "المستودعات",
+          "livestock": "الثروة الحيوانية",
+          "selectFields": "اختر الحقول",
+          "selectLots": "اختر القطع",
+          "selectEquipment": "اختر المعدات",
+          "selectWarehouses": "اختر المستودعات",
+          "selectLivestock": "اختر الثروة الحيوانية",
+          "noFieldsAvailable": "لا توجد حقول متاحة",
+          "noLotsAvailable": "لا توجد قطع متاحة",
+          "noEquipmentAvailable": "لا توجد معدات متاحة",
+          "noWarehousesAvailable": "لا توجد مستودعات متاحة",
+          "noLivestockAvailable": "لا توجد ثروة حيوانية متاحة",
+          "helpText": "اربط أصول المزرعة ذات الصلة بهذه المهمة"
+        },
+        "checklistItems": {
+          "label": "قائمة التحقق",
+          "addItem": "إضافة عنصر",
+          "removeItem": "إزالة عنصر",
+          "itemPlaceholder": "أدخل عنصرًا",
+          "noItems": "لم تتم إضافة عناصر بعد",
+          "helpText": "قسّم المهمة إلى خطوات أصغر"
+        },
+        "attachments": {
+          "label": "المرفقات",
+          "upload": "رفع ملفات",
+          "dropFiles": "اسحب الملفات هنا أو انقر للاستعراض",
+          "supportedFormats": "الملفات المدعومة: PDF، JPG، PNG، CSV",
+          "maxFileSize": "الحد الأقصى لحجم الملف: 10MB",
+          "noAttachments": "لا توجد مرفقات",
+          "helpText": "أرفق مستندات أو صورًا أو ملفات ذات صلة"
+        },
+        "repeatPattern": {
+          "label": "نمط التكرار",
+          "placeholder": "اختر نمط التكرار",
+          "doesNotRepeat": "لا يتكرر",
+          "daily": "يوميًا",
+          "weekly": "أسبوعيًا",
+          "monthly": "شهريًا",
+          "custom": "مخصص",
+          "helpText": "إعداد مهام متكررة عند الحاجة"
+        }
+      },
+      "validation": {
+        "titleRequired": "اسم المهمة مطلوب",
+        "typeRequired": "نوع المهمة مطلوب",
+        "categoryRequired": "فئة المهمة مطلوبة",
+        "statusRequired": "الحالة مطلوبة",
+        "invalidDate": "يرجى إدخال تاريخ صحيح",
+        "invalidTime": "يرجى إدخال وقت صحيح",
+        "invalidNumber": "يرجى إدخال رقم صحيح",
+        "startBeforeEnd": "يجب أن يكون تاريخ البدء قبل تاريخ الاستحقاق",
+        "estimatedHoursMin": "يجب أن تكون الساعات المقدّرة 0 أو أكثر",
+        "actualHoursMin": "يجب أن تكون الساعات الفعلية 0 أو أكثر",
+        "costMin": "يجب أن تكون التكلفة 0 أو أكثر"
+      }
+    },
+
+    "table": {
+      "headers": {
+        "title": "المهمة",
+        "type": "النوع",
+        "category": "الفئة",
+        "status": "الحالة",
+        "priority": "الأولوية",
+        "assignedTo": "مُسندة إلى",
+        "dueDate": "تاريخ الاستحقاق",
+        "estimatedHours": "ساعات مقدّرة",
+        "actualHours": "ساعات فعلية",
+        "progress": "التقدّم",
+        "cost": "التكلفة",
+        "actions": "الإجراءات",
+        "createdBy": "أُنشئت بواسطة",
+        "createdDate": "تاريخ الإنشاء",
+        "updatedDate": "تاريخ التحديث"
+      },
+      "noData": "لا توجد مهام",
+      "loading": "جارٍ تحميل المهام...",
+      "pagination": {
+        "showing": "عرض {{start}} إلى {{end}} من أصل {{total}} مهمة",
+        "rowsPerPage": "عدد الصفوف لكل صفحة",
+        "page": "صفحة",
+        "of": "من",
+        "goToPage": "اذهب إلى الصفحة",
+        "previous": "السابق",
+        "next": "التالي"
+      }
+    },
+
+    "card": {
+      "overdue": "متأخرة",
+      "dueToday": "مستحقة اليوم",
+      "dueSoon": "مستحقة قريبًا",
+      "estimatedTime": "{{hours}}س مقدّرة",
+      "actualTime": "{{actual}}س / {{estimated}}س",
+      "totalCost": "إجمالي التكلفة: ${{cost}}",
+      "assignedTo": "مُسندة إلى {{count}} مستخدم(ين)",
+      "noAssignment": "غير مُسندة",
+      "checklist": "قائمة التحقق: {{completed}}/{{total}} مكتملة",
+      "noChecklist": "لا توجد قائمة تحقق",
+      "linkedAssets": "{{count}} أصل/أصول مرتبطة",
+      "noLinkedAssets": "لا توجد أصول مرتبطة"
+    },
+
+    "kanban": {
+      "columns": {
+        "draft": "مسودة",
+        "toDo": "للإنجاز",
+        "inProgress": "قيد التنفيذ",
+        "completed": "مكتملة",
+        "cancelled": "ملغاة",
+        "archived": "الأرشيف"
+      },
+      "taskCount": "{{count}} مهمة",
+      "dropHere": "أفلت المهمة هنا",
+      "moveToColumn": "نقل إلى {{column}}",
+      "loading": "جارٍ تحميل المهام...",
+      "empty": "لا توجد مهام في هذا العمود",
+      "dragToMove": "اسحب المهام بين الأعمدة لتحديث الحالة"
+    },
+
+    "calendar": {
+      "month": "شهر",
+      "week": "أسبوع",
+      "day": "يوم",
+      "agenda": "أجندة",
+      "today": "اليوم",
+      "noEvents": "لا توجد مهام مجدولة لهذه الفترة",
+      "tasksDue": "{{count}} مهمة مستحقة",
+      "tasksOverdue": "{{count}} مهمة متأخرة",
+      "viewTask": "عرض المهمة",
+      "createTask": "إنشاء مهمة",
+      "loading": "جارٍ تحميل التقويم...",
+      "moreTasks": "أخرى",
+      "weekdays": {
+        "sun": "الأحد",
+        "mon": "الاثنين",
+        "tue": "الثلاثاء",
+        "wed": "الأربعاء",
+        "thu": "الخميس",
+        "fri": "الجمعة",
+        "sat": "السبت"
+      },
+      "navigation": {
+        "previous": "السابق",
+        "next": "التالي",
+        "today": "اليوم"
+      }
+    },
+
+    "filters": {
+      "title": "البحث والمرشحات",
+      "filtersAndSearch": "المرشحات والبحث",
+      "search": {
+        "label": "بحث",
+        "placeholder": "ابحث في المهام...",
+        "noResults": "لا توجد مهام تطابق معايير البحث",
+        "resultsCount": "{{count}} من {{total}} مهمة"
+      },
+      "status": {
+        "label": "الحالة",
+        "all": "جميع الحالات",
+        "selected": "تم اختيار {{count}}"
+      },
+      "priority": {
+        "label": "الأولوية",
+        "all": "جميع الأولويات",
+        "selected": "تم اختيار {{count}}"
+      },
+      "type": {
+        "label": "النوع",
+        "taskType": "نوع المهمة",
+        "all": "جميع الأنواع",
+        "selected": "تم اختيار {{count}}"
+      },
+      "assignedTo": {
+        "label": "مُسندة إلى",
+        "all": "جميع المستخدمين",
+        "unassigned": "غير مُسندة",
+        "selected": "تم اختيار {{count}}",
+        "loading": "جارٍ تحميل المستخدمين..."
+      },
+      "dateRange": {
+        "label": "نطاق تاريخ الاستحقاق",
+        "from": "من",
+        "to": "إلى",
+        "anytime": "أي وقت",
+        "today": "اليوم",
+        "thisWeek": "هذا الأسبوع",
+        "thisMonth": "هذا الشهر",
+        "overdue": "متأخرة",
+        "custom": "نطاق مخصص"
+      },
+      "clearAll": "مسح الكل",
+      "applyFilters": "تطبيق المرشحات",
+      "activeFilters": "تم تطبيق {{count}} مرشح(ات)",
+      "noActiveFilters": "لا توجد مرشحات مطبقة"
+    },
+
+    "detail": {
+      "title": "تفاصيل المهمة",
+      "overview": "نظرة عامة",
+      "description": "الوصف",
+      "noDescription": "لا يوجد وصف",
+      "basicInfo": "معلومات أساسية",
+      "assignment": "التعيين",
+      "scheduling": "الجدولة",
+      "progress": "التقدّم",
+      "costs": "التكاليف",
+      "assets": "الأصول المرتبطة",
+      "checklist": "قائمة التحقق",
+      "comments": "التعليقات",
+      "activity": "النشاط",
+      "allActivity": "كل النشاط",
+      "attachments": "المرفقات",
+      "history": "السجل",
+      "metadata": "البيانات الوصفية",
+      "fields": {
+        "taskName": "اسم المهمة",
+        "taskType": "نوع المهمة",
+        "category": "الفئة",
+        "status": "الحالة",
+        "priority": "الأولوية",
+        "assignedTo": "مُسندة إلى",
+        "createdBy": "أُنشئت بواسطة",
+        "createdDate": "تاريخ الإنشاء",
+        "updatedDate": "تاريخ التحديث",
+        "startDate": "تاريخ البدء",
+        "dueDate": "تاريخ الاستحقاق",
+        "completedDate": "تاريخ الإكمال",
+        "estimatedHours": "الساعات المقدّرة",
+        "actualHours": "الساعات الفعلية",
+        "laborCost": "تكلفة العمالة",
+        "fuelCost": "تكلفة الوقود",
+        "materialCost": "تكلفة المواد",
+        "totalCost": "إجمالي التكلفة",
+        "color": "لون المهمة",
+        "id": "معرّف المهمة"
+      },
+      "labels": {
+        "unassigned": "غير مُسندة",
+        "notSet": "غير محدد",
+        "notSpecified": "غير مذكور",
+        "none": "لا يوجد",
+        "unknown": "غير معروف",
+        "noAttachments": "لا توجد مرفقات",
+        "noComments": "لا توجد تعليقات بعد",
+        "noActivity": "لا يوجد نشاط بعد",
+        "noChecklist": "لا توجد عناصر في قائمة التحقق"
+      },
+      "actions": {
+        "editTask": "تعديل المهمة",
+        "deleteTask": "حذف المهمة",
+        "duplicateTask": "نسخ المهمة",
+        "archiveTask": "أرشفة المهمة",
+        "markComplete": "وضع كمكتملة",
+        "markIncomplete": "وضع كغير مكتملة",
+        "assignToMe": "تعيين لي"
+      }
+    },
+
+    "comments": {
+      "title": "التعليقات",
+      "addComment": "أضف تعليقًا...",
+      "postComment": "نشر التعليق",
+      "editComment": "تعديل التعليق",
+      "deleteComment": "حذف التعليق",
+      "reply": "رد",
+      "showReplies": "إظهار الردود",
+      "hideReplies": "إخفاء الردود",
+      "noComments": "لا توجد تعليقات بعد. كن أول من يعلّق!",
+      "loading": "جارٍ تحميل التعليقات...",
+      "posting": "جارٍ النشر...",
+      "edited": "تم التعديل",
+      "deleted": "تم حذف التعليق",
+      "enterToSend": "اضغط Enter للإرسال، وShift+Enter لسطر جديد"
+    },
+
+    "activity": {
+      "title": "النشاط",
+      "taskCreated": "{{user}} أنشأ هذه المهمة",
+      "taskUpdated": "{{user}} حدّث هذه المهمة",
+      "statusChanged": "{{user}} غيّر الحالة من {{oldStatus}} إلى {{newStatus}}",
+      "priorityChanged": "{{user}} غيّر الأولوية من {{oldPriority}} إلى {{newPriority}}",
+      "assignedUser": "{{user}} أسند {{assignee}} إلى هذه المهمة",
+      "unassignedUser": "{{user}} أزال إسناد {{assignee}} من هذه المهمة",
+      "dueDateChanged": "{{user}} غيّر تاريخ الاستحقاق إلى {{dueDate}}",
+      "taskCompleted": "{{user}} وضع هذه المهمة كمكتملة",
+      "commentAdded": "{{user}} أضاف تعليقًا",
+      "attachmentAdded": "{{user}} أضاف مرفقًا",
+      "checklistUpdated": "{{user}} حدّث قائمة التحقق",
+      "loading": "جارٍ تحميل النشاط...",
+      "noActivity": "لا يوجد نشاط بعد.",
+      "timeAgo": "منذ {{time}}"
+    },
+
+    "templates": {
+      "title": "قوالب المهام",
+      "subtitle": "إدارة واستخدام قوالب المهام",
+      "description": "أنشئ قوالب قابلة لإعادة الاستخدام لتسهيل إنشاء المهام",
+      "createTemplate": "إنشاء قالب",
+      "editTemplate": "تعديل القالب",
+      "deleteTemplate": "حذف القالب",
+      "useTemplate": "استخدام قالب",
+      "applyTemplate": "تطبيق القالب",
+      "selectTemplate": "اختر قالبًا",
+      "noTemplate": "لم يتم اختيار قالب",
+      "templateApplied": "تم تطبيق القالب بنجاح",
+      "management": {
+        "title": "إدارة القوالب",
+        "description": "أنشئ وعدّل وأدر قوالب المهام",
+        "noTemplates": "لا توجد قوالب بعد",
+        "createFirst": "أنشئ أول قالب للبدء"
+      },
+      "form": {
+        "templateName": {
+          "label": "اسم القالب",
+          "placeholder": "أدخل اسم القالب",
+          "required": "اسم القالب مطلوب"
+        },
+        "templateDescription": {
+          "label": "وصف القالب",
+          "placeholder": "صف الغرض من هذا القالب"
+        },
+        "isPublic": {
+          "label": "جعله عامًا",
+          "helpText": "اسمح لأعضاء الفريق الآخرين باستخدام هذا القالب"
+        }
+      },
+      "selector": {
+        "title": "بدء سريع باستخدام قالب",
+        "placeholder": "اختر قالبًا للبدء",
+        "noTemplatesAvailable": "لا توجد قوالب متاحة",
+        "createNewTemplate": "إنشاء قالب جديد",
+        "preview": "معاينة",
+        "apply": "تطبيق"
+      }
+    },
+
+    "dashboard": {
+      "title": "لوحة تحكم المهام",
+      "subtitle": "نظرة عامة على أنشطة المهام والمؤشرات",
+      "summary": {
+        "totalTasks": "إجمالي المهام",
+        "activeTasks": "المهام النشطة",
+        "completedTasks": "المهام المكتملة",
+        "overdueTasks": "المهام المتأخرة",
+        "tasksThisWeek": "مهام هذا الأسبوع",
+        "tasksThisMonth": "مهام هذا الشهر",
+        "avgCompletionTime": "متوسط مدة الإكمال",
+        "totalCost": "إجمالي التكلفة"
+      },
+      "charts": {
+        "tasksByStatus": "المهام حسب الحالة",
+        "tasksByPriority": "المهام حسب الأولوية",
+        "tasksByType": "المهام حسب النوع",
+        "completionTrend": "اتجاه الإكمال",
+        "costAnalysis": "تحليل التكاليف",
+        "teamPerformance": "أداء الفريق"
+      },
+      "recentTasks": "أحدث المهام",
+      "upcomingDeadlines": "المهل القادمة",
+      "loading": "جارٍ تحميل لوحة التحكم...",
+      "noData": "لا توجد بيانات متاحة"
+    },
+
+    "messages": {
+      "success": {
+        "taskCreated": "تم إنشاء المهمة",
+        "taskCreatedDescription": "تم إنشاء مهمة جديدة بنجاح.",
+        "taskUpdated": "تم تحديث المهمة",
+        "taskUpdatedDescription": "تم تحديث المهمة بنجاح.",
+        "taskDeleted": "تم حذف المهمة",
+        "taskDeletedDescription": "تم حذف المهمة بنجاح.",
+        "taskCompleted": "تم إكمال المهمة",
+        "taskCompletedDescription": "تم وضع المهمة كمكتملة.",
+        "taskArchived": "تمت أرشفة المهمة",
+        "taskArchivedDescription": "تمت أرشفة المهمة بنجاح.",
+        "taskDuplicated": "تم نسخ المهمة",
+        "taskDuplicatedDescription": "تم نسخ المهمة بنجاح.",
+        "statusUpdated": "تم تحديث الحالة",
+        "statusUpdatedDescription": "تم تحديث حالة المهمة.",
+        "assignmentUpdated": "تم تحديث الإسناد",
+        "assignmentUpdatedDescription": "تم تحديث إسناد المهمة.",
+        "templateCreated": "تم إنشاء القالب",
+        "templateCreatedDescription": "تم إنشاء قالب مهمة.",
+        "templateApplied": "تم تطبيق القالب",
+        "templateAppliedDescription": "تم تطبيق القالب على المهمة.",
+        "commentAdded": "تمت إضافة تعليق",
+        "commentAddedDescription": "تم نشر تعليقك.",
+        "attachmentUploaded": "تم رفع المرفق",
+        "attachmentUploadedDescription": "تم رفع الملف بنجاح.",
+        "checklistUpdated": "تم تحديث قائمة التحقق",
+        "checklistUpdatedDescription": "تم تحديث قائمة التحقق.",
+        "tasksExported": "تم تصدير المهام",
+        "tasksExportedDescription": "تم تصدير المهام بنجاح.",
+        "offlineTaskSaved": "تم حفظ المهمة (دون اتصال)",
+        "offlineTaskSavedDescription": "ستتم المزامنة عند استعادة الاتصال."
+      },
+      "error": {
+        "generic": "خطأ",
+        "taskCreateFailed": "فشل إنشاء المهمة",
+        "taskUpdateFailed": "فشل تحديث المهمة",
+        "taskDeleteFailed": "فشل حذف المهمة",
+        "taskLoadFailed": "فشل تحميل المهمة",
+        "statusUpdateFailed": "فشل تحديث الحالة",
+        "validationError": "خطأ في التحقق",
+        "permissionDenied": "تم رفض الإذن",
+        "networkError": "حدث خطأ في الشبكة",
+        "templateLoadFailed": "فشل تحميل القوالب",
+        "templateCreateFailed": "فشل إنشاء القالب",
+        "templateApplyFailed": "فشل تطبيق القالب",
+        "commentFailed": "فشل إضافة التعليق",
+        "uploadFailed": "فشل رفع الملف",
+        "exportFailed": "فشل تصدير المهام",
+        "importFailed": "فشل استيراد المهام",
+        "attachmentTooLarge": "حجم الملف كبير جدًا",
+        "invalidFileType": "نوع ملف غير صالح",
+        "offlineError": "خطأ في وضع عدم الاتصال",
+        "syncFailed": "فشلت المزامنة"
+      },
+      "permissions": {
+        "cannotCreate": "ليس لديك صلاحية لإنشاء المهام.",
+        "cannotEdit": "ليس لديك صلاحية لتعديل المهام.",
+        "cannotDelete": "ليس لديك صلاحية لحذف المهام.",
+        "cannotAssign": "ليس لديك صلاحية لتعيين المهام.",
+        "cannotManageTemplates": "ليس لديك صلاحية لإدارة القوالب.",
+        "cannotExport": "ليس لديك صلاحية لتصدير المهام.",
+        "cannotViewDetails": "ليس لديك صلاحية لعرض تفاصيل المهمة."
+      }
+    },
+
+    "empty": {
+      "title": "لم يتم العثور على مهام",
+      "description": "أنشئ أول مهمة للبدء في إدارة المهام.",
+      "action": "إنشاء مهمة",
+      "filtered": {
+        "title": "لا توجد مهام تطابق المرشحات",
+        "description": "جرّب تعديل معايير البحث أو المرشحات.",
+        "action": "مسح المرشحات"
+      },
+      "calendar": {
+        "title": "لا توجد مهام مجدولة",
+        "description": "لا توجد مهام مجدولة لهذه الفترة."
+      },
+      "templates": {
+        "title": "لا توجد قوالب متاحة",
+        "description": "أنشئ قوالب للمهام لتسهيل سير العمل."
+      }
+    },
+
+    "loading": {
+      "tasks": "جارٍ تحميل المهام...",
+      "taskDetails": "جارٍ تحميل تفاصيل المهمة...",
+      "templates": "جارٍ تحميل القوالب...",
+      "comments": "جارٍ تحميل التعليقات...",
+      "activity": "جارٍ تحميل النشاط...",
+      "dashboard": "جارٍ تحميل لوحة التحكم...",
+      "saving": "جارٍ الحفظ...",
+      "deleting": "جارٍ الحذف...",
+      "uploading": "جارٍ الرفع..."
+    },
+
+    "dialog": {
+      "delete": {
+        "title": "حذف المهمة",
+        "description": "هل أنت متأكد من حذف \"{{taskName}}\"؟ لا يمكن التراجع عن هذا الإجراء.",
+        "confirm": "حذف المهمة",
+        "cancel": "إلغاء"
+      },
+      "archive": {
+        "title": "أرشفة المهمة",
+        "description": "هل أنت متأكد من أرشفة \"{{taskName}}\"؟",
+        "confirm": "أرشفة المهمة",
+        "cancel": "إلغاء"
+      },
+      "duplicate": {
+        "title": "نسخ المهمة",
+        "description": "هل تريد إنشاء نسخة من \"{{taskName}}\"؟",
+        "confirm": "نسخ المهمة",
+        "cancel": "إلغاء"
+      },
+      "deleteTemplate": {
+        "title": "حذف القالب",
+        "description": "هل أنت متأكد من حذف القالب \"{{templateName}}\"؟ لا يمكن التراجع عن هذا الإجراء.",
+        "confirm": "حذف القالب",
+        "cancel": "إلغاء"
+      },
+      "unsavedChanges": {
+        "title": "تغييرات غير محفوظة",
+        "description": "لديك تغييرات غير محفوظة. هل تريد حفظها قبل المغادرة؟",
+        "save": "حفظ التغييرات",
+        "discard": "تجاهل التغييرات",
+        "cancel": "إلغاء"
+      }
+    },
+
+    "recurring": {
+      "title": "إعدادات المهمة المتكررة",
+      "pattern": "نمط التكرار",
+      "frequency": "التكرار",
+      "endDate": "تاريخ الانتهاء",
+      "occurrences": "عدد مرات التكرار",
+      "never": "أبدًا",
+      "options": {
+        "daily": "يوميًا",
+        "weekly": "أسبوعيًا",
+        "monthly": "شهريًا",
+        "yearly": "سنويًا",
+        "custom": "مخصص"
+      },
+      "every": "كل",
+      "days": "يوم/أيام",
+      "weeks": "أسبوع/أسابيع",
+      "months": "شهر/أشهر",
+      "years": "سنة/سنوات",
+      "on": "في",
+      "weekdays": {
+        "monday": "الاثنين",
+        "tuesday": "الثلاثاء",
+        "wednesday": "الأربعاء",
+        "thursday": "الخميس",
+        "friday": "الجمعة",
+        "saturday": "السبت",
+        "sunday": "الأحد"
+      }
+    },
+
+    "checklist": {
+      "title": "قائمة تحقق المهمة",
+      "addItem": "إضافة عنصر",
+      "removeItem": "إزالة",
+      "itemPlaceholder": "أدخل عنصرًا",
+      "completed": "تم إنجاز {{completed}} من {{total}}",
+      "allCompleted": "تم إنجاز جميع العناصر",
+      "toggleAll": "تبديل الكل",
+      "clearCompleted": "مسح المنجَز",
+      "noItems": "لم تتم إضافة عناصر بعد"
+    },
+
+    "attachments": {
+      "title": "المرفقات",
+      "add": "إضافة مرفق",
+      "upload": "رفع ملفات",
+      "remove": "إزالة",
+      "download": "تنزيل",
+      "view": "عرض",
+      "noAttachments": "لا توجد مرفقات",
+      "dropFiles": "اسحب الملفات هنا أو انقر للاستعراض",
+      "supportedFormats": "الصيغ المدعومة: PDF، JPG، JPEG، PNG، CSV",
+      "maxFileSize": "الحد الأقصى لحجم الملف: 10MB",
+      "uploading": "جارٍ الرفع...",
+      "uploadComplete": "اكتمل الرفع",
+      "uploadFailed": "فشل الرفع",
+      "fileTooBig": "حجم الملف كبير جدًا",
+      "invalidFormat": "صيغة ملف غير صالحة"
+    }
+  }
+}

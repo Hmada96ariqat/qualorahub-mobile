@@ -1,0 +1,247 @@
+{
+  "settings": {
+    "title": "الإعدادات",
+    "subtitle": "أدر تفضيلات نظام المزرعة وإعداداته",
+    "tabs": {
+      "general": "عام",
+      "security": "الأمان"
+    },
+    "common": {
+      "notAvailable": "غير متوفر"
+    },
+    "subscriptionStatuses": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "pending": "قيد الانتظار",
+      "trial": "تجريبي",
+      "trialing": "في الفترة التجريبية",
+      "past_due": "متأخر السداد",
+      "canceled": "ملغى",
+      "cancelled": "ملغى",
+      "expired": "منتهي",
+      "scheduled_downgrade": "خفض مجدول"
+    },
+    "farmTypes": {
+      "cropFarm": "مزرعة محاصيل",
+      "livestockFarm": "مزرعة ماشية",
+      "dairyFarm": "مزرعة ألبان",
+      "poultryFarm": "مزرعة دواجن",
+      "mixedCropLivestock": "محاصيل وماشية مختلطة",
+      "organicFarm": "مزرعة عضوية",
+      "greenhouseFarm": "مزرعة بيت محمي",
+      "aquacultureFarm": "مزرعة استزراع مائي",
+      "agroforestryFarm": "مزرعة حراجة زراعية",
+      "other": "أخرى"
+    },
+    "plan": {
+      "title": "الخطة الحالية",
+      "description": "خطة الاشتراك النشطة لديك والوحدات المضمنة",
+      "loading": "جار تحميل معلومات الخطة...",
+      "price": "السعر",
+      "modules": "الوحدات",
+      "moduleCount": "{{count}} مضمّنة",
+      "includedModules": "الوحدات المضمنة",
+      "supportText": "لترقية خطتك أو إضافة وحدات، يرجى التواصل مع الدعم.",
+      "empty": "لا توجد خطة مخصّصة. يرجى التواصل مع الدعم لتخصيص خطة لمزرعتك.",
+      "billingCycles": {
+        "monthly": "شهري",
+        "yearly": "سنوي",
+        "annual": "سنوي",
+        "quarterly": "ربع سنوي",
+        "weekly": "أسبوعي"
+      }
+    },
+    "billingHistory": {
+      "title": "الجدول الزمني للاشتراك والفواتير",
+      "description": "أحداث دورة الحياة وسجلات الفوترة لاشتراك مزرعتك.",
+      "loading": "جار تحميل سجل الاشتراك...",
+      "timeline": "الجدول الزمني",
+      "invoices": "الفواتير",
+      "emptyTimeline": "لم يتم العثور على أحداث في الجدول الزمني.",
+      "emptyInvoices": "لم يتم العثور على فواتير.",
+      "fallbackEvent": "حدث",
+      "invoiceStatuses": {
+        "pending": "قيد الانتظار",
+        "processing": "قيد المعالجة",
+        "failed": "فشل",
+        "succeeded": "ناجحة",
+        "paid": "مدفوعة",
+        "canceled": "ملغاة",
+        "cancelled": "ملغاة"
+      },
+      "eventTypes": {
+        "billing": {
+          "expired": "انتهت صلاحية الفوترة",
+          "payment_failed": "فشل الدفع",
+          "payment_succeeded": "تم الدفع بنجاح",
+          "renewed": "تم تجديد الاشتراك",
+          "retry": {
+            "scheduled": "تمت جدولة إعادة المحاولة"
+          }
+        },
+        "coupon": {
+          "applied": "تم تطبيق القسيمة"
+        },
+        "phase1": {
+          "checkout": {
+            "provisioned": "تم تجهيز عملية الدفع"
+          }
+        },
+        "renewal": {
+          "failed": "فشل التجديد"
+        },
+        "retry": {
+          "exhausted": "استنفدت المحاولات",
+          "succeeded": "نجحت إعادة المحاولة"
+        },
+        "subscription": {
+          "bootstrap": "تم بدء الاشتراك",
+          "canceled": {
+            "effective": "أصبح الإلغاء ساريًا"
+          },
+          "downgrade": {
+            "applied": "تم تطبيق التخفيض",
+            "scheduled": "تمت جدولة التخفيض"
+          },
+          "status": {
+            "active": "الاشتراك نشط",
+            "canceled": "تم إلغاء الاشتراك",
+            "expired": "انتهت صلاحية الاشتراك",
+            "past_due": "الاشتراك متأخر السداد",
+            "pending": "الاشتراك قيد الانتظار",
+            "scheduled_downgrade": "الاشتراك مجدول للتخفيض",
+            "trialing": "الاشتراك في الفترة التجريبية"
+          },
+          "upgraded": "تمت ترقية الاشتراك"
+        },
+        "trial": {
+          "charge_failed": "فشل تحصيل الفترة التجريبية",
+          "converted": "تم تحويل الفترة التجريبية",
+          "expired": "انتهت الفترة التجريبية",
+          "started": "بدأت الفترة التجريبية"
+        }
+      }
+    },
+    "farmInformation": {
+      "title": "معلومات المزرعة",
+      "description": "معلومات أساسية عن تشغيل مزرعتك",
+      "buttons": {
+        "save": "حفظ التغييرات"
+      },
+      "fields": {
+        "logo": {
+          "label": "شعار المزرعة",
+          "alt": "معاينة شعار المزرعة",
+          "uploading": "جار رفع الشعار...",
+          "helper": "استخدم شعارًا مربعًا أو أفقيًا. سيُستخدم هذا الشعار في الفواتير."
+        },
+        "farmName": {
+          "label": "اسم المزرعة *",
+          "placeholder": "أدخل اسم المزرعة",
+          "loadingPlaceholder": "جار التحميل..."
+        },
+        "farmType": {
+          "label": "نوع المزرعة *",
+          "placeholder": "اختر نوع المزرعة"
+        },
+        "farmTypeOther": {
+          "label": "حدد نوع المزرعة *",
+          "placeholder": "أدخل نوع مزرعتك"
+        },
+        "country": {
+          "label": "الدولة *",
+          "placeholder": "اختر الدولة"
+        },
+        "stateProvince": {
+          "label": "الولاية / المقاطعة",
+          "placeholder": "أدخل الولاية أو المقاطعة"
+        },
+        "city": {
+          "label": "المدينة / المنطقة",
+          "placeholder": "أدخل المدينة أو المنطقة"
+        },
+        "contactEmail": {
+          "label": "البريد الإلكتروني",
+          "placeholder": "name@farm.com"
+        },
+        "mobile": {
+          "label": "رقم الجوال",
+          "countryPlaceholder": "اختر مفتاح الدولة",
+          "placeholder": "مثال: {{example}}",
+          "helper": "سيتم إضافة مفتاح الدولة {{dialCode}} تلقائيًا."
+        },
+        "primaryProducts": {
+          "label": "المنتجات الرئيسية",
+          "placeholder": "مثال: طماطم، حليب، بيض"
+        },
+        "currency": {
+          "label": "العملة",
+          "searchPlaceholder": "ابحث عن عملة...",
+          "empty": "لم يتم العثور على عملة."
+        }
+      }
+    },
+    "security": {
+      "title": "إعدادات الأمان",
+      "description": "أدر كلمة مرور حسابك وأمان المصادقة",
+      "fields": {
+        "currentPassword": "كلمة المرور الحالية",
+        "newPassword": "كلمة المرور الجديدة",
+        "confirmPassword": "تأكيد كلمة المرور الجديدة"
+      },
+      "buttons": {
+        "updatePassword": "تحديث كلمة المرور"
+      }
+    },
+    "messages": {
+      "farmNotAvailable": {
+        "title": "المزرعة غير متاحة",
+        "description": "يرجى الانتظار حتى يتم تحميل تفاصيل المزرعة قبل رفع الشعار."
+      },
+      "invalidFileType": {
+        "title": "نوع ملف غير صالح",
+        "description": "يرجى رفع ملف صورة (PNG أو JPG أو SVG أو WebP)."
+      },
+      "logoTooLarge": {
+        "title": "الشعار كبير جدًا",
+        "description": "يجب أن يكون الشعار بحجم 5 ميغابايت أو أقل."
+      },
+      "logoUploaded": {
+        "title": "تم رفع الشعار",
+        "description": "تم رفع شعار المزرعة بنجاح. احفظ التغييرات لتطبيقه على مستوى النظام."
+      },
+      "uploadFailed": {
+        "title": "فشل الرفع",
+        "description": "تعذر رفع شعار المزرعة."
+      },
+      "unableToSave": {
+        "title": "تعذر الحفظ",
+        "description": "لم يتم تعيين مزرعة لهذا الحساب."
+      },
+      "farmNameRequired": {
+        "title": "اسم المزرعة مطلوب",
+        "description": "يرجى إدخال اسم المزرعة قبل الحفظ."
+      },
+      "countryRequired": {
+        "title": "الدولة مطلوبة",
+        "description": "يرجى اختيار دولة المزرعة قبل الحفظ."
+      },
+      "farmTypeRequired": {
+        "title": "نوع المزرعة مطلوب",
+        "description": "يرجى اختيار نوع المزرعة قبل الحفظ."
+      },
+      "settingsSaved": {
+        "title": "تم حفظ الإعدادات",
+        "description": "تم تحديث معلومات المزرعة بنجاح."
+      },
+      "saveFailed": {
+        "title": "فشل الحفظ",
+        "description": "تعذر حفظ معلومات المزرعة. يرجى المحاولة مرة أخرى."
+      },
+      "passwordUpdated": {
+        "title": "تم تحديث كلمة المرور",
+        "description": "تم تغيير كلمة المرور بنجاح."
+      }
+    }
+  }
+}

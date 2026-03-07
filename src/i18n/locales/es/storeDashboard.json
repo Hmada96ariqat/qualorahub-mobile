@@ -1,0 +1,156 @@
+{
+  "storeDashboard": {
+    "title": "Panel de la Tienda",
+    "subtitle": "Monitorea el rendimiento de tu tienda y la actividad reciente de pedidos",
+    "loadingDashboard": "Cargando panel...",
+    
+    "totalOrders": "Total de Pedidos",
+    "totalRevenue": "Ingresos Totales",
+    "avgOrderValue": "Valor Promedio del Pedido", 
+    "uniqueCustomers": "Clientes Únicos",
+    
+    "fromLastMonth": "del mes pasado",
+    "perOrderAverage": "Promedio por pedido",
+    "totalCustomers": "Total de clientes",
+    
+    "todaysPerformance": "Rendimiento de Hoy",
+    "ordersToday": "Pedidos Hoy",
+    "revenueToday": "Ingresos Hoy", 
+    "thisMonth": "Este Mes",
+    "orders": "pedidos",
+    
+    "orderStatusDistribution": "Distribución de Estado de Pedidos",
+    
+    "status": {
+      "pending": "pendiente",
+      "confirmed": "confirmado",
+      "processing": "procesando",
+      "shipped": "enviado",
+      "delivered": "entregado",
+      "cancelled": "cancelado",
+      "returned": "devuelto",
+      "refunded": "reembolsado",
+      "draft": "borrador"
+    },
+    
+    "paymentMethods": "Métodos de Pago",
+    "paymentMethod": {
+      "cash": "Efectivo",
+      "card": "Tarjeta", 
+      "online": "En Línea",
+      "bankTransfer": "Transferencia Bancaria",
+      "digitalWallet": "Billetera Digital",
+      "null": "No Especificado",
+      "other": "Otro"
+    },
+    
+    "deliveryMethods": "Métodos de Entrega",
+    "deliveryMethod": {
+      "pickup": "Recogida",
+      "delivery": "Entrega a Domicilio",
+      "shipping": "Envío", 
+      "null": "No Especificado",
+      "other": "Otro"
+    },
+    
+    "orderSources": "Fuentes de Pedidos",
+    "orderSource": {
+      "storefront": "🛒 Tienda en Línea",
+      "direct": "📝 Directo",
+      "online": "En Línea",
+      "marketplace": "Mercado en Línea",
+      "phone": "Teléfono",
+      "walkIn": "Presencial"
+    },
+    
+    "percentage": "%",
+    "currency": "$",
+    "count": "cantidad",
+    "growth": "crecimiento", 
+    "trend": "tendencia",
+    
+    "noOrders": "Sin pedidos",
+    "noOrdersToday": "No hay pedidos hoy",
+    "noRevenueToday": "No hay ingresos hoy",
+    "noData": "No hay datos disponibles",
+    "noDataAvailable": "No hay datos disponibles",
+    "loadingData": "Cargando datos...",
+    "errorLoadingData": "Error al cargar los datos",
+    
+    "performance": {
+      "excellent": "Excelente",
+      "good": "Bueno",
+      "average": "Promedio",
+      "poor": "Pobre",
+      "improving": "Mejorando",
+      "declining": "Declinando"
+    },
+    
+    "timePeriods": {
+      "today": "Hoy",
+      "yesterday": "Ayer",
+      "thisWeek": "Esta Semana",
+      "lastWeek": "Semana Pasada",
+      "thisMonth": "Este Mes",
+      "lastMonth": "Mes Pasado",
+      "thisYear": "Este Año"
+    },
+    
+    "stats": {
+      "total": "Total",
+      "average": "Promedio",
+      "median": "Mediana",
+      "highest": "Más Alto",
+      "lowest": "Más Bajo",
+      "change": "Cambio",
+      "comparison": "Comparación"
+    },
+    
+    "actions": {
+      "viewDetails": "Ver Detalles",
+      "export": "Exportar",
+      "refresh": "Actualizar",
+      "filter": "Filtrar",
+      "sort": "Ordenar"
+    },
+    
+    "common": {
+      "value": "Valor",
+      "count": "Cantidad",
+      "amount": "Monto",
+      "quantity": "Cantidad",
+      "rate": "Tasa",
+      "ratio": "Proporción",
+      "increase": "Aumento",
+      "decrease": "Disminución",
+      "unchanged": "Sin Cambio"
+    },
+    
+    "errors": {
+      "failedToLoad": "Error al cargar los datos del panel",
+      "connectionError": "Error de conexión",
+      "noPermission": "Sin permisos para ver los datos"
+    },
+    
+    "loading": {
+      "calculating": "Calculando métricas...",
+      "fetchingData": "Obteniendo datos...",
+      "processingOrders": "Procesando pedidos..."
+    },
+    
+    "tooltips": {
+      "totalOrders": "Número total de pedidos recibidos",
+      "totalRevenue": "Ingresos totales generados por todos los pedidos",
+      "avgOrderValue": "Valor promedio por pedido",
+      "uniqueCustomers": "Número de clientes únicos que realizaron pedidos",
+      "growthRate": "Porcentaje de cambio comparado al período anterior"
+    },
+    
+    "zeroStates": {
+      "noOrdersYet": "Aún no se han realizado pedidos",
+      "noRevenueYet": "Aún no se han generado ingresos",
+      "noCustomersYet": "Aún no se han registrado clientes",
+      "startSelling": "Comienza a vender para ver tus métricas aquí"
+    }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "warehouses": {
+    "title": "Warehouses",
+    "addWarehouse": "Add Warehouse",
+    "editWarehouse": "Edit Warehouse",
+    "filters": "Filters",
+    "name": "Name",
+    "field": "Field",
+    "capacity": "Capacity",
+    "temperature": "Temperature",
+    "temperatureRange": "Temperature Range",
+    "status": "Status",
+    "actions": "Actions",
+    "viewMode": "View Mode",
+    "warehouseTypes": "Warehouse Types",
+    
+    "active": "Active",
+    "inactive": "Inactive",
+    "allFields": "All Fields",
+    "allStatus": "All Status",
+    
+    "searchWarehouses": "Search warehouses...",
+    "loadingWarehouses": "Loading warehouses...",
+    "noWarehousesFound": "No warehouses found",
+    "backToWarehouses": "← Back to Warehouses",
+    
+    "warehouseNameRequired": "Warehouse Name *",
+    "fieldRequired": "Field *",
+    "capacityUnit": "Unit",
+    "minTemperature": "Min Temp (°C)",
+    "maxTemperature": "Max Temp (°C)",
+    "warehouseTypesLabel": "Warehouse Types",
+    "safetyMeasures": "Safety Measures",
+    "notes": "Notes",
+    
+    "placeholders": {
+      "selectField": "Select field",
+      "capacityValue": "Enter capacity value",
+      "selectUnit": "Select unit"
+    },
+    
+    "warehouseTypes": {
+      "coldStorage": "Cold Storage",
+      "seedStorage": "Seed Storage",
+      "fertilizer": "Fertilizer Storage",
+      "packingHouse": "Packing House",
+      "livestockShelter": "Livestock Shelter",
+      "greenhouse": "Greenhouse",
+      "fuelStorage": "Fuel Storage",
+      "other": "Other"
+    },
+    
+    "capacityUnits": {
+      "kg": "Kilograms (kg)",
+      "ton": "Tons",
+      "lb": "Pounds (lb)",
+      "g": "Grams (g)",
+      "oz": "Ounces (oz)",
+      "liter": "Liters (L)",
+      "ml": "Milliliters (ml)",
+      "gallon": "Gallons",
+      "m3": "Cubic Meters (m³)",
+      "ft3": "Cubic Feet (ft³)",
+      "piece": "Pieces",
+      "box": "Boxes",
+      "pallet": "Pallets",
+      "container": "Containers",
+      "bag": "Bags",
+      "barrel": "Barrels",
+      "bushel": "Bushels",
+      "crate": "Crates"
+    },
+    
+    "form": {
+      "create": "Create Warehouse",
+      "update": "Update Warehouse",
+      "saving": "Saving..."
+    },
+    
+    "messages": {
+      "warehouseCreated": "Warehouse created successfully",
+      "warehouseUpdated": "Warehouse updated successfully",
+      "warehouseActivated": "Warehouse activated successfully",
+      "warehouseDeactivated": "Warehouse deactivated successfully",
+      "failedToActivate": "Failed to activate warehouse"
+    },
+    
+    "dialogs": {
+      "deleteTitle": "Delete Warehouse",
+      "deleteDescription": "Are you sure you want to delete warehouse {name}? This action will deactivate the warehouse.",
+      "confirmDelete": "Delete Warehouse"
+    },
+    
+    "inventory": {
+      "totalItems": "Total Items",
+      "totalQuantity": "Total Quantity",
+      "totalSalePrice": "Total Sale Value",
+      "totalCost": "Total Cost",
+      "capacityUsage": "Capacity Usage",
+      "capacityVsHolding": "Capacity vs Current Holdings",
+      "used": "Used",
+      "available": "Available",
+      "warehouseInformation": "Warehouse Information",
+      "basicInformation": "Basic Information",
+      "typesSafety": "Types & Safety",
+      "types": "Types",
+      "inventoryItems": "Inventory Items",
+      "errorLoadingInventory": "Error loading inventory",
+      "failedToFetchInventory": "Failed to fetch inventory data",
+      "tryAgain": "Try Again",
+      "loadingInventory": "Loading inventory...",
+      "noItemsInWarehouse": "No items in this warehouse",
+      "unknownProduct": "Unknown Product",
+      "quantity": "Qty",
+      "value": "Value",
+      "batch": "Batch",
+      "expires": "Expires"
+    },
+    
+    "noField": "No Field",
+    "unknownField": "Unknown Field",
+    "noLot": "No Lot",
+    "unknownLot": "Unknown Lot"
+  }
+}

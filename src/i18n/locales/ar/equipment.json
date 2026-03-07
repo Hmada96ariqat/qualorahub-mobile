@@ -1,0 +1,910 @@
+{
+  "equipment": {
+    "title": "المعدات",
+    "name": "الاسم",
+    "type": "النوع",
+    "brand": "العلامة التجارية",
+    "status": "الحالة",
+    "notes": "ملاحظات",
+    "search": "البحث عن المعدات...",
+    "noResults": "لم يتم العثور على معدات",
+    "add": "إضافة معدة",
+    "trackUsage": "تتبع الاستخدام",
+    "actions": {
+      "add": "إضافة",
+      "edit": "تعديل",
+      "update": "تحديث",
+      "delete": "حذف",
+      "deactivate": "إلغاء التفعيل",
+      "activate": "تفعيل",
+      "reactivate": "إعادة التفعيل",
+      "viewProfile": "عرض الملف",
+      "manageEquipment": "إدارة المعدات"
+    },
+    "usage": {
+      "addTitle": "إضافة سجل استخدام جديد",
+      "editTitle": "تعديل سجل الاستخدام",
+      "form": {
+        "sections": {
+          "basicDetails": "التفاصيل الأساسية",
+          "location": "الموقع",
+          "timeMetrics": "الوقت ومقاييس الاستخدام",
+          "resourcesCost": "الموارد والتكلفة"
+        },
+        "fields": {
+          "usagePurpose": {
+            "label": "غرض الاستخدام",
+            "placeholder": "اختر الغرض"
+          },
+          "otherPurpose": {
+            "label": "تحديد غرض آخر",
+            "placeholder": "أدخل الغرض المحدد"
+          },
+          "operator": {
+            "label": "المشغل / السائق",
+            "placeholder": "اختر المشغل"
+          },
+          "usedBy": {
+            "label": "استُخدم بواسطة (إذا كان مختلفاً)",
+            "placeholder": "اختر المستخدم (اختياري)"
+          },
+          "keywords": {
+            "label": "الكلمات المفتاحية / العلامات",
+            "placeholder": "أدخل العلامة واضغط إضافة"
+          },
+          "description": {
+            "label": "وصف الاستخدام",
+            "placeholder": "مثال: حرث الحقل أ تحضيراً لزراعة الذرة"
+          },
+          "field": {
+            "label": "الحقل",
+            "placeholder": "اختر الحقل"
+          },
+          "lot": {
+            "label": "القطعة المستخدمة",
+            "placeholder": "اختر القطعة (اختياري)"
+          },
+          "noSpecificLot": "بدون قطعة محددة",
+          "dateUsed": {
+            "label": "تاريخ الاستخدام",
+            "placeholder": "اختر التاريخ"
+          },
+          "startDateTime": {
+            "label": "تاريخ/وقت البدء"
+          },
+          "endDateTime": {
+            "label": "تاريخ/وقت الانتهاء"
+          },
+          "startingReading": {
+            "label": "القراءة الابتدائية",
+            "placeholder": "0"
+          },
+          "endingReading": {
+            "label": "القراءة النهائية",
+            "placeholder": "0"
+          },
+          "totalHoursUsed": {
+            "label": "إجمالي ساعات الاستخدام",
+            "placeholder": "0"
+          },
+          "autoCalculated": "محسوب تلقائياً من وقت البدء/الانتهاء",
+          "fuelConsumables": {
+            "label": "الوقود أو المستهلكات المستخدمة",
+            "placeholder": "مثال: 20 لتر ديزل"
+          },
+          "cost": {
+            "label": "التكلفة",
+            "placeholder": "0.00"
+          },
+          "noneOption": "لا شيء",
+          "totalUsedLabel": "إجمالي الاستخدام",
+          "unitsFallback": "وحدات",
+          "usageRateNote": "محسوب تلقائياً بناءً على معدل الاستخدام: ${{rate}} لكل {{unit}}"
+        },
+        "buttons": {
+          "cancel": "إلغاء",
+          "saving": "جاري الحفظ...",
+          "create": "إنشاء سجل الاستخدام",
+          "update": "تحديث سجل الاستخدام",
+          "add": "إضافة"
+        },
+        "purposes": {
+          "tilling": "الحراثة",
+          "plowing": "الحرث",
+          "seeding": "البذر",
+          "spraying": "الرش",
+          "harvesting": "الحصاد",
+          "transport": "النقل/التوصيل",
+          "fertilizing": "التسميد",
+          "irrigationSupport": "دعم الري",
+          "landPreparation": "تحضير الأرض",
+          "mulching": "التغطية",
+          "weeding": "إزالة الأعشاب",
+          "pesticideApplication": "تطبيق المبيدات",
+          "soilSampling": "أخذ عينات التربة",
+          "mowing": "القص",
+          "baling": "التعبئة",
+          "hayRaking": "جرف التبن",
+          "livestockFeedingSupport": "دعم تغذية الماشية",
+          "cleaning": "التنظيف",
+          "other": "أخرى"
+        },
+        "validation": {
+          "usagePurposeRequired": "غرض الاستخدام مطلوب",
+          "operatorRequired": "المشغل مطلوب",
+          "fieldRequired": "الحقل مطلوب"
+        },
+        "messages": {
+          "saveFailed": "تعذر حفظ سجل الاستخدام. يرجى المحاولة مرة أخرى."
+        }
+      },
+      "messages": {
+        "success": {
+          "added": "تمت إضافة سجل الاستخدام",
+          "addedDescription": "تم تسجيل سجل الاستخدام بنجاح.",
+          "updated": "تم تحديث سجل الاستخدام",
+          "updatedDescription": "تم تحديث سجل الاستخدام بنجاح.",
+          "deleted": "تم حذف سجل الاستخدام",
+          "deletedDescription": "تم حذف سجل الاستخدام بنجاح."
+        },
+        "error": {
+          "addFailed": "فشلت إضافة سجل الاستخدام",
+          "updateFailed": "فشل تحديث سجل الاستخدام",
+          "deleteFailed": "فشل حذف سجل الاستخدام"
+        }
+      }
+    },
+    "maintenance": {
+      "title": "سجل الصيانة",
+    "addTitle": "إضافة سجل صيانة",
+    "addMaintenance": "إضافة صيانة",
+    "usageRecordDetails": "تفاصيل سجل الاستخدام",
+    "operator": "المشغل",
+    "fieldLocation": "الحقل/الموقع",
+    "usageTable": {
+      "date": "التاريخ",
+      "purpose": "الغرض",
+      "operator": "المشغل",
+      "fieldLocation": "الحقل/الموقع",
+      "hours": "الساعات",
+      "fuelUsed": "الوقود المستخدم",
+      "description": "الوصف",
+      "actions": "الإجراءات"
+    },
+      "editTitle": "تعديل سجل الصيانة",
+      "description": "تسجيل أنشطة الصيانة والقطع المستخدمة",
+      "form": {
+        "sections": {
+          "serviceDetails": "تفاصيل الخدمة",
+          "partsInventory": "القطع والمخزون",
+          "costTracking": "تتبع التكاليف",
+          "maintenanceDetails": "تفاصيل الصيانة",
+          "partsUsed": "قطع الغيار المستخدمة",
+          "costs": "التكاليف"
+        },
+        "fields": {
+          "serviceType": {
+            "label": "نوع الخدمة",
+            "placeholder": "اختر نوع الخدمة"
+          },
+          "datePerformed": {
+            "label": "تاريخ التنفيذ",
+            "placeholder": "اختر التاريخ"
+          },
+          "performedBy": {
+            "label": "الخدمة بواسطة",
+            "placeholder": "اختر الشخص أو المورّد"
+          },
+          "currentReading": {
+            "label": "قراءة العداد الحالية",
+            "placeholder": "0"
+          },
+          "nextDue": {
+            "label": "موعد الصيانة القادمة",
+            "placeholder": "YYYY-MM-DD أو +30 يومًا"
+          },
+          "description": {
+            "label": "وصف الخدمة",
+            "placeholder": "صف أعمال الصيانة المنفذة"
+          },
+          "serviceDescription": {
+            "label": "وصف الخدمة",
+            "placeholder": "صف أعمال الصيانة المنفذة"
+          },
+          "addProduct": "إضافة منتج",
+          "loadingProducts": "جاري تحميل المنتجات...",
+          "selectProduct": "اختر المنتج",
+          "product": {
+            "label": "المنتج/القطعة",
+            "placeholder": "اختر المنتج"
+          },
+          "unknownProduct": "منتج غير معروف",
+          "batch": {
+            "label": "الدفعة",
+            "placeholder": "اختر الدفعة"
+          },
+          "selectBatch": "اختر الدفعة",
+          "noBatch": "بدون دفعة",
+          "available": "متاح",
+          "quantity": {
+            "label": "الكمية",
+            "placeholder": "0"
+          },
+          "insufficientQuantity": "كمية غير كافية",
+          "availableQuantityIs": "الكمية المتاحة هي",
+          "exceedsStock": "يتجاوز المخزون المتاح",
+          "unitCost": {
+            "label": "تكلفة الوحدة",
+            "placeholder": "0.00"
+          },
+          "lineTotal": "إجمالي السطر",
+          "partsCost": "تكلفة القطع",
+          "laborCost": {
+            "label": "تكلفة العمالة",
+            "placeholder": "0.00"
+          },
+          "vendorFee": {
+            "label": "رسوم المورد",
+            "placeholder": "0.00"
+          },
+          "autoCalculatedTotal": "الإجمالي المحسوب تلقائياً",
+          "totalCostOverride": {
+            "label": "تجاوز التكلفة الإجمالية",
+            "placeholder": "اتركه فارغًا للحساب التلقائي"
+          },
+          "finalTotal": "الإجمالي النهائي"
+        },
+        "buttons": {
+          "cancel": "إلغاء",
+          "saving": "جاري الحفظ...",
+          "create": "إنشاء سجل صيانة",
+          "update": "تحديث سجل صيانة",
+          "addPart": "إضافة قطعة"
+        },
+        "serviceTypes": {
+          "scheduled": "مجدول",
+          "preventive": "وقائي",
+          "emergency": "طوارئ"
+        },
+        "people": {
+          "internal": "داخلي",
+          "external": "خارجي",
+          "unknownUser": "مستخدم غير معروف",
+          "unknownContact": "جهة اتصال غير معروفة"
+        },
+        "messages": {
+          "productAlreadyAdded": "المنتج مضاف مسبقاً",
+          "productAlreadyInList": "هذا المنتج موجود بالفعل في قائمة القطع.",
+          "noInventory": "لا يوجد مخزون متاح",
+          "noQuantityBatch": "لا توجد كمية/دفعة متاحة للصنف المحدد.",
+          "warning": "تحذير",
+          "stockVoucherError": "تعذر إنشاء قسيمة المخزون تلقائياً",
+          "createSuccess": "تم إنشاء سجل الصيانة بنجاح",
+          "updateSuccess": "تم تحديث سجل الصيانة بنجاح",
+          "createError": "خطأ في إنشاء سجل الصيانة",
+          "updateError": "خطأ في تحديث سجل الصيانة",
+          "authRequired": "لا يوجد مستخدم مصادق.",
+          "farmNotFound": "لم يتم العثور على المزرعة.",
+          "farmNotFoundForUser": "لم يتم العثور على المزرعة للمستخدم."
+        }
+      },
+      "parts": {
+        "add": "إضافة قطعة",
+        "remove": "إزالة قطعة",
+        "noParts": "لم تتم إضافة قطع بعد",
+        "available": "متاح",
+        "partsCost": "تكلفة القطع",
+        "subtotal": "المجموع الفرعي"
+      },
+      "costs": {
+        "laborCost": "تكلفة العمالة",
+        "vendorFee": "رسوم المورّد",
+        "partsCost": "تكلفة القطع",
+        "totalCost": "إجمالي التكلفة",
+        "calculated": "(محسوبة)"
+      },
+      "messages": {
+        "success": {
+          "added": "تمت إضافة سجل الصيانة",
+          "addedDescription": "تمت إضافة سجل الصيانة بنجاح.",
+          "updated": "تم تحديث سجل الصيانة",
+          "updatedDescription": "تم تحديث سجل الصيانة بنجاح.",
+          "deleted": "تم حذف سجل الصيانة",
+          "deletedDescription": "تم حذف سجل الصيانة بنجاح."
+        },
+        "error": {
+          "addFailed": "فشلت إضافة سجل الصيانة",
+          "updateFailed": "فشل تحديث سجل الصيانة",
+          "deleteFailed": "فشل حذف سجل الصيانة",
+          "servicePerformedByRequired": "حقل \"تم تنفيذ الخدمة بواسطة\" مطلوب",
+          "productAlreadyAdded": "تمت إضافة المنتج مسبقاً",
+          "productAlreadyAddedDescription": "هذا المنتج موجود بالفعل ضمن قائمة القطع.",
+          "insufficientQuantity": "كمية غير كافية",
+          "insufficientQuantityDescription": "لا توجد كمية كافية متاحة لهذا المنتج."
+        }
+      },
+      "table": {
+        "headers": {
+          "date": "التاريخ",
+          "serviceType": "نوع الخدمة",
+          "description": "الوصف",
+          "performedBy": "تمت بواسطة",
+          "cost": "التكلفة",
+          "nextDue": "موعد الصيانة القادمة",
+          "actions": "الإجراءات"
+        },
+        "actions": {
+          "view": "عرض",
+          "edit": "تعديل"
+        }
+      },
+      "view": {
+        "title": "تفاصيل سجل الصيانة",
+        "performedBy": "تمت بواسطة",
+        "meterReading": "قراءة العداد",
+        "nextMaintenanceDue": "موعد الصيانة القادمة",
+        "costBreakdown": "تفصيل التكاليف",
+        "laborCost": "تكلفة العمالة",
+        "partsCost": "تكلفة القطع",
+        "vendorFee": "رسوم المورّد",
+        "totalCost": "إجمالي التكلفة",
+        "partsReplaced": "القطع المستبدلة",
+        "serviceDescription": "وصف الخدمة",
+        "additionalNotes": "ملاحظات إضافية",
+        "attachments": "المرفقات",
+        "createdAt": "تاريخ الإنشاء",
+        "updatedAt": "آخر تحديث",
+        "downloadStarted": "بدأ التنزيل",
+        "downloadFailed": "فشل تنزيل المرفق"
+      }
+    },
+    "profile": {
+      "performedBy": "بواسطة",
+      "addMaintenance": "إضافة صيانة",
+      "edit": "تعديل",
+      "usageRecordDetails": "تفاصيل سجل الاستخدام",
+      "operator": "المشغل",
+      "fieldLocation": "الحقل/الموقع",
+      "usageTable": {
+        "date": "التاريخ",
+        "purpose": "الغرض",
+        "operator": "المشغل",
+        "fieldLocation": "الحقل/الموقع",
+        "hours": "الساعات",
+        "fuelUsed": "الوقود المستخدم",
+        "description": "الوصف",
+        "actions": "الإجراءات"
+      },
+      "maintenanceTable": {
+        "date": "التاريخ",
+        "type": "النوع",
+        "performedBy": "بواسطة",
+        "description": "الوصف",
+        "cost": "التكلفة",
+        "actions": "الإجراءات"
+      }
+    },
+    "attachments": {
+      "title": "المرفقات",
+      "add": "إضافة مرفق",
+      "upload": "رفع",
+      "uploading": "جارٍ الرفع...",
+      "remove": "إزالة",
+      "view": "عرض",
+      "download": "تنزيل",
+      "types": {
+        "manual": "دليل",
+        "invoice": "فاتورة",
+        "warranty": "ضمان",
+        "certificate": "شهادة",
+        "photo": "صورة",
+        "other": "أخرى"
+      },
+      "messages": {
+        "success": {
+          "uploaded": "تم رفع المرفق",
+          "uploadedDescription": "تم رفع المرفق بنجاح.",
+          "removed": "تمت إزالة المرفق",
+          "removedDescription": "تمت إزالة المرفق بنجاح."
+        },
+        "error": {
+          "uploadFailed": "فشل رفع المرفق",
+          "removeFailed": "فشل إزالة المرفق",
+          "invalidFileType": "نوع الملف غير صالح",
+          "fileTooLarge": "الملف كبير جداً"
+        }
+      }
+    },
+    "delete": {
+      "title": "تعطيل المعدات",
+      "description": "هل أنت متأكد أنك تريد تعطيل \"{{name}}\"؟ سيؤدي ذلك إلى تعيين حالة المعدات إلى غير نشطة، مع الاحتفاظ بكافة البيانات التاريخية.",
+      "confirm": "تعطيل المعدات",
+      "cancel": "إلغاء"
+    },
+    "validation": {
+      "nameRequired": "اسم المعدات مطلوب",
+      "typeRequired": "نوع المعدات مطلوب",
+      "statusRequired": "الحالة مطلوبة",
+      "trackUsageRequired": "حقل \"تتبع الاستخدام حسب\" مطلوب",
+      "invalidNumber": "يرجى إدخال رقم صالح",
+      "invalidDate": "يرجى إدخال تاريخ صالح"
+    },
+    "deactivated": {
+      "title": "المعدات المعطلة",
+      "subtitle": "إدارة المعدات غير النشطة",
+      "description": "معدات معطلة",
+      "item": "عنصر",
+      "items": "عناصر",
+      "export": {
+        "label": "تصدير",
+        "headers": {
+          "name": "الاسم",
+          "type": "النوع",
+          "brand": "العلامة التجارية",
+          "model": "الموديل",
+          "year": "السنة",
+          "status": "الحالة",
+          "idPlate": "رقم المعرف/اللوحة",
+          "serialNumber": "الرقم التسلسلي",
+          "usage": "الاستخدام",
+          "ownership": "الملكية",
+          "dateAcquired": "تاريخ الاقتناء",
+          "purchasePrice": "سعر الشراء",
+          "currentValue": "القيمة الحالية",
+          "location": "الموقع",
+          "insured": "مؤمَّن"
+        }
+      },
+      "exportTooltip": "تصدير قائمة المعدات المعطلة إلى CSV",
+      "totalDeactivated": "إجمالي المعطلة",
+      "totalValue": "إجمالي القيمة",
+      "insuredItems": "عناصر مؤمَّنة",
+      "searchPlaceholder": "ابحث بالاسم أو النوع أو العلامة التجارية أو الموديل...",
+      "listTitle": "قائمة المعدات المعطلة",
+      "loading": "جارٍ تحميل المعدات المعطلة...",
+      "noDeactivatedEquipmentFound": "لم يتم العثور على معدات معطلة",
+      "tryAdjustingSearchTerms": "حاول تعديل مصطلحات البحث",
+      "allEquipmentCurrentlyActive": "جميع المعدات نشطة حالياً",
+      "labels": {
+        "inactive": "غير نشط",
+        "noLocation": "بدون موقع",
+        "unknownLocation": "موقع غير معروف",
+        "na": "غير متاح",
+        "equipment": "معدات",
+        "model": "الموديل",
+        "year": "السنة",
+        "ownership": "الملكية",
+        "purchased": "مشتراة",
+        "leased": "مؤجرة",
+        "value": "القيمة",
+        "usage": "الاستخدام",
+        "location": "الموقع",
+        "acquired": "تم الحصول عليها",
+        "serialShort": "تس",
+        "idShort": "معرّف"
+      },
+      "tooltips": {
+        "insured": "هذه المعدات مؤمنة"
+      },
+      "actions": {
+        "reactivate": "إعادة تفعيل المعدات",
+        "reactivateShort": "إعادة تفعيل"
+      },
+      "table": {
+        "headers": {
+          "equipment": "المعدات",
+          "type": "النوع",
+          "brandModel": "العلامة/الموديل",
+          "year": "السنة",
+          "status": "الحالة",
+          "ownership": "الملكية",
+          "lastUsage": "آخر استخدام",
+          "lastValue": "آخر قيمة",
+          "actions": "الإجراءات"
+        }
+      },
+      "dialog": {
+        "title": "إعادة تفعيل المعدات",
+        "description": "هل أنت متأكد أنك تريد إعادة تفعيل \"{{name}}\"؟ سيؤدي ذلك إلى إعادة حالة المعدات إلى تشغيلية وستكون متاحة للاستخدام.",
+        "cancel": "إلغاء",
+        "confirm": "إعادة تفعيل المعدات"
+      }
+    },
+    "searchTitle": "البحث والفلاتر",
+    "description": "إدارة المعدات وتتبع الاستخدام والصيانة.",
+    "addNew": "إضافة معدات جديدة",
+    "offlineMode": "وضع عدم الاتصال",
+    "syncing": "جارٍ المزامنة...",
+    "syncChanges": "مزامنة التغييرات",
+    "changesPendingSync": "تغييرات بانتظار المزامنة",
+    "labels": {
+      "status": "الحالة",
+      "usage": "الاستخدام",
+      "insured": "مؤمَّن"
+    },
+    "filter": {
+      "filterButton": "الفلاتر",
+      "title": "الفلاتر",
+      "resetAll": "إعادة ضبط الكل",
+      "typeLabel": "نوع المعدات",
+      "allTypes": "كل الأنواع",
+      "statusLabel": "الحالة",
+      "allStatus": "كل الحالات",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "insuranceLabel": "حالة التأمين",
+      "all": "الكل",
+      "insured": "مؤمَّن",
+      "notInsured": "غير مؤمَّن",
+      "ariaAll": "كل المعدات",
+      "ariaActive": "المعدات النشطة",
+      "ariaInactive": "المعدات غير النشطة"
+    },
+    "empty": {
+      "noEquipment": "ابدأ بإضافة أول معدة لتتبع الاستخدام والصيانة.",
+      "noMatches": "لا توجد معدات تطابق عوامل التصفية الحالية. جرّب تعديل معايير البحث."
+    },
+    "pagination": {
+      "previous": "السابق",
+      "next": "التالي",
+      "pageOf": "الصفحة {{page}} من {{total}}",
+      "goToPrevious": "الانتقال إلى الصفحة السابقة",
+      "goToNext": "الانتقال إلى الصفحة التالية",
+      "currentPageAria": "أنت حالياً في الصفحة {{page}} من {{total}}"
+    },
+    "statuses": {
+      "operational": "نشط",
+      "maintenance": "قيد الصيانة",
+      "broken": "خارج الخدمة",
+      "retired": "متقاعد",
+      "inactive": "غير نشط"
+    },
+    "types": {
+      "tractor": "جرار",
+      "harvester": "حصادة",
+      "seeder": "بذّارة",
+      "sprayer": "رشّاشة",
+      "plow": "محراث",
+      "baler": "مكبس",
+      "cultivator": "عزّاقة",
+      "irrigationPump": "مضخة ري",
+      "waterTanker": "صهريج مياه",
+      "drone": "طائرة مسيّرة",
+      "sensorDevice": "جهاز استشعار",
+      "livestockFeeder": "مغذي ماشية",
+      "livestockShelter": "معدات مأوى للماشية",
+      "generator": "مولّد",
+      "forklift": "رافعة شوكية",
+      "truck": "شاحنة",
+      "trailer": "مقطورة",
+      "greenhouse": "معدات البيت المحمي",
+      "packingMachine": "آلة تعبئة",
+      "coldStorage": "وحدة تبريد",
+      "other": "أخرى"
+    },
+    "usageTracking": {
+      "hours": "ساعات",
+      "miles": "أميال",
+      "km": "كم"
+    },
+    "export": {
+      "headers": {
+        "name": "اسم المعدات",
+        "type": "النوع",
+        "brand": "العلامة التجارية",
+        "status": "الحالة",
+        "trackUsageBy": "تتبع الاستخدام حسب",
+        "currentUsage": "الاستخدام الحالي",
+        "insured": "مؤمَّن",
+        "notes": "ملاحظات"
+      }
+    },
+    "permissions": {
+      "manageDenied": "ليس لديك إذن لإدارة المعدات.",
+      "addDenied": "ليس لديك إذن لإضافة المعدات.",
+      "editDenied": "ليس لديك إذن لتعديل المعدات.",
+      "deleteDenied": "ليس لديك إذن لتعطيل المعدات.",
+      "exportDenied": "ليس لديك إذن لتصدير المعدات."
+    },
+    "table": {
+      "name": "الاسم",
+      "type": "النوع",
+      "status": "الحالة",
+      "usage": "الاستخدام",
+      "actions": "الإجراءات"
+    },
+    "form": {
+      "addNewEquipment": "إضافة معدات جديدة",
+      "fillEquipmentDetails": "أدخل تفاصيل المعدات الجديدة",
+      "title": {
+        "add": "إضافة معدات",
+        "edit": "تعديل المعدات"
+      },
+      "description": {
+        "add": "قدّم تفاصيل المعدات",
+        "edit": "حدّث تفاصيل المعدات"
+      },
+      "tabs": {
+        "basic": "أساسي",
+        "usage": "الاستخدام",
+        "additional": "إضافي"
+      },
+      "sections": {
+        "basicInfo": "معلومات أساسية",
+        "usageTracking": "تتبع الاستخدام",
+        "additionalInfo": "معلومات إضافية"
+      },
+      "fields": {
+        "name": {
+          "label": "اسم المعدات",
+          "placeholder": "أدخل اسم المعدات",
+          "required": "اسم المعدات مطلوب"
+        },
+        "type": {
+          "label": "نوع المعدات",
+          "placeholder": "اختر نوع المعدات",
+          "required": "نوع المعدات مطلوب"
+        },
+        "brand": {
+          "label": "العلامة التجارية",
+          "placeholder": "أدخل العلامة التجارية"
+        },
+        "status": {
+          "label": "الحالة"
+        },
+        "trackUsage": {
+          "label": "تتبع الاستخدام حسب"
+        },
+        "currentReading": {
+          "label": "قراءة الاستخدام الحالية",
+          "placeholder": "أدخل القراءة الحالية"
+        },
+        "insured": {
+          "label": "المعدات مؤمَّنة",
+          "description": "هل هذه المعدة مغطاة بالتأمين"
+        },
+        "notes": {
+          "label": "ملاحظات",
+          "placeholder": "أضف ملاحظات (اختياري)"
+        },
+        "images": {
+          "label": "صور المعدات",
+          "tooltip": "ارفع حتى 5 صور لهذه المعدة"
+        },
+        "attachments": {
+          "label": "المرفقات"
+        }
+      },
+      "saving": "جاري الحفظ...",
+      "upload": {
+        "authenticationRequired": "المصادقة مطلوبة",
+        "pleaseLogInToUpload": "يرجى تسجيل الدخول لرفع الملفات",
+        "tooManyFiles": "عدد كبير جداً من الملفات",
+        "maxFilesAllowed": "الحد الأقصى {{max}} ملفاً. يمكنك إضافة {{remaining}} ملفاً إضافياً.",
+        "fileTooLarge": "الملف كبير جداً",
+        "fileIsLargerThan": "\"{{filename}}\" أكبر من {{size}}MB",
+        "uploadSuccessful": "تم الرفع بنجاح",
+        "filesUploadedSuccessfully": "تم رفع {{count}} ملف/ملفات بنجاح",
+        "uploadFailed": "فشل الرفع",
+        "failedToUploadFiles": "فشل رفع الملفات",
+        "fileRemoved": "تم حذف الملف",
+        "fileHasBeenRemoved": "تم حذف \"{{filename}}\"",
+        "removeFailed": "فشل الحذف",
+        "failedToRemoveFile": "فشل حذف الملف",
+        "downloadFailed": "فشل التنزيل",
+        "failedToDownloadFile": "فشل تنزيل الملف",
+        "uploadingFiles": "جارٍ رفع الملفات...",
+        "dropFilesHere": "أفلت الملفات هنا أو انقر للرفع",
+        "supportedFormats": "الصيغ المدعومة",
+        "maxFileSize": "الحجم الأقصى: {{size}}MB",
+        "slotsAvailable": "{{count}} مساحة متاحة",
+        "chooseFiles": "اختر الملفات",
+        "attachedFiles": "الملفات المرفقة ({{count}})"
+      }
+    },
+    "messages": {
+      "success": {
+        "added": "تمت إضافة المعدات",
+        "addedDescription": "تمت إضافة المعدات بنجاح.",
+        "updated": "تم تحديث المعدات",
+        "updatedDescription": "تم تحديث المعدات بنجاح.",
+        "deactivated": "تم تعطيل المعدات",
+        "deactivatedDescription": "تم تعيين حالة المعدات كغير نشطة.",
+        "deactivatedOffline": "تم تعطيل المعدات (بدون اتصال)",
+        "activated": "تم تفعيل المعدات",
+        "activatedDescription": "تم تعيين حالة المعدات كنشطة.",
+        "activatedOffline": "تم تفعيل المعدات (بدون اتصال)",
+        "exportComplete": "اكتمل التصدير",
+        "exportedSingleDescription": "تم تصدير بيانات {{name}} بنجاح.",
+        "exportedAllDescription": "تم تصدير {{count}} سجل معدات بنجاح.",
+        "activatedDescriptionWithName": "تمت إعادة تفعيل \"{{name}}\" بنجاح."
+      },
+      "error": {
+        "addFailedWithMessage": "فشلت إضافة المعدات: {{message}}",
+        "updateFailedWithMessage": "فشل تحديث المعدات: {{message}}",
+        "noDataToExport": "لا توجد بيانات للتصدير",
+        "noEquipmentDataToExport": "لا توجد بيانات معدات للتصدير.",
+        "validationError": "خطأ في التحقق",
+        "errorActivatingEquipment": "فشل تفعيل المعدات"
+      },
+      "info": {
+        "changeWillSyncWhenRestored": "سيتم مزامنة التغيير عند استعادة الاتصال."
+      },
+      "exportSuccessful": "تم التصدير بنجاح",
+      "deactivatedEquipmentDataExported": "تم تصدير بيانات المعدات المعطلة."
+    },
+    "usageLog": {
+      "title": "سجل الاستخدام",
+      "breadcrumbTitle": "سجل استخدام {{name}}",
+      "backToEquipment": "العودة إلى المعدات",
+      "add": "إضافة سجل استخدام",
+      "searchPlaceholder": "ابحث حسب الغرض أو المشغل أو الوسوم أو الوصف...",
+      "syncButton": "مزامنة ({{count}})",
+      "export": {
+        "label": "تصدير",
+        "headers": {
+          "dateUsed": "تاريخ الاستخدام",
+          "usagePurpose": "غرض الاستخدام",
+          "operator": "المشغل",
+          "field": "الحقل",
+          "lot": "القطعة",
+          "startTime": "وقت البدء",
+          "endTime": "وقت الانتهاء",
+          "startingReading": "القراءة الابتدائية",
+          "endingReading": "القراءة النهائية",
+          "totalUsed": "إجمالي الاستخدام",
+          "totalHours": "إجمالي الساعات",
+          "fuelConsumables": "الوقود/المستهلكات",
+          "cost": "التكلفة",
+          "description": "الوصف",
+          "keywordsTags": "الكلمات المفتاحية/الوسوم"
+        }
+      },
+      "filters": {
+        "title": "الفلاتر",
+        "usagePurpose": "غرض الاستخدام",
+        "allPurposes": "كل الأغراض",
+        "operator": "المشغل",
+        "allOperators": "كل المشغلين",
+        "field": "الحقل",
+        "allFields": "كل الحقول",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء"
+      },
+      "listTitle": "سجلات الاستخدام ({{count}})",
+      "loading": "جارٍ تحميل سجلات الاستخدام...",
+      "empty": "لم يتم العثور على سجلات استخدام",
+      "tags": "{{count}} وسوم",
+      "unknownOperator": "مشغل غير معروف",
+      "unknownField": "حقل غير معروف",
+      "unknown": "غير معروف",
+      "costLabel": "التكلفة",
+      "table": {
+        "headers": {
+          "datePurpose": "التاريخ والغرض",
+          "operator": "المشغل",
+          "location": "الموقع",
+          "timePeriod": "الفترة الزمنية",
+          "usage": "الاستخدام",
+          "cost": "التكلفة",
+          "actions": "الإجراءات"
+        }
+      },
+      "pagination": {
+        "showing": "عرض {{start}} إلى {{end}} من أصل {{total}} مدخلات"
+      },
+      "errors": {
+        "equipmentIdRequired": "معرّف المعدات مطلوب",
+        "equipmentIdNotProvided": "لم يتم توفير معرّف المعدات",
+        "farmNotFoundForUser": "لم يتم العثور على المزرعة للمستخدم"
+      },
+      "confirmDelete": "هل أنت متأكد أنك تريد حذف سجل الاستخدام هذا؟"
+    },
+    "usageView": {
+      "startDateTime": "تاريخ/وقت البدء",
+      "endDateTime": "تاريخ/وقت الانتهاء",
+      "usedBy": "استُخدم بواسطة",
+      "lot": "القطعة",
+      "totalHoursUsed": "إجمالي ساعات الاستخدام",
+      "totalHoursValue": "{{hours}} ساعات",
+      "fuelConsumablesUsed": "الوقود / المستهلكات المستخدمة",
+      "cost": "التكلفة",
+      "editUsageLog": "تعديل سجل الاستخدام"
+    },
+    "imagesUpload": {
+      "errors": {
+        "authRequired": "يجب تسجيل الدخول لرفع الصور",
+        "maxImagesTitle": "تم الوصول للحد الأقصى للصور",
+        "maxImagesDescription": "يمكنك رفع حتى {{max}} صورة فقط",
+        "invalidFilesTitle": "ملفات غير صالحة",
+        "invalidFilesDescription": "يسمح فقط بملفات الصور",
+        "uploadFailed": "فشل رفع الصور. يرجى المحاولة مرة أخرى."
+      },
+      "successUploaded": "تم رفع {{count}} صورة",
+      "altEquipment": "معدة",
+      "uploading": "جارٍ الرفع...",
+      "uploadButton": "رفع صورة",
+      "imageCount": "{{count}}/{{max}} صور",
+      "altEquipmentImage": "معدة {{index}}"
+    },
+    "imageGallery": {
+      "altMain": "صورة المعدة",
+      "altThumbnail": "صورة {{index}}"
+    }
+  },
+  "equipmentProfile": {
+    "backToEquipment": "العودة إلى المعدات",
+    "totalHours": "إجمالي الساعات",
+    "operatingHours": "ساعات التشغيل",
+    "totalFuelUsed": "إجمالي الوقود المستخدم",
+    "fuelConsumption": "استهلاك الوقود",
+    "totalCost": "إجمالي التكلفة",
+    "usagePlusMaintenance": "الاستخدام + الصيانة",
+    "lastMaintenance": "آخر صيانة",
+    "never": "أبداً",
+    "mostRecentService": "أحدث خدمة",
+    "equipmentDetails": "تفاصيل المعدات",
+    "ownership": "الملكية",
+    "trackUsageBy": "تتبع الاستخدام حسب",
+    "hours": "ساعات",
+    "usageHistory": "سجل الاستخدام",
+    "maintenanceHistory": "سجل الصيانة",
+    "addUsage": "إضافة استخدام",
+    "grid": "شبكة",
+    "table": "جدول",
+    "noUsageRecordsYet": "لا توجد سجلات استخدام بعد",
+    "startTrackingEquipmentUsage": "ابدأ بتتبع استخدام المعدات لمراقبة الأداء والتكاليف.",
+    "loadingEquipmentDetails": "جاري تحميل تفاصيل المعدات...",
+    "equipmentNotFound": "لم يتم العثور على المعدات",
+    "unknown": "غير معروف",
+    "noMaintenanceRecordsYet": "لا توجد سجلات صيانة بعد",
+    "view": "عرض",
+    "notes": "ملاحظات",
+    "addTitle": "إضافة سجل صيانة",
+    "performedBy": "تمت بواسطة",
+    "notSpecified": "غير محدد",
+    "nextMaintenance": "الصيانة القادمة",
+    "pendingMaintenance": "صيانة معلّقة",
+    "purchaseDate": "تاريخ الشراء",
+    "purchasePrice": "سعر الشراء",
+    "currentValue": "القيمة الحالية",
+    "noField": "لا يوجد حقل",
+    "description": "الوصف",
+    "serialNumber": "الرقم التسلسلي",
+    "offlineDebugTitle": "تصحيح دون اتصال",
+    "offlineDebugMessage": "تعذر العثور على المعرّف {{id}}. المعرّفات المخزنة: {{cachedIds}}",
+    "offlineDebugNone": "لا شيء",
+    "actions": {
+      "edit": "تعديل"
+    },
+    "maintenance": {
+      "addTitle": "إضافة سجل صيانة",
+      "editTitle": "تعديل سجل صيانة"
+    },
+    "usageLogAddedSuccessfully": "تمت إضافة سجل الاستخدام بنجاح",
+    "usageLogUpdatedSuccessfully": "تم تحديث سجل الاستخدام بنجاح",
+    "errorAddingUsageLog": "خطأ في إضافة سجل الاستخدام",
+    "loadingRecentUsage": "جارٍ تحميل الاستخدام الأخير...",
+    "loadingMaintenanceRecords": "جارٍ تحميل سجلات الصيانة...",
+    "errors": {
+      "noAuthenticatedUser": "لا يوجد مستخدم مصادق",
+      "farmNotFound": "لم يتم العثور على المزرعة"
+    }
+  },
+  "usagePurposes": {
+    "plowing": "حراثة",
+    "planting": "زراعة",
+    "harvesting": "حصاد",
+    "spraying": "رش",
+    "irrigation": "ري",
+    "transport": "نقل",
+    "maintenance": "صيانة",
+    "other": "أخرى"
+  },
+  "common": {
+    "error": "خطأ",
+    "success": "نجاح",
+    "warning": "تحذير",
+    "info": "معلومات"
+  }
+}

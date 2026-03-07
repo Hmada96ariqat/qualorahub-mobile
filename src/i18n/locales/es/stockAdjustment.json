@@ -1,0 +1,228 @@
+{
+  "stockAdjustment": {
+    "title": "Ajuste de Inventario",
+    "subtitle": "Gestionar vouchers de entrada y salida de stock con seguimiento completo",
+    
+    "entryStock": "Entrada de Stock",
+    "outStock": "Salida de Stock", 
+    "newAdjustment": "Nuevo Ajuste",
+    "gridView": "Vista de Cuadrícula",
+    "tableView": "Vista de Tabla",
+    "offline": "Desconectado",
+    "pending": "pendiente",
+    "sync": "Sincronizar",
+    
+    "stats": {
+      "totalVouchers": "Total de Vouchers",
+      "draft": "Borrador",
+      "completed": "Completado",
+      "entry": "Entrada", 
+      "out": "Salida"
+    },
+    
+    "filters": {
+      "title": "Filtros",
+      "show": "Mostrar",
+      "hide": "Ocultar",
+      "filters": "Filtros",
+      "searchVouchers": "Buscar vouchers...",
+      "allStatus": "Todos los Estados",
+      "allTypes": "Todos los Tipos",
+      "reset": "Restablecer"
+    },
+    
+    "status": {
+      "draft": "Borrador",
+      "completed": "Completado",
+      "posted": "Registrado"
+    },
+    
+    "dialogs": {
+      "createTitle": "Crear Ajuste de Inventario",
+      "createDescription": "Agregar productos para rastrear cambios de inventario con gestión completa de lotes y vencimiento",
+      "mobileEntryDescription": "Agregar stock al inventario",
+      "mobileExitDescription": "Retirar stock del inventario",
+      "voucherDetails": "Detalles del Voucher",
+      "viewVoucherDescription": "Ver información completa del voucher y elementos de línea",
+      "deleteConfirmTitle": "Eliminar Voucher",
+      "deleteConfirmDescription": "¿Estás seguro de que quieres eliminar el voucher {{voucher}}? Esta acción no se puede deshacer.",
+      "thisVoucher": "este voucher"
+    },
+    
+    "form": {
+      "sourceType": "Tipo de Origen",
+      "selectSourceType": "Seleccionar Tipo de Origen",
+      "referenceNumber": "Número de Referencia",
+      "referencePlaceholder": "REF-001",
+      "date": "Fecha",
+      "selectDate": "Seleccionar fecha",
+      "contact": "Contacto",
+      "selectContact": "Seleccionar Contacto",
+      "noContactSelected": "Ningún Contacto Seleccionado",
+      "searchContacts": "Buscar contactos...",
+      "noContactsFound": "No se encontraron contactos",
+      "notes": "Notas",
+      "notesPlaceholder": "Notas adicionales",
+      "addProducts": "Agregar Productos",
+      "selectProductToAdd": "Seleccionar producto para agregar...",
+      "searchProducts": "Buscar productos...",
+      "noProductsFound": "No se encontraron productos",
+      "selectBatch": "Seleccionar Lote",
+      "saveAsDraft": "Guardar como Borrador",
+      "postVoucher": "Registrar Voucher",
+      "advancedMode": "Modo Avanzado (Fechas de Fabricación y Vencimiento)"
+    },
+    
+    "sourceTypes": {
+      "entry": {
+        "yield": "Cosecha/Rendimiento",
+        "purchase": "Compra",
+        "production": "Producción",
+        "transfer": "Transferencia de Entrada",
+        "adjustment": "Ajuste de Inventario",
+        "return": "Devolución",
+        "donation": "Donación",
+        "process": "Procesamiento",
+        "other": "Otro"
+      },
+      "exit": {
+        "sale": "Venta",
+        "farm_usage": "Uso de Granja",
+        "transfer": "Transferencia de Salida",
+        "adjustment": "Ajuste de Inventario",
+        "damage": "Daño/Pérdida",
+        "donation": "Donación", 
+        "loss_damage": "Pérdida/Daño",
+        "return": "Devolución",
+        "other": "Otro"
+      }
+    },
+    
+    "table": {
+      "info": "Info",
+      "reference": "Referencia",
+      "type": "Tipo",
+      "contact": "Contacto",
+      "noContact": "Sin Contacto",
+      "date": "Fecha",
+      "status": "Estado",
+      "lineItems": "Elementos de Línea",
+      "items": "elementos",
+      "notes": "Notas",
+      "actions": "Acciones",
+      "productName": "Nombre del Producto",
+      "product": "Producto",
+      "unknownProduct": "Producto Desconocido",
+      "barcode": "Código de Barras",
+      "sku": "SKU",
+      "availableQty": "Cant. Disponible", 
+      "quantity": "Cantidad",
+      "warehouse": "Almacén",
+      "selectWarehouse": "Seleccionar Almacén",
+      "batchNumber": "Número de Lote",
+      "batchSelection": "Selección de Lote",
+      "manufacturingDate": "Fecha de Fabricación",
+      "expiryDate": "Fecha de Vencimiento",
+      "expiryDays": "Días de Vencimiento",
+      "available": "Disponible",
+      "mfg": "Fab",
+      "exp": "Venc",
+      "selected": "Seleccionado",
+      "unknownBatch": "Lote Desconocido",
+      "days": "días"
+    },
+    
+    "buttons": {
+      "saveAndPost": "Guardar y Registrar",
+      "hold": "Mantener",
+      "back": "Atrás",
+      "next": "Siguiente",
+      "draft": "Borrador",
+      "post": "Registrar",
+      "cancel": "Cancelar",
+      "deleteVoucher": "Eliminar"
+    },
+    
+    "messages": {
+      "productAlreadyAdded": "Producto Ya Agregado",
+      "productAlreadyAddedDesc": "Este producto ya está en el voucher",
+      "contactRequired": "Contacto Requerido",
+      "contactRequiredDesc": "Por favor selecciona un contacto para este voucher",
+      "sourceTypeRequired": "Tipo de Origen Requerido",
+      "sourceTypeRequiredDesc": "Por favor selecciona un tipo de origen para este voucher",
+      "noProductsAddedError": "No se Agregaron Productos",
+      "noProductsAddedErrorDesc": "Por favor agrega al menos un producto al voucher",
+      "entryTip": "Agregá productos usando la búsqueda de arriba. Activá el Modo Avanzado para añadir detalles del lote (fechas de fabricación/vencimiento).",
+      "noProductsAdded": "Aún no se han agregado productos",
+      "noProductsAddedOut": "Aún no se han agregado productos para salida de stock",
+      "noBatchesAvailable": "No hay lotes disponibles",
+      "checkingStock": "Verificando stock...",
+      "added": "Agregado",
+      "quantityExceedsAvailableTitle": "La cantidad supera el stock disponible",
+      "quantityExceedsAvailableDesc": "Superaste el límite. Disponible en el almacén seleccionado: {{availableQuantity}}.",
+      "incompleteProductsTitle": "Productos incompletos",
+      "incompleteProductsDesc": "Completá almacén y cantidad para todos los productos.",
+      "insufficientStock": "Stock insuficiente",
+      "insufficientStockDesc": "{{product}} supera la cantidad disponible en el almacén seleccionado ({{availableQuantity}}).",
+      "insufficientStockSaveError": "Stock insuficiente para {{product}}. Disponible: {{availableQuantity}}, requerido: {{requestedQuantity}}.",
+      "insufficientStockGenericError": "Stock insuficiente. Disponible: {{availableQuantity}}, requerido: {{requestedQuantity}}.",
+      "insufficientStockRemainingError": "Stock insuficiente. No se pudo descontar la cantidad restante: {{remainingQuantity}}.",
+      "exceedsWarehouseStock": "Supera el stock disponible en este almacén ({{availableQuantity}}).",
+      "draftSaved": "Borrador Guardado",
+      "draftSavedDesc": "Voucher guardado como borrador exitosamente",
+      "voucherPosted": "Voucher Registrado",
+      "voucherPostedDesc": "Voucher registrado exitosamente y stock actualizado",
+      "userNotAuthenticated": "Usuario no autenticado",
+      "farmNotFoundForUser": "No se encontró una granja para el usuario",
+      "error": "Error",
+      "failedToSave": "Error al guardar el voucher"
+    },
+    
+    "summary": {
+      "recordsCount": "Registros",
+      "totalAvailableQuantity": "Total Disponible",
+      "totalQuantity": "Cantidad Total"
+    },
+
+    "wizard": {
+      "steps": {
+        "details": "Detalles",
+        "products": "Productos",
+        "review": "Revisión"
+      },
+      "units": "unidades",
+      "inventory": {
+        "unknownWarehouse": "Almacén desconocido",
+        "locations": "ubicaciones",
+        "currentStockReadonly": "Stock actual (solo lectura)",
+        "totalAvailable": "Total disponible",
+        "selectedWarehouse": "Almacén seleccionado",
+        "locationsSummary": "Ubicaciones: {{locations}}",
+        "noLocationStockRecords": "Aún no hay registros de stock por ubicación."
+      },
+      "review": {
+        "totalItems": "Total de ítems",
+        "productsCount": "{{count}} productos",
+        "productsHeading": "Productos ({{count}})",
+        "noWarehouse": "Sin almacén"
+      }
+    },
+    
+    "vouchers": {
+      "title": "Vouchers de Stock",
+      "description": "Gestionar todos tus vouchers de ajuste de inventario",
+      "noVouchersFound": "No se encontraron vouchers",
+      "noVouchersMatchFilters": "Ningún voucher coincide con los filtros actuales",
+      "noVouchersCreated": "Aún no se han creado vouchers",
+      "createFirstVoucher": "Crear Primer Voucher",
+      "productsInVoucher": "{{count}} productos en este voucher",
+      "more": "más"
+    },
+    
+    "tooltips": {
+      "viewDetails": "Ver Detalles",
+      "postVoucher": "Registrar Voucher", 
+      "deleteVoucher": "Eliminar Voucher"
+    }
+  }
+}

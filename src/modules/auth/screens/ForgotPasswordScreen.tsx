@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
-import type { ScrollView } from 'react-native';
+import { StyleSheet, View, type ScrollView } from 'react-native';
+import { useRouter } from 'expo-router';
 import {
   AppButton,
-  AppHeader,
   AppInput,
   AppScreen,
   EmptyState,
@@ -13,10 +13,12 @@ import {
   SectionCard,
   useFormValidation,
 } from '../../../components';
+import { spacing } from '../../../theme/tokens';
 import { forgotPassword } from '../api';
-import { AuthRouteTabs } from '../components/AuthRouteTabs';
+import { AuthBrandHeader } from '../components/AuthBrandHeader';
 
 export function ForgotPasswordScreen() {
+  const router = useRouter();
   const scrollViewRef = useRef<ScrollView | null>(null);
   const formValidation = useFormValidation<'email'>(scrollViewRef);
   const [email, setEmail] = useState('');
@@ -53,16 +55,15 @@ export function ForgotPasswordScreen() {
   }
 
   return (
-    <AppScreen scroll scrollViewRef={scrollViewRef}>
-      <AppHeader
-        title="Forgot Password"
-        subtitle="Enter your email to receive reset instructions."
-      />
+    <AppScreen
+      scroll
+      scrollViewRef={scrollViewRef}
+      contentContainerStyle={styles.screenContent}
+    >
+      <AuthBrandHeader subtitle="Enter your email to receive reset instructions." />
 
-      <AuthRouteTabs activeTab="forgot" />
-
-      <FormValidationProvider value={formValidation.providerValue}>
-        <SectionCard>
+      <SectionCard>
+        <FormValidationProvider value={formValidation.providerValue}>
           {success ? (
             <EmptyState
               title="Request Sent"
@@ -97,14 +98,29 @@ export function ForgotPasswordScreen() {
           ) : null}
 
           <AppButton
-            label="Submit"
+            label="Send Reset Link"
             onPress={onSubmit}
             loading={submitting}
             disabled={submitting}
             testID="auth.forgot.submit"
           />
-        </SectionCard>
-      </FormValidationProvider>
+        </FormValidationProvider>
+
+        <View style={styles.authLinks}>
+          <AppButton
+            label="Back to sign in"
+            mode="text"
+            tone="neutral"
+            onPress={() => router.push('/(public)/auth/login')}
+          />
+          <AppButton
+            label="Reset your password"
+            mode="text"
+            tone="neutral"
+            onPress={() => router.push('/(public)/reset-password')}
+          />
+        </View>
+      </SectionCard>
 
       <LoadingOverlay
         visible={submitting}
@@ -113,3 +129,17 @@ export function ForgotPasswordScreen() {
     </AppScreen>
   );
 }
+
+const styles = StyleSheet.create({
+  screenContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    paddingHorizontal: spacing.xl,
+    paddingVertical: spacing.xl,
+    gap: spacing.lg,
+  },
+  authLinks: {
+    marginTop: spacing.xs,
+    gap: spacing.xs,
+  },
+});

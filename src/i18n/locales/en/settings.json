@@ -1,0 +1,247 @@
+{
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your farm system preferences and configurations",
+    "tabs": {
+      "general": "General",
+      "security": "Security"
+    },
+    "common": {
+      "notAvailable": "N/A"
+    },
+    "subscriptionStatuses": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "pending": "Pending",
+      "trial": "Trial",
+      "trialing": "Trialing",
+      "past_due": "Past Due",
+      "canceled": "Canceled",
+      "cancelled": "Canceled",
+      "expired": "Expired",
+      "scheduled_downgrade": "Scheduled Downgrade"
+    },
+    "farmTypes": {
+      "cropFarm": "Crop Farm",
+      "livestockFarm": "Livestock Farm",
+      "dairyFarm": "Dairy Farm",
+      "poultryFarm": "Poultry Farm",
+      "mixedCropLivestock": "Mixed Crop & Livestock",
+      "organicFarm": "Organic Farm",
+      "greenhouseFarm": "Greenhouse Farm",
+      "aquacultureFarm": "Aquaculture Farm",
+      "agroforestryFarm": "Agroforestry Farm",
+      "other": "Other"
+    },
+    "plan": {
+      "title": "Current Plan",
+      "description": "Your active subscription plan and included modules",
+      "loading": "Loading plan information...",
+      "price": "Price",
+      "modules": "Modules",
+      "moduleCount": "{{count}} included",
+      "includedModules": "Included Modules",
+      "supportText": "To upgrade your plan or add modules, please contact support.",
+      "empty": "No plan assigned. Please contact support to assign a plan to your farm.",
+      "billingCycles": {
+        "monthly": "Monthly",
+        "yearly": "Yearly",
+        "annual": "Annual",
+        "quarterly": "Quarterly",
+        "weekly": "Weekly"
+      }
+    },
+    "billingHistory": {
+      "title": "Subscription Timeline & Invoices",
+      "description": "Lifecycle events and billing records for your farm subscription.",
+      "loading": "Loading subscription history...",
+      "timeline": "Timeline",
+      "invoices": "Invoices",
+      "emptyTimeline": "No timeline entries found.",
+      "emptyInvoices": "No invoices found.",
+      "fallbackEvent": "Event",
+      "invoiceStatuses": {
+        "pending": "Pending",
+        "processing": "Processing",
+        "failed": "Failed",
+        "succeeded": "Succeeded",
+        "paid": "Paid",
+        "canceled": "Canceled",
+        "cancelled": "Canceled"
+      },
+      "eventTypes": {
+        "billing": {
+          "expired": "Billing expired",
+          "payment_failed": "Payment failed",
+          "payment_succeeded": "Payment succeeded",
+          "renewed": "Subscription renewed",
+          "retry": {
+            "scheduled": "Retry scheduled"
+          }
+        },
+        "coupon": {
+          "applied": "Coupon applied"
+        },
+        "phase1": {
+          "checkout": {
+            "provisioned": "Checkout provisioned"
+          }
+        },
+        "renewal": {
+          "failed": "Renewal failed"
+        },
+        "retry": {
+          "exhausted": "Retry exhausted",
+          "succeeded": "Retry succeeded"
+        },
+        "subscription": {
+          "bootstrap": "Subscription started",
+          "canceled": {
+            "effective": "Cancellation took effect"
+          },
+          "downgrade": {
+            "applied": "Downgrade applied",
+            "scheduled": "Downgrade scheduled"
+          },
+          "status": {
+            "active": "Subscription is active",
+            "canceled": "Subscription canceled",
+            "expired": "Subscription expired",
+            "past_due": "Subscription past due",
+            "pending": "Subscription pending",
+            "scheduled_downgrade": "Subscription scheduled for downgrade",
+            "trialing": "Subscription trialing"
+          },
+          "upgraded": "Subscription upgraded"
+        },
+        "trial": {
+          "charge_failed": "Trial charge failed",
+          "converted": "Trial converted",
+          "expired": "Trial expired",
+          "started": "Trial started"
+        }
+      }
+    },
+    "farmInformation": {
+      "title": "Farm Information",
+      "description": "Basic information about your farm operation",
+      "buttons": {
+        "save": "Save Changes"
+      },
+      "fields": {
+        "logo": {
+          "label": "Farm Logo",
+          "alt": "Farm logo preview",
+          "uploading": "Uploading logo...",
+          "helper": "Use a square or horizontal logo. This logo will be used on invoices."
+        },
+        "farmName": {
+          "label": "Farm Name *",
+          "placeholder": "Enter farm name",
+          "loadingPlaceholder": "Loading..."
+        },
+        "farmType": {
+          "label": "Farm Type *",
+          "placeholder": "Select farm type"
+        },
+        "farmTypeOther": {
+          "label": "Specify Farm Type *",
+          "placeholder": "Enter your farm type"
+        },
+        "country": {
+          "label": "Country *",
+          "placeholder": "Select country"
+        },
+        "stateProvince": {
+          "label": "State / Province",
+          "placeholder": "Enter state or province"
+        },
+        "city": {
+          "label": "City / District",
+          "placeholder": "Enter city or district"
+        },
+        "contactEmail": {
+          "label": "Email",
+          "placeholder": "name@farm.com"
+        },
+        "mobile": {
+          "label": "Mobile Number",
+          "countryPlaceholder": "Select country key",
+          "placeholder": "e.g. {{example}}",
+          "helper": "Country key {{dialCode}} will be prepended automatically."
+        },
+        "primaryProducts": {
+          "label": "Primary Products",
+          "placeholder": "e.g. Tomatoes, Milk, Eggs"
+        },
+        "currency": {
+          "label": "Currency",
+          "searchPlaceholder": "Search currency...",
+          "empty": "No currency found."
+        }
+      }
+    },
+    "security": {
+      "title": "Security Settings",
+      "description": "Manage your account password and authentication security",
+      "fields": {
+        "currentPassword": "Current Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm New Password"
+      },
+      "buttons": {
+        "updatePassword": "Update Password"
+      }
+    },
+    "messages": {
+      "farmNotAvailable": {
+        "title": "Farm Not Available",
+        "description": "Please wait for farm details to load before uploading a logo."
+      },
+      "invalidFileType": {
+        "title": "Invalid File Type",
+        "description": "Please upload an image file (PNG, JPG, SVG, or WebP)."
+      },
+      "logoTooLarge": {
+        "title": "Logo Too Large",
+        "description": "Logo must be 5 MB or smaller."
+      },
+      "logoUploaded": {
+        "title": "Logo Uploaded",
+        "description": "Farm logo uploaded successfully. Save changes to apply it system-wide."
+      },
+      "uploadFailed": {
+        "title": "Upload Failed",
+        "description": "Unable to upload farm logo."
+      },
+      "unableToSave": {
+        "title": "Unable to Save",
+        "description": "Farm is not assigned to this account."
+      },
+      "farmNameRequired": {
+        "title": "Farm Name Required",
+        "description": "Please enter Farm Name before saving."
+      },
+      "countryRequired": {
+        "title": "Country Required",
+        "description": "Please select the farm country before saving."
+      },
+      "farmTypeRequired": {
+        "title": "Farm Type Required",
+        "description": "Please select the farm type before saving."
+      },
+      "settingsSaved": {
+        "title": "Settings Saved",
+        "description": "Farm information has been successfully updated."
+      },
+      "saveFailed": {
+        "title": "Save Failed",
+        "description": "Unable to save farm information. Please try again."
+      },
+      "passwordUpdated": {
+        "title": "Password Updated",
+        "description": "Your password has been successfully changed."
+      }
+    }
+  }
+}

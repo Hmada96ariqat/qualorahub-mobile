@@ -1,0 +1,910 @@
+{
+  "equipment": {
+    "title": "Equipos",
+    "name": "Nombre",
+    "type": "Tipo",
+    "brand": "Marca",
+    "status": "Estado",
+    "notes": "Notas",
+    "search": "Buscar equipos...",
+    "noResults": "No se encontraron equipos",
+    "add": "Agregar Equipo",
+    "trackUsage": "Seguimiento de Uso",
+    "actions": {
+      "add": "Agregar",
+      "edit": "Editar",
+      "update": "Actualizar",
+      "delete": "Eliminar",
+      "deactivate": "Desactivar",
+      "activate": "Activar",
+      "reactivate": "Reactivar",
+      "viewProfile": "Ver Perfil",
+      "manageEquipment": "Administrar equipo"
+    },
+    "usage": {
+      "addTitle": "Agregar Registro de Uso",
+      "editTitle": "Editar Registro de Uso",
+      "form": {
+        "sections": {
+          "basicDetails": "Detalles Básicos",
+          "location": "Ubicación",
+          "timeMetrics": "Tiempo y Métricas de Uso",
+          "resourcesCost": "Recursos y Costo"
+        },
+        "fields": {
+          "usagePurpose": {
+            "label": "Propósito de Uso",
+            "placeholder": "Seleccionar propósito"
+          },
+          "otherPurpose": {
+            "label": "Especificar Otro Propósito",
+            "placeholder": "Ingrese el propósito específico"
+          },
+          "operator": {
+            "label": "Operador / Conductor",
+            "placeholder": "Seleccionar operador"
+          },
+          "usedBy": {
+            "label": "Usado Por (si es diferente)",
+            "placeholder": "Seleccionar usuario (opcional)"
+          },
+          "keywords": {
+            "label": "Palabras Clave / Etiquetas",
+            "placeholder": "Ingrese etiqueta y presione Agregar"
+          },
+          "description": {
+            "label": "Descripción de Uso",
+            "placeholder": "ej., Arado del Campo A en preparación para siembra de maíz"
+          },
+          "field": {
+            "label": "Campo",
+            "placeholder": "Seleccionar campo"
+          },
+          "lot": {
+            "label": "Lote Utilizado",
+            "placeholder": "Seleccionar lote (opcional)"
+          },
+          "noSpecificLot": "Sin lote específico",
+          "dateUsed": {
+            "label": "Fecha de Uso",
+            "placeholder": "Seleccionar fecha"
+          },
+          "startDateTime": {
+            "label": "Fecha/Hora de Inicio"
+          },
+          "endDateTime": {
+            "label": "Fecha/Hora de Fin"
+          },
+          "startingReading": {
+            "label": "Lectura Inicial",
+            "placeholder": "0"
+          },
+          "endingReading": {
+            "label": "Lectura Final",
+            "placeholder": "0"
+          },
+          "totalHoursUsed": {
+            "label": "Total de Horas Usadas",
+            "placeholder": "0"
+          },
+          "autoCalculated": "Calculado automáticamente desde hora inicio/fin",
+          "fuelConsumables": {
+            "label": "Combustible o Consumibles Usados",
+            "placeholder": "ej., 20 litros diésel"
+          },
+          "cost": {
+            "label": "Costo",
+            "placeholder": "0.00"
+          },
+          "noneOption": "Ninguno",
+          "totalUsedLabel": "Total usado",
+          "unitsFallback": "unidades",
+          "usageRateNote": "Calculado automáticamente según la tasa de uso: ${{rate}} por {{unit}}"
+        },
+        "buttons": {
+          "cancel": "Cancelar",
+          "saving": "Guardando...",
+          "create": "Crear Registro de Uso",
+          "update": "Actualizar Registro de Uso",
+          "add": "Agregar"
+        },
+        "purposes": {
+          "tilling": "Labranza",
+          "plowing": "Arado",
+          "seeding": "Siembra",
+          "spraying": "Fumigación",
+          "harvesting": "Cosecha",
+          "transport": "Transporte/Entrega",
+          "fertilizing": "Fertilización",
+          "irrigationSupport": "Apoyo de Riego",
+          "landPreparation": "Preparación de Tierra",
+          "mulching": "Acolchado",
+          "weeding": "Deshierbe",
+          "pesticideApplication": "Aplicación de Pesticidas",
+          "soilSampling": "Muestreo de Suelo",
+          "mowing": "Corte de Césped",
+          "baling": "Empacado",
+          "hayRaking": "Rastrillado de Heno",
+          "livestockFeedingSupport": "Apoyo Alimentación Ganado",
+          "cleaning": "Limpieza",
+          "other": "Otro"
+        },
+        "validation": {
+          "usagePurposeRequired": "El propósito de uso es obligatorio",
+          "operatorRequired": "El operador es obligatorio",
+          "fieldRequired": "El campo es obligatorio"
+        },
+        "messages": {
+          "saveFailed": "No se pudo guardar el registro de uso. Inténtelo de nuevo."
+        }
+      },
+      "messages": {
+        "success": {
+          "added": "Registro de Uso Agregado",
+          "addedDescription": "El registro de uso se guardó exitosamente.",
+          "updated": "Registro de Uso Actualizado",
+          "updatedDescription": "El registro de uso se actualizó exitosamente.",
+          "deleted": "Registro de Uso Eliminado",
+          "deletedDescription": "El registro de uso se eliminó exitosamente."
+        },
+        "error": {
+          "addFailed": "No se pudo agregar el registro de uso",
+          "updateFailed": "No se pudo actualizar el registro de uso",
+          "deleteFailed": "No se pudo eliminar el registro de uso"
+        }
+      }
+    },
+    "maintenance": {
+      "title": "Registro de Mantenimiento",
+    "addTitle": "Agregar Registro de Mantenimiento",
+    "addMaintenance": "Agregar mantenimiento",
+    "usageRecordDetails": "Detalles del registro de uso",
+    "operator": "Operador",
+    "fieldLocation": "Campo/Ubicación",
+    "usageTable": {
+      "date": "Fecha",
+      "purpose": "Propósito",
+      "operator": "Operador",
+      "fieldLocation": "Campo/Ubicación",
+      "hours": "Horas",
+      "fuelUsed": "Combustible usado",
+      "description": "Descripción",
+      "actions": "Acciones"
+    },
+      "editTitle": "Editar Registro de Mantenimiento",
+      "description": "Registrar actividades de mantenimiento y piezas usadas",
+      "form": {
+        "sections": {
+          "serviceDetails": "Detalles del Servicio",
+          "partsInventory": "Piezas e Inventario",
+          "costTracking": "Seguimiento de Costos",
+          "maintenanceDetails": "Detalles del Mantenimiento",
+          "partsUsed": "Repuestos Usados",
+          "costs": "Costos"
+        },
+        "fields": {
+          "serviceType": {
+            "label": "Tipo de Servicio",
+            "placeholder": "Seleccionar tipo de servicio"
+          },
+          "datePerformed": {
+            "label": "Fecha Realizada",
+            "placeholder": "Seleccionar fecha"
+          },
+          "performedBy": {
+            "label": "Servicio Realizado Por",
+            "placeholder": "Seleccionar persona o proveedor"
+          },
+          "currentReading": {
+            "label": "Lectura Actual del Medidor",
+            "placeholder": "0"
+          },
+          "nextDue": {
+            "label": "Próximo Mantenimiento",
+            "placeholder": "AAAA-MM-DD o +30 días"
+          },
+          "description": {
+            "label": "Descripción del Servicio",
+            "placeholder": "Describa el mantenimiento realizado"
+          },
+          "serviceDescription": {
+            "label": "Descripción del Servicio",
+            "placeholder": "Describa el mantenimiento realizado"
+          },
+          "addProduct": "Agregar Producto",
+          "loadingProducts": "Cargando productos...",
+          "selectProduct": "Seleccionar producto",
+          "product": {
+            "label": "Producto/Pieza",
+            "placeholder": "Seleccionar producto"
+          },
+          "unknownProduct": "Producto Desconocido",
+          "batch": {
+            "label": "Lote",
+            "placeholder": "Seleccionar lote"
+          },
+          "selectBatch": "Seleccionar lote",
+          "noBatch": "Sin lote",
+          "available": "Disponible",
+          "quantity": {
+            "label": "Cantidad",
+            "placeholder": "0"
+          },
+          "insufficientQuantity": "Cantidad insuficiente",
+          "availableQuantityIs": "La cantidad disponible es",
+          "exceedsStock": "Excede el stock disponible",
+          "unitCost": {
+            "label": "Costo Unitario",
+            "placeholder": "0.00"
+          },
+          "lineTotal": "Total de Línea",
+          "partsCost": "Costo de Piezas",
+          "laborCost": {
+            "label": "Costo de Mano de Obra",
+            "placeholder": "0.00"
+          },
+          "vendorFee": {
+            "label": "Tarifa del Proveedor",
+            "placeholder": "0.00"
+          },
+          "autoCalculatedTotal": "Total Calculado Automáticamente",
+          "totalCostOverride": {
+            "label": "Sobrescribir Costo Total",
+            "placeholder": "Dejar vacío para el cálculo automático"
+          },
+          "finalTotal": "Total Final"
+        },
+        "buttons": {
+          "cancel": "Cancelar",
+          "saving": "Guardando...",
+          "create": "Crear Registro de Mantenimiento",
+          "update": "Actualizar Registro de Mantenimiento",
+          "addPart": "Agregar Repuesto"
+        },
+        "serviceTypes": {
+          "scheduled": "Programado",
+          "preventive": "Preventivo",
+          "emergency": "Emergencia"
+        },
+        "people": {
+          "internal": "Interno",
+          "external": "Externo",
+          "unknownUser": "Usuario desconocido",
+          "unknownContact": "Contacto desconocido"
+        },
+        "messages": {
+          "productAlreadyAdded": "Producto ya agregado",
+          "productAlreadyInList": "Este producto ya está en la lista de piezas.",
+          "noInventory": "Sin inventario disponible",
+          "noQuantityBatch": "No hay cantidad/lote disponible para el artículo seleccionado.",
+          "warning": "Advertencia",
+          "stockVoucherError": "No se pudo crear el comprobante de stock automáticamente",
+          "createSuccess": "Registro de mantenimiento creado exitosamente",
+          "updateSuccess": "Registro de mantenimiento actualizado exitosamente",
+          "createError": "Error al crear registro de mantenimiento",
+          "updateError": "Error al actualizar registro de mantenimiento",
+          "authRequired": "No hay un usuario autenticado.",
+          "farmNotFound": "No se encontró la finca.",
+          "farmNotFoundForUser": "No se encontró la finca para el usuario."
+        }
+      },
+      "parts": {
+        "add": "Agregar Repuesto",
+        "remove": "Eliminar Repuesto",
+        "noParts": "Aún no se agregaron repuestos",
+        "available": "disponibles",
+        "partsCost": "Costo de Repuestos",
+        "subtotal": "Subtotal"
+      },
+      "costs": {
+        "laborCost": "Costo de Mano de Obra",
+        "vendorFee": "Tarifa del Proveedor",
+        "partsCost": "Costo de Repuestos",
+        "totalCost": "Costo Total",
+        "calculated": "(Calculado)"
+      },
+      "messages": {
+        "success": {
+          "added": "Registro de Mantenimiento Agregado",
+          "addedDescription": "El registro de mantenimiento se agregó exitosamente.",
+          "updated": "Registro de Mantenimiento Actualizado",
+          "updatedDescription": "El registro de mantenimiento se actualizó exitosamente.",
+          "deleted": "Registro de Mantenimiento Eliminado",
+          "deletedDescription": "El registro de mantenimiento se eliminó exitosamente."
+        },
+        "error": {
+          "addFailed": "No se pudo agregar el registro de mantenimiento",
+          "updateFailed": "No se pudo actualizar el registro de mantenimiento",
+          "deleteFailed": "No se pudo eliminar el registro de mantenimiento",
+          "servicePerformedByRequired": "Se requiere quién realizó el servicio",
+          "productAlreadyAdded": "Producto ya agregado",
+          "productAlreadyAddedDescription": "Este producto ya está en la lista de repuestos.",
+          "insufficientQuantity": "Cantidad insuficiente",
+          "insufficientQuantityDescription": "No hay suficiente cantidad disponible de este producto."
+        }
+      },
+      "table": {
+        "headers": {
+          "date": "Fecha",
+          "serviceType": "Tipo de servicio",
+          "description": "Descripción",
+          "performedBy": "Realizado por",
+          "cost": "Costo",
+          "nextDue": "Próximo mantenimiento",
+          "actions": "Acciones"
+        },
+        "actions": {
+          "view": "Ver",
+          "edit": "Editar"
+        }
+      },
+      "view": {
+        "title": "Detalles del registro de mantenimiento",
+        "performedBy": "Realizado por",
+        "meterReading": "Lectura del medidor",
+        "nextMaintenanceDue": "Próximo mantenimiento",
+        "costBreakdown": "Desglose de costos",
+        "laborCost": "Costo de mano de obra",
+        "partsCost": "Costo de repuestos",
+        "vendorFee": "Tarifa del proveedor",
+        "totalCost": "Costo total",
+        "partsReplaced": "Repuestos reemplazados",
+        "serviceDescription": "Descripción del servicio",
+        "additionalNotes": "Notas adicionales",
+        "attachments": "Adjuntos",
+        "createdAt": "Creado",
+        "updatedAt": "Última actualización",
+        "downloadStarted": "Descarga iniciada",
+        "downloadFailed": "No se pudo descargar el adjunto"
+      }
+    },
+    "profile": {
+      "performedBy": "Realizado Por",
+      "addMaintenance": "Agregar Mantenimiento",
+      "edit": "Editar",
+      "usageRecordDetails": "Detalles del Registro de Uso",
+      "operator": "Operador",
+      "fieldLocation": "Campo/Ubicación",
+      "usageTable": {
+        "date": "Fecha",
+        "purpose": "Propósito",
+        "operator": "Operador",
+        "fieldLocation": "Campo/Ubicación",
+        "hours": "Horas",
+        "fuelUsed": "Combustible Usado",
+        "description": "Descripción",
+        "actions": "Acciones"
+      },
+      "maintenanceTable": {
+        "date": "Fecha",
+        "type": "Tipo",
+        "performedBy": "Realizado Por",
+        "description": "Descripción",
+        "cost": "Costo",
+        "actions": "Acciones"
+      }
+    },
+    "attachments": {
+      "title": "Adjuntos",
+      "add": "Agregar Adjunto",
+      "upload": "Subir",
+      "uploading": "Subiendo...",
+      "remove": "Eliminar",
+      "view": "Ver",
+      "download": "Descargar",
+      "types": {
+        "manual": "Manual",
+        "invoice": "Factura",
+        "warranty": "Garantía",
+        "certificate": "Certificado",
+        "photo": "Foto",
+        "other": "Otro"
+      },
+      "messages": {
+        "success": {
+          "uploaded": "Adjunto Subido",
+          "uploadedDescription": "El adjunto se subió exitosamente.",
+          "removed": "Adjunto Eliminado",
+          "removedDescription": "El adjunto se eliminó exitosamente."
+        },
+        "error": {
+          "uploadFailed": "No se pudo subir el adjunto",
+          "removeFailed": "No se pudo eliminar el adjunto",
+          "invalidFileType": "Tipo de archivo inválido",
+          "fileTooLarge": "Archivo demasiado grande"
+        }
+      }
+    },
+    "delete": {
+      "title": "Desactivar Equipo",
+      "description": "¿Estás seguro que querés desactivar \"{{name}}\"? Esto establecerá el equipo como inactivo, pero se preservarán todos los datos históricos.",
+      "confirm": "Desactivar Equipo",
+      "cancel": "Cancelar"
+    },
+    "validation": {
+      "nameRequired": "El nombre del equipo es requerido",
+      "typeRequired": "El tipo de equipo es requerido",
+      "statusRequired": "El estado es requerido",
+      "trackUsageRequired": "Se requiere cómo registrar el uso",
+      "invalidNumber": "Por favor ingresá un número válido",
+      "invalidDate": "Por favor ingresá una fecha válida"
+    },
+    "deactivated": {
+      "title": "Equipos Desactivados",
+      "subtitle": "Administrar equipos inactivos",
+      "description": "equipos desactivados",
+      "item": "artículo",
+      "items": "artículos",
+      "export": {
+        "label": "Exportar",
+        "headers": {
+          "name": "Nombre",
+          "type": "Tipo",
+          "brand": "Marca",
+          "model": "Modelo",
+          "year": "Año",
+          "status": "Estado",
+          "idPlate": "ID/Número de placa",
+          "serialNumber": "Número de serie",
+          "usage": "Uso",
+          "ownership": "Propiedad",
+          "dateAcquired": "Fecha de adquisición",
+          "purchasePrice": "Precio de compra",
+          "currentValue": "Valor actual",
+          "location": "Ubicación",
+          "insured": "Asegurado"
+        }
+      },
+      "exportTooltip": "Exportar lista de equipos desactivados a CSV",
+      "totalDeactivated": "Total Desactivados",
+      "totalValue": "Valor Total",
+      "insuredItems": "Artículos Asegurados",
+      "searchPlaceholder": "Buscar por nombre, tipo, marca, modelo...",
+      "listTitle": "Lista de Equipos Desactivados",
+      "loading": "Cargando equipos desactivados...",
+      "noDeactivatedEquipmentFound": "No Se Encontraron Equipos Desactivados",
+      "tryAdjustingSearchTerms": "Intentá ajustar los términos de búsqueda",
+      "allEquipmentCurrentlyActive": "Todos los equipos están actualmente activos",
+      "labels": {
+        "inactive": "Inactivo",
+        "noLocation": "Sin ubicación",
+        "unknownLocation": "Ubicación desconocida",
+        "na": "N/A",
+        "equipment": "Equipo",
+        "model": "Modelo",
+        "year": "Año",
+        "ownership": "Propiedad",
+        "purchased": "Comprado",
+        "leased": "Arrendado",
+        "value": "Valor",
+        "usage": "Uso",
+        "location": "Ubicación",
+        "acquired": "Adquirido",
+        "serialShort": "NS",
+        "idShort": "ID"
+      },
+      "tooltips": {
+        "insured": "Este equipo está asegurado"
+      },
+      "actions": {
+        "reactivate": "Reactivar Equipo",
+        "reactivateShort": "Reactivar"
+      },
+      "table": {
+        "headers": {
+          "equipment": "Equipo",
+          "type": "Tipo",
+          "brandModel": "Marca/Modelo",
+          "year": "Año",
+          "status": "Estado",
+          "ownership": "Propiedad",
+          "lastUsage": "Último Uso",
+          "lastValue": "Último Valor",
+          "actions": "Acciones"
+        }
+      },
+      "dialog": {
+        "title": "Reactivar Equipo",
+        "description": "¿Estás seguro que querés reactivar \"{{name}}\"? Esto establecerá el estado del equipo de nuevo a operacional y estará disponible para usar.",
+        "cancel": "Cancelar",
+        "confirm": "Reactivar Equipo"
+      }
+    },
+    "searchTitle": "Búsqueda y filtros",
+    "description": "Administra equipos, registra uso y mantenimiento.",
+    "addNew": "Agregar nuevo equipo",
+    "offlineMode": "Modo sin conexión",
+    "syncing": "Sincronizando...",
+    "syncChanges": "Sincronizar cambios",
+    "changesPendingSync": "Cambios pendientes de sincronización",
+    "labels": {
+      "status": "Estado",
+      "usage": "Uso",
+      "insured": "Asegurado"
+    },
+    "filter": {
+      "filterButton": "Filtros",
+      "title": "Filtros",
+      "resetAll": "Restablecer todo",
+      "typeLabel": "Tipo de equipo",
+      "allTypes": "Todos los tipos",
+      "statusLabel": "Estado",
+      "allStatus": "Todos los estados",
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "insuranceLabel": "Estado del seguro",
+      "all": "Todos",
+      "insured": "Asegurado",
+      "notInsured": "No asegurado",
+      "ariaAll": "Todo el equipo",
+      "ariaActive": "Equipo activo",
+      "ariaInactive": "Equipo inactivo"
+    },
+    "empty": {
+      "noEquipment": "Comience agregando su primer equipo para registrar uso y mantenimiento.",
+      "noMatches": "Ningún equipo coincide con tus filtros actuales. Intentá ajustar tus criterios de búsqueda."
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "pageOf": "Página {{page}} de {{total}}",
+      "goToPrevious": "Ir a la página anterior",
+      "goToNext": "Ir a la página siguiente",
+      "currentPageAria": "Actualmente en la página {{page}} de {{total}}"
+    },
+    "statuses": {
+      "operational": "Activo",
+      "maintenance": "En mantenimiento",
+      "broken": "Fuera de uso",
+      "retired": "Retirado",
+      "inactive": "Inactivo"
+    },
+    "types": {
+      "tractor": "Tractor",
+      "harvester": "Cosechadora",
+      "seeder": "Sembradora",
+      "sprayer": "Pulverizadora",
+      "plow": "Arado",
+      "baler": "Empacadora",
+      "cultivator": "Cultivador",
+      "irrigationPump": "Bomba de riego",
+      "waterTanker": "Cisterna de agua",
+      "drone": "Dron",
+      "sensorDevice": "Dispositivo sensor",
+      "livestockFeeder": "Alimentador de ganado",
+      "livestockShelter": "Equipo de refugio para ganado",
+      "generator": "Generador",
+      "forklift": "Montacargas",
+      "truck": "Camión",
+      "trailer": "Remolque",
+      "greenhouse": "Equipo de invernadero",
+      "packingMachine": "Máquina de empaque",
+      "coldStorage": "Unidad de almacenamiento en frío",
+      "other": "Otro"
+    },
+    "usageTracking": {
+      "hours": "Horas",
+      "miles": "Millas",
+      "km": "KM"
+    },
+    "export": {
+      "headers": {
+        "name": "Nombre del equipo",
+        "type": "Tipo",
+        "brand": "Marca",
+        "status": "Estado",
+        "trackUsageBy": "Registrar uso por",
+        "currentUsage": "Uso actual",
+        "insured": "Asegurado",
+        "notes": "Notas"
+      }
+    },
+    "permissions": {
+      "manageDenied": "No tenés permiso para administrar equipos.",
+      "addDenied": "No tenés permiso para agregar equipos.",
+      "editDenied": "No tenés permiso para editar equipos.",
+      "deleteDenied": "No tenés permiso para desactivar equipos.",
+      "exportDenied": "No tenés permiso para exportar equipos."
+    },
+    "table": {
+      "name": "Nombre",
+      "type": "Tipo",
+      "status": "Estado",
+      "usage": "Uso",
+      "actions": "Acciones"
+    },
+    "form": {
+      "addNewEquipment": "Agregar nuevo equipo",
+      "fillEquipmentDetails": "Ingrese los detalles del nuevo equipo",
+      "title": {
+        "add": "Agregar equipo",
+        "edit": "Editar equipo"
+      },
+      "description": {
+        "add": "Proporcione los detalles del equipo",
+        "edit": "Actualice los detalles del equipo"
+      },
+      "tabs": {
+        "basic": "Básico",
+        "usage": "Uso",
+        "additional": "Adicional"
+      },
+      "sections": {
+        "basicInfo": "Información básica",
+        "usageTracking": "Seguimiento de uso",
+        "additionalInfo": "Información adicional"
+      },
+      "fields": {
+        "name": {
+          "label": "Nombre del equipo",
+          "placeholder": "Ingrese el nombre del equipo",
+          "required": "El nombre del equipo es requerido"
+        },
+        "type": {
+          "label": "Tipo de equipo",
+          "placeholder": "Seleccionar tipo de equipo",
+          "required": "El tipo de equipo es requerido"
+        },
+        "brand": {
+          "label": "Marca",
+          "placeholder": "Ingrese la marca"
+        },
+        "status": {
+          "label": "Estado"
+        },
+        "trackUsage": {
+          "label": "Registrar uso por"
+        },
+        "currentReading": {
+          "label": "Lectura de uso actual",
+          "placeholder": "Ingrese la lectura actual"
+        },
+        "insured": {
+          "label": "Equipo asegurado",
+          "description": "Si este equipo está cubierto por seguro"
+        },
+        "notes": {
+          "label": "Notas",
+          "placeholder": "Agregar notas (opcional)"
+        },
+        "images": {
+          "label": "Fotos del equipo",
+          "tooltip": "Suba hasta 5 fotos de este equipo"
+        },
+        "attachments": {
+          "label": "Adjuntos"
+        }
+      },
+      "saving": "Guardando...",
+      "upload": {
+        "authenticationRequired": "Autenticación requerida",
+        "pleaseLogInToUpload": "Inicia sesión para subir archivos",
+        "tooManyFiles": "Demasiados archivos",
+        "maxFilesAllowed": "Máximo {{max}} archivos. Puedes agregar {{remaining}} más.",
+        "fileTooLarge": "Archivo demasiado grande",
+        "fileIsLargerThan": "\"{{filename}}\" es más grande que {{size}}MB",
+        "uploadSuccessful": "Carga exitosa",
+        "filesUploadedSuccessfully": "{{count}} archivo(s) subidos correctamente",
+        "uploadFailed": "Error al subir",
+        "failedToUploadFiles": "No se pudieron subir los archivos",
+        "fileRemoved": "Archivo eliminado",
+        "fileHasBeenRemoved": "\"{{filename}}\" ha sido eliminado",
+        "removeFailed": "Error al eliminar",
+        "failedToRemoveFile": "No se pudo eliminar el archivo",
+        "downloadFailed": "Error al descargar",
+        "failedToDownloadFile": "No se pudo descargar el archivo",
+        "uploadingFiles": "Subiendo archivos...",
+        "dropFilesHere": "Suelta los archivos aquí o haz clic para subir",
+        "supportedFormats": "Formatos compatibles",
+        "maxFileSize": "Tamaño máximo: {{size}}MB",
+        "slotsAvailable": "{{count}} lugares disponibles",
+        "chooseFiles": "Elegir archivos",
+        "attachedFiles": "Archivos adjuntos ({{count}})"
+      }
+    },
+    "messages": {
+      "success": {
+        "added": "Equipo agregado",
+        "addedDescription": "El equipo se agregó exitosamente.",
+        "updated": "Equipo actualizado",
+        "updatedDescription": "El equipo se actualizó exitosamente.",
+        "deactivated": "Equipo desactivado",
+        "deactivatedDescription": "El equipo se estableció como inactivo.",
+        "deactivatedOffline": "Equipo desactivado (sin conexión)",
+        "activated": "Equipo activado",
+        "activatedDescription": "El equipo se estableció como activo.",
+        "activatedOffline": "Equipo activado (sin conexión)",
+        "exportComplete": "Exportación completa",
+        "exportedSingleDescription": "Datos de {{name}} exportados correctamente.",
+        "exportedAllDescription": "{{count}} registros de equipo exportados correctamente.",
+        "activatedDescriptionWithName": "\"{{name}}\" se reactivó correctamente."
+      },
+      "error": {
+        "addFailedWithMessage": "No se pudo agregar el equipo: {{message}}",
+        "updateFailedWithMessage": "No se pudo actualizar el equipo: {{message}}",
+        "noDataToExport": "No hay datos para exportar",
+        "noEquipmentDataToExport": "No hay datos de equipos para exportar.",
+        "validationError": "Error de validación",
+        "errorActivatingEquipment": "No se pudo activar el equipo"
+      },
+      "info": {
+        "changeWillSyncWhenRestored": "El cambio se sincronizará cuando se restablezca la conexión."
+      },
+      "exportSuccessful": "Exportación exitosa",
+      "deactivatedEquipmentDataExported": "Datos de equipos desactivados exportados."
+    },
+    "usageLog": {
+      "title": "Registro de uso",
+      "breadcrumbTitle": "Registro de uso de {{name}}",
+      "backToEquipment": "Volver a Equipos",
+      "add": "Agregar registro de uso",
+      "searchPlaceholder": "Buscar por propósito, operador, etiquetas, descripción...",
+      "syncButton": "Sincronizar ({{count}})",
+      "export": {
+        "label": "Exportar",
+        "headers": {
+          "dateUsed": "Fecha de uso",
+          "usagePurpose": "Propósito de uso",
+          "operator": "Operador",
+          "field": "Campo",
+          "lot": "Lote",
+          "startTime": "Hora de inicio",
+          "endTime": "Hora de fin",
+          "startingReading": "Lectura inicial",
+          "endingReading": "Lectura final",
+          "totalUsed": "Total usado",
+          "totalHours": "Total de horas",
+          "fuelConsumables": "Combustible/consumibles",
+          "cost": "Costo",
+          "description": "Descripción",
+          "keywordsTags": "Palabras clave/Etiquetas"
+        }
+      },
+      "filters": {
+        "title": "Filtros",
+        "usagePurpose": "Propósito de uso",
+        "allPurposes": "Todos los propósitos",
+        "operator": "Operador",
+        "allOperators": "Todos los operadores",
+        "field": "Campo",
+        "allFields": "Todos los campos",
+        "startDate": "Fecha de inicio",
+        "endDate": "Fecha de fin"
+      },
+      "listTitle": "Registros de uso ({{count}})",
+      "loading": "Cargando registros de uso...",
+      "empty": "No se encontraron registros de uso",
+      "tags": "{{count}} etiquetas",
+      "unknownOperator": "Operador desconocido",
+      "unknownField": "Campo desconocido",
+      "unknown": "Desconocido",
+      "costLabel": "Costo",
+      "table": {
+        "headers": {
+          "datePurpose": "Fecha y propósito",
+          "operator": "Operador",
+          "location": "Ubicación",
+          "timePeriod": "Período de tiempo",
+          "usage": "Uso",
+          "cost": "Costo",
+          "actions": "Acciones"
+        }
+      },
+      "pagination": {
+        "showing": "Mostrando {{start}} a {{end}} de {{total}} entradas"
+      },
+      "errors": {
+        "equipmentIdRequired": "Se requiere ID del equipo",
+        "equipmentIdNotProvided": "No se proporcionó ID del equipo",
+        "farmNotFoundForUser": "No se encontró la finca para el usuario"
+      },
+      "confirmDelete": "¿Estás seguro que querés eliminar este registro de uso?"
+    },
+    "usageView": {
+      "startDateTime": "Fecha/Hora de inicio",
+      "endDateTime": "Fecha/Hora de fin",
+      "usedBy": "Usado por",
+      "lot": "Lote",
+      "totalHoursUsed": "Total de horas usadas",
+      "totalHoursValue": "{{hours}} horas",
+      "fuelConsumablesUsed": "Combustible / consumibles usados",
+      "cost": "Costo",
+      "editUsageLog": "Editar registro de uso"
+    },
+    "imagesUpload": {
+      "errors": {
+        "authRequired": "Debes iniciar sesión para subir imágenes",
+        "maxImagesTitle": "Se alcanzó el máximo de imágenes",
+        "maxImagesDescription": "Solo puedes subir hasta {{max}} imágenes",
+        "invalidFilesTitle": "Archivos inválidos",
+        "invalidFilesDescription": "Solo se permiten archivos de imagen",
+        "uploadFailed": "No se pudieron subir las imágenes. Inténtalo de nuevo."
+      },
+      "successUploaded": "{{count}} imagen(es) subidas",
+      "altEquipment": "Equipo",
+      "uploading": "Subiendo...",
+      "uploadButton": "Subir foto",
+      "imageCount": "{{count}}/{{max}} imágenes",
+      "altEquipmentImage": "Equipo {{index}}"
+    },
+    "imageGallery": {
+      "altMain": "Imagen del equipo",
+      "altThumbnail": "Imagen {{index}}"
+    }
+  },
+  "equipmentProfile": {
+    "backToEquipment": "Volver a Equipos",
+    "totalHours": "Horas Totales",
+    "operatingHours": "Horas de Operación",
+    "totalFuelUsed": "Combustible Total Usado",
+    "fuelConsumption": "Consumo de Combustible",
+    "totalCost": "Costo Total",
+    "usagePlusMaintenance": "Uso + Mantenimiento",
+    "lastMaintenance": "Último Mantenimiento",
+    "never": "Nunca",
+    "mostRecentService": "Servicio más reciente",
+    "equipmentDetails": "Detalles del Equipo",
+    "ownership": "Propiedad",
+    "trackUsageBy": "Registrar Uso Por",
+    "hours": "Horas",
+    "usageHistory": "Historial de Uso",
+    "maintenanceHistory": "Historial de Mantenimiento",
+    "addUsage": "Agregar Uso",
+    "grid": "Cuadrícula",
+    "table": "Tabla",
+    "noUsageRecordsYet": "Sin Registros de Uso Aún",
+    "startTrackingEquipmentUsage": "Comience a registrar el uso del equipo para monitorear el rendimiento y los costos.",
+    "loadingEquipmentDetails": "Cargando detalles del equipo...",
+    "equipmentNotFound": "Equipo no encontrado",
+    "unknown": "Desconocido",
+    "noMaintenanceRecordsYet": "Sin Registros de Mantenimiento Aún",
+    "view": "Ver",
+    "notes": "Notas",
+    "addTitle": "Agregar Registro de Mantenimiento",
+    "performedBy": "Realizado por",
+    "notSpecified": "No especificado",
+    "nextMaintenance": "Próximo mantenimiento",
+    "pendingMaintenance": "Mantenimiento pendiente",
+    "purchaseDate": "Fecha de compra",
+    "purchasePrice": "Precio de compra",
+    "currentValue": "Valor actual",
+    "noField": "Sin campo",
+    "description": "Descripción",
+    "serialNumber": "Número de serie",
+    "offlineDebugTitle": "Depuración sin conexión",
+    "offlineDebugMessage": "No se pudo encontrar el id {{id}}. IDs en caché: {{cachedIds}}",
+    "offlineDebugNone": "ninguno",
+    "actions": {
+      "edit": "Editar"
+    },
+    "maintenance": {
+      "addTitle": "Agregar registro de mantenimiento",
+      "editTitle": "Editar registro de mantenimiento"
+    },
+    "usageLogAddedSuccessfully": "Registro de uso agregado correctamente",
+    "usageLogUpdatedSuccessfully": "Registro de uso actualizado correctamente",
+    "errorAddingUsageLog": "Error al agregar el registro de uso",
+    "loadingRecentUsage": "Cargando uso reciente...",
+    "loadingMaintenanceRecords": "Cargando registros de mantenimiento...",
+    "errors": {
+      "noAuthenticatedUser": "No hay usuario autenticado",
+      "farmNotFound": "No se encontró la finca"
+    }
+  },
+  "usagePurposes": {
+    "plowing": "Arado",
+    "planting": "Siembra",
+    "harvesting": "Cosecha",
+    "spraying": "Fumigación",
+    "irrigation": "Riego",
+    "transport": "Transporte",
+    "maintenance": "Mantenimiento",
+    "other": "Otro"
+  },
+  "common": {
+    "error": "Error",
+    "success": "Éxito",
+    "warning": "Advertencia",
+    "info": "Información"
+  }
+}

@@ -1,0 +1,465 @@
+{
+  "marketing": {
+    "nav": {
+      "overview": "Overview",
+      "about": "About",
+      "pricing": "Pricing",
+      "blogs": "Blogs",
+      "signIn": "Sign In"
+    },
+    "footer": {
+      "brandDescription": "The complete farm management platform. Track fields, crops, livestock, tasks, and costs in one place.",
+      "resources": "Resources",
+      "company": "Company",
+      "blog": "Blog",
+      "aboutUs": "About Us",
+      "contact": "Contact",
+      "requestDemo": "Request a Demo",
+      "rightsReserved": "All rights reserved.",
+      "madeWithCare": "Made with care for farmers worldwide."
+    },
+    "home": {
+      "hero": {
+        "badge": "Farm Management Platform",
+        "titlePrefix": "Run your farm with",
+        "titleHighlight": "one source of truth.",
+        "description": "QualoraHub connects fields, crops, livestock, tasks, inventory, and costs in one platform so you reduce waste and make better decisions.",
+        "trustChips": {
+          "traceabilityReady": "Traceability-ready",
+          "wasteAnalytics": "Waste analytics",
+          "mobileFriendly": "Mobile-friendly",
+          "realTimeAlerts": "Real-time alerts"
+        },
+        "preview": {
+          "title": "Farm Overview",
+          "subtitle": "Real-time production summary",
+          "live": "Live",
+          "chartAria": "Production distribution chart",
+          "centerLabel": "Overview",
+          "legend": {
+            "harvested": "Harvested",
+            "planted": "Planted",
+            "inProgress": "In Progress",
+            "waste": "Waste"
+          },
+          "totalYield": "Total Yield",
+          "totalYieldSuffix": "tons this season",
+          "costEfficiency": "Cost Efficiency",
+          "costEfficiencySuffix": "vs. last quarter"
+        }
+      },
+      "valueCards": {
+        "title": "From problems to outcomes",
+        "subtitle": "QualoraHub helps you tackle the biggest challenges in farm management."
+      },
+      "carousel": {
+        "dotAria": "Go to slide {{number}}",
+        "slides": {
+          "reduceWaste": {
+            "title": "Reduce Waste & Losses",
+            "description": "Track every input and output to identify inefficiencies and minimize post-harvest losses."
+          },
+          "costPerField": {
+            "title": "Cost per Field / Crop",
+            "description": "Know your true cost of production with detailed expense tracking by field, crop, or livestock."
+          },
+          "taskExecution": {
+            "title": "Better Task Execution",
+            "description": "Assign, track, and complete farm tasks with clear accountability and real-time updates."
+          },
+          "traceability": {
+            "title": "Traceability & Compliance",
+            "description": "Maintain audit-ready records for certifications, buyers, and regulatory requirements."
+          }
+        }
+      },
+      "charts": {
+        "titlePrefix": "Your farm data,",
+        "titleHighlight": "summarized instantly.",
+        "description": "Get actionable insights from your farm operations. Track harvest performance, monitor costs by category, and identify trends that help you optimize production.",
+        "bullets": {
+          "realTime": "Real-time data visualization",
+          "costBreakdown": "Cost breakdown by field or crop",
+          "exportReports": "Export reports for stakeholders"
+        },
+        "profitability": {
+          "title": "Crop Profitability",
+          "subtitle": "Last season's harvest",
+          "tooltipProfit": "Profit",
+          "mostProfitable": "Most Profitable",
+          "crops": {
+            "cherryTomatoes": "Cherry Tomatoes",
+            "cucumbers": "Cucumbers"
+          }
+        },
+        "costs": {
+          "title": "Costs by Category",
+          "subtitle": "Current season breakdown",
+          "tooltipCost": "Cost",
+          "categories": {
+            "labor": "Labor",
+            "inputs": "Inputs",
+            "fuel": "Fuel",
+            "transport": "Transport",
+            "misc": "Misc"
+          }
+        },
+        "note": "Example data shown. Connect your farm to see real insights."
+      },
+      "photo": {
+        "alt": "Farmer using tablet with livestock management software near cattle",
+        "titlePrefix": "Built for",
+        "titleHighlight": "smarter livestock management.",
+        "paragraph1": "Livestock operations struggle with missed health issues and scattered records, leading to losses, delays, and compliance risks.",
+        "paragraph2": "QualoraHub fixes this by centralizing livestock health, alerts, and records in one place, helping you detect issues early, stay audit-ready, and keep your animals productive and healthy."
+      },
+      "howItWorks": {
+        "title": "How it works",
+        "subtitle": "Get started in minutes, see results in your first season.",
+        "steps": {
+          "setup": {
+            "title": "Setup",
+            "description": "Configure your farm structure, fields, crops, livestock, and team members."
+          },
+          "track": {
+            "title": "Track",
+            "description": "Log daily activities, inputs, costs, and yields from any device."
+          },
+          "improve": {
+            "title": "Improve",
+            "description": "Analyze trends, reduce inefficiencies, and make data-driven decisions."
+          }
+        }
+      },
+      "cta": {
+        "title": "Ready to Take Control of Your Farm?",
+        "subtitle": "Join farmers who are managing smarter, reducing waste, and growing their productivity with QualoraHub.",
+        "button": "Contact Us for Free Demo",
+        "noCreditCard": "No credit card required",
+        "freeExplore": "Free to explore",
+        "cancelAnytime": "Cancel anytime"
+      }
+    },
+    "pricing": {
+      "seo": {
+        "title": "Pricing | QualoraHub",
+        "description": "Explore QualoraHub's complete farm management suite and contact us for tailored pricing.",
+        "ogTitle": "QualoraHub Pricing",
+        "ogDescription": "One complete platform for operations, crop, livestock, inventory, commerce, finance, and management."
+      },
+      "hero": {
+        "badge": "Complete Platform",
+        "titlePrefix": "Everything your farm needs in",
+        "titleHighlight": "one plan.",
+        "description": "A full platform package across operations, crop production, livestock, inventory, commerce, finance, and management."
+      },
+      "plan": {
+        "badge": "All Features Included",
+        "title": "QualoraHub Complete Suite",
+        "subtitle": "A full platform package for modern farm operations.",
+        "cta": "Contact Us for Pricing",
+        "ctaHint": "Share your farm profile and we'll send a tailored proposal.",
+        "sections": {
+          "operations": {
+            "title": "Operations",
+            "description": "Run daily farm work with clear visibility and coordination.",
+            "items": {
+              "dashboard": "Dashboard",
+              "fieldsLots": "Fields & Lots",
+              "tasks": "Tasks",
+              "weather": "Weather",
+              "notificationsWarnings": "Notifications (Warnings)"
+            }
+          },
+          "cropProduction": {
+            "title": "Crop & Production",
+            "description": "Plan and execute crop cycles with structured operational control.",
+            "items": {
+              "cropPlanning": "Crop Planning",
+              "productionCycles": "Production Cycles",
+              "operationTracking": "Operation Tracking"
+            }
+          },
+          "livestock": {
+            "title": "Livestock",
+            "description": "Manage housing, profiles, and productivity workflows for animals.",
+            "items": {
+              "animalHousing": "Animal Housing",
+              "animalProfiles": "Animal Profiles",
+              "healthYieldFeedWaterFlows": "Health/Yield/Feed-Water Flows"
+            }
+          },
+          "inventory": {
+            "title": "Inventory",
+            "description": "Control stock structure, valuation, and movement adjustments.",
+            "items": {
+              "products": "Products",
+              "categories": "Categories",
+              "taxes": "Taxes",
+              "warehouses": "Warehouses",
+              "stockAdjustment": "Stock Adjustment"
+            }
+          },
+          "commerceFinance": {
+            "title": "Commerce & Finance",
+            "description": "Run selling channels and financial records in one connected flow.",
+            "items": {
+              "storeDashboard": "Store Dashboard",
+              "orders": "Orders",
+              "storefront": "Storefront",
+              "finance": "Finance",
+              "salesFlows": "Sales Flows"
+            }
+          },
+          "managementInsights": {
+            "title": "Management & Insights",
+            "description": "Manage teams, relationships, and reporting for smarter decisions.",
+            "items": {
+              "usersRoles": "Users/Roles",
+              "contacts": "Contacts",
+              "reports": "Reports",
+              "farmSettings": "Farm Settings"
+            }
+          }
+        }
+      }
+    },
+    "about": {
+      "seo": {
+        "title": "About QualoraHub | Smart Farm Management Software for Modern Agriculture",
+        "description": "QualoraHub is a modern farm management software platform helping farmers manage crops, livestock, inventory, tasks, and analytics. Built for real farm operations.",
+        "keywords": "farm management software, digital farming, farm operations, agritech platform, smart farming, precision agriculture, farm analytics, agricultural software",
+        "ogTitle": "About QualoraHub | Smart Farm Management Software",
+        "ogDescription": "Discover how QualoraHub helps farmers manage crops, livestock, inventory, and operations in one connected platform."
+      },
+      "hero": {
+        "title": "QualoraHub - Smart Farm Management, Built for Real Operations",
+        "subtitle": "A modern farm management software (FMS) platform designed to help farmers manage crops, livestock, inventory, tasks, and analytics in one connected system.",
+        "description": "QualoraHub brings centralized farm management to operations of all sizes. Make data-driven decisions with clear visibility into costs, yields, and performance. Reduce manual work by replacing spreadsheets and disconnected tools with a single, integrated platform."
+      },
+      "whyExists": {
+        "title": "Why QualoraHub Exists",
+        "problem": {
+          "title": "The Problem",
+          "items": {
+            "silos": "Farms rely on spreadsheets, notebooks, and disconnected tools that create silos",
+            "scattered": "Critical data is scattered across people, systems, and paper records",
+            "visibility": "Decisions are made without clear visibility into cost, yield, or risk",
+            "time": "Time is wasted searching for information and reconciling records"
+          }
+        },
+        "solution": {
+          "title": "The Solution",
+          "items": {
+            "platformStrong": "One platform",
+            "platformRest": "that connects all aspects of farm operations",
+            "truthStrong": "One source of truth",
+            "truthRest": "where all farm data lives and is accessible",
+            "workflowStrong": "Built for daily farm workflows",
+            "workflowRest": "not generic business processes",
+            "digitalStrong": "Digital farming",
+            "digitalRest": "that grows with your operation"
+          }
+        }
+      },
+      "targetAudience": {
+        "title": "Who QualoraHub Is Built For",
+        "subtitle": "Whether you are starting simple or managing complex operations, QualoraHub scales with your needs.",
+        "items": {
+          "cropFarms": {
+            "title": "Crop Farms",
+            "description": "Small to commercial scale operations managing fields, planting, and harvests"
+          },
+          "livestockOperations": {
+            "title": "Livestock Operations",
+            "description": "Cattle, poultry, and other animal farming businesses tracking health and productivity"
+          },
+          "mixedFarms": {
+            "title": "Mixed Farms",
+            "description": "Integrated operations combining crop production with livestock management"
+          },
+          "managersOwners": {
+            "title": "Farm Managers & Owners",
+            "description": "Decision-makers seeking visibility into daily operations and performance"
+          },
+          "growingAgribusinesses": {
+            "title": "Growing Agribusinesses",
+            "description": "Expanding operations that need scalable systems to support growth"
+          }
+        }
+      },
+      "management": {
+        "title": "What QualoraHub Helps You Manage",
+        "subtitle": "Comprehensive tools for every aspect of farm operations, from field to finance.",
+        "items": {
+          "cropField": {
+            "title": "Crop & Field Management",
+            "description": "Plan planting schedules, track growth stages, and manage field activities from sowing to harvest."
+          },
+          "livestock": {
+            "title": "Livestock Management",
+            "description": "Monitor animal health, track breeding cycles, and manage feeding schedules across your herd."
+          },
+          "inventory": {
+            "title": "Inventory & Input Tracking",
+            "description": "Track seeds, fertilizers, feed, and supplies with real-time stock levels and usage logs."
+          },
+          "tasks": {
+            "title": "Task Scheduling & Operations",
+            "description": "Assign work, set deadlines, and ensure farm activities are completed on time."
+          },
+          "yieldWaste": {
+            "title": "Yield & Waste Tracking",
+            "description": "Record harvest quantities, monitor waste, and identify opportunities to improve efficiency."
+          },
+          "analytics": {
+            "title": "Analytics & Profitability",
+            "description": "Visualize costs, revenue, and margins with clear reports and actionable insights."
+          },
+          "compliance": {
+            "title": "Compliance & Traceability",
+            "description": "Maintain audit-ready records for certifications, food safety, and regulatory requirements."
+          },
+          "records": {
+            "title": "Record Keeping",
+            "description": "Centralized farm records accessible anytime, replacing scattered spreadsheets and notebooks."
+          }
+        }
+      },
+      "philosophy": {
+        "title": "Our Product Philosophy",
+        "subtitle": "How we design features for smart farming and precision agriculture.",
+        "items": {
+          "simple": {
+            "title": "Simple First, Powerful When Needed",
+            "description": "Start with the basics and unlock advanced features as your needs grow."
+          },
+          "workflows": {
+            "title": "Built Around Real Farm Workflows",
+            "description": "Designed by understanding how farms actually operate, not theoretical models."
+          },
+          "modular": {
+            "title": "Modular & Scalable",
+            "description": "Use only the modules you need. Add more as your operation expands."
+          },
+          "connected": {
+            "title": "Data Connected Across Modules",
+            "description": "Information flows between crops, livestock, inventory, and finance seamlessly."
+          },
+          "clarity": {
+            "title": "Designed for Clarity, Not Complexity",
+            "description": "Clean interfaces that surface what matters without overwhelming you."
+          }
+        }
+      },
+      "faq": {
+        "title": "FAQ",
+        "subtitle": "Common challenges in farm operations and how QualoraHub addresses them.",
+        "items": {
+          "records": {
+            "question": "How do farms replace spreadsheets and manual records?",
+            "answer": "QualoraHub provides centralized farm records in a structured digital format. Instead of scattered spreadsheets and handwritten notes, all your data from crop activities to inventory levels lives in one platform. Dashboards give you instant visibility, while organized data makes it easy to find historical records, track changes, and make informed decisions without searching through files."
+          },
+          "costs": {
+            "question": "How can farms reduce waste and input costs?",
+            "answer": "By tracking every input, seeds, fertilizers, fuel, feed, QualoraHub helps you see exactly where resources go. Usage logs identify over-application or inefficiencies. Waste analytics highlight patterns so you can adjust practices. The result: less waste, lower costs, and better resource allocation based on actual data rather than guesswork."
+          },
+          "yield": {
+            "question": "How do farms improve crop yield and consistency?",
+            "answer": "QualoraHub connects crop planning with task execution and yield tracking. You plan what to plant and when, assign tasks to ensure activities happen on schedule, then record actual yields. Over time, analytics reveal which practices work best, what seed varieties perform, which fields produce more, and how timing affects results, so you can replicate success."
+          },
+          "teams": {
+            "question": "How can farm teams stay aligned and accountable?",
+            "answer": "Task management in QualoraHub lets you assign work to team members with clear deadlines and priorities. Everyone sees what needs to be done, who is responsible, and what has been completed. Operational visibility means no more miscommunication or missed activities, the whole team works from the same information."
+          },
+          "compliance": {
+            "question": "How do farms stay compliant and audit-ready?",
+            "answer": "Structured farm records in QualoraHub create a clear audit trail. Every activity, input application, and harvest is logged with dates and details. When auditors or certification bodies request documentation, you can generate reports quickly. Traceability from field to product helps meet food safety requirements without scrambling to gather records."
+          }
+        }
+      },
+      "sustainability": {
+        "title": "Sustainability & Smarter Farming",
+        "description": "QualoraHub supports sustainable farm practices through better visibility and smarter resource use, not through buzzwords, but through practical tools that help you farm more efficiently.",
+        "items": {
+          "reducedInputWaste": {
+            "title": "Reduced Input Waste",
+            "description": "Track exactly what goes into each field or pen, identify overuse, and optimize application rates."
+          },
+          "timing": {
+            "title": "Better Timing & Resource Use",
+            "description": "Schedule activities at optimal times based on data, not guesswork, reducing unnecessary applications."
+          },
+          "dataDriven": {
+            "title": "Data-Driven Sustainability",
+            "description": "Make decisions based on actual performance data to improve efficiency over time."
+          },
+          "profitability": {
+            "title": "Long-Term Profitability",
+            "description": "Sustainable practices lead to lower costs and better yields, QualoraHub helps you track and prove it."
+          }
+        },
+        "quote": "Sustainability is not a feature, it is a result of managing resources well.",
+        "quoteCaption": "QualoraHub gives you the visibility to make every input count."
+      },
+      "closing": {
+        "title": "Farming Is Complex. Management Should Not Be.",
+        "description": "QualoraHub exists to make daily farm operations clearer and more predictable. One platform. Clear data. Better decisions."
+      },
+      "cta": {
+        "title": "Ready to Take Control of Your Farm?",
+        "subtitle": "Join farmers who are managing smarter, reducing waste, and growing their productivity with QualoraHub.",
+        "button": "Contact Us for Free Demo",
+        "noCreditCard": "No credit card required",
+        "freeExplore": "Free to explore",
+        "cancelAnytime": "Cancel anytime"
+      }
+    },
+    "auth": {
+      "logoAlt": "Qualora",
+      "nav": {
+        "overview": "Overview",
+        "blogs": "Blogs"
+      },
+      "ctaSignIn": "Sign in",
+      "signInFailedTitle": "Sign in failed",
+      "welcomeBackToastTitle": "Welcome back!",
+      "signInSuccessDesc": "Signed in successfully.",
+      "cardTitle": "Welcome back",
+      "cardSubtitle": "Sign in to your QualoraHub account",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "Email",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "••••••••",
+      "forgotPassword": "Forgot password?",
+      "signingIn": "Signing in...",
+      "signIn": "Sign in",
+      "noAccount": "Don't have an account?",
+      "contactUs": "Contact us",
+      "copyright": "© {{year}} Qualora. All rights reserved."
+    },
+    "contactDialog": {
+      "missingInfoTitle": "Missing Information",
+      "missingInfoDesc": "Please provide your name and email address.",
+      "invalidEmailTitle": "Invalid Email",
+      "invalidEmailDesc": "Please enter a valid email address.",
+      "sentTitle": "Request Sent!",
+      "sentDesc": "We'll contact you shortly to schedule your free demo.",
+      "errorTitle": "Something went wrong",
+      "errorDesc": "Please try again or contact us directly.",
+      "title": "Request a Free Demo",
+      "description": "Fill out the form below and we'll get in touch to schedule your personalized demo.",
+      "submit": "Send Request",
+      "fullName": "Full Name *",
+      "email": "Email Address *",
+      "phone": "Phone Number",
+      "farmName": "Farm Name",
+      "message": "Message (Optional)",
+      "fullNamePlaceholder": "John Doe",
+      "emailPlaceholder": "john@example.com",
+      "phonePlaceholder": "+1 (555) 123-4567",
+      "farmNamePlaceholder": "Green Valley Farm",
+      "messagePlaceholder": "Tell us about your farm and what you're looking for..."
+    }
+  }
+}

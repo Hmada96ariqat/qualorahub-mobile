@@ -9,12 +9,12 @@ import {
   AppSection,
   EmptyState,
   ErrorState,
-  HeaderActionGroup,
-  NotificationHeaderButton,
   PullToRefreshContainer,
   SectionCard,
   Skeleton,
+  SystemHeaderActions,
 } from '../../../components';
+import { useAppI18n } from '../../../hooks/useAppI18n';
 import { useAuth } from '../../../providers/AuthProvider';
 import { spacing } from '../../../theme/tokens';
 import { useAccountModule } from '../../../hooks/useAccountModule.hook';
@@ -45,6 +45,7 @@ function moduleLabel(moduleKey: ManagementModuleKey): string {
 }
 
 export function AccountScreen() {
+  const { t } = useAppI18n();
   const { accessSnapshot, hasMenuAccess } = useAuth();
   const { subscription, isLoading, isRefreshing, errorMessage, refresh } = useAccountModule();
 
@@ -76,12 +77,14 @@ export function AccountScreen() {
   return (
     <AppScreen padded={false}>
       <AppHeader
-        title="Account"
-        subtitle="Profile context, subscription, and access state."
+        title={t('system', 'headers.account.title', 'Account')}
+        subtitle={t(
+          'system',
+          'headers.account.subtitle',
+          'Profile context, subscription, and access state.',
+        )}
         rightAction={
-          <HeaderActionGroup>
-            <NotificationHeaderButton testID="account-header-notifications" />
-          </HeaderActionGroup>
+          <SystemHeaderActions notificationTestID="account-header-notifications" />
         }
       />
 

@@ -1,0 +1,758 @@
+{
+  "animalProfile": {
+    "title": "ملف الحيوانات",
+    "subtitle": "إدارة مخزون الحيوانات في مزرعتك",
+
+    "connectionStatus": {
+      "online": "متصل",
+      "offline": "غير متصل",
+      "pending": "{{count}} بانتظار المزامنة"
+    },
+
+    "buttons": {
+      "addAnimal": "إضافة حيوان"
+    },
+
+    "export": "تصدير",
+
+    "dashboard": {
+      "totalAnimals": "إجمالي الحيوانات",
+      "registeredAnimals": "الحيوانات المسجلة",
+      "taggedAnimals": "الحيوانات المرقمة",
+      "completionRate": "{{percent}}% نسبة الإكمال",
+      "healthStatus": "الحالة الصحية",
+      "healthyAnimals": "الحيوانات السليمة",
+      "speciesCount": "عدد الأنواع",
+      "differentSpecies": "أنواع مختلفة"
+    },
+
+    "viewMode": {
+      "label": "وضع العرض"
+    },
+
+    "dialog": {
+      "createTitle": "إضافة حيوان جديد",
+      "editTitle": "تعديل الحيوان",
+      "createDescription": "أدخل التفاصيل لإضافة حيوان جديد إلى المخزون",
+      "editDescription": "تحديث معلومات الحيوان"
+    },
+
+    "filters": {
+      "title": "عوامل التصفية والبحث",
+      "status": "الحالة الصحية",
+      "allStatuses": "كل الحالات",
+      "species": "النوع",
+      "allSpecies": "كل الأنواع",
+      "sellingType": "نوع البيع",
+      "allSellingTypes": "كل أنواع البيع",
+      "selling": "بيع",
+      "buying": "شراء",
+      "both": "كلاهما",
+      "source": "المصدر",
+      "allSources": "كل المصادر",
+      "fromFarm": "من المزرعة",
+      "outside": "خارجي",
+      "storefrontDisplay": "العرض في المتجر",
+      "allAnimals": "كل الحيوانات",
+      "onStorefront": "معروض في المتجر",
+      "notOnStorefront": "غير معروض في المتجر",
+      "housingUnit": "وحدة السكن",
+      "allHousingUnits": "كل وحدات السكن",
+      "noHousingUnit": "بدون وحدة سكن",
+      "animalGroup": "مجموعة الحيوانات",
+      "allGroups": "كل المجموعات",
+      "noGroup": "بدون مجموعة",
+      "applyFiltersClose": "تطبيق عوامل التصفية وإغلاق",
+      "filtersApplied": "تم تطبيق عوامل التصفية",
+      "filtersAppliedDesc": "تمت تصفية قائمة الحيوانات وفقًا لمعاييرك."
+    },
+
+    "search": {
+      "placeholder": "ابحث حسب رقم العلامة أو الاسم أو السلالة..."
+    },
+
+    "registry": {
+      "title": "سجل الحيوانات",
+      "description": "القائمة الكاملة لكل الحيوانات في مزرعتك"
+    },
+
+    "messages": {
+      "loading": "جارٍ تحميل الحيوانات...",
+      "noAnimals": "لا توجد حيوانات",
+      "clickAddAnimal": "انقر على \"إضافة حيوان\" للبدء"
+    },
+
+    "cards": {
+      "unnamed": "حيوان بدون اسم",
+      "unnamedShort": "بدون اسم",
+      "tag": "العلامة",
+      "mode": "النمط",
+      "quantity": "الكمية",
+      "weight": "الوزن",
+      "age": "العمر",
+      "viewProfile": "عرض الملف"
+    },
+
+    "table": {
+      "nameTag": "الاسم/العلامة",
+      "species": "النوع",
+      "mode": "النمط",
+      "health": "الصحة",
+      "weight": "الوزن",
+      "actions": "الإجراءات"
+    },
+
+    "dialogs": {
+      "deactivateTitle": "تعطيل الحيوان",
+      "deactivateDescription": "هل أنت متأكد من تعطيل هذا الحيوان؟ ستتم إزالته من قوائم الحيوانات النشطة ويمكن إعادة تفعيله لاحقًا."
+    },
+
+    "tabs": {
+      "profileInfo": "معلومات الملف",
+      "healthCheck": "فحص الصحة",
+      "yieldRecord": "سجل الإنتاج"
+    },
+
+    "profileModal": {
+      "title": "ملف الحيوان",
+      "description": "عرض التفاصيل لـ {{name}}",
+      "thisAnimal": "هذا الحيوان"
+    },
+
+    "profile": {
+      "basicInformation": "المعلومات الأساسية",
+      "productionPhysical": "تفاصيل الإنتاج والصفات",
+      "healthInformation": "المعلومات الصحية",
+      "financialInformation": "المعلومات المالية",
+      "additionalInformation": "معلومات إضافية",
+      "name": "الاسم",
+      "tagNumber": "رقم العلامة",
+      "species": "النوع",
+      "breed": "السلالة",
+      "gender": "الجنس",
+      "birthDate": "تاريخ الميلاد",
+      "trackingMode": "نمط التتبع",
+      "quantity": "الكمية",
+      "weight": "الوزن",
+      "productionType": "نوع الإنتاج",
+      "reproductiveStatus": "الحالة التكاثرية",
+      "geneticInfo": "المعلومات الوراثية",
+      "healthStatus": "الحالة الصحية",
+      "lastVetVisit": "آخر زيارة بيطرية",
+      "diseaseHistory": "تاريخ الأمراض",
+      "healthNotes": "ملاحظات صحية",
+      "source": "المصدر",
+      "ownershipStatus": "حالة الملكية",
+      "cost": "التكلفة",
+      "salePrice": "سعر البيع",
+      "purchasePrice": "سعر الشراء",
+      "wholesalePrice": "سعر الجملة",
+      "description": "الوصف",
+      "activeStatus": "الحالة النشطة",
+      "displayOnStorefront": "العرض في المتجر"
+    },
+
+    "common": {
+      "notProvided": "غير متوفر",
+      "notSpecified": "غير محدد",
+      "notRecorded": "غير مسجل",
+      "notApplicable": "غير منطبق",
+      "noRecords": "لا توجد سجلات",
+      "noDiseaseHistory": "لا يوجد تاريخ أمراض",
+      "noAdditionalHealthNotes": "لا توجد ملاحظات صحية إضافية",
+      "notSet": "غير مضبوط",
+      "noDescription": "لا يوجد وصف",
+      "unknown": "غير معروف",
+      "unknownUser": "مستخدم غير معروف",
+      "unknownContact": "جهة اتصال غير معروفة"
+    },
+
+    "units": {
+      "kg": "كجم",
+      "liters": "لتر",
+      "dozen": "دزينة",
+      "bpm": "نبضة/د",
+      "rpm": "نفس/د",
+      "celsius": "°م"
+    },
+
+    "age": {
+      "label": "العمر: {{age}}",
+      "days": "{{count}} يوم",
+      "months": "{{count}} شهر",
+      "years": "{{count}} سنة",
+      "yearsMonths": "{{years}} سنة {{months}} شهر"
+    },
+
+    "species": {
+      "cattle": "أبقار",
+      "sheep": "أغنام",
+      "goats": "ماعز",
+      "horses": "خيول",
+      "pigs": "خنازير",
+      "donkeys": "حمير",
+      "mules": "بغال",
+      "buffalo": "جاموس",
+      "yaks": "ياك",
+      "camels": "جمال",
+      "llamas": "لاما",
+      "alpacas": "ألبكة",
+      "chickens": "دجاج",
+      "ducks": "بط",
+      "turkeys": "ديك رومي",
+      "geese": "أوز",
+      "guinea_fowl": "دجاج غيني",
+      "quails": "سمان",
+      "pheasants": "تدرج",
+      "peacocks": "طواويس",
+      "ostriches": "نعام",
+      "emus": "إيمو",
+      "rheas": "ريا",
+      "rabbits": "أرانب",
+      "chinchillas": "شنشيلة",
+      "ferrets": "نموس",
+      "guinea_pigs": "خنازير غينيا",
+      "fish": "أسماك",
+      "shrimp": "روبيان",
+      "oysters": "محار",
+      "mussels": "بلح البحر",
+      "crabs": "سرطانات",
+      "lobsters": "كركند",
+      "seaweed": "طحالب بحرية",
+      "bees": "نحل",
+      "silkworms": "دود القز",
+      "crickets": "صراصير الليل",
+      "mealworms": "يرقات الدقيق",
+      "locusts": "جراد",
+      "deer": "غزلان",
+      "elk": "أيل",
+      "bison": "بيسون",
+      "kangaroos": "كنغر",
+      "crocodiles": "تماسيح",
+      "snakes": "ثعابين",
+      "iguanas": "إغوانا",
+      "turtles": "سلاحف",
+      "dogs": "كلاب",
+      "cats": "قطط",
+      "other": "أخرى"
+    },
+
+    "healthStatus": {
+      "healthy": "سليم",
+      "sick": "مريض",
+      "under_treatment": "تحت العلاج",
+      "quarantined": "في الحجر",
+      "recovered": "متعافٍ",
+      "dead": "نافق",
+      "needs_attention": "يحتاج إلى عناية",
+      "emergency": "طارئ"
+    },
+
+    "toasts": {
+      "animalRecord": "الحيوان",
+      "createSuccess": "تم إنشاء {{name}} بنجاح",
+      "updateSuccess": "تم تحديث {{name}} بنجاح",
+      "deactivateSuccess": "تم تعطيل الحيوان بنجاح",
+      "createError": "فشل إنشاء الحيوان",
+      "updateError": "فشل تحديث الحيوان",
+      "deactivateError": "فشل تعطيل الحيوان",
+      "splitGroupTitle": "تقسيم المجموعة",
+      "splitGroupDescription": "سيؤدي ذلك إلى تقسيم المجموعة إلى حيوانات فردية.",
+      "decrementSuccess": "تم تحديث عدد المجموعة إلى {{count}}",
+      "decrementError": "فشل تحديث عدد المجموعة",
+      "bulkCreateSuccess": "تم إنشاء مجموعة تضم {{count}} حيوانًا بنجاح",
+      "bulkCreateError": "فشل إنشاء الحيوانات"
+    },
+
+    "bulkAdd": {
+      "title": "إضافة جماعية للحيوانات",
+      "description": "إنشاء عدة حيوانات دفعة واحدة",
+      "button": "إضافة جماعية",
+      "adding": "جارٍ الإضافة...",
+      "addCount": "إضافة {{count}}",
+      "formTitle": "تفاصيل الحيوانات بالجملة",
+      "fields": {
+        "quantity": "الكمية",
+        "quantityPlaceholder": "مثال: 10",
+        "quantityHelp": "الحد الأقصى 25 حيوانًا لكل دفعة",
+        "tagPrefix": "بادئة العلامة",
+        "tagPrefixPlaceholder": "مثال: COW-",
+        "tagPrefixHelp": "بادئة اختيارية لتوليد العلامات",
+        "tagStartNumber": "رقم بداية العلامة",
+        "tagStartPlaceholder": "مثال: 1001",
+        "tagStartHelp": "أول رقم علامة سيتم استخدامه",
+        "birthDateSame": "نفس تاريخ الميلاد للجميع",
+        "averageWeight": "متوسط الوزن",
+        "averageWeightPlaceholder": "مثال: 250",
+        "healthNotesPlaceholder": "ملاحظات صحية للمجموعة..."
+      },
+      "tagPreview": {
+        "label": "معاينة العلامات:",
+        "none": "لا توجد علامات",
+        "single": "{{tag}}",
+        "multiple": "{{count}} علامات تبدأ من {{start}}",
+        "range": "{{start}} - {{end}}"
+      },
+      "mode": {
+        "title": "وضع الإضافة الجماعية",
+        "description": "اختر طريقة إضافة الحيوانات",
+        "sameTitle": "نفس التفاصيل للجميع",
+        "customizeTitle": "تخصيص كل حيوان",
+        "sameLabel": "نفس التفاصيل:",
+        "sameDescription": "جميع الحيوانات تشترك في نفس التفاصيل.",
+        "customizeLabel": "تخصيص:",
+        "customizeDescription": "تعديل التفاصيل لكل حيوان."
+      }
+    },
+
+    "bulkWizard": {
+      "reviewTitle": "المراجعة",
+      "stepLabel": "الخطوة {{current}} من {{total}}",
+      "reviewSummaryTitle": "ملخص المراجعة ({{count}} حيوان)",
+      "animalBadge": "حيوان {{index}}",
+      "weightLabel": "الوزن:",
+      "statusLabel": "الحالة:",
+      "housingLabel": "السكن:",
+      "unknownHousing": "وحدة سكن غير معروفة",
+      "notSet": "غير مضبوط",
+      "addAllButton": "إضافة {{count}} حيوان",
+      "stepTitle": "تخصيص الحيوان {{current}} من {{total}}",
+      "detailsTitle": "تفاصيل الحيوان {{index}}",
+      "fields": {
+        "nameOptional": "الاسم (اختياري)",
+        "namePlaceholder": "اسم اختياري",
+        "healthNotesPlaceholder": "ملاحظات صحية..."
+      },
+      "navigation": {
+        "previous": "السابق",
+        "backToSetup": "العودة للإعداد",
+        "reviewAll": "مراجعة الكل",
+        "next": "التالي"
+      }
+    },
+
+    "selection": {
+      "selectMultiple": "تحديد متعدد",
+      "selectAll": "تحديد الكل",
+      "deselectAll": "إلغاء تحديد الكل",
+      "deactivateSelected": "تعطيل المحدد ({{count}})",
+      "noSelectionTitle": "لم يتم تحديد أي حيوان",
+      "noSelectionDescription": "حدد حيوانًا واحدًا على الأقل لتعطيله."
+    },
+
+    "pagination": {
+      "prev": "السابق",
+      "next": "التالي",
+      "pageInfo": "صفحة {{page}} من {{total}}"
+    },
+
+    "group": {
+      "groupLabel": "مجموعة",
+      "individualAnimals": "حيوانات فردية",
+      "totalCount": "{{count}} إجمالي",
+      "animalCount": "{{count}} حيوان",
+      "tagRange": {
+        "single": "علامة {{tag}}",
+        "range": "علامات {{start}} - {{end}}"
+      },
+      "actions": {
+        "viewGroup": "عرض المجموعة",
+        "editGroup": "تعديل المجموعة",
+        "removeFromGroup": "إزالة من المجموعة"
+      },
+      "moreAnimals": "+{{count}} حيوان إضافي",
+      "clickToSeeAll": "انقر لعرض الكل",
+      "deleteDialog": {
+        "deleteGroupTitle": "تعطيل المجموعة",
+        "deleteGroupDescription": "سيؤدي ذلك إلى تعطيل المجموعة بالكامل.",
+        "warning": "ستتم إزالة المجموعة من القوائم النشطة ويمكن إعادة تفعيلها لاحقًا.",
+        "removeAnimalTitle": "إزالة حيوان",
+        "removeAnimalDescription": "سيقل عدد المجموعة إلى {{count}}.",
+        "updateNote": "يمكنك تعديل المجموعة لاحقًا.",
+        "deleteGroupAction": "تعطيل المجموعة",
+        "removeAnimalAction": "إزالة حيوان"
+      },
+      "toasts": {
+        "createSuccess": "تم إنشاء مجموعة الحيوانات بنجاح",
+        "createError": "فشل إنشاء مجموعة الحيوانات",
+        "updateSuccess": "تم تحديث مجموعة الحيوانات بنجاح",
+        "updateError": "فشل تحديث مجموعة الحيوانات",
+        "deactivateSuccess": "تم تعطيل مجموعة الحيوانات بنجاح",
+        "deactivateError": "فشل تعطيل مجموعة الحيوانات"
+      }
+    },
+
+    "bulkDeactivate": {
+      "title": "تعطيل الحيوانات المحددة",
+      "description": "أنت على وشك تعطيل {{count}} حيوان.",
+      "warning": "ستتم إزالتها من القوائم النشطة ويمكن إعادة تفعيلها لاحقًا.",
+      "action": "تعطيل {{count}}",
+      "success": "تم تعطيل {{count}} حيوان بنجاح",
+      "error": "فشل تعطيل الحيوانات المحددة"
+    },
+
+    "images": {
+      "upload": "رفع",
+      "uploading": "جارٍ الرفع...",
+      "count": "{{count}} / {{max}} صور",
+      "altAnimal": "صورة الحيوان",
+      "altAnimalIndex": "صورة الحيوان {{index}}",
+      "altAnimalImage": "صورة الحيوان",
+      "altImageIndex": "الصورة {{index}}",
+      "counter": "{{current}} من {{total}}",
+      "errors": {
+        "loginRequired": "يرجى تسجيل الدخول لرفع الصور."
+      },
+      "toasts": {
+        "maxImagesTitle": "تم الوصول إلى حد الصور",
+        "maxImagesDescription": "يمكنك رفع حتى {{count}} صورة.",
+        "invalidFilesTitle": "ملفات غير صالحة",
+        "invalidFilesDescription": "يرجى اختيار ملفات صور فقط.",
+        "uploadSuccess": "تم رفع {{count}} صورة بنجاح",
+        "uploadError": "فشل رفع الصور"
+      }
+    },
+
+    "errors": {
+      "userNotAuthenticated": "المستخدم غير مسجل الدخول",
+      "farmNotFound": "لم يتم العثور على المزرعة"
+    },
+
+    "individualAnimalProfile": {
+      "back": "رجوع",
+      "editAnimal": "تعديل الحيوان",
+      "animalNotFound": "لم يتم العثور على الحيوان",
+      "animalNotFoundDescription": "لم نتمكن من العثور على الحيوان المطلوب.",
+      "backToAnimalProfile": "العودة إلى ملف الحيوانات",
+      "unnamedAnimal": "حيوان بدون اسم",
+
+      "healthStatus": {
+        "healthy": "سليم",
+        "sick": "مريض",
+        "injured": "مصاب",
+        "quarantine": "حجر صحي"
+      },
+
+      "stats": {
+        "age": "العمر",
+        "weight": "الوزن",
+        "averageWeight": "متوسط الوزن",
+        "healthChecks": "الفحوصات الصحية",
+        "yieldRecords": "سجلات الإنتاج",
+        "productionRecords": "سجلات الإنتاج",
+        "born": "تاريخ الميلاد",
+        "unknown": "غير معروف",
+        "last": "آخر",
+        "never": "أبدًا"
+      },
+
+      "tabs": {
+        "profileInfo": "معلومات الملف",
+        "healthCheck": "فحص الصحة",
+        "yieldProducts": "منتجات الإنتاج"
+      },
+
+      "sections": {
+        "basicInformation": "المعلومات الأساسية",
+        "productionInformation": "معلومات الإنتاج",
+        "healthInformation": "المعلومات الصحية",
+        "financialInformation": "المعلومات المالية",
+        "additionalInformation": "معلومات إضافية"
+      },
+
+      "fields": {
+        "tagNumber": "رقم العلامة",
+        "notAvailable": "غير متوفر",
+        "name": "الاسم",
+        "species": "النوع",
+        "breed": "السلالة",
+        "gender": "الجنس",
+        "birthDate": "تاريخ الميلاد",
+        "productionType": "نوع الإنتاج",
+        "reproductiveStatus": "الحالة التكاثرية",
+        "trackingMode": "نمط التتبع",
+        "quantity": "الكمية",
+        "healthStatus": "الحالة الصحية",
+        "lastVetVisit": "آخر زيارة بيطرية",
+        "diseaseHistory": "تاريخ الأمراض",
+        "healthNotes": "ملاحظات صحية",
+        "cost": "التكلفة",
+        "salePrice": "سعر البيع",
+        "purchasePrice": "سعر الشراء",
+        "wholesalePrice": "سعر الجملة"
+      },
+
+      "noNotes": "لا توجد ملاحظات",
+
+      "healthCheck": {
+        "title": "فحص الصحة",
+        "onlineSynced": "متصل (مزامن)",
+        "description": "تتبع وإدارة سجلات فحوصات صحة الحيوان",
+        "addHealthCheck": "إضافة فحص صحي",
+        "addNewHealthCheck": "إضافة فحص صحي جديد",
+        "editHealthCheck": "تعديل الفحص الصحي",
+        "updateHealthCheck": "تحديث معلومات الفحص الصحي",
+        "recordNewExamination": "تسجيل فحص صحي جديد لهذا الحيوان",
+        "recordTitle": "تسجيل صحة الحيوان",
+        "recordDescription": "توثيق الفحوصات والملاحظات الصحية",
+        "searchPlaceholder": "ابحث في الفحوصات الصحية...",
+        "allStatuses": "كل الحالات",
+        "allPerformers": "كل القائمين",
+        "filters": {
+          "status": "تصفية حسب الحالة",
+          "performedBy": "تم بواسطة"
+        },
+        "loading": "جارٍ تحميل الفحوصات الصحية...",
+        "noHealthChecks": "لا توجد فحوصات صحية",
+        "table": {
+          "date": "التاريخ",
+          "performedBy": "تم بواسطة",
+          "healthStatus": "الحالة الصحية",
+          "weight": "الوزن",
+          "nextCheckDue": "موعد الفحص التالي",
+          "actions": "الإجراءات"
+        },
+        "delete": {
+          "title": "حذف الفحص الصحي",
+          "description": "هل أنت متأكد من حذف هذا الفحص الصحي؟ لا يمكن التراجع عن هذا الإجراء."
+        },
+        "validation": {
+          "dateRequired": "تاريخ الفحص مطلوب",
+          "performerRequired": "القائم بالفحص مطلوب",
+          "healthStatusRequired": "الحالة الصحية مطلوبة"
+        },
+        "sampleContacts": {
+          "veterinarian": "طبيب بيطري",
+          "specialist": "أخصائي"
+        },
+        "form": {
+          "validationErrors": "يرجى تصحيح الأخطاء التالية:",
+          "tabs": {
+            "visitInfo": "معلومات الزيارة",
+            "vitals": "العلامات الحيوية",
+            "examTreatment": "الفحص والعلاج"
+          },
+          "visitInfo": {
+            "title": "معلومات الزيارة",
+            "dateOfCheck": "تاريخ الفحص",
+            "pickDate": "اختر تاريخًا",
+            "performedBy": "تم بواسطة",
+            "performedByPlaceholder": "المالك / عامل المزرعة / الطبيب البيطري",
+            "selectPerformer": "اختر القائم بالفحص",
+            "healthStatus": "الحالة الصحية",
+            "selectHealthStatus": "اختر الحالة الصحية",
+            "summaryNotes": "ملاحظات موجزة",
+            "summaryNotesPlaceholder": "ملخص الحالة الصحية والملاحظات..."
+          },
+          "vitalsSection": {
+            "title": "العلامات الحيوية (اختياري)",
+            "temperature": "درجة الحرارة (°م)",
+            "temperaturePlaceholder": "38.5",
+            "heartRate": "معدل ضربات القلب (نبضة/د)",
+            "heartRatePlaceholder": "60",
+            "respiratoryRate": "معدل التنفس (نفس/د)",
+            "respiratoryRatePlaceholder": "25",
+            "weight": "الوزن (كجم)",
+            "weightPlaceholder": "600"
+          },
+          "examSection": {
+            "title": "الفحص البدني",
+            "findings": "نتائج الفحص البدني",
+            "findingsPlaceholder": "حالة الجسم، جودة الفراء، الشذوذات الظاهرة...",
+            "generalObservations": "ملاحظات عامة",
+            "generalObservationsPlaceholder": "السلوك، الشهية، الحركة..."
+          },
+          "treatmentSection": {
+            "title": "العلاجات",
+            "treatmentsGiven": "العلاجات والإجراءات المقدمة",
+            "treatmentsPlaceholder": "إزالة الديدان، تقليم الحوافر، تنظيف الجروح...",
+            "medicationsGiven": "الأدوية المعطاة (الاسم + الجرعة)",
+            "medicationsPlaceholder": "إيفرمكتين 10مل، بنسلين 5مل...",
+            "recommendations": "التوصيات",
+            "recommendationsPlaceholder": "رعاية لاحقة، تغييرات غذائية، راحة..."
+          },
+          "healthStatusOptions": {
+            "healthy": "سليم",
+            "needsAttention": "يحتاج إلى عناية",
+            "sick": "مريض",
+            "emergency": "طارئ"
+          },
+          "followUp": {
+            "title": "المتابعة",
+            "nextCheckDue": "موعد الفحص التالي"
+          },
+          "attachments": {
+            "title": "المرفقات",
+            "description": "رفع نتائج المختبر أو المستندات (قريبًا)",
+            "helper": "ستتوفر ميزة رفع الملفات قريبًا"
+          },
+          "cancel": "إلغاء",
+          "saving": "جارٍ الحفظ...",
+          "updateHealthCheck": "تحديث الفحص الصحي",
+          "createHealthCheck": "إنشاء فحص صحي"
+        },
+        "view": {
+          "title": "تفاصيل الفحص الصحي",
+          "description": "عرض سجل الفحص الصحي الكامل",
+          "date": "التاريخ",
+          "performedBy": "تم بواسطة",
+          "healthStatus": "الحالة الصحية",
+          "followUpDate": "تاريخ المتابعة",
+          "vitalsTitle": "العلامات الحيوية",
+          "temperature": "درجة الحرارة",
+          "heartRate": "معدل ضربات القلب",
+          "respiratoryRate": "معدل التنفس",
+          "weight": "الوزن",
+          "examinationTitle": "الفحص",
+          "physicalFindings": "نتائج الفحص البدني",
+          "generalObservations": "ملاحظات عامة",
+          "treatmentsTitle": "العلاجات",
+          "treatmentsGiven": "العلاجات المقدمة",
+          "medicationsGiven": "الأدوية المعطاة",
+          "recommendations": "التوصيات"
+        },
+        "toasts": {
+          "createSuccess": "تم تسجيل الفحص الصحي بنجاح",
+          "createError": "فشل تسجيل الفحص الصحي. حاول مرة أخرى.",
+          "updateSuccess": "تم تحديث الفحص الصحي بنجاح",
+          "updateError": "فشل تحديث الفحص الصحي. حاول مرة أخرى.",
+          "deleteSuccess": "تم حذف الفحص الصحي بنجاح",
+          "deleteError": "فشل حذف الفحص الصحي. حاول مرة أخرى."
+        }
+      },
+
+      "yieldRecord": {
+        "title": "سجل الإنتاج",
+        "onlineSynced": "متصل (مزامن)",
+        "description": "تتبع وإدارة سجلات إنتاج الحيوان",
+        "addYieldRecord": "إضافة سجل إنتاج",
+        "addNewYieldRecord": "إضافة سجل إنتاج جديد",
+        "editYieldRecord": "تعديل سجل الإنتاج",
+        "updateYieldRecord": "تحديث معلومات سجل الإنتاج",
+        "recordNewYield": "تسجيل إنتاج جديد لهذا الحيوان",
+        "recordTitle": "تسجيل إنتاج الحيوان",
+        "recordDescription": "توثيق إنتاج المنتجات مع تتبع الدُفعات",
+        "searchPlaceholder": "ابحث في سجلات الإنتاج...",
+        "allStatuses": "كل الحالات",
+        "allWarehouses": "كل المستودعات",
+        "filters": {
+          "status": "تصفية حسب الحالة",
+          "warehouse": "تصفية حسب المستودع"
+        },
+        "loading": "جارٍ تحميل سجلات الإنتاج...",
+        "noYieldRecords": "لا توجد سجلات إنتاج",
+        "noProducts": "لا توجد منتجات",
+        "moreProducts": "+{{count}} المزيد",
+        "table": {
+          "date": "التاريخ",
+          "status": "الحالة",
+          "products": "المنتجات",
+          "notes": "ملاحظات",
+          "actions": "الإجراءات"
+        },
+        "delete": {
+          "title": "حذف سجل الإنتاج",
+          "description": "هل أنت متأكد من حذف سجل الإنتاج هذا؟ لا يمكن التراجع عن هذا الإجراء."
+        },
+        "sampleWarehouses": {
+          "main": "المستودع الرئيسي",
+          "coldStorage": "مخزن مبرد",
+          "processing": "وحدة المعالجة"
+        },
+        "sampleProducts": {
+          "freshMilk": "حليب طازج",
+          "eggs": "بيض",
+          "honey": "عسل"
+        },
+        "sampleBatches": {
+          "first": "BATCH-001",
+          "second": "BATCH-002",
+          "third": "BATCH-003"
+        },
+        "validation": {
+          "productRequired": "المنتج مطلوب",
+          "quantityMin": "يجب أن تكون الكمية أكبر من 0",
+          "warehouseRequired": "المستودع مطلوب",
+          "dateRequired": "التاريخ مطلوب",
+          "lineItemsRequired": "مطلوب سطر منتج واحد على الأقل",
+          "expiryDaysMin": "يجب ألا تقل أيام الصلاحية عن 1"
+        },
+        "toasts": {
+          "createSuccess": "تم حفظ سجل الإنتاج بنجاح",
+          "createError": "فشل حفظ سجل الإنتاج. حاول مرة أخرى.",
+          "updateSuccess": "تم تحديث سجل الإنتاج بنجاح",
+          "updateError": "فشل تحديث سجل الإنتاج. حاول مرة أخرى.",
+          "deleteSuccess": "تم حذف سجل الإنتاج بنجاح",
+          "deleteError": "فشل حذف سجل الإنتاج. حاول مرة أخرى."
+        },
+        "form": {
+          "updateDescription": "تحديث سجل الإنتاج",
+          "createDescription": "تسجيل إنتاج جديد مع تتبع الدُفعات",
+          "date": "التاريخ",
+          "pickDate": "اختر تاريخًا",
+          "performedBy": "تم بواسطة",
+          "selectPerson": "اختر شخصًا",
+          "noOneSelected": "لا أحد محدد",
+          "notes": "ملاحظات",
+          "notesPlaceholder": "تم الجمع أثناء الحلب الصباحي...",
+          "yieldProductsTitle": "منتجات الإنتاج",
+          "addProductTitle": "إضافة منتج",
+          "selectProductButton": "اختر منتجًا للإضافة...",
+          "searchProducts": "ابحث عن المنتجات...",
+          "pricePerUnit": "لكل",
+          "cancel": "إلغاء",
+          "noProductsYet": "لم تتم إضافة منتجات بعد. انقر على \"اختر منتجًا للإضافة...\" للبدء.",
+          "warehouse": "المستودع",
+          "selectWarehouse": "اختر المستودع",
+          "warehouseHelp": "يضبط القيمة الافتراضية لأسطر المنتجات ما لم يتم التعديل",
+          "statusHelp": "عند الاكتمال، سيتم إنشاء قيد إدخال تلقائيًا",
+          "productLinesTitle": "أسطر المنتجات",
+          "tableHeaders": {
+            "productName": "اسم المنتج *",
+            "barcode": "الباركود",
+            "quantity": "الكمية *",
+            "batchNumber": "رقم الدفعة",
+            "warehouse": "المستودع"
+          },
+          "noBatchesAvailable": "لا توجد دفعات متاحة",
+          "attachments": {
+            "title": "المرفقات",
+            "description": "رفع تقارير المختبر أو المستندات (قريبًا)",
+            "helper": "ستتوفر ميزة رفع الملفات قريبًا"
+          },
+          "saving": "جارٍ الإنشاء...",
+          "productLine": {
+            "product": "المنتج",
+            "selectProduct": "اختر المنتج",
+            "batch": "الدفعة",
+            "selectBatch": "اختر الدفعة",
+            "enterBatchNumber": "أدخل رقم الدفعة",
+            "available": "المتاح",
+            "quantity": "الكمية",
+            "quantityPlaceholder": "1",
+            "unitCost": "تكلفة الوحدة",
+            "warehouse": "المستودع",
+            "selectWarehouse": "اختر المستودع",
+            "manufacturingDate": "تاريخ التصنيع",
+            "expiryDays": "أيام الصلاحية",
+            "expiryDaysPlaceholder": "30",
+            "expiryDate": "تاريخ الانتهاء",
+            "lineNotes": "ملاحظات السطر",
+            "lineNotesPlaceholder": "ملاحظات إضافية لهذا السطر..."
+          },
+          "status": "الحالة",
+          "selectStatus": "اختر الحالة",
+          "statusOptions": {
+            "draft": "مسودة",
+            "completed": "مكتمل"
+          },
+          "update": "تحديث",
+          "create": "إنشاء",
+          "yieldRecord": "سجل الإنتاج"
+        }
+      },
+
+      "noneRecorded": "غير مسجل"
+    }
+  }
+}

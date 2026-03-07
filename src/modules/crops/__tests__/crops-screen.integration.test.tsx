@@ -7,22 +7,34 @@ import type { LotSummary } from '../../../api/modules/lots';
 import type {
   CloseProductionCycleRequest,
   CreateCropRequest,
+  CreateHarvestOperationRequest,
   CreateProductionCycleOperationRequest,
   CreateProductionCycleRequest,
+  CreateTreatmentOperationRequest,
+  CropPracticeMapping,
   CropSummary,
-  LogbookSubmitRequest,
   ProductionCycleOperationSummary,
   ProductionCycleSummary,
   UpdateCropRequest,
+  UpdateHarvestOperationRequest,
   UpdateCropStatusRequest,
   UpdateProductionCycleNotesRequest,
   UpdateProductionCycleOperationRequest,
+  UpdateTreatmentOperationRequest,
 } from '../../../api/modules/crops';
 import { CropsScreen } from '../screens/CropsScreen';
 import { useCropsModule } from '../useCropsModule.hook';
 
 jest.mock('../useCropsModule.hook', () => ({
   useCropsModule: jest.fn(),
+}));
+
+jest.mock('../screens/components/LogbookActivityForm.component', () => ({
+  LogbookActivityForm: () => {
+    const React = require('react');
+    const { View } = require('react-native');
+    return React.createElement(View, { testID: 'mock-logbook-activity-form' });
+  },
 }));
 
 function renderScreen() {
@@ -47,6 +59,7 @@ describe('CropsScreen integration', () => {
     status: 'active',
     notes: null,
     fieldId: null,
+    cropGroupId: null,
     createdAt: '2026-03-01T00:00:00.000Z',
     updatedAt: '2026-03-01T00:00:00.000Z',
   };
@@ -91,6 +104,18 @@ describe('CropsScreen integration', () => {
     practiceId: null,
     createdAt: '2026-03-01T00:00:00.000Z',
     updatedAt: '2026-03-01T00:00:00.000Z',
+  };
+
+  const sampleCropPractice: CropPracticeMapping = {
+    id: 'practice-1',
+    code: 'LAND_PREP',
+    label: 'Land Preparation',
+    operationFamily: 'LAND_PREP',
+    domainArea: 'crops',
+    description: null,
+    isActive: true,
+    enabled: true,
+    relevance: null,
   };
 
   const createCropMock = jest
@@ -207,21 +232,28 @@ describe('CropsScreen integration', () => {
       lots: sampleLots,
       cycles: [],
       crops: [sampleCrop],
+      cropGroups: [],
+      products: [],
+      warehouses: [],
+      managedUsers: [],
+      managedContacts: [],
       cycleOperations: [],
-      logbookSession: null,
-      logbookPracticeCatalog: null,
+      harvestOperations: [],
+      treatmentOperations: [],
+      selectedCropPractices: [],
       isLoading: false,
       isRefreshing: false,
       isMutating: false,
+      cropGroupsLoading: false,
       operationsLoading: false,
-      logbookPracticeLoading: false,
+      cropPracticesLoading: false,
       errorMessage: null,
+      cropGroupsErrorMessage: null,
       operationsErrorMessage: null,
-      logbookPracticeErrorMessage: null,
-      latestLogbookResult: null,
+      cropPracticesErrorMessage: null,
       refresh: async () => undefined,
       refreshOperations: async () => undefined,
-      refreshLogbook: async () => undefined,
+      refreshCropPractices: async () => undefined,
       createCrop: createCropMock,
       updateCrop: async (cropId: string, input: UpdateCropRequest) => {
         void cropId;
@@ -267,17 +299,93 @@ describe('CropsScreen integration', () => {
         void operationId;
         return true;
       },
-      submitLogbook: async (input: LogbookSubmitRequest) => {
+      createTreatmentOperation: async (cycleId: string, input: CreateTreatmentOperationRequest) => {
+        void cycleId;
         void input;
         return {
-          status: 'saved',
-          recordId: 'record-1',
-          category: 'CROP_OPERATION',
-          family: 'LAND_PREP',
-          entityId: 'entity-1',
-          requiresFollowup: false,
+          id: 'treatment-1',
+          cycleId: sampleCycle.id,
+          status: 'draft',
+          treatmentDate: '2026-03-01',
+          treatmentType: 'Pesticide',
+          applicationMethod: null,
+          treatmentLocation: null,
+          retreatDate: null,
+          keywords: [],
+          description: null,
+          notes: null,
+          products: [],
+          attachments: [],
+          practiceId: null,
+          createdAt: '2026-03-01T00:00:00.000Z',
+          updatedAt: '2026-03-01T00:00:00.000Z',
         };
       },
+      updateTreatmentOperation: async (
+        operationId: string,
+        input: UpdateTreatmentOperationRequest,
+      ) => {
+        void operationId;
+        void input;
+        return {
+          id: 'treatment-1',
+          cycleId: sampleCycle.id,
+          status: 'draft',
+          treatmentDate: '2026-03-01',
+          treatmentType: 'Pesticide',
+          applicationMethod: null,
+          treatmentLocation: null,
+          retreatDate: null,
+          keywords: [],
+          description: null,
+          notes: null,
+          products: [],
+          attachments: [],
+          practiceId: null,
+          createdAt: '2026-03-01T00:00:00.000Z',
+          updatedAt: '2026-03-01T00:00:00.000Z',
+        };
+      },
+      createHarvestOperation: async (cycleId: string, input: CreateHarvestOperationRequest) => {
+        void cycleId;
+        void input;
+        return {
+          id: 'harvest-1',
+          cycleId: sampleCycle.id,
+          status: 'draft',
+          harvestDate: '2026-03-01',
+          workers: [],
+          totalHarvestedQuantity: 0,
+          totalHarvestedUnit: 'kg',
+          notes: null,
+          attachments: [],
+          practiceId: null,
+          createdAt: '2026-03-01T00:00:00.000Z',
+          updatedAt: '2026-03-01T00:00:00.000Z',
+        };
+      },
+      updateHarvestOperation: async (
+        operationId: string,
+        input: UpdateHarvestOperationRequest,
+      ) => {
+        void operationId;
+        void input;
+        return {
+          id: 'harvest-1',
+          cycleId: sampleCycle.id,
+          status: 'draft',
+          harvestDate: '2026-03-01',
+          workers: [],
+          totalHarvestedQuantity: 0,
+          totalHarvestedUnit: 'kg',
+          notes: null,
+          attachments: [],
+          practiceId: null,
+          createdAt: '2026-03-01T00:00:00.000Z',
+          updatedAt: '2026-03-01T00:00:00.000Z',
+        };
+      },
+      replaceCropPracticeMappings: async () => 0,
       ...overrides,
     };
   }
@@ -288,31 +396,36 @@ describe('CropsScreen integration', () => {
   });
 
   it('opens on the requested initial tab when provided', async () => {
-    const { getByText, queryByText } = renderScreenWithProps({ initialTab: 'logbook' });
+    const { getByTestId, queryByTestId } = renderScreenWithProps({ initialTab: 'logbook' });
 
     await waitFor(() => {
-      expect(getByText('Logbook submit')).toBeTruthy();
+      expect(getByTestId('mock-logbook-activity-form')).toBeTruthy();
+      expect(queryByTestId('crops-stats')).toBeNull();
     });
-
-    expect(queryByText('Crop catalog')).toBeNull();
   });
 
   it('submits create crop through the module hook with normalized payload fields', async () => {
-    const { getByText, getByPlaceholderText } = renderScreen();
+    const { getByPlaceholderText, getByTestId, getByText } = renderScreen();
 
-    fireEvent.press(getByText('Create Crop'));
+    await act(async () => {
+      fireEvent.press(getByTestId('crops-primary-action'));
+    });
 
     await waitFor(() => expect(getByPlaceholderText('Crop name')).toBeTruthy());
     fireEvent.changeText(getByPlaceholderText('Crop name'), '  New Basil  ');
     fireEvent.changeText(getByPlaceholderText('Optional variety'), '   ');
     fireEvent.changeText(getByPlaceholderText('Optional notes'), '   ');
-    fireEvent.press(getByText('Create'));
+    await act(async () => {
+      fireEvent.press(getByText('Create'));
+      await Promise.resolve();
+    });
 
     await waitFor(() =>
       expect(createCropMock).toHaveBeenCalledWith({
         payload: {
           crop_name: 'New Basil',
           crop_variety: null,
+          crop_group_id: null,
           notes: null,
         },
       }),
@@ -349,7 +462,7 @@ describe('CropsScreen integration', () => {
     const { getByTestId, getByText, queryByTestId } = renderScreen();
 
     fireEvent.press(getByText('Cycles'));
-    fireEvent.press(getByText('Create Cycle'));
+    fireEvent.press(getByTestId('crops-primary-action'));
 
     fireEvent.press(within(getByTestId('cycle-form-field-select')).getByTestId('button'));
     expect(getByTestId('app-select-option-field-1')).toBeTruthy();
@@ -384,5 +497,42 @@ describe('CropsScreen integration', () => {
     });
 
     expect(queryByText('Pepper')).toBeNull();
+  });
+
+  it('opens crop detail and operations sheets without entering a render loop', async () => {
+    useCropsModuleMock.mockReturnValue(
+      buildHookResult({
+        selectedCropPractices: [sampleCropPractice],
+      }),
+    );
+
+    const { getAllByText, getByText, getByTestId, queryByText } = renderScreen();
+
+    await act(async () => {
+      fireEvent.press(getByText('Tomato'));
+    });
+
+    await waitFor(() => {
+      expect(getByTestId('crops-crop-detail')).toBeTruthy();
+      expect(getByText('Crop Details')).toBeTruthy();
+    });
+
+    await act(async () => {
+      fireEvent.press(getByText('Configure'));
+    });
+
+    await waitFor(() => {
+      expect(getByText('Save operations')).toBeTruthy();
+      expect(getAllByText('Land Preparation').length).toBeGreaterThan(0);
+    });
+
+    await act(async () => {
+      fireEvent.press(getByText('Cancel'));
+    });
+
+    await waitFor(() => {
+      expect(queryByText('Save operations')).toBeNull();
+      expect(getByTestId('crops-crop-detail')).toBeTruthy();
+    });
   });
 });

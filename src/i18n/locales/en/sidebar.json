@@ -1,0 +1,50 @@
+{
+  "sidebar": {
+    "brand": {
+      "title": "Farm Manager",
+      "subtitle": "Agriculture Suite"
+    },
+    "search": {
+      "placeholder": "Search..."
+    },
+    "loading": "Loading...",
+    "groups": {
+      "farm_operations": "Farm Operations",
+      "planting": "Planting",
+      "store": "Store",
+      "inventory": "Inventory",
+      "livestock_management": "Livestock Management",
+      "management": "Management"
+    },
+    "items": {
+      "dashboard": "Dashboard",
+      "fields_and_lots": "Fields & Lots",
+      "fields": "Fields",
+      "lots": "Lots",
+      "equipment": "Equipment",
+      "tasks": "Tasks",
+      "finance": "Finance",
+      "weather": "Weather",
+      "reports": "Reports",
+      "crop_planning": "Crop Planning",
+      "production_cycles": "Production Cycles",
+      "store_dashboard": "Store Dashboard",
+      "order_list": "Order List",
+      "orders": "Orders",
+      "storefront": "Storefront",
+      "products": "Products",
+      "categories": "Categories",
+      "taxes": "Taxes",
+      "warehouses": "Warehouses",
+      "stock_adjustment": "Stock Adjustment",
+      "animal_housing": "Animal Housing",
+      "animal_housing_unit": "Animal Housing Unit",
+      "animal_profile": "Animal Profile",
+      "livestock": "Livestock",
+      "users": "Users",
+      "contacts": "Contacts",
+      "settings": "Settings",
+      "farm_configuration": "Farm Configuration"
+    }
+  }
+}

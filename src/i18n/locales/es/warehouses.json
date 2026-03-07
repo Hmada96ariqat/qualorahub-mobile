@@ -1,0 +1,125 @@
+{
+  "warehouses": {
+    "title": "Almacenes",
+    "addWarehouse": "Agregar Almacén",
+    "editWarehouse": "Editar Almacén",
+    "filters": "Filtros",
+    "name": "Nombre",
+    "field": "Campo",
+    "capacity": "Capacidad",
+    "temperature": "Temperatura",
+    "temperatureRange": "Rango de Temperatura",
+    "status": "Estado",
+    "actions": "Acciones",
+    "viewMode": "Modo de Vista",
+    "warehouseTypes": "Tipos de Almacén",
+    
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "allFields": "Todos los Campos",
+    "allStatus": "Todos los Estados",
+    
+    "searchWarehouses": "Buscar almacenes...",
+    "loadingWarehouses": "Cargando almacenes...",
+    "noWarehousesFound": "No se encontraron almacenes",
+    "backToWarehouses": "← Volver a Almacenes",
+    
+    "warehouseNameRequired": "Nombre del Almacén *",
+    "fieldRequired": "Campo *",
+    "capacityUnit": "Unidad",
+    "minTemperature": "Temp. Mín (°C)",
+    "maxTemperature": "Temp. Máx (°C)",
+    "warehouseTypesLabel": "Tipos de Almacén",
+    "safetyMeasures": "Medidas de Seguridad",
+    "notes": "Notas",
+    
+    "placeholders": {
+      "selectField": "Seleccionar campo",
+      "capacityValue": "Ingresar valor de capacidad",
+      "selectUnit": "Seleccionar unidad"
+    },
+    
+    "warehouseTypes": {
+      "coldStorage": "Almacenamiento en Frío",
+      "seedStorage": "Almacenamiento de Semillas",
+      "fertilizer": "Almacenamiento de Fertilizantes",
+      "packingHouse": "Casa de Empaque",
+      "livestockShelter": "Refugio de Ganado",
+      "greenhouse": "Invernadero",
+      "fuelStorage": "Almacenamiento de Combustible",
+      "other": "Otro"
+    },
+    
+    "capacityUnits": {
+      "kg": "Kilogramos (kg)",
+      "ton": "Toneladas",
+      "lb": "Libras (lb)",
+      "g": "Gramos (g)",
+      "oz": "Onzas (oz)",
+      "liter": "Litros (L)",
+      "ml": "Mililitros (ml)",
+      "gallon": "Galones",
+      "m3": "Metros Cúbicos (m³)",
+      "ft3": "Pies Cúbicos (ft³)",
+      "piece": "Piezas",
+      "box": "Cajas",
+      "pallet": "Paletas",
+      "container": "Contenedores",
+      "bag": "Bolsas",
+      "barrel": "Barriles",
+      "bushel": "Fanegas",
+      "crate": "Cajas de Madera"
+    },
+    
+    "form": {
+      "create": "Crear Almacén",
+      "update": "Actualizar Almacén",
+      "saving": "Guardando..."
+    },
+    
+    "messages": {
+      "warehouseCreated": "Almacén creado exitosamente",
+      "warehouseUpdated": "Almacén actualizado exitosamente",
+      "warehouseActivated": "Almacén activado exitosamente",
+      "warehouseDeactivated": "Almacén desactivado exitosamente",
+      "failedToActivate": "Error al activar el almacén"
+    },
+    
+    "dialogs": {
+      "deleteTitle": "Eliminar Almacén",
+      "deleteDescription": "¿Estás seguro de que quieres eliminar el almacén {name}? Esta acción desactivará el almacén.",
+      "confirmDelete": "Eliminar Almacén"
+    },
+    
+    "inventory": {
+      "totalItems": "Total de Artículos",
+      "totalQuantity": "Cantidad Total",
+      "totalSalePrice": "Valor Total de Venta",
+      "totalCost": "Costo Total",
+      "capacityUsage": "Uso de Capacidad",
+      "capacityVsHolding": "Capacidad vs Existencias Actuales",
+      "used": "Usado",
+      "available": "Disponible",
+      "warehouseInformation": "Información del Almacén",
+      "basicInformation": "Información Básica",
+      "typesSafety": "Tipos y Seguridad",
+      "types": "Tipos",
+      "inventoryItems": "Artículos del Inventario",
+      "errorLoadingInventory": "Error al cargar el inventario",
+      "failedToFetchInventory": "Error al obtener los datos del inventario",
+      "tryAgain": "Intentar de Nuevo",
+      "loadingInventory": "Cargando inventario...",
+      "noItemsInWarehouse": "No hay artículos en este almacén",
+      "unknownProduct": "Producto Desconocido",
+      "quantity": "Cant.",
+      "value": "Valor",
+      "batch": "Lote",
+      "expires": "Vence"
+    },
+    
+    "noField": "Sin Campo",
+    "unknownField": "Campo Desconocido",
+    "noLot": "Sin Lote",
+    "unknownLot": "Lote Desconocido"
+  }
+}

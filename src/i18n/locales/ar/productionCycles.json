@@ -1,0 +1,2463 @@
+{
+  "title": "دورات الإنتاج",
+  "subtitle": "إدارة ومتابعة دورات الإنتاج الزراعي الخاصة بك",
+  "list": {
+    "header": {
+      "title": "دورات الإنتاج",
+      "subtitle": "إدارة ومتابعة دورات الإنتاج الزراعي الخاصة بك",
+      "stats": {
+        "active": "{{count}} نشطة",
+        "total": "{{count}} الإجمالي",
+        "cost": "{{amount}}",
+        "labels": {
+          "activeCycles": "الدورات النشطة",
+          "totalCost": "إجمالي التكلفة",
+          "totalCycles": "إجمالي الدورات"
+        }
+      }
+    },
+    "buttons": {
+      "startNewCycle": "بدء دورة جديدة"
+    },
+    "filters": {
+      "title": "الفلاتر والبحث",
+      "status": {
+        "label": "الحالة",
+        "all": "جميع الحالات",
+        "active": "نشطة",
+        "closed": "مغلقة"
+      },
+      "field": {
+        "label": "الحقل",
+        "all": "جميع الحقول",
+        "placeholder": "اختر الحقل"
+      },
+      "crop": {
+        "label": "المحصول",
+        "all": "جميع المحاصيل",
+        "placeholder": "اختر المحصول"
+      },
+      "search": {
+        "label": "بحث",
+        "placeholder": "ابحث باسم القطعة..."
+      },
+      "activeFilters": {
+        "crop": "المحصول: {{value}}",
+        "field": "الحقل: {{value}}",
+        "search": "بحث: {{value}}",
+        "status": "الحالة: {{value}}"
+      },
+      "description": "تصفية والبحث في دورات الإنتاج."
+    },
+    "table": {
+      "headers": {
+        "field": "الحقل",
+        "lot": "القطعة",
+        "crop": "المحصول",
+        "status": "الحالة",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء",
+        "duration": "المدة",
+        "yield": "الإنتاج",
+        "cost": "التكلفة",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "view": "عرض",
+        "close": "إغلاق",
+        "operations": "العمليات",
+        "addOperations": "إضافة عمليات"
+      },
+      "status": {
+        "active": "نشطة",
+        "closed": "مغلقة"
+      },
+      "duration": "{{days}} يومًا",
+      "noData": "لم يتم العثور على دورات إنتاج",
+      "loading": "جارٍ تحميل الدورات..."
+    },
+    "card": {
+      "endDateDuration": "تاريخ الانتهاء / المدة",
+      "startDate": "تاريخ البدء",
+      "yieldCost": "الإنتاج / التكلفة"
+    },
+    "messages": {
+      "startCycleDenied": "ليس لديك صلاحية لبدء دورة إنتاج جديدة."
+    },
+    "pagination": {
+      "next": "التالي",
+      "page": "الصفحة {{current}} من {{total}}",
+      "previous": "السابق"
+    },
+    "viewMode": {
+      "count": "{{count}} دورة",
+      "grid": "شبكة",
+      "table": "جدول"
+    }
+  },
+  "startDialog": {
+    "title": "بدء دورة إنتاج",
+    "fields": {
+      "field": {
+        "label": "الحقل",
+        "placeholder": "اختر حقلاً"
+      },
+      "lot": {
+        "label": "القطعة",
+        "placeholder": "اختر قطعة",
+        "placeholderNoField": "اختر الحقل أولاً",
+        "activeWarning": "هذه القطعة لديها دورة نشطة بالفعل."
+      },
+      "crop": {
+        "label": "المحصول",
+        "placeholder": "اختر محصولاً",
+        "createdOn": "تم الإنشاء: {{date}}",
+        "searchPlaceholder": "ابحث عن المحاصيل...",
+        "shortCode": "#{{code}}"
+      },
+      "startDate": {
+        "label": "تاريخ البدء"
+      },
+      "targetYield": {
+        "label": "قيمة الإنتاج المستهدف (اختياري)",
+        "placeholder": "مثال: 1000"
+      },
+      "targetYieldUnit": {
+        "label": "وحدة الإنتاج المستهدف (اختياري)",
+        "placeholder": "اختر الوحدة",
+        "groups": {
+          "mass": "كتلة",
+          "volume": "حجم",
+          "count": "عدد",
+          "area": "مساحة",
+          "commodity": "سلعة",
+          "packages": "عبوات",
+          "perArea": "لكل مساحة"
+        }
+      },
+      "estimatedCost": {
+        "label": "التكلفة التقديرية (اختياري)",
+        "placeholder": "مثال: 5000"
+      }
+    },
+    "buttons": {
+      "create": "إنشاء",
+      "creating": "جارٍ الإنشاء...",
+      "cancel": "إلغاء"
+    },
+    "messages": {
+      "success": "تم إنشاء دورة الإنتاج",
+      "successDescription": "تم تعيين الحالة إلى نشطة.",
+      "validationError": "خطأ في التحقق",
+      "requiredFields": "الحقل والقطعة والمحصول وتاريخ البدء مطلوبة.",
+      "activeCycleExists": "توجد دورة نشطة",
+      "activeCycleDescription": "القطعة {{lotName}} لديها دورة إنتاج نشطة بالفعل.",
+      "failed": "فشل الإنشاء",
+      "unnamedField": "حقل بدون اسم",
+      "unnamedLot": "قطعة بدون اسم",
+      "unnamedCrop": "محصول بدون اسم",
+      "startDenied": "ليس لديك صلاحية لبدء دورة إنتاج."
+    },
+    "description": "اختر الحقل والقطعة والمحصول وتاريخ البدء للبدء."
+  },
+  "closeDialog": {
+    "title": "إغلاق دورة الإنتاج",
+    "message": "هل أنت متأكد أنك تريد إغلاق دورة الإنتاج هذه؟ لا يمكن التراجع عن هذا الإجراء.",
+    "fields": {
+      "actualYield": {
+        "label": "قيمة الإنتاج الفعلي",
+        "placeholder": "أدخل الإنتاج النهائي"
+      },
+      "actualYieldUnit": {
+        "label": "وحدة الإنتاج الفعلي",
+        "placeholder": "اختر الوحدة"
+      },
+      "endDate": {
+        "label": "تاريخ الانتهاء"
+      }
+    },
+    "buttons": {
+      "close": "إغلاق الدورة",
+      "closing": "جارٍ الإغلاق...",
+      "cancel": "إلغاء",
+      "confirm": "إغلاق الدورة"
+    },
+    "messages": {
+      "success": "تم إغلاق الدورة بنجاح",
+      "failed": "فشل إغلاق الدورة",
+      "closedTitle": "تم إغلاق دورة الإنتاج",
+      "closedDescription": "تم إغلاق الدورة بنجاح."
+    },
+    "form": {
+      "actualCostHelp": "يمكنك تعديل التكلفة الفعلية المحسوبة إذا لزم الأمر.",
+      "actualCostOverride": "تعديل التكلفة الفعلية",
+      "actualCostPlaceholder": "مثال: {{cost}}",
+      "attachments": "المرفقات",
+      "attachmentsHelp": "ملفات داعمة اختيارية (PDF، صور، مستندات).",
+      "endDate": "تاريخ الانتهاء",
+      "notes": "ملاحظات",
+      "notesPlaceholder": "أضف ملاحظات نهائية حول هذه الدورة..."
+    },
+    "loadingSummary": "جارٍ تحميل ملخص الدورة...",
+    "summary": {
+      "actualCostAuto": "التكلفة الفعلية (محسوبة تلقائيًا)",
+      "actualYieldAuto": "الإنتاج الفعلي (محسوب تلقائيًا)",
+      "crop": "المحصول",
+      "duration": "المدة",
+      "durationValue": "{{days}} يومًا",
+      "fieldLot": "الحقل والقطعة",
+      "noClassifications": "لا توجد تصنيفات بعد",
+      "notAvailable": "غير متوفر",
+      "notSet": "غير محدد",
+      "startDate": "تاريخ البدء",
+      "targetYield": "الإنتاج المستهدف",
+      "title": "ملخص الدورة"
+    },
+    "validation": {
+      "invalidEndDateDescription": "لا يمكن أن يكون تاريخ الانتهاء قبل تاريخ البدء.",
+      "invalidEndDateTitle": "تاريخ انتهاء غير صالح",
+      "missingEndDateDescription": "يرجى اختيار تاريخ انتهاء لإغلاق الدورة.",
+      "missingEndDateTitle": "تاريخ الانتهاء مطلوب"
+    },
+    "warning": {
+      "message": "سيؤدي إغلاق الدورة إلى قفل جميع العمليات ومنع أي تغييرات إضافية.",
+      "title": "هذا الإجراء غير قابل للتراجع"
+    }
+  },
+  "detail": {
+    "header": {
+      "backToList": "العودة إلى دورات الإنتاج",
+      "closeCycle": "إغلاق الدورة",
+      "labels": {
+        "start": "البدء",
+        "duration": "المدة",
+        "area": "المساحة",
+        "target": "المستهدف"
+      }
+    },
+    "modal": {
+      "title": "نظرة عامة على الدورة",
+      "description": "عرض أداء الدورة ومؤشرات الملخص."
+    },
+    "snapshot": {
+      "title": "ملخص الدورة",
+      "description": "مؤشرات أساسية، توزيع التكلفة، نتائج الحصاد، والملاحظات.",
+      "show": "إظهار",
+      "hide": "إخفاء"
+    },
+    "tabs": {
+      "overview": "نظرة عامة",
+      "operations": "العمليات",
+      "financial": "المالية",
+      "timeline": "الجدول الزمني"
+    },
+    "overview": {
+      "kpis": {
+        "actualYield": {
+          "title": "الإنتاج الفعلي",
+          "noYield": "لا يوجد إنتاج",
+          "achievement": "{{percent}}% من المستهدف",
+          "targetSet": "تم تحديد المستهدف، ولا يوجد إنتاج بعد",
+          "noTarget": "لم يتم تحديد مستهدف"
+        },
+        "actualCost": {
+          "title": "التكلفة الفعلية",
+          "noCost": "لا توجد تكلفة",
+          "perUnit": "{{cost}} لكل {{unit}}",
+          "costRecorded": "تم تسجيل التكلفة، ولا يوجد إنتاج بعد",
+          "noCosts": "لم يتم تسجيل أي تكاليف"
+        },
+        "operations": {
+          "title": "العمليات",
+          "none": "لا شيء",
+          "noOperations": "لا توجد عمليات",
+          "breakdown": "{{count}} {{type}}"
+        },
+        "waterUsed": {
+          "title": "المياه المستخدمة",
+          "noWater": "لا توجد مياه",
+          "events": "{{count}} حدث ريّ",
+          "eventsPlural": "{{count}} أحداث ريّ",
+          "noIrrigation": "لم يتم تسجيل أي ريّ"
+        }
+      },
+      "common": {
+        "total": "الإجمالي",
+        "operationsCount": "{{count}} عملية",
+        "operationsCount_plural": "{{count}} عمليات",
+        "cost": "التكلفة",
+        "operations": "العمليات",
+        "share": "مشاركة"
+      },
+      "progressIndicators": {
+        "title": "التقدم والنشاط الأخير",
+        "yieldProgress": {
+          "label": "تقدم الإنتاج",
+          "ofTarget": "{{percent}}% من المستهدف",
+          "noTarget": "لم يتم تحديد إنتاج مستهدف لتتبع التقدم"
+        },
+        "recentChanges": {
+          "title": "التغييرات الأخيرة",
+          "opsThisWeek": "+{{count}} عملية هذا الأسبوع",
+          "opsThisWeek_plural": "+{{count}} عمليات هذا الأسبوع",
+          "costThisWeek": "+{{amount}} تكلفة هذا الأسبوع",
+          "noRecentActivity": "لا يوجد نشاط حديث"
+        }
+      },
+      "messages": {
+        "loadFailed": "حدث خطأ أثناء تحميل ملخص الدورة"
+      },
+      "progress": {
+        "title": "التقدم والمحطات",
+        "cycleProgress": "تقدم الدورة",
+        "daysPassed": "مر {{days}} يومًا",
+        "daysTotal": "{{total}} يومًا إجمالاً",
+        "completed": "مكتمل بنسبة {{percent}}%",
+        "milestones": {
+          "landPreparation": "تهيئة الأرض",
+          "planting": "الزراعة",
+          "firstIrrigation": "أول ريّ",
+          "firstNutrient": "أول إضافة مغذّيات",
+          "harvesting": "الحصاد",
+          "notStarted": "لم يبدأ",
+          "completed": "اكتمل في {{date}}"
+        }
+      },
+      "costAnalysis": {
+        "costByStage": {
+          "title": "التكلفة حسب المرحلة",
+          "stages": {
+            "landPreparation": "تهيئة الأرض",
+            "planting": "الزراعة",
+            "growing": "مرحلة النمو",
+            "harvesting": "الحصاد",
+            "earlyPreparation": "التحضير المبكر",
+            "growthOperations": "عمليات النمو",
+            "harvestPostHarvest": "الحصاد وما بعد الحصاد"
+          },
+          "noData": "لا تتوفر بيانات تكلفة"
+        },
+        "costByType": {
+          "title": "التكلفة حسب نوع العملية",
+          "types": {
+            "landPreparation": "تهيئة الأرض",
+            "planting": "الزراعة",
+            "irrigation": "الريّ",
+            "weedManagement": "مكافحة الأعشاب",
+            "nutrientApplication": "إضافة المغذّيات",
+            "treatment": "المعالجة",
+            "harvesting": "الحصاد"
+          },
+          "noData": "لم يتم تسجيل تكاليف للعمليات"
+        }
+      },
+      "harvestSummary": {
+        "title": "ملخص نتائج الحصاد",
+        "breakdownTitle": "تفصيل نتائج الحصاد",
+        "profitVsCostTitle": "الربح مقابل التكلفة",
+        "profitVsCostTitleWithCrop": "الربح مقابل التكلفة — {{crop}}",
+        "totalHarvested": "إجمالي المحصول المحصود",
+        "outcomes": {
+          "addedToWarehouse": "إضافة إلى المستودع",
+          "soldDirect": "بيع مباشر",
+          "waste": "فاقد"
+        },
+        "noHarvest": "لا تتوفر بيانات حصاد",
+        "quantity": "الكمية",
+        "totalSales": "إجمالي المبيعات",
+        "totalCost": "إجمالي التكلفة",
+        "profit": "الربح",
+        "loss": "الخسارة"
+      },
+      "recentActivity": {
+        "title": "النشاط الأخير",
+        "operations": "العمليات الأخيرة",
+        "viewAll": "عرض جميع العمليات",
+        "noOperations": "لم يتم تسجيل أي عمليات",
+        "navigation": {
+          "title": "عملية {{type}}",
+          "description": "لم يتم إعداد التنقل لعمليات {{type}}"
+        },
+        "table": {
+          "operation": "العملية",
+          "type": "النوع",
+          "date": "التاريخ",
+          "cost": "التكلفة",
+          "actions": "الإجراءات"
+        },
+        "view": "عرض",
+        "open": "فتح العملية"
+      },
+      "notes": {
+        "title": "الملاحظات والمرفقات",
+        "notes": "الملاحظات",
+        "attachments": "المرفقات",
+        "addNote": "إضافة ملاحظة",
+        "notePlaceholder": "أضف ملاحظة حول هذه الدورة...",
+        "noNotes": "لا توجد ملاحظات مضافة",
+        "noAttachments": "لم يتم رفع أي مرفقات",
+        "uploadAttachment": "رفع مرفق",
+        "deleteNote": "حذف الملاحظة",
+        "confirmDelete": "هل أنت متأكد أنك تريد حذف هذه الملاحظة؟",
+        "attachmentFallback": "مرفق",
+        "currentUser": "المستخدم الحالي",
+        "previousNotes": "الملاحظات السابقة",
+        "system": "النظام",
+        "timestamp": "{{date}} {{time}}"
+      },
+      "pendingActions": {
+        "addHarvest": "إضافة حصاد",
+        "addNutrients": "إضافة مغذيات",
+        "addOperation": "إضافة عملية",
+        "title": "الإجراءات المعلقة"
+      },
+      "reports": {
+        "exportCsv": "تصدير CSV",
+        "printPdf": "طباعة PDF",
+        "summary": {
+          "csv": {
+            "metric": "المؤشر",
+            "value": "القيمة"
+          },
+          "fields": {
+            "actualCost": "التكلفة الفعلية",
+            "actualYield": "الإنتاج الفعلي",
+            "crop": "المحصول",
+            "endDate": "تاريخ الانتهاء",
+            "field": "الحقل",
+            "lot": "القطعة",
+            "startDate": "تاريخ البدء",
+            "status": "الحالة",
+            "targetYield": "الإنتاج المستهدف",
+            "totalOperations": "إجمالي العمليات"
+          },
+          "generatedLabel": "تم الإنشاء في",
+          "sections": {
+            "basicInfo": "المعلومات الأساسية",
+            "performance": "الأداء"
+          },
+          "title": "ملخص دورة الإنتاج"
+        },
+        "title": "التقارير",
+        "toasts": {
+          "export": {
+            "failedDescription": "تعذر تصدير CSV.",
+            "failedTitle": "فشل التصدير",
+            "noData": "لا توجد بيانات للتصدير.",
+            "successDescription": "تم تنزيل ملف CSV بنجاح.",
+            "successTitle": "تم التصدير",
+            "title": "تصدير CSV"
+          },
+          "print": {
+            "failedDescription": "تعذر فتح نافذة الطباعة.",
+            "failedTitle": "فشل الطباعة",
+            "readyDescription": "نافذة الطباعة جاهزة.",
+            "readyTitle": "جاهز للطباعة"
+          }
+        }
+      }
+    },
+    "operations": {
+      "title": "العمليات",
+      "filterByType": "تصفية حسب نوع العملية",
+      "filters": {
+        "all": "جميع العمليات",
+        "landPreparation": "تهيئة الأرض",
+        "planting": "الزراعة",
+        "irrigation": "الريّ",
+        "weedManagement": "مكافحة الأعشاب",
+        "nutrientApplication": "إضافة المغذّيات",
+        "treatment": "المعالجة",
+        "harvesting": "الحصاد",
+        "cultural": "الإدارة المتكاملة / العمليات الثقافية"
+      },
+      "summary": {
+        "total": "الإجمالي",
+        "operations": "{{count}} عمليات",
+        "operationsCount": "عدد العمليات",
+        "totalCost": "إجمالي التكلفة: {{cost}}",
+        "totalOperationsCost": "إجمالي تكلفة العمليات (هذه المرحلة)",
+        "plantingCost": "عمليات الزراعة ({{count}}) - إجمالي التكلفة: ${{cost}}",
+        "noOperationsYet": "لا توجد عمليات بعد.",
+        "operationsWithCost": "{{label}} عمليات ({{count}}) - التكلفة الإجمالية: {{cost}}"
+      },
+      "buttons": {
+        "addIrrigation": "+ إضافة ريّ"
+      },
+      "table": {
+        "headers": {
+          "date": "التاريخ",
+          "type": "النوع",
+          "status": "الحالة",
+          "performedBy": "تم التنفيذ بواسطة",
+          "qtyUnit": "الكمية + الوحدة",
+          "cost": "التكلفة",
+          "notes": "الملاحظات",
+          "attachments": "المرفقات",
+          "actions": "الإجراءات"
+        },
+        "loading": "جارٍ التحميل...",
+        "noAttachments": "لا يوجد",
+        "attachmentDownload": "تنزيل المرفق {{index}}",
+        "attachmentLabel": "مرفق {{index}}",
+        "moreAttachments": "+{{count}} أخرى"
+      },
+      "messages": {
+        "deleted": "تم الحذف",
+        "operationRemoved": "تمت إزالة العملية",
+        "deleteFailed": "فشل الحذف",
+        "deleteOperationTitle": "حذف العملية",
+        "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذه العملية؟ لا يمكن التراجع عن هذا الإجراء.",
+        "validation": "التحقق",
+        "inputsRequireQtyWarehouse": "مدخلات المنتجات تتطلب الكمية والمستودع",
+        "updated": "تم التحديث",
+        "added": "تمت الإضافة",
+        "operationText": "عملية",
+        "applied": "تم تطبيقها",
+        "savedAsDraft": "تم حفظها كمسودة",
+        "andStockAdjusted": "وتم تعديل المخزون",
+        "andStockOut": "وتم إنشاء قسائم إخراج من المخزون",
+        "saveFailed": "فشل الحفظ",
+        "applying": "جارٍ التطبيق...",
+        "missingFieldsDescription": "يرجى تعبئة جميع الحقول المطلوبة قبل الحفظ.",
+        "missingFieldsTitle": "حقول مطلوبة مفقودة"
+      },
+      "empty": {
+        "noOperations": "لم يتم العثور على عمليات {{type}}"
+      },
+      "common": {
+        "titles": {
+          "addOperation": "+ إضافة {{type}}",
+          "plantingDetails": "تفاصيل الزراعة",
+          "seedInputProducts": "منتجات البذور/المدخلات"
+        },
+        "fields": {
+          "field": {
+            "label": "الحقل"
+          },
+          "lot": {
+            "label": "القطعة"
+          },
+          "crop": {
+            "label": "المحصول"
+          },
+          "date": {
+            "label": "التاريخ",
+            "placeholder": "اختر التاريخ"
+          },
+          "plantingDate": {
+            "label": "تاريخ الزراعة"
+          },
+          "time": {
+            "label": "الوقت",
+            "placeholder": "HH:MM"
+          },
+          "duration": {
+            "label": "المدة (ساعات)",
+            "placeholder": "مثال: 2.5"
+          },
+          "labor": {
+            "label": "عدد العمال",
+            "placeholder": "عدد العمال"
+          },
+          "laborCost": {
+            "label": "تكلفة العمالة",
+            "placeholder": "إجمالي تكلفة العمالة"
+          },
+          "equipmentCost": {
+            "label": "تكلفة المعدات",
+            "placeholder": "تكلفة استخدام المعدات"
+          },
+          "materialCost": {
+            "label": "تكلفة المواد",
+            "placeholder": "تكلفة المواد/المستلزمات"
+          },
+          "totalCost": {
+            "label": "إجمالي التكلفة",
+            "labelWithNote": "إجمالي التكلفة (يُحسب تلقائيًا من المدخلات، ويمكن تجاوزه)",
+            "calculated": "يتم حسابها تلقائيًا",
+            "costAutoCalculated": "التكلفة (يُحسب تلقائيًا من المدخلات، ويمكن تجاوزه)"
+          },
+          "performedBy": {
+            "label": "تم التنفيذ بواسطة",
+            "placeholder": "اختر مستخدمًا أو جهة اتصال"
+          },
+          "inputs": {
+            "label": "المدخلات (اختياري)",
+            "addInput": "إضافة مدخل",
+            "product": "المنتج",
+            "productPlaceholder": "اختر المنتج",
+            "quantity": "الكمية",
+            "qty": "الكمية",
+            "qtyPlaceholder": "0",
+            "unit": "وحدة",
+            "warehouse": "المستودع",
+            "warehousePlaceholder": "اختر المستودع",
+            "available": "المتاح",
+            "batch": "الدفعة",
+            "batchPlaceholderFirst": "اختر المستودع أولاً",
+            "batchPlaceholderNone": "لا توجد دفعات (اختياري)",
+            "batchPlaceholder": "اختر الدفعة",
+            "noBatch": "بدون دفعة",
+            "noBatchTracking": "لا يوجد تتبع للدفعات",
+            "unitCost": "تكلفة الوحدة",
+            "unitCostPlaceholder": "0.00",
+            "validationMessage": "مدخلات المنتجات تتطلب الكمية والمستودع"
+          },
+          "status": {
+            "label": "الحالة",
+            "draftNote": "العمليات المسودة لن تؤثر على المخزون. العمليات المُطبَّقة ستُنشئ تعديلات مخزون."
+          },
+          "attachments": {
+            "label": "المرفقات (اختياري)",
+            "chooseFiles": "اختيار ملفات",
+            "noFile": "لم يتم اختيار ملف"
+          },
+          "notes": {
+            "label": "ملاحظات",
+            "placeholder": "ملاحظات إضافية..."
+          },
+          "weather": {
+            "label": "حالة الطقس",
+            "placeholder": "مثال: مشمس، 25°م"
+          },
+          "soilCondition": {
+            "label": "حالة التربة",
+            "placeholder": "مثال: رطبة، جيدة التصريف"
+          },
+          "practice": {
+            "label": "الممارسة (مطلوب)",
+            "placeholder": "اختر ممارسة",
+            "validation": {
+              "required": "الممارسة مطلوبة."
+            }
+          }
+        },
+        "validation": {
+          "dateRequired": "التاريخ مطلوب",
+          "futureDate": "لا يمكن أن يكون التاريخ في المستقبل",
+          "beforeStart": "لا يمكن أن يكون التاريخ قبل تاريخ بدء الدورة",
+          "afterEnd": "لا يمكن أن يكون التاريخ بعد تاريخ انتهاء الدورة",
+          "invalidTime": "تنسيق وقت غير صالح (HH:MM)",
+          "invalidNumber": "يجب أن يكون رقمًا صالحًا",
+          "negativeNumber": "لا يمكن أن يكون سالبًا",
+          "required": "هذا الحقل مطلوب"
+        },
+        "status": {
+          "draft": "📝 مسودة",
+          "applied": "✅ مُطبَّقة",
+          "placeholder": "اختر الحالة"
+        },
+        "buttons": {
+          "save": "حفظ",
+          "saving": "جارٍ الحفظ...",
+          "cancel": "إلغاء",
+          "delete": "حذف",
+          "edit": "تعديل",
+          "view": "عرض",
+          "saveAsDraft": "حفظ كمسودة",
+          "saveAsApplied": "حفظ كمُطبَّقة",
+          "createAsDraft": "إنشاء كمسودة",
+          "createAsPlanted": "إنشاء كمزروعة",
+          "apply": "تطبيق"
+        },
+        "messages": {
+          "success": "تم حفظ العملية بنجاح",
+          "failed": "فشل حفظ العملية",
+          "deleteSuccess": "تم حذف العملية",
+          "deleteFailed": "فشل حذف العملية",
+          "confirmDelete": "هل أنت متأكد أنك تريد حذف هذه العملية؟"
+        },
+        "attachments": {
+          "choose": "اختيار الملفات",
+          "fallbackName": "مرفق",
+          "maxPerOperation": "الحد الأقصى {{max}} لكل عملية",
+          "remaining": "متبقي {{count}}",
+          "remove": "إزالة",
+          "saved": "محفوظة",
+          "selected": "المحددة ({{count}})",
+          "validation": {
+            "imagesOnlyDescription": "يُسمح بملفات الصور فقط.",
+            "imagesOnlyTitle": "صور فقط",
+            "maxReachedDescription": "يمكنك رفع حتى {{max}} مرفقًا.",
+            "maxReachedTitle": "تم بلوغ الحد الأقصى",
+            "tooManyDescription": "يمكن إضافة {{count}} فقط (الحد {{max}}).",
+            "tooManyTitle": "عدد ملفات كبير"
+          }
+        },
+        "enabledPractices": {
+          "title": "الممارسات المفعّلة لهذا المحصول",
+          "help": "انقر على ممارسة لإضافة عملية بسرعة.",
+          "noPermission": "ليس لديك صلاحية لتسجيل هذه العملية.",
+          "cycleClosed": "هذه الدورة مغلقة. تم تعطيل التسجيل.",
+          "loading": "جارٍ تحميل الممارسات المفعّلة...",
+          "noneEnabled": "لا توجد ممارسات مفعّلة لهذا المحصول بعد. فعّل الممارسات في عمليات المحاصيل.",
+          "enabledCount": "{{count}} مفعّل"
+        }
+      },
+      "landPreparation": {
+        "title": "تهيئة الأرض",
+        "addTitle": "إضافة تهيئة أرض",
+        "editTitle": "تعديل تهيئة الأرض",
+        "viewTitle": "تفاصيل تهيئة الأرض",
+        "fields": {
+          "method": {
+            "label": "طريقة التهيئة",
+            "placeholder": "اختر الطريقة",
+            "options": {
+              "plowing": "حراثة",
+              "tilling": "تفكيك/عزق",
+              "harrowing": "تنعيم (مشط)",
+              "leveling": "تسوية",
+              "ridging": "تخديد",
+              "bedForming": "تشكيل أحواض",
+              "other": "أخرى"
+            }
+          },
+          "depth": {
+            "label": "العمق (سم)",
+            "placeholder": "مثال: 30"
+          },
+          "area": {
+            "label": "المساحة المُجهَّزة",
+            "placeholder": "حجم المساحة"
+          },
+          "areaUnit": {
+            "label": "وحدة المساحة",
+            "placeholder": "اختر الوحدة"
+          },
+          "equipment": {
+            "label": "المعدات المستخدمة",
+            "placeholder": "مثال: جرار، محراث"
+          },
+          "fuelUsed": {
+            "label": "الوقود المستخدم (لتر)",
+            "placeholder": "لترات الوقود"
+          }
+        },
+        "table": {
+          "headers": {
+            "date": "التاريخ",
+            "method": "الطريقة",
+            "area": "المساحة",
+            "depth": "العمق",
+            "equipment": "المعدات",
+            "cost": "التكلفة",
+            "actions": "الإجراءات"
+          }
+        }
+      },
+      "planting": {
+        "title": "الزراعة",
+        "addTitle": "إضافة عملية زراعة",
+        "editTitle": "تعديل عملية زراعة",
+        "viewTitle": "تفاصيل الزراعة",
+        "tableTitle": "عمليات الزراعة ({{count}}) - إجمالي التكلفة: ${{cost}}",
+        "addButton": "إضافة زراعة",
+        "noOperations": "لم يتم العثور على عمليات زراعة",
+        "status": {
+          "planted": "مزروعة",
+          "draft": "مسودة"
+        },
+        "form": {
+          "addTitle": "إضافة عملية زراعة",
+          "editTitle": "تعديل عملية زراعة",
+          "sections": {
+            "details": "تفاصيل الزراعة",
+            "inputs": "منتجات البذور/المدخلات",
+            "notes": "ملاحظات"
+          },
+          "fields": {
+            "crop": {
+              "label": "المحصول"
+            },
+            "plantingDate": {
+              "label": "تاريخ الزراعة",
+              "placeholder": "اختر تاريخًا"
+            },
+            "totalCost": {
+              "label": "إجمالي التكلفة (يُحسب تلقائيًا من المدخلات، ويمكن تجاوزه)"
+            },
+            "notes": {
+              "placeholder": "أضف أي ملاحظات إضافية حول عملية الزراعة..."
+            }
+          },
+          "buttons": {
+            "addInput": "إضافة مدخل",
+            "cancel": "إلغاء",
+            "saving": "جارٍ الحفظ...",
+            "createDraft": "إنشاء كمسودة",
+            "createPlanted": "إنشاء كمزروعة",
+            "updateDraft": "تحديث كمسودة",
+            "updatePlanted": "تحديث كمزروعة"
+          },
+          "validation": {
+            "title": "التحقق",
+            "inputsRequired": "مدخلات المنتجات تتطلب الكمية والمستودع عند حالة (مزروعة)",
+            "insufficientStock": "مخزون غير كافٍ",
+            "stockMessage": "لا يوجد ما يكفي من {{product}} في المخزون. المتاح: {{available}}، المطلوب: {{required}}"
+          },
+          "messages": {
+            "error": "خطأ",
+            "errorDescription": "فشل حفظ عملية الزراعة: {{error}}"
+          }
+        },
+        "fields": {
+          "method": {
+            "label": "طريقة الزراعة",
+            "placeholder": "اختر الطريقة",
+            "options": {
+              "directSeeding": "بذر مباشر",
+              "transplanting": "شتل/نقل",
+              "broadcasting": "نثر",
+              "drilling": "تسطير",
+              "dibbling": "تنقيط/تثقّب",
+              "other": "أخرى"
+            }
+          },
+          "seedVariety": {
+            "label": "البذور/الصنف",
+            "placeholder": "مثال: هجين ABC-123"
+          },
+          "seedRate": {
+            "label": "معدل البذار",
+            "placeholder": "بذور/نباتات لكل مساحة"
+          },
+          "seedRateUnit": {
+            "label": "وحدة معدل البذار",
+            "placeholder": "اختر الوحدة"
+          },
+          "depth": {
+            "label": "عمق الزراعة (سم)",
+            "placeholder": "مثال: 5"
+          },
+          "spacing": {
+            "label": "تباعد النباتات (سم)",
+            "placeholder": "مثال: 30"
+          },
+          "rowSpacing": {
+            "label": "تباعد الصفوف (سم)",
+            "placeholder": "مثال: 75"
+          },
+          "area": {
+            "label": "المساحة المزروعة",
+            "placeholder": "حجم المساحة"
+          },
+          "areaUnit": {
+            "label": "وحدة المساحة",
+            "placeholder": "اختر الوحدة"
+          },
+          "seedSource": {
+            "label": "مصدر البذور",
+            "placeholder": "مثال: مورد محلي"
+          },
+          "seedTreatment": {
+            "label": "معاملة البذور",
+            "placeholder": "أي معاملة قبل الزراعة"
+          }
+        },
+        "table": {
+          "crop": "المحصول",
+          "date": "التاريخ",
+          "totalCost": "إجمالي التكلفة",
+          "status": "الحالة",
+          "actions": "الإجراءات",
+          "headers": {
+            "date": "التاريخ",
+            "method": "الطريقة",
+            "variety": "الصنف",
+            "area": "المساحة",
+            "seedRate": "معدل البذار",
+            "spacing": "التباعد",
+            "cost": "التكلفة",
+            "actions": "الإجراءات"
+          }
+        },
+        "view": {
+          "lineCost": "تكلفة السطر",
+          "noInputs": "لا توجد مدخلات مسجلة."
+        }
+      },
+      "irrigation": {
+        "title": "الريّ",
+        "addTitle": "+ إضافة ريّ",
+        "editTitle": "تعديل الريّ",
+        "viewTitle": "تفاصيل الريّ",
+        "form": {
+          "validation": {
+            "title": "التحقق",
+            "volumeRequired": "الحجم مطلوب",
+            "insufficientStock": "مخزون غير كافٍ",
+            "stockMessage": "لا يوجد ما يكفي من {{product}} في المخزون. المتاح: {{available}}، المطلوب: {{required}}"
+          },
+          "messages": {
+            "success": "نجاح",
+            "updated": "تم تحديث العملية بنجاح",
+            "updatedApplied": "تم تحديث العملية وتطبيقها بنجاح",
+            "createdApplied": "تم إنشاء العملية وتطبيقها بنجاح",
+            "savedDraft": "تم حفظ العملية كمسودة",
+            "failed": "فشل الحفظ"
+          }
+        },
+        "fields": {
+          "method": {
+            "label": "الطريقة",
+            "placeholder": "اختر الطريقة",
+            "options": {
+              "drip": "ريّ بالتنقيط",
+              "sprinkler": "رشّاشات",
+              "flood": "ريّ بالغمر",
+              "furrow": "ريّ بالأخاديد",
+              "center_pivot": "الريّ المحوري",
+              "manual": "يدوي",
+              "other": "أخرى",
+              "pivot": "محوري",
+              "rainfed": "بعلي",
+              "subsurface": "تحت السطح",
+              "surface": "سطحي"
+            }
+          },
+          "waterAmount": {
+            "label": "إجمالي حجم المياه",
+            "placeholder": "مثال: 10"
+          },
+          "waterUnit": {
+            "label": "وحدة المياه",
+            "placeholder": "اختر الوحدة",
+            "options": {
+              "liters": "لترات",
+              "gallons": "غالونات",
+              "cubic_meters": "أمتار مكعبة",
+              "acre_feet": "قدم-فدان"
+            },
+            "customPlaceholder": "وحدة مخصصة"
+          },
+          "waterSource": {
+            "label": "مصدر المياه",
+            "placeholder": "اختر المصدر",
+            "otherPlaceholder": "حدد مصدر المياه",
+            "options": {
+              "municipal": "بلدي",
+              "other": "أخرى",
+              "rainwater": "مياه الأمطار",
+              "reservoir": "خزان",
+              "river": "نهر",
+              "well": "بئر"
+            }
+          },
+          "irrigatedArea": {
+            "label": "المساحة المروية",
+            "placeholder": "حجم المساحة"
+          },
+          "irrigatedAreaUnit": {
+            "label": "وحدة المساحة",
+            "placeholder": "اختر الوحدة"
+          },
+          "waterQuality": {
+            "label": "جودة المياه",
+            "placeholder": "مثال: pH 7.2، EC 1.5"
+          },
+          "pumpingHours": {
+            "label": "ساعات الضخ",
+            "placeholder": "ساعات الضخ"
+          },
+          "energyCost": {
+            "label": "تكلفة الطاقة",
+            "placeholder": "تكلفة الكهرباء/الوقود"
+          }
+        },
+        "table": {
+          "headers": {
+            "date": "التاريخ",
+            "method": "الطريقة",
+            "waterAmount": "المياه",
+            "area": "المساحة",
+            "source": "المصدر",
+            "duration": "المدة",
+            "cost": "التكلفة",
+            "actions": "الإجراءات"
+          }
+        }
+      },
+      "weedManagement": {
+        "title": "مكافحة الأعشاب",
+        "subtitle": "تتبّع وإدارة عمليات مكافحة الأعشاب",
+        "addButton": "+ إضافة مكافحة أعشاب",
+        "addTitle": "إضافة مكافحة أعشاب",
+        "editTitle": "تعديل مكافحة الأعشاب",
+        "viewTitle": "تفاصيل مكافحة الأعشاب",
+        "emptyState": "لم يتم العثور على عمليات مكافحة أعشاب",
+        "actions": {
+          "viewDetails": "عرض التفاصيل",
+          "edit": "تعديل",
+          "delete": "حذف",
+          "markCompleted": "وضع علامة مكتمل"
+        },
+        "status": {
+          "draft": "مسودة",
+          "completed": "مكتمل"
+        },
+        "noOperations": "لم يتم العثور على عمليات مكافحة أعشاب",
+        "form": {
+          "sections": {
+            "operationDetails": "تفاصيل العملية",
+            "basicDetails": "التفاصيل الأساسية",
+            "methodDetails": "تفاصيل الطريقة",
+            "reusableProducts": "منتجات قابلة لإعادة الاستخدام",
+            "reusableProductsNote": "المنتجات التي سيتم خصمها من المخزون عند تطبيق العملية"
+          },
+          "status": {
+            "draft": "مسودة",
+            "completed": "مكتمل",
+            "inProgress": "قيد التنفيذ",
+            "planned": "مخطط"
+          },
+          "fields": {
+            "date": {
+              "label": "التاريخ"
+            },
+            "status": {
+              "label": "الحالة",
+              "placeholder": "اختر الحالة"
+            },
+            "method": {
+              "label": "طريقة المكافحة",
+              "placeholder": "اختر طريقة المكافحة"
+            },
+            "weedTypes": {
+              "label": "أنواع الأعشاب",
+              "placeholder": "مثال: عريضة الأوراق، نجيلية"
+            },
+            "severity": {
+              "label": "شدة انتشار الأعشاب",
+              "placeholder": "اختر الشدة"
+            },
+            "herbicide": {
+              "label": "مبيد الأعشاب المستخدم",
+              "placeholder": "اسم المنتج (إن وجد)"
+            },
+            "applicationRate": {
+              "label": "معدل التطبيق"
+            },
+            "applicationRateUnit": {
+              "label": "وحدة المعدل",
+              "placeholder": "اختر الوحدة"
+            },
+            "treatedArea": {
+              "label": "المساحة المُعالَجة"
+            },
+            "treatedAreaUnit": {
+              "label": "وحدة المساحة",
+              "placeholder": "اختر الوحدة"
+            },
+            "effectiveness": {
+              "label": "الفعالية (%)",
+              "placeholder": "نسبة تقديرية لمكافحة الأعشاب %"
+            },
+            "cost": "التكلفة",
+            "totalCost": {
+              "label": "إجمالي التكلفة",
+              "note": "يُحسب تلقائيًا من المنتجات، ويمكن تجاوزه"
+            },
+            "totalProducts": "إجمالي المنتجات",
+            "productNumber": "المنتج {{number}}",
+            "batchNumber": "رقم الدفعة",
+            "optional": "اختياري",
+            "notesPlaceholder": "أضف أي ملاحظات إضافية حول عملية مكافحة الأعشاب..."
+          },
+          "messages": {
+            "success": "نجاح",
+            "operationSaved": "تم حفظ عملية مكافحة الأعشاب بنجاح",
+            "operationUpdated": "تم تحديث عملية مكافحة الأعشاب بنجاح",
+            "operationCreated": "تم إنشاء عملية مكافحة الأعشاب بنجاح",
+            "error": "خطأ",
+            "saveFailed": "فشل حفظ عملية مكافحة الأعشاب",
+            "stockValidation": "سيتم التحقق من المخزون عند تطبيق العملية",
+            "insufficientStock": "مخزون غير كافٍ للمنتج: {{product}}",
+            "productRemoved": "تمت إزالة المنتج"
+          },
+          "buttons": {
+            "addProduct": "إضافة منتج",
+            "create": "إنشاء",
+            "update": "تحديث",
+            "operation": "عملية",
+            "undo": "تراجع"
+          }
+        },
+        "fields": {
+          "method": {
+            "label": "طريقة المكافحة",
+            "placeholder": "اختر الطريقة",
+            "options": {
+              "manual": "إزالة يدوية",
+              "mechanical": "ميكانيكية",
+              "chemical": "كيميائية (مبيد أعشاب)",
+              "mulching": "تغطية (Mulching)",
+              "biological": "مكافحة بيولوجية",
+              "integrated": "إدارة متكاملة",
+              "other": "أخرى"
+            }
+          },
+          "weedTypes": {
+            "label": "أنواع الأعشاب",
+            "placeholder": "مثال: عريضة الأوراق، نجيلية"
+          },
+          "severity": {
+            "label": "شدة انتشار الأعشاب",
+            "placeholder": "اختر الشدة",
+            "options": {
+              "low": "منخفضة (< 25% تغطية)",
+              "medium": "متوسطة (25-50% تغطية)",
+              "high": "مرتفعة (50-75% تغطية)",
+              "severe": "شديدة (> 75% تغطية)"
+            }
+          },
+          "herbicide": {
+            "label": "مبيد الأعشاب المستخدم",
+            "placeholder": "اسم المنتج (إن وجد)"
+          },
+          "applicationRate": {
+            "label": "معدل التطبيق",
+            "placeholder": "معدل لكل مساحة"
+          },
+          "applicationRateUnit": {
+            "label": "وحدة المعدل",
+            "placeholder": "اختر الوحدة"
+          },
+          "treatedArea": {
+            "label": "المساحة المُعالَجة",
+            "placeholder": "حجم المساحة"
+          },
+          "treatedAreaUnit": {
+            "label": "وحدة المساحة",
+            "placeholder": "اختر الوحدة"
+          },
+          "effectiveness": {
+            "label": "الفعالية (%)",
+            "placeholder": "نسبة تقديرية لمكافحة الأعشاب %"
+          }
+        },
+        "table": {
+          "date": "التاريخ",
+          "cost": "التكلفة",
+          "reusableQty": "الكمية القابلة لإعادة الاستخدام",
+          "status": "الحالة",
+          "createdBy": "أُنشئت بواسطة",
+          "headers": {
+            "date": "التاريخ",
+            "method": "الطريقة",
+            "severity": "الشدة",
+            "area": "المساحة",
+            "herbicide": "مبيد الأعشاب",
+            "effectiveness": "الفعالية",
+            "cost": "التكلفة",
+            "actions": "الإجراءات"
+          }
+        },
+        "view": {
+          "reusableProductsTitle": "المنتجات القابلة لإعادة الاستخدام",
+          "summaryTitle": "ملخص العملية",
+          "unknownProduct": "منتج غير معروف",
+          "unknownWarehouse": "مستودع غير معروف"
+        }
+      },
+      "nutrientApplication": {
+        "title": "إضافات المغذّيات",
+        "addButton": "إضافة إضافة مغذّيات",
+        "addTitle": "إضافة مغذّيات جديدة",
+        "editTitle": "تعديل إضافة المغذّيات",
+        "viewTitle": "تفاصيل إضافة المغذّيات",
+        "noOperations": "لم يتم تسجيل أي إضافات مغذّيات بعد.",
+        "actions": {
+          "viewDetails": "عرض التفاصيل",
+          "edit": "تعديل",
+          "applyOperation": "تطبيق العملية"
+        },
+        "messages": {
+          "deleted": "نجاح",
+          "operationDeleted": "تم حذف إضافة المغذّيات بنجاح",
+          "deleteFailed": "فشل حذف إضافة المغذّيات",
+          "deleteConfirmation": "هل أنت متأكد أنك تريد حذف إضافة المغذّيات هذه؟",
+          "applied": "نجاح",
+          "operationApplied": "تم تطبيق إضافة المغذّيات بنجاح",
+          "applyFailed": "فشل تطبيق إضافة المغذّيات",
+          "applyConfirmation": "هل أنت متأكد أنك تريد تطبيق إضافة المغذّيات هذه؟ سيؤدي ذلك إلى خصم المخزون ولا يمكن التراجع عنه.",
+          "error": "خطأ"
+        },
+        "form": {
+          "tabs": {
+            "basicInformation": "معلومات أساسية",
+            "productsApplied": "المنتجات المُطبَّقة",
+            "nutrients": "المغذّيات",
+            "notes": "ملاحظات"
+          },
+          "sections": {
+            "appliedProducts": "المنتجات المُطبَّقة",
+            "macroNutrients": "المغذّيات الكبرى",
+            "microNutrients": "المغذّيات الصغرى"
+          },
+          "fields": {
+            "dateApplied": {
+              "label": "تاريخ التطبيق",
+              "placeholder": "اختر تاريخًا"
+            },
+            "applicationMethod": {
+              "label": "طريقة التطبيق",
+              "placeholder": "اختر الطريقة",
+              "options": {
+                "broadcast": "نثر",
+                "drip": "تنقيط",
+                "foliar": "رشّ ورقي",
+                "banding": "شرائط (Banding)",
+                "other": "أخرى"
+              }
+            },
+            "status": {
+              "label": "الحالة"
+            },
+            "totalCost": {
+              "label": "إجمالي التكلفة"
+            },
+            "product": "المنتج",
+            "productPlaceholder": "اختر المنتج",
+            "qty": "الكمية",
+            "warehouse": "المستودع",
+            "warehousePlaceholder": "اختر المستودع",
+            "batch": {
+              "label": "الدفعة",
+              "placeholder": "اختر الدفعة",
+              "placeholderSelectWarehouse": "اختر المستودع أولاً",
+              "loading": "جارٍ التحميل...",
+              "available": "المتاح"
+            },
+            "unitCost": "تكلفة الوحدة",
+            "actions": "الإجراءات",
+            "unit": "الوحدة",
+            "notes": {
+              "label": "ملاحظات",
+              "placeholder": "أدخل أي ملاحظات إضافية حول إضافة المغذّيات..."
+            }
+          },
+          "buttons": {
+            "addInput": "إضافة مدخل",
+            "cancel": "إلغاء",
+            "saveAsDraft": "حفظ كمسودة",
+            "createAsApplied": "إنشاء كمُطبَّقة"
+          },
+          "messages": {
+            "success": "نجاح",
+            "operationCreated": "تم إنشاء إضافة المغذّيات بنجاح",
+            "operationUpdated": "تم تحديث إضافة المغذّيات بنجاح",
+            "createdApplied": "تم إنشاء إضافة المغذّيات وتطبيقها بنجاح",
+            "saveFailed": "فشل حفظ إضافة المغذّيات",
+            "error": "خطأ",
+            "noProductsYet": "لم تتم إضافة أي منتجات بعد. اضغط \"إضافة مدخل\" للبدء."
+          },
+          "validation": {
+            "atLeastOneProduct": "أضف منتجًا واحدًا على الأقل.",
+            "checkErrors": "يرجى مراجعة النموذج للأخطاء.",
+            "nutrientValueMin": "يجب أن تكون قيمة المغذيات 0 أو أكثر.",
+            "productRequired": "المنتج مطلوب.",
+            "quantityMin": "يجب أن تكون الكمية أكبر من 0.",
+            "title": "التحقق",
+            "totalCostMin": "يجب أن تكون التكلفة الإجمالية 0 أو أكثر.",
+            "unitCostMin": "يجب أن تكون تكلفة الوحدة 0 أو أكثر.",
+            "unitRequired": "الوحدة مطلوبة.",
+            "warehouseRequired": "المستودع مطلوب."
+          }
+        },
+        "fields": {
+          "applicationType": {
+            "label": "نوع الإضافة",
+            "placeholder": "اختر النوع",
+            "options": {
+              "basal": "إضافة قاعدية",
+              "top_dressing": "تسميد سطحي",
+              "foliar": "رشّ ورقي",
+              "fertigation": "تسميد مع الريّ",
+              "side_dressing": "تسميد جانبي",
+              "broadcasting": "نثر",
+              "banding": "شرائط (Banding)",
+              "other": "أخرى"
+            }
+          },
+          "nutrientType": {
+            "label": "نوع المغذّي",
+            "placeholder": "اختر النوع",
+            "options": {
+              "nitrogen": "نيتروجين (N)",
+              "phosphorus": "فوسفور (P)",
+              "potassium": "بوتاسيوم (K)",
+              "npk": "مركّب NPK",
+              "organic": "سماد عضوي",
+              "micronutrients": "مغذّيات صغرى",
+              "lime": "جير",
+              "gypsum": "جبس",
+              "other": "أخرى"
+            }
+          },
+          "productName": {
+            "label": "اسم المنتج",
+            "placeholder": "مثال: يوريا، DAP، NPK 15-15-15"
+          },
+          "quantity": {
+            "label": "الكمية المُطبَّقة",
+            "placeholder": "الكمية"
+          },
+          "quantityUnit": {
+            "label": "وحدة الكمية",
+            "placeholder": "اختر الوحدة",
+            "options": {
+              "kg": "كيلوغرامات",
+              "g": "غرامات",
+              "t": "أطنان",
+              "lb": "أرطال",
+              "l": "لترات",
+              "ml": "ميليلترات",
+              "gal": "غالونات"
+            }
+          },
+          "npkRatio": {
+            "label": "نسبة NPK",
+            "placeholder": "مثال: 15-15-15"
+          },
+          "applicationMethod": {
+            "label": "طريقة التطبيق",
+            "placeholder": "كيفية التطبيق"
+          },
+          "treatedArea": {
+            "label": "المساحة المُعالَجة",
+            "placeholder": "حجم المساحة"
+          },
+          "treatedAreaUnit": {
+            "label": "وحدة المساحة",
+            "placeholder": "اختر الوحدة"
+          },
+          "soilTestReference": {
+            "label": "مرجع اختبار التربة",
+            "placeholder": "معرّف الاختبار أو التاريخ"
+          }
+        },
+        "table": {
+          "headers": {
+            "dateApplied": "تاريخ التطبيق",
+            "cost": "التكلفة",
+            "productQty": "كمية المنتج",
+            "status": "الحالة",
+            "createdBy": "أُنشئت بواسطة",
+            "date": "التاريخ",
+            "type": "النوع",
+            "product": "المنتج",
+            "quantity": "الكمية",
+            "method": "الطريقة",
+            "area": "المساحة",
+            "actions": "الإجراءات"
+          },
+          "notSet": "غير محدد",
+          "unknown": "غير معروف"
+        },
+        "view": {
+          "expires": "ينتهي",
+          "unknownProduct": "منتج غير معروف"
+        }
+      },
+      "treatment": {
+        "title": "عمليات المعالجة",
+        "addButton": "إضافة عملية معالجة",
+        "editButton": "تعديل عملية معالجة",
+        "addTitle": "إضافة معالجة",
+        "editTitle": "تعديل معالجة",
+        "viewTitle": "تفاصيل المعالجة",
+        "noOperations": "لم يتم تسجيل أي عمليات معالجة بعد.",
+        "loading": "جارٍ تحميل عمليات المعالجة...",
+        "status": {
+          "draft": "مسودة",
+          "applied": "مُطبَّقة"
+        },
+        "dialog": {
+          "addTitle": "إضافة عملية معالجة",
+          "editTitle": "تعديل عملية معالجة",
+          "addDescription": "يرجى تعبئة التفاصيل لإضافة عملية معالجة جديدة.",
+          "editDescription": "قم بتحديث تفاصيل عملية المعالجة أدناه.",
+          "viewTitle": "تفاصيل عملية المعالجة",
+          "deleteTitle": "حذف عملية المعالجة",
+          "deleteDescription": "هل أنت متأكد من حذف عملية المعالجة هذه؟ لا يمكن التراجع عن هذا الإجراء."
+        },
+        "form": {
+          "sections": {
+            "basic": "تفاصيل المعالجة",
+            "products": "المواد المستخدمة",
+            "notes": "ملاحظات إضافية"
+          },
+          "fields": {
+            "field": {
+              "label": "الحقل"
+            },
+            "lot": {
+              "label": "القطعة"
+            },
+            "treatmentDate": {
+              "label": "تاريخ المعالجة",
+              "placeholder": "اختر تاريخًا",
+              "required": "تاريخ المعالجة *"
+            },
+            "treatmentType": {
+              "label": "نوع المعالجة",
+              "placeholder": "اختر نوع المعالجة",
+              "required": "نوع المعالجة *",
+              "options": {
+                "pesticide": "مبيد آفات",
+                "fungicide": "مبيد فطري",
+                "insecticide": "مبيد حشري",
+                "herbicide": "مبيد أعشاب",
+                "other": "أخرى"
+              }
+            },
+            "applicationMethod": {
+              "label": "طريقة التطبيق",
+              "placeholder": "اختر الطريقة",
+              "options": {
+                "spray": "رش",
+                "drench": "سقي",
+                "inject": "حقن",
+                "soil": "تربة",
+                "other": "أخرى"
+              }
+            },
+            "treatmentLocation": {
+              "label": "موقع المعالجة",
+              "placeholder": "مثال: أوراق، بذور، تربة، حيوان"
+            },
+            "daysUntilWithholdingEnd": {
+              "label": "عدد الأيام حتى نهاية فترة المنع",
+              "placeholder": "0",
+              "safeHarvestDate": "تاريخ الحصاد الآمن: {{date}}"
+            },
+            "retreatDate": {
+              "label": "تاريخ إعادة المعالجة",
+              "placeholder": "تاريخ اختياري"
+            },
+            "keywords": {
+              "label": "الكلمات المفتاحية",
+              "placeholder": "أضف كلمة واضغط Enter",
+              "addButton": "إضافة"
+            },
+            "description": {
+              "label": "الوصف",
+              "placeholder": "وصف مختصر للمعالجة..."
+            },
+            "notes": {
+              "label": "ملاحظات",
+              "placeholder": "ملاحظات إضافية حول المعالجة..."
+            },
+            "targetPest": {
+              "label": "الآفة / المرض المستهدف",
+              "placeholder": "مثل: المن، الصدأ، اللفحة"
+            },
+            "severity": {
+              "label": "شدة الإصابة",
+              "placeholder": "اختر الشدة",
+              "options": {
+                "low": "منخفضة",
+                "medium": "متوسطة",
+                "high": "مرتفعة",
+                "severe": "شديدة جدًا"
+              }
+            },
+            "productName": {
+              "label": "اسم المنتج",
+              "placeholder": "مادة كيميائية أو حيوية"
+            },
+            "activeIngredient": {
+              "label": "المادة الفعالة",
+              "placeholder": "مثال: سايبرمثرين"
+            },
+            "applicationRate": {
+              "label": "معدل التطبيق",
+              "placeholder": "المعدل لكل مساحة"
+            },
+            "applicationRateUnit": {
+              "label": "وحدة المعدل",
+              "placeholder": "اختر الوحدة"
+            },
+            "concentration": {
+              "label": "التركيز (%)",
+              "placeholder": "تركيز المنتج"
+            },
+            "waterVolume": {
+              "label": "حجم الماء (لتر)",
+              "placeholder": "لخلطة الرش"
+            },
+            "treatedArea": {
+              "label": "المساحة المعالجة",
+              "placeholder": "حجم المساحة"
+            },
+            "treatedAreaUnit": {
+              "label": "وحدة المساحة",
+              "placeholder": "اختر الوحدة"
+            },
+            "phi": {
+              "label": "فترة ما قبل الحصاد (أيام)",
+              "placeholder": "الفاصل قبل الحصاد"
+            },
+            "rei": {
+              "label": "فترة إعادة الدخول (ساعات)",
+              "placeholder": "الفاصل قبل إعادة الدخول"
+            },
+            "phiDays": {
+              "label": "أيام PHI",
+              "placeholder": "0",
+              "safeHarvest": "تاريخ الحصاد الآمن: {{date}}"
+            }
+          },
+          "products": {
+            "title": "المواد المستخدمة",
+            "addButton": "إضافة منتج",
+            "productNumber": "المنتج {{number}}",
+            "totalCost": "التكلفة الإجمالية: {{cost}}",
+            "fields": {
+              "product": {
+                "label": "المنتج",
+                "placeholder": "اختر المنتج",
+                "required": "المنتج *"
+              },
+              "quantity": {
+                "label": "الكمية",
+                "placeholder": "0",
+                "required": "الكمية *"
+              },
+              "unit": {
+                "label": "الوحدة",
+                "placeholder": "كغ، لتر، إلخ"
+              },
+              "warehouse": {
+                "label": "المستودع",
+                "placeholder": "اختر المستودع",
+                "required": "المستودع *"
+              },
+              "batchNumber": {
+                "label": "رقم الدفعة",
+                "placeholder": "اختر الدفعة",
+                "noBatch": "بدون دفعة",
+                "batchWithQty": "{{batch}} (الكمية: {{quantity}})"
+              },
+              "unitCost": {
+                "label": "تكلفة الوحدة",
+                "placeholder": "0.00"
+              },
+              "estimatedCost": {
+                "label": "التكلفة التقديرية",
+                "placeholder": "0.00"
+              },
+              "activeIngredient": "المادة الفعالة",
+              "generalUse": "الاستخدام العام",
+              "infoCollapse": "طيّ المعلومات",
+              "infoExpand": "توسيع المعلومات",
+              "noInfo": "لا توجد معلومات عن المنتج.",
+              "productForm": "شكل المنتج",
+              "reference": "مرجع",
+              "selectProductInfo": "اختر منتجًا لعرض التفاصيل.",
+              "targetOrganisms": "الآفات / الأمراض / الأعشاب المستهدفة",
+              "activeIngredientConcentration": {
+                "label": "تركيز المادة الفعالة (%)"
+              },
+              "actualDoseUsed": {
+                "label": "الجرعة الفعلية المستخدمة",
+                "placeholder": "أدخل الجرعة المستخدمة",
+                "overridden": "تم التعديل عن الجرعة الموصى بها"
+              },
+              "labelPhi": {
+                "label": "PHI على الملصق"
+              },
+              "recommendedDose": {
+                "label": "الجرعة الموصى بها",
+                "notAvailable": "غير متوفر"
+              }
+            }
+          },
+          "buttons": {
+            "cancel": "إلغاء",
+            "create": "إنشاء معالجة",
+            "update": "تحديث المعالجة",
+            "saving": "جارٍ الحفظ...",
+            "apply": "تطبيق"
+          },
+          "validation": {
+            "productRequired": "المنتج مطلوب",
+            "qtyPositive": "يجب أن تكون الكمية أكبر من صفر",
+            "warehouseRequired": "المستودع مطلوب",
+            "unitCostNonNegative": "يجب ألا تكون تكلفة الوحدة سالبة",
+            "estimatedCostNonNegative": "يجب ألا تكون التكلفة التقديرية سالبة",
+            "treatmentTypeRequired": "نوع المعالجة مطلوب",
+            "atLeastOneProduct": "يجب إضافة منتج واحد على الأقل",
+            "phiDaysRequired": "أيام PHI مطلوبة عند استخدام منتجات مبيدات."
+          }
+        },
+        "table": {
+          "headers": {
+            "date": "التاريخ",
+            "type": "النوع",
+            "target": "المستهدف",
+            "product": "المنتج",
+            "area": "المساحة",
+            "phi": "فترة ما قبل الحصاد",
+            "cost": "التكلفة",
+            "treatmentType": "نوع المعالجة",
+            "products": "المنتجات",
+            "totalCost": "إجمالي التكلفة",
+            "status": "الحالة",
+            "actions": "الإجراءات"
+          },
+          "productsCount": "{{count}} منتج",
+          "cost": "${{amount}}"
+        },
+        "view": {
+          "sections": {
+            "summary": "ملخص المعالجة",
+            "keywords": "الكلمات المفتاحية",
+            "description": "الوصف",
+            "products": "المنتجات المُطبَّقة",
+            "vouchers": "سندات المخزون",
+            "notes": "الملاحظات",
+            "audit": "سجل التدقيق",
+            "metadata": "البيانات الوصفية"
+          },
+          "fields": {
+            "treatmentDate": "تاريخ المعالجة",
+            "treatmentType": "نوع المعالجة",
+            "applicationMethod": "طريقة التطبيق",
+            "treatmentLocation": "موقع المعالجة",
+            "withholdingPeriod": "فترة المنع",
+            "withholdingDays": "{{days}} يومًا",
+            "safeHarvest": "تاريخ الحصاد الآمن: {{date}}",
+            "retreatDate": "تاريخ إعادة المعالجة",
+            "totalCost": "إجمالي التكلفة",
+            "created": "أُنشئت",
+            "lastUpdated": "آخر تحديث",
+            "by": "بواسطة {{name}}"
+          },
+          "productsTable": {
+            "headers": {
+              "product": "المنتج",
+              "quantity": "الكمية",
+              "unit": "الوحدة",
+              "warehouse": "المستودع",
+              "batch": "الدفعة",
+              "unitCost": "تكلفة الوحدة",
+              "totalCost": "إجمالي التكلفة"
+            },
+            "noBatch": "غير متوفر",
+            "unknownProduct": "منتج غير معروف",
+            "unknownWarehouse": "مستودع غير معروف",
+            "fields": {
+              "activeIngredientConcentration": "تركيز المادة الفعالة (%)",
+              "actualDoseUsed": "الجرعة الفعلية المستخدمة",
+              "overridden": "تم التعديل",
+              "recommendedDose": "الجرعة الموصى بها"
+            }
+          }
+        },
+        "messages": {
+          "success": {
+            "created": "تم إنشاء عملية معالجة بنجاح",
+            "updated": "تم تحديث عملية معالجة بنجاح",
+            "deleted": "تم حذف عملية معالجة بنجاح",
+            "applied": "تم تطبيق عملية معالجة بنجاح. تم تحديث المخزون."
+          },
+          "error": {
+            "createFailed": "فشل إنشاء عملية معالجة",
+            "updateFailed": "فشل تحديث عملية معالجة",
+            "deleteFailed": "فشل حذف عملية معالجة",
+            "applyFailed": "فشل تطبيق عملية معالجة",
+            "loadFailed": "فشل تحميل عمليات المعالجة"
+          }
+        }
+      },
+      "harvesting": {
+        "title": "عمليات الحصاد",
+        "addButton": "إضافة حصاد",
+        "addTitle": "إضافة حصاد",
+        "editTitle": "تعديل الحصاد",
+        "viewTitle": "تفاصيل الحصاد",
+        "loading": "جارٍ تحميل العمليات...",
+        "noOperations": "لم يتم تسجيل عمليات حصاد",
+        "status": {
+          "draft": "مسودة",
+          "verified": "مُتحقَّق منها",
+          "classified": "مُصنَّفة"
+        },
+        "form": {
+          "dialogTitle": "عملية حصاد - مسودة",
+          "fields": {
+            "field": {
+              "label": "الحقل"
+            },
+            "lot": {
+              "label": "القطعة"
+            },
+            "crop": {
+              "label": "المحصول"
+            },
+            "harvestDate": {
+              "label": "تاريخ الحصاد *",
+              "placeholder": "اختر تاريخًا"
+            },
+            "notes": {
+              "label": "ملاحظات",
+              "placeholder": "ملاحظات إضافية حول الحصاد..."
+            }
+          },
+          "totalHarvested": {
+            "title": "إجمالي الحصاد",
+            "computedFrom": "يُحسب من {{count}} إدخال عامل",
+            "computedFrom_plural": "يُحسب من {{count}} إدخالات عمّال"
+          },
+          "workerEntries": {
+            "title": "إدخالات حصاد العمّال",
+            "addButton": "إضافة عامل",
+            "fields": {
+              "worker": {
+                "label": "العامل *",
+                "selectFromList": "اختر من القائمة",
+                "enterManually": "إدخال يدوي",
+                "enterPlaceholder": "أدخل اسم العامل...",
+                "selectPlaceholder": "اختر العامل...",
+                "unknown": "عامل غير معروف"
+              },
+              "quantity": {
+                "label": "الكمية *"
+              },
+              "unit": {
+                "label": "الوحدة *",
+                "placeholder": "اختر الوحدة",
+                "options": {
+                  "bag": "كيس",
+                  "box": "صندوق",
+                  "crate": "صندوق خشبي",
+                  "kg": "كجم",
+                  "lbs": "رطل",
+                  "tons": "طن"
+                }
+              },
+              "cost": {
+                "label": "التكلفة"
+              }
+            }
+          },
+          "buttons": {
+            "cancel": "إلغاء",
+            "saving": "جارٍ الحفظ...",
+            "saveAsDraft": "حفظ كمسودة"
+          },
+          "validation": {
+            "atLeastOneWorker": "أضف عاملاً واحدًا على الأقل.",
+            "quantityMin": "يجب أن تكون الكمية أكبر من 0.",
+            "unitRequired": "الوحدة مطلوبة.",
+            "workerRequired": "العامل مطلوب."
+          }
+        },
+        "fields": {
+          "harvestMethod": {
+            "label": "طريقة الحصاد",
+            "placeholder": "اختر الطريقة",
+            "options": {
+              "manual": "يدوي",
+              "mechanical": "ميكانيكي",
+              "semi_mechanical": "شبه ميكانيكي",
+              "selective": "حصاد انتقائي",
+              "other": "أخرى"
+            }
+          },
+          "harvestStage": {
+            "label": "مرحلة الحصاد",
+            "placeholder": "اختر المرحلة",
+            "options": {
+              "early": "مبكر",
+              "optimal": "مثالي",
+              "late": "متأخر",
+              "multiple": "حصاد متعدد"
+            }
+          },
+          "totalYield": {
+            "label": "إجمالي الإنتاج",
+            "placeholder": "إجمالي المحصول"
+          },
+          "yieldUnit": {
+            "label": "وحدة الإنتاج",
+            "placeholder": "اختر الوحدة"
+          },
+          "harvestedArea": {
+            "label": "المساحة المحصودة",
+            "placeholder": "حجم المساحة"
+          },
+          "harvestedAreaUnit": {
+            "label": "وحدة المساحة",
+            "placeholder": "اختر الوحدة"
+          },
+          "moisture": {
+            "label": "نسبة الرطوبة (%)",
+            "placeholder": "وقت الحصاد"
+          },
+          "temperature": {
+            "label": "درجة الحرارة (°م)",
+            "placeholder": "وقت الحصاد"
+          },
+          "storageLocation": {
+            "label": "موقع التخزين",
+            "placeholder": "أين تم التخزين"
+          },
+          "transportMethod": {
+            "label": "طريقة النقل",
+            "placeholder": "كيفية النقل"
+          },
+          "classification": {
+            "title": "تصنيف الحصاد",
+            "premium": {
+              "label": "درجة ممتاز",
+              "placeholder": "الكمية"
+            },
+            "standard": {
+              "label": "درجة قياسية",
+              "placeholder": "الكمية"
+            },
+            "processing": {
+              "label": "درجة للتصنيع",
+              "placeholder": "الكمية"
+            },
+            "waste": {
+              "label": "هدر/مرفوض",
+              "placeholder": "الكمية"
+            }
+          },
+          "quality": {
+            "title": "معايير الجودة",
+            "size": {
+              "label": "الحجم المتوسط",
+              "placeholder": "مثال: كبير، 200غ"
+            },
+            "color": {
+              "label": "اللون",
+              "placeholder": "مثال: أخضر، ناضج"
+            },
+            "brix": {
+              "label": "مستوى بريكس",
+              "placeholder": "محتوى السكر"
+            },
+            "defects": {
+              "label": "العيوب (%)",
+              "placeholder": "نسبة العيوب"
+            }
+          }
+        },
+        "table": {
+          "headers": {
+            "date": "التاريخ",
+            "totalHarvested": "إجمالي الحصاد",
+            "workers": "العمّال",
+            "categories": "الفئات",
+            "status": "الحالة",
+            "method": "الطريقة",
+            "yield": "الإنتاج",
+            "area": "المساحة",
+            "moisture": "الرطوبة",
+            "quality": "الجودة",
+            "cost": "التكلفة",
+            "actions": "الإجراءات"
+          }
+        },
+        "verification": {
+          "title": "التحقق من الحصاد",
+          "weighbridge": {
+            "label": "تذكرة الميزان",
+            "placeholder": "رقم التذكرة"
+          },
+          "verifiedBy": {
+            "label": "تم التحقق بواسطة",
+            "placeholder": "اسم المُتحقِّق"
+          },
+          "photos": {
+            "label": "صور الحصاد",
+            "upload": "رفع الصور"
+          },
+          "buttons": {
+            "cancel": "إلغاء",
+            "confirm": "تحقق",
+            "verifying": "جارٍ التحقق..."
+          },
+          "description": "تأكيد الكميات والتكاليف المحصودة.",
+          "fields": {
+            "harvestingCost": "تكلفة الحصاد",
+            "harvestingCostHelp": "تكلفة العمالة النهائية لهذا الحصاد.",
+            "harvestingCostPlaceholder": "0.00"
+          },
+          "summary": {
+            "harvestDate": "تاريخ الحصاد",
+            "totalHarvested": "إجمالي المحصول",
+            "workerBreakdown": "تفاصيل العمال",
+            "workerCount": "{{count}} عامل",
+            "workerId": "المعرف: {{id}}",
+            "workers": "العمال"
+          },
+          "validation": {
+            "costMin": "يجب أن تكون التكلفة 0 أو أكثر."
+          }
+        },
+        "view": {
+          "title": "تفاصيل عملية الحصاد",
+          "header": {
+            "harvestDate": "تاريخ الحصاد",
+            "workers": "العمّال",
+            "workersCount": "{{count}} عامل(عمال)",
+            "categories": "الفئات",
+            "categoriesCount": "{{count}} فئة(فئات)",
+            "status": "الحالة"
+          },
+          "totalHarvested": "إجمالي الحصاد",
+          "workerBreakdown": {
+            "title": "تفصيل حسب العامل",
+            "workerId": "المعرّف: {{id}}"
+          },
+          "supervisorVerification": {
+            "title": "تحقق المشرف",
+            "verifiedBy": "تم التحقق بواسطة",
+            "supervisor": "المشرف",
+            "unknown": "غير معروف",
+            "verifiedAt": "تاريخ التحقق",
+            "harvestingCost": "تكلفة الحصاد"
+          },
+          "classification": {
+            "title": "التصنيف وإدخالات المخزون",
+            "product": "المنتج",
+            "quantity": "الكمية",
+            "warehouse": "المستودع",
+            "productionDate": "تاريخ الإنتاج",
+            "expirationDate": "تاريخ الانتهاء",
+            "salePrice": "سعر البيع",
+            "totalSales": "إجمالي المبيعات",
+            "profit": "الربح",
+            "wasteNote": "تم تسجيله كفاقد (بدون مخزون أو مبيعات).",
+            "stockEntriesCreated": "تم إنشاء إدخالات المخزون",
+            "stockEntriesCount": "تم إنشاء {{count}} إدخال مخزون بنجاح",
+            "stockEntriesCount_plural": "تم إنشاء {{count}} إدخالات مخزون بنجاح",
+            "classifiedBy": "تم التصنيف بواسطة",
+            "dataEntryOperator": "مدخل البيانات",
+            "classifiedAt": "تاريخ التصنيف"
+          },
+          "notes": {
+            "title": "الملاحظات"
+          }
+        },
+        "actions": {
+          "classify": "تصنيف",
+          "verify": "تحقق"
+        },
+        "wizard": {
+          "title": "إنهاء الحصاد",
+          "steps": {
+            "draft": "الخطوة 1: مسودة",
+            "verification": "الخطوة 2: التحقق",
+            "classification": "الخطوة 3: التصنيف"
+          },
+          "stepDescriptions": {
+            "draft": "الخطوة 1 من 3: أدخل أو حدّث بيانات مسودة الحصاد.",
+            "verification": "الخطوة 2 من 3: تحقّق من إجمالي الحصاد والتكلفة النهائية.",
+            "classification": "الخطوة 3 من 3: صنّف المخرجات وأكمل قيود المخزون/المبيعات."
+          },
+          "buttons": {
+            "finalize": "إكمال"
+          },
+          "notReady": {
+            "saveDraftFirst": "احفظ بيانات المسودة أولاً للمتابعة إلى التحقق.",
+            "verifyFirst": "تحقق من هذا الحصاد قبل التصنيف."
+          }
+        },
+        "outcomes": {
+          "addedToWarehouse": "إضافة إلى المستودع",
+          "soldDirect": "بيع مباشر",
+          "waste": "فاقد"
+        },
+        "classification": {
+          "addProduct": "إضافة منتج",
+          "buttons": {
+            "cancel": "إلغاء",
+            "creating": "جارٍ الحفظ...",
+            "save": "حفظ"
+          },
+          "description": "أنشئ قيود مخزون للمنتجات المحصودة.",
+          "entriesTitle": "بنود التصنيف",
+          "wasteNote": "سيتم تسجيل الفاقد بدون مخزون أو مبيعات.",
+          "fields": {
+            "expirationDate": "تاريخ الانتهاء",
+            "expirationDatePlaceholder": "اختر تاريخًا",
+            "outcome": "النتيجة",
+            "product": "المنتج",
+            "productPlaceholder": "اختر منتجًا",
+            "productionDate": "تاريخ الإنتاج",
+            "productionDatePlaceholder": "اختر تاريخًا",
+            "quantity": "الكمية",
+            "quantityPlaceholder": "0",
+            "salePrice": "سعر البيع (للوحدة)",
+            "unit": "الوحدة",
+            "warehouse": "المستودع",
+            "warehousePlaceholder": "اختر مستودعًا"
+          },
+          "summary": {
+            "remaining": "المتبقي",
+            "totalClassified": "إجمالي المصنف",
+            "totalHarvested": "إجمالي المحصول"
+          },
+          "title": "تصنيف الحصاد",
+          "validation": {
+            "atLeastOne": "أضف تصنيفًا واحدًا على الأقل.",
+            "exceedsHarvested": "الكمية المصنفة ({{classified}}) تتجاوز المحصود ({{harvested}}).",
+            "exceedsHarvestedAlert": "إجمالي التصنيف يتجاوز الكمية المحصودة ({{harvested}} {{unit}}).",
+            "mustMatchHarvested": "يجب أن يساوي إجمالي الكمية المصنفة إجمالي الكمية المحصودة.",
+            "productNameRequired": "اسم المنتج مطلوب.",
+            "productRequired": "المنتج مطلوب.",
+            "quantityPositive": "يجب أن تكون الكمية أكبر من 0.",
+            "remainingQuantity": "الكمية المتبقية للتصنيف:",
+            "salePriceRequired": "سعر البيع مطلوب للبيع المباشر.",
+            "unitRequired": "الوحدة مطلوبة.",
+            "warehouseNameRequired": "اسم المستودع مطلوب.",
+            "warehouseRequired": "المستودع مطلوب."
+          }
+        },
+        "phiPrecheck": {
+          "title": "قيود PHI نشطة",
+          "summary": "أقرب موعد آمن للحصاد: {{date}} (متبقي {{days}} يومًا)"
+        },
+        "phiWarning": {
+          "title": "تحذير قيود PHI",
+          "description": "لا تزال هناك معالجات واحدة أو أكثر لديها فترة PHI نشطة لتاريخ الحصاد هذا.",
+          "descriptionWithDate": "لا تزال هناك معالجات واحدة أو أكثر لديها PHI نشط حتى {{date}}.",
+          "treatmentLabel": "معالجة بتاريخ {{date}}",
+          "restrictedUntil": "مقيّد حتى {{date}}",
+          "productPhiSummary": "PHI {{days}} يومًا",
+          "statusActive": "PHI نشط (متبقي {{days}} يومًا)",
+          "statusDone": "اكتمل PHI",
+          "proceedAnyway": "المتابعة على أي حال",
+          "bannerTitle": "PHI نشط — أنت تحصد قبل موعد الحصاد الآمن ({{date}}).",
+          "viewDetails": "عرض التفاصيل",
+          "hideDetails": "إخفاء التفاصيل"
+        }
+      },
+      "cultural": {
+        "cardTitle": "عمليات الإدارة المتكاملة / العمليات الثقافية ({{count}}) - إجمالي التكلفة: {{cost}}",
+        "loading": "جارٍ التحميل...",
+        "buttons": {
+          "add": "إضافة إدارة متكاملة / ثقافية",
+          "apply": "تطبيق"
+        },
+        "dialog": {
+          "addTitle": "إضافة عملية ثقافية",
+          "editTitle": "تعديل عملية ثقافية",
+          "description": "سجّل عمليات المظلة، التدريب، ما بعد الحصاد وغيرها من العمليات الثقافية."
+        },
+        "enabledPractices": {
+          "title": "الممارسات الثقافية المفعّلة لهذا المحصول",
+          "help": "انقر على ممارسة لإضافة عملية بسرعة.",
+          "noPermission": "ليس لديك صلاحية لتسجيل العمليات الثقافية. فعّل صلاحية الإنشاء لدورات الإنتاج → الإدارة المتكاملة / الثقافية.",
+          "cycleClosed": "هذه الدورة مغلقة. تم تعطيل التسجيل.",
+          "notEnabled": "لم تعد الإدارة المتكاملة / الثقافية مفعّلة لهذا المحصول. السجلات التاريخية مرئية، لكن تسجيل سجلات جديدة معطّل.",
+          "loading": "جارٍ تحميل الممارسات المفعّلة...",
+          "noneEnabled": "لا توجد ممارسات ثقافية مفعّلة لهذا المحصول بعد. فعّل ممارسات CANOPY / POST_HARVEST في عمليات المحاصيل.",
+          "enabledCount": "{{count}} مفعّلة",
+          "enabledCount_plural": "{{count}} مفعّلة"
+        },
+        "table": {
+          "empty": "لا توجد عمليات ثقافية بعد.",
+          "headers": {
+            "practice": "الممارسة",
+            "domain": "النطاق",
+            "qty": "الكمية"
+          }
+        },
+        "delete": {
+          "title": "حذف عملية ثقافية؟",
+          "description": "لا يمكن التراجع عن هذا الإجراء."
+        },
+        "form": {
+          "noPracticesWarning": "لا توجد ممارسات ثقافية مفعّلة لهذا المحصول بعد. فعّل ممارسة واحدة على الأقل CANOPY / POST_HARVEST في عمليات المحاصيل قبل التسجيل.",
+          "operationDetails": "تفاصيل العملية",
+          "fieldLot": "الحقل: {{field}} • القطعة: {{lot}}",
+          "practiceRequired": "الممارسة (مطلوب)",
+          "selectPractice": "اختر الممارسة",
+          "none": "لا يوجد",
+          "quantity": "الكمية",
+          "unit": "الوحدة",
+          "selectUnit": "اختر الوحدة",
+          "attachment": "مرفق {{number}}",
+          "moreAttachments": "+{{count}} إضافية",
+          "saveChanges": "حفظ التغييرات"
+        },
+        "view": {
+          "title": "تفاصيل العملية الثقافية",
+          "created": "أُنشئت",
+          "lastUpdated": "آخر تحديث"
+        },
+        "domains": {
+          "CANOPY": "المظلة وحِمل المحصول",
+          "POST_HARVEST": "التعامل بعد الحصاد",
+          "OTHER": "أخرى"
+        },
+        "practice": {
+          "bagging_bunches": {
+            "label": "تغليف العناقيد",
+            "description": "تغليف العناقيد."
+          },
+          "bending_bunches": {
+            "label": "ثني العناقيد",
+            "description": "ثني العناقيد."
+          },
+          "cluster_thinning": {
+            "label": "تخفيف العناقيد",
+            "description": "تخفيف العناقيد."
+          },
+          "fruit_thinning": {
+            "label": "تخفيف الثمار",
+            "description": "تخفيف الثمار."
+          },
+          "inflorescences_cutting": {
+            "label": "قص النورات",
+            "description": "قص النورات."
+          },
+          "leaf_pruning": {
+            "label": "تقليم الأوراق",
+            "description": "تقليم الأوراق."
+          },
+          "offshoot_management": {
+            "label": "إدارة الفسائل",
+            "description": "إدارة الفسائل/السرطانات."
+          },
+          "pollination": {
+            "label": "التلقيح",
+            "description": "تلقيح يدوي/مساعد."
+          },
+          "pruning": {
+            "label": "التقليم",
+            "description": "عملية تقليم عامة."
+          },
+          "pruning_remove_dead_branches": {
+            "label": "تقليم (إزالة الأغصان الميتة)",
+            "description": "إزالة الأغصان الميتة."
+          },
+          "pruning_remove_diseased_parts": {
+            "label": "تقليم (إزالة الأجزاء المصابة)",
+            "description": "إزالة الأجزاء/الأغصان المصابة."
+          },
+          "shoot_pruning": {
+            "label": "تقليم الأفرع",
+            "description": "تقليم الأفرع."
+          },
+          "spines_cutting": {
+            "label": "قص الأشواك",
+            "description": "قص الأشواك."
+          },
+          "training_install_twines": {
+            "label": "تدريب (تركيب خيوط الدعم)",
+            "description": "عملية تدريب: تركيب خيوط/دعامات."
+          },
+          "post_harvest_sanitation": {
+            "label": "تعقيم ما بعد الحصاد",
+            "description": "تعقيم ما بعد الحصاد."
+          },
+          "post_harvesting": {
+            "label": "عمليات ما بعد الحصاد",
+            "description": "عمليات ما بعد الحصاد."
+          },
+          "sorting_and_grading": {
+            "label": "الفرز والتدريج",
+            "description": "الفرز والتدريج."
+          }
+        },
+        "toasts": {
+          "created": "تم إنشاء عملية ثقافية بنجاح",
+          "createFailed": "خطأ في إنشاء العملية الثقافية: {{error}}",
+          "updated": "تم تحديث العملية الثقافية بنجاح",
+          "updateFailed": "خطأ في تحديث العملية الثقافية: {{error}}",
+          "deleted": "تم حذف العملية الثقافية بنجاح",
+          "deleteFailed": "خطأ في حذف العملية الثقافية: {{error}}",
+          "applied": "تم تطبيق العملية الثقافية بنجاح",
+          "applyFailed": "خطأ في تطبيق العملية الثقافية: {{error}}"
+        }
+      },
+      "filterLayout": {
+        "grid": "عرض شبكي",
+        "list": "عرض قائمة"
+      },
+      "view": {
+        "audit": {
+          "asStatus": "الحالة: {{status}}",
+          "fromTo": "من {{from}} → {{to}}"
+        },
+        "emDash": "—",
+        "labels": {
+          "action": "الإجراء",
+          "attachments": "المرفقات",
+          "batch": "الدفعة: {{batch}}",
+          "category": "الفئة",
+          "created": "تم الإنشاء",
+          "createdBy": "أُنشئ بواسطة",
+          "date": "التاريخ",
+          "description": "الوصف",
+          "duration": "المدة",
+          "durationValue": "{{hours}} ساعة",
+          "expiryDate": "تاريخ الانتهاء",
+          "inputIndex": "مدخل #{{index}}",
+          "inputsUsed": "المدخلات المستخدمة ({{count}})",
+          "lastUpdated": "آخر تحديث",
+          "lineTotal": "إجمالي السطر: {{total}}",
+          "manufacturingDate": "تاريخ التصنيع",
+          "notes": "ملاحظات",
+          "operationId": "معرّف العملية",
+          "performedBy": "نفّذ بواسطة",
+          "product": "المنتج",
+          "quantityPricing": "الكمية والتسعير",
+          "quantityUnit": "الكمية + الوحدة",
+          "sku": "SKU: {{sku}}",
+          "source": "المصدر",
+          "status": "الحالة",
+          "totalCost": "إجمالي التكلفة",
+          "totalInputsCost": "إجمالي تكلفة المدخلات",
+          "type": "النوع",
+          "unitPricing": "{{cost}} لكل {{unit}}",
+          "user": "المستخدم",
+          "volume": "الحجم"
+        },
+        "missingProduct": "منتج مفقود (المعرّف: {{id}})",
+        "noInputs": "لا توجد مدخلات مسجلة.",
+        "noneSelected": "لم يتم تحديد شيء",
+        "notSet": "غير محدد",
+        "sections": {
+          "auditTrail": "سجل التدقيق",
+          "basicInfo": "المعلومات الأساسية",
+          "inputsUsed": "المدخلات المستخدمة",
+          "metadata": "البيانات الوصفية",
+          "notes": "ملاحظات",
+          "operationDetails": "تفاصيل العملية",
+          "performedBy": "نفّذ بواسطة"
+        },
+        "title": "تفاصيل العملية",
+        "unknownId": "معرّف غير معروف",
+        "unknownStatus": "حالة غير معروفة",
+        "unknownUser": "مستخدم غير معروف",
+        "user": "المستخدم"
+      }
+    },
+    "messages": {
+      "addHarvestDescription": "تم إنشاء عملية الحصاد بنجاح.",
+      "addHarvestTitle": "تمت إضافة الحصاد",
+      "addNutrientsDescription": "تم إنشاء تطبيق المغذيات بنجاح.",
+      "addNutrientsTitle": "تمت إضافة تطبيق المغذيات",
+      "addOperationDescription": "تمت إضافة العملية بنجاح.",
+      "addOperationTitle": "تمت إضافة العملية",
+      "closeCycleDenied": "ليس لديك صلاحية لإغلاق دورات الإنتاج.",
+      "loading": "جارٍ تحميل دورة الإنتاج...",
+      "navigationDescription": "لا توجد صفحة تفاصيل مهيأة لعمليات {{type}}.",
+      "navigationTitle": "التنقل غير متاح",
+      "notFound": "لم يتم العثور على دورة الإنتاج",
+      "notesSaveFailedTitle": "فشل حفظ الملاحظات",
+      "notesSavedDescription": "تم حفظ ملاحظاتك.",
+      "notesSavedTitle": "تم حفظ الملاحظات",
+      "operationDenied": "ليس لديك صلاحية لتعديل عمليات دورة الإنتاج."
+    },
+    "summary": {
+      "durationValue": "{{days}} يومًا",
+      "labels": {
+        "actualYield": "الإنتاج الفعلي",
+        "area": "المساحة",
+        "duration": "المدة",
+        "endDate": "تاريخ الانتهاء",
+        "startDate": "تاريخ البدء",
+        "targetYield": "الإنتاج المستهدف"
+      },
+      "unknownField": "حقل غير معروف",
+      "unknownLot": "قطعة غير معروفة"
+    },
+    "phi": {
+      "badgeAriaLabel": "قيود PHI نشطة. انقر لعرض التفاصيل.",
+      "badge": "PHI نشط",
+      "badgeWithDaysLeft": "PHI نشط • متبقي {{days}} يومًا",
+      "title": "قيود PHI",
+      "activeUntil": "نشط حتى {{date}}",
+      "phiDays": "PHI: {{days}} يومًا",
+      "safeDate": "آمن: {{date}}",
+      "unknownProduct": "منتج غير معروف",
+      "status": {
+        "active": "نشط",
+        "done": "منتهٍ"
+      }
+    }
+  },
+  "operations": {
+    "common": {
+      "buttons": {
+        "edit": "تعديل",
+        "view": "عرض"
+      }
+    },
+    "irrigation": {
+      "title": "الريّ",
+      "table": {
+        "headers": {
+          "date": "التاريخ",
+          "method": "الطريقة",
+          "source": "المصدر",
+          "waterAmount": "كمية المياه",
+          "cost": "التكلفة",
+          "actions": "الإجراءات"
+        }
+      }
+    },
+    "treatment": {
+      "title": "المعالجة",
+      "addButton": "إضافة معالجة",
+      "noOperations": "لم يتم تسجيل أي عمليات معالجة بعد.",
+      "loading": "جارٍ تحميل عمليات المعالجة...",
+      "status": {
+        "draft": "مسودة",
+        "applied": "مُطبَّقة"
+      },
+      "table": {
+        "headers": {
+          "date": "التاريخ",
+          "treatmentType": "نوع المعالجة",
+          "products": "المنتجات",
+          "totalCost": "إجمالي التكلفة",
+          "status": "الحالة",
+          "actions": "الإجراءات"
+        },
+        "productsCount": "{{count}} منتج"
+      },
+      "dialog": {
+        "addTitle": "إضافة عملية معالجة",
+        "editTitle": "تعديل عملية معالجة",
+        "addDescription": "يرجى تعبئة التفاصيل لإضافة عملية معالجة جديدة.",
+        "editDescription": "قم بتحديث تفاصيل عملية المعالجة أدناه.",
+        "deleteTitle": "حذف عملية معالجة",
+        "deleteDescription": "هل أنت متأكد من حذف عملية المعالجة هذه؟ لا يمكن التراجع عن هذا الإجراء."
+      },
+      "messages": {
+        "success": {
+          "created": "تم إنشاء عملية معالجة بنجاح",
+          "updated": "تم تحديث عملية معالجة بنجاح",
+          "deleted": "تم حذف عملية معالجة بنجاح",
+          "applied": "تم تطبيق عملية معالجة بنجاح. تم تحديث المخزون."
+        },
+        "error": {
+          "createFailed": "فشل إنشاء عملية معالجة",
+          "deleteFailed": "فشل حذف عملية معالجة",
+          "applyFailed": "فشل تطبيق عملية معالجة"
+        }
+      }
+    }
+  },
+  "common": {
+    "units": {
+      "mass": {
+        "g": "g (غرام)",
+        "kg": "kg (كيلوغرام)",
+        "t": "t (طن متري)",
+        "lb": "lb (رطل)",
+        "oz": "oz (أونصة)",
+        "st": "st (ستون)",
+        "ton_us": "ton (طن قصير أمريكي)",
+        "ton_imp": "ton (طن طويل إمبراطوري)",
+        "cwt_us": "cwt (قنطار أمريكي، 100 lb)",
+        "cwt_imp": "cwt (قنطار إمبراطوري، 112 lb)"
+      },
+      "volume": {
+        "ml": "mL (ميليلتر)",
+        "l": "L (لتر)",
+        "gal": "gal (غالون)",
+        "gal_imp": "gal (غالون إمبراطوري)",
+        "fl_oz": "fl oz (أونصة سائلة)",
+        "cup": "cup (كوب)",
+        "pt": "pt (باينت)",
+        "qt": "qt (كوارت)",
+        "bbl": "bbl (برميل)",
+        "m3": "m³ (متر مكعب)",
+        "ft3": "ft³ (قدم مكعب)",
+        "floz_us": "fl oz (أونصة سائلة أمريكية)",
+        "gal_us": "gal (جالون أمريكي)",
+        "hl": "hL (هكتولتر)",
+        "pt_us": "pt (باينت أمريكي)",
+        "qt_us": "qt (كوارت أمريكي)"
+      },
+      "count": {
+        "units": "وحدة",
+        "pieces": "قطعة",
+        "heads": "رأس",
+        "plants": "نبات",
+        "seeds": "بذرة",
+        "dozen": "دزينة",
+        "score": "عشرون",
+        "gross": "غروس (144)",
+        "thousand": "ألف",
+        "bunches": "عناقيد",
+        "eggs": "بيض"
+      },
+      "area": {
+        "m2": "م² (متر مربع)",
+        "ha": "ha (هكتار)",
+        "acre": "acre (فدان)",
+        "ft2": "ft² (قدم مربع)",
+        "yd2": "yd² (ياردة مربعة)",
+        "perch": "perch (بيرچ)",
+        "rood": "rood (رود)"
+      },
+      "packages": {
+        "bags": "أكياس",
+        "bales": "بالات",
+        "boxes": "صناديق",
+        "crates": "صناديق خشبية",
+        "pallets": "طبليات",
+        "sacks": "أجولة",
+        "trays": "صواني"
+      },
+      "perArea": {
+        "bu_ac": "bu/ac (بوشل لكل أكر)",
+        "cwt_ac": "cwt/ac (قنطار لكل أكر)",
+        "kg_ha": "كجم/هكتار (كيلوغرام لكل هكتار)",
+        "lb_ac": "lb/ac (رطل لكل أكر)",
+        "t_ha": "طن/هكتار (طن لكل هكتار)"
+      },
+      "commodity": {
+        "bushels": "بوشل"
+      }
+    },
+    "status": {
+      "active": "نشطة",
+      "closed": "مغلقة",
+      "pending": "قيد الانتظار",
+      "completed": "مكتمل",
+      "cancelled": "ملغي",
+      "draft": "مسودة",
+      "applied": "مُطبَّقة",
+      "planned": "مخططة"
+    },
+    "errors": {
+      "loadFailed": "فشل تحميل البيانات",
+      "saveFailed": "فشل الحفظ",
+      "deleteFailed": "فشل الحذف",
+      "validationFailed": "يرجى التحقق من جميع الحقول المطلوبة",
+      "networkError": "خطأ في الشبكة. يرجى المحاولة مرة أخرى.",
+      "unauthorized": "ليس لديك صلاحية لتنفيذ هذا الإجراء",
+      "notFound": "المورد غير موجود"
+    },
+    "placeholders": {
+      "select": "اختر...",
+      "search": "بحث...",
+      "optional": "(اختياري)",
+      "required": "(مطلوب)",
+      "noData": "لا توجد بيانات متاحة",
+      "loading": "جارٍ التحميل..."
+    },
+    "tooltips": {
+      "info": "مزيد من المعلومات",
+      "help": "انقر للحصول على المساعدة",
+      "required": "هذا الحقل مطلوب",
+      "calculated": "يتم حساب هذه القيمة تلقائيًا"
+    }
+  }
+}

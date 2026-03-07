@@ -24,7 +24,6 @@ import {
   HeaderMenuButton,
   ListRow,
   LogRow,
-  NotificationHeaderButton,
   PillTabs,
   ProfileCard,
   PullToRefreshContainer,
@@ -33,6 +32,7 @@ import {
   SectionHeader,
   Skeleton,
   StatStrip,
+  SystemHeaderActions,
   useFormValidation,
   useToast,
 } from '../../../components';
@@ -188,6 +188,7 @@ export function FieldsScreen() {
     errorMessage,
     refresh,
     loadFieldDetail,
+    loadFieldLots,
     createField,
     updateField,
     deactivateField,
@@ -300,6 +301,7 @@ export function FieldsScreen() {
       const detail = await loadFieldDetail(field.id);
       if (detailRequestIdRef.current !== requestId) return;
       setDetailField(detail);
+      void hydrateFieldLots(field.id, requestId);
     } catch (error) {
       if (detailRequestIdRef.current !== requestId) return;
       setDetailField(null);
@@ -319,6 +321,21 @@ export function FieldsScreen() {
     setDetailField(null);
   }
 
+  async function hydrateFieldLots(fieldId: string, requestId: number) {
+    try {
+      const lots = await loadFieldLots(fieldId);
+      if (detailRequestIdRef.current !== requestId) return;
+      setDetailField((current) => {
+        if (!current || current.id !== fieldId) return current;
+        return { ...current, lots };
+      });
+    } catch (error) {
+      if (detailRequestIdRef.current !== requestId) return;
+      const message = error instanceof Error ? error.message : 'Failed to load lots for this field.';
+      showToast({ message, variant: 'error' });
+    }
+  }
+
   async function refreshSelectedFieldDetail() {
     if (!selectedFieldId) return;
     const requestId = detailRequestIdRef.current + 1;
@@ -329,6 +346,7 @@ export function FieldsScreen() {
       const detail = await loadFieldDetail(selectedFieldId);
       if (detailRequestIdRef.current !== requestId) return;
       setDetailField(detail);
+      void hydrateFieldLots(selectedFieldId, requestId);
     } catch (error) {
       if (detailRequestIdRef.current !== requestId) return;
       setDetailField(null);
@@ -568,10 +586,9 @@ export function FieldsScreen() {
         <View style={styles.headerTop}>
           <View style={styles.headerLead}>
             <HeaderMenuButton testID="fields-header-menu" />
-            <Text style={styles.headerTitle}>Fields</Text>
+            <Text style={styles.headerTitle}>{t('fields', 'tabs.fields', 'Fields')}</Text>
           </View>
-          <View style={styles.headerBtns}>
-            <NotificationHeaderButton testID="fields-header-notifications" />
+          <SystemHeaderActions notificationTestID="fields-header-notifications">
             <HeaderIconButton
               icon="alert-circle-outline"
               onPress={() => setFieldAlertsVisible(true)}
@@ -586,7 +603,7 @@ export function FieldsScreen() {
                 testID="fields-header-create"
               />
             ) : null}
-          </View>
+          </SystemHeaderActions>
         </View>
         <SearchBar
           value={searchValue}

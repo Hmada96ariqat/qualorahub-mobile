@@ -1,0 +1,125 @@
+{
+  "warehouses": {
+    "title": "المستودعات",
+    "addWarehouse": "إضافة مستودع",
+    "editWarehouse": "تعديل المستودع",
+    "filters": "المرشحات",
+    "name": "الاسم",
+    "field": "الحقل",
+    "capacity": "السعة",
+    "temperature": "درجة الحرارة",
+    "temperatureRange": "نطاق درجة الحرارة",
+    "status": "الحالة",
+    "actions": "الإجراءات",
+    "viewMode": "وضع العرض",
+    "warehouseTypes": "أنواع المستودعات",
+
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "allFields": "جميع الحقول",
+    "allStatus": "جميع الحالات",
+
+    "searchWarehouses": "ابحث عن المستودعات...",
+    "loadingWarehouses": "جارٍ تحميل المستودعات...",
+    "noWarehousesFound": "لم يتم العثور على مستودعات",
+    "backToWarehouses": "← العودة إلى المستودعات",
+
+    "warehouseNameRequired": "اسم المستودع *",
+    "fieldRequired": "الحقل *",
+    "capacityUnit": "الوحدة",
+    "minTemperature": "الحد الأدنى للحرارة (°م)",
+    "maxTemperature": "الحد الأقصى للحرارة (°م)",
+    "warehouseTypesLabel": "أنواع المستودعات",
+    "safetyMeasures": "إجراءات السلامة",
+    "notes": "ملاحظات",
+
+    "placeholders": {
+      "selectField": "اختر الحقل",
+      "capacityValue": "أدخل قيمة السعة",
+      "selectUnit": "اختر الوحدة"
+    },
+
+    "warehouseTypes": {
+      "coldStorage": "تبريد/تخزين بارد",
+      "seedStorage": "مستودع بذور",
+      "fertilizer": "مستودع أسمدة",
+      "packingHouse": "بيت تعبئة",
+      "livestockShelter": "حظيرة/مأوى للثروة الحيوانية",
+      "greenhouse": "بيت محمي",
+      "fuelStorage": "مستودع وقود",
+      "other": "أخرى"
+    },
+
+    "capacityUnits": {
+      "kg": "كيلوغرام (kg)",
+      "ton": "طن",
+      "lb": "رطل (lb)",
+      "g": "غرام (g)",
+      "oz": "أونصة (oz)",
+      "liter": "لتر (L)",
+      "ml": "مليلتر (ml)",
+      "gallon": "غالون",
+      "m3": "متر مكعب (م³)",
+      "ft3": "قدم مكعب (ft³)",
+      "piece": "قطعة",
+      "box": "صندوق",
+      "pallet": "منصّة/باليت",
+      "container": "حاوية",
+      "bag": "كيس",
+      "barrel": "برميل",
+      "bushel": "بوشل",
+      "crate": "صندوق شحن"
+    },
+
+    "form": {
+      "create": "إنشاء مستودع",
+      "update": "تحديث المستودع",
+      "saving": "جارٍ الحفظ..."
+    },
+
+    "messages": {
+      "warehouseCreated": "تم إنشاء المستودع بنجاح",
+      "warehouseUpdated": "تم تحديث المستودع بنجاح",
+      "warehouseActivated": "تم تفعيل المستودع بنجاح",
+      "warehouseDeactivated": "تم تعطيل المستودع بنجاح",
+      "failedToActivate": "فشل تفعيل المستودع"
+    },
+
+    "dialogs": {
+      "deleteTitle": "حذف المستودع",
+      "deleteDescription": "هل أنت متأكد من حذف المستودع {name}؟ سيؤدي هذا الإجراء إلى تعطيل المستودع.",
+      "confirmDelete": "حذف المستودع"
+    },
+
+    "inventory": {
+      "totalItems": "إجمالي الأصناف",
+      "totalQuantity": "إجمالي الكمية",
+      "totalSalePrice": "إجمالي قيمة البيع",
+      "totalCost": "إجمالي التكلفة",
+      "capacityUsage": "استخدام السعة",
+      "capacityVsHolding": "السعة مقابل المخزون الحالي",
+      "used": "مستخدم",
+      "available": "متاح",
+      "warehouseInformation": "معلومات المستودع",
+      "basicInformation": "معلومات أساسية",
+      "typesSafety": "الأنواع والسلامة",
+      "types": "الأنواع",
+      "inventoryItems": "أصناف المخزون",
+      "errorLoadingInventory": "حدث خطأ أثناء تحميل المخزون",
+      "failedToFetchInventory": "فشل جلب بيانات المخزون",
+      "tryAgain": "حاول مرة أخرى",
+      "loadingInventory": "جارٍ تحميل المخزون...",
+      "noItemsInWarehouse": "لا توجد أصناف في هذا المستودع",
+      "unknownProduct": "منتج غير معروف",
+      "quantity": "الكمية",
+      "value": "القيمة",
+      "batch": "الدفعة",
+      "expires": "تاريخ الانتهاء"
+    },
+
+    "noField": "لا يوجد حقل",
+    "unknownField": "حقل غير معروف",
+    "noLot": "لا توجد قطعة",
+    "unknownLot": "قطعة غير معروفة"
+  }
+}

@@ -1,0 +1,643 @@
+{
+  "orderList": {
+    "page": {
+      "title": "إدارة الطلبات",
+      "subtitle": "إدارة جميع طلبات عملائك وتتبع حالتهم",
+      "loading": "جارٍ تحميل الطلبات...",
+      "noOrdersFound": "لم يتم العثور على أي أوامر",
+      "noOrdersMatchFilters": "لا توجد طلبات تتطابق مع المرشحات الحالية",
+      "ordersCount": "طلبات",
+      "ordersHeading": "طلبات"
+    },
+    "actions": {
+      "createOrder": "إنشاء الطلب",
+      "exportAll": "تصدير الكل",
+      "exportFiltered": "تصدير تمت تصفيته",
+      "filters": "المرشحات",
+      "viewDetails": "عرض التفاصيل",
+      "saveChanges": "حفظ التغييرات",
+      "call": "يتصل",
+      "email": "بريد إلكتروني",
+      "viewOnMap": "عرض على الخريطة",
+      "removeItem": "إزالة العنصر",
+      "acceptAndProceed": "قبول والمتابعة",
+      "rejectOrder": "رفض الطلب",
+      "confirmReject": "تأكيد الرفض",
+      "delete": "يمسح",
+      "edit": "يحرر",
+      "editOrder": "تحرير الطلب",
+      "view": "منظر",
+      "viewOrder": "عرض الطلب"
+    },
+    "filters": {
+      "title": "بحث وتصفية",
+      "simple": "بسيط",
+      "advanced": "متقدم",
+      "clearAll": "مسح الكل",
+      "activeFilters": "المرشحات النشطة",
+      "search": {
+        "label": "يبحث",
+        "placeholder": "رقم الطلب يا عميل..."
+      },
+      "status": {
+        "label": "حالة",
+        "placeholder": "الكل",
+        "all": "الكل"
+      },
+      "paymentMethod": {
+        "label": "طريقة الدفع",
+        "placeholder": "جميع طرق الدفع",
+        "all": "جميع طرق الدفع"
+      },
+      "deliveryMethod": {
+        "label": "طريقة التسليم",
+        "placeholder": "جميع طرق التسليم",
+        "all": "جميع طرق التسليم"
+      },
+      "source": {
+        "label": "مصدر الطلب",
+        "placeholder": "جميع المصادر",
+        "all": "جميع المصادر",
+        "storefront": "🛒واجهة المحل",
+        "direct": "📝 مباشر"
+      },
+      "dateRange": {
+        "label": "النطاق الزمني",
+        "placeholder": "كل الوقت",
+        "allTime": "كل الوقت",
+        "today": "اليوم",
+        "yesterday": "أمس",
+        "last7Days": "آخر 7 أيام",
+        "last30Days": "آخر 30 يومًا",
+        "thisWeek": "هذا الاسبوع",
+        "lastWeek": "الأسبوع الماضي",
+        "thisMonth": "هذا الشهر",
+        "lastMonth": "الشهر الماضي",
+        "custom": "نطاق مخصص",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء"
+      },
+      "amount": {
+        "minAmount": "الحد الأدنى للمبلغ ($)",
+        "maxAmount": "الحد الأقصى للمبلغ ($)",
+        "minPlaceholder": "0",
+        "maxPlaceholder": "1000"
+      },
+      "city": {
+        "label": "مدينة العملاء",
+        "placeholder": "جميع المدن",
+        "all": "جميع المدن"
+      },
+      "badges": {
+        "search": "يبحث",
+        "status": "حالة",
+        "payment": "قسط",
+        "delivery": "توصيل",
+        "source": "مصدر",
+        "city": "مدينة"
+      },
+      "of": "ل",
+      "openFilters": "افتح المرشحات",
+      "removeFilter": "قم بإزالة الفلتر"
+    },
+    "table": {
+      "headers": {
+        "orderNumber": "طلب #",
+        "customer": "عميل",
+        "date": "تاريخ",
+        "status": "حالة",
+        "total": "المجموع",
+        "source": "مصدر",
+        "actions": "الإجراءات"
+      }
+    },
+    "createOrder": {
+      "title": "إنشاء طلب جديد",
+      "configuration": {
+        "title": "تكوين الطلب",
+        "subtitle": "حدد نوع التسعير لهذا الطلب"
+      },
+      "priceType": {
+        "label": "نوع السعر",
+        "sale": "سعر البيع",
+        "wholesale": "سعر الجملة",
+        "noPriceAvailable": "لا يتوفر سعر {{priceType}}"
+      },
+      "customer": {
+        "title": "معلومات العملاء",
+        "contactLabel": "الاتصال بالعملاء",
+        "contactPlaceholder": "حدد أو أضف جهة اتصال العميل",
+        "contactRequired": "الرجاء تحديد جهة اتصال العميل للمتابعة",
+        "selectedContactDetails": "تفاصيل الاتصال المحددة:",
+        "name": "اسم",
+        "email": "بريد إلكتروني",
+        "phone": "هاتف",
+        "city": "مدينة",
+        "address": "عنوان",
+        "notSpecified": "غير محدد",
+        "contactOptionalLabel": "الاتصال بالعملاء (اختياري)"
+      },
+      "delivery": {
+        "label": "طريقة التسليم",
+        "pickup": "يلتقط",
+        "delivery": "التوصيل (+5.00 دولار)"
+      },
+      "payment": {
+        "label": "طريقة الدفع",
+        "cash": "نقدي",
+        "card": "بطاقة",
+        "online": "متصل"
+      },
+      "discount": {
+        "title": "خصم الطلب (اختياري)",
+        "typeLabel": "نوع الخصم",
+        "valueLabel": "قيمة الخصم",
+        "percentageLabel": "نسبة مئوية",
+        "amountLabel": "المبلغ ($)",
+        "noDiscount": "لا يوجد خصم",
+        "percentage": "نسبة مئوية (٪)",
+        "fixed": "المبلغ الثابت ($)",
+        "percentagePlaceholder": "10",
+        "fixedPlaceholder": "5.00",
+        "applied": "الخصم: ${{amount}}",
+        "discountAmount": "تخفيض",
+        "errorExceedsPercentage": "لا يمكن أن تتجاوز نسبة الخصم 100%",
+        "errorExceedsSubtotal": "لا يمكن أن يتجاوز الخصم الثابت الإجمالي الفرعي"
+      },
+      "items": {
+        "title": "عناصر الطلب",
+        "browseProducts": "تصفح المنتجات",
+        "searchPlaceholder": "بحث عن المنتجات...",
+        "noItemsSelected": "لم يتم تحديد أي عناصر",
+        "addProductPrompt": "قم بإضافة منتج واحد على الأقل لإنشاء طلب",
+        "addAtLeastOne": "قم بإضافة منتج واحد على الأقل لإنشاء طلب",
+        "noProducts": "لا توجد منتجات نشطة للبيع.",
+        "selectedItems": "العناصر المحددة",
+        "unitPrice": "سعر الوحدة",
+        "taxRate": "معدل الضريبة",
+        "itemPrice": "سعر السلعة",
+        "tax": "ضريبة",
+        "total": "المجموع",
+        "removeItem": "إزالة العنصر",
+        "sale": "أُوكَازيُون",
+        "notAvailable": "لا يوجد",
+        "noPriceAvailable": "لا يتوفر سعر {{priceType}}",
+        "noActiveProducts": "لا توجد منتجات نشطة للبيع.",
+        "searchByNameSku": "البحث عن المنتجات بالاسم، SKU...",
+        "noItemsAddedYet": "لم تتم إضافة أي عناصر حتى الآن",
+        "addProductsToStart": "أضف المنتجات للبدء",
+        "sku": "رمز التخزين التعريفي: {{sku}}"
+      },
+      "summary": {
+        "subtotal": "المجموع الفرعي",
+        "discount": "تخفيض",
+        "discountFixed": "مُثَبَّت",
+        "bindedTax": "الضريبة الملزمة",
+        "grandTotal": "المجموع الإجمالي",
+        "title": "ملخص الطلب"
+      },
+      "status": {
+        "label": "حالة الطلب",
+        "pending": "معلق (لا توجد تغييرات في المخزون/الدخل)",
+        "confirmed": "تم التأكيد (خصم المخزون تلقائيًا وتسجيل الدخل)",
+        "confirmedWarning": "ستقوم الطلبات المؤكدة تلقائيًا بخصم كميات المخزون وإنشاء سجل معاملات الدخل."
+      },
+      "notes": {
+        "label": "ملحوظات",
+        "placeholder": "ملاحظات اختيارية للطلب",
+        "labelOptional": "ملاحظات (اختياري)",
+        "dialogPlaceholder": "أضف أي ملاحظات إضافية حول هذا الطلب..."
+      },
+      "buttons": {
+        "create": "إنشاء الطلب",
+        "creating": "جارٍ الإنشاء...",
+        "cancel": "يلغي"
+      },
+      "validation": {
+        "selectContact": "الرجاء تحديد جهة اتصال العميل",
+        "addItems": "يرجى إضافة عنصر واحد على الأقل إلى الطلب",
+        "priceNotAvailable": "السعر غير متوفر",
+        "noPriceForType": "لا يشتمل هذا المنتج على سعر محدد يبلغ {{priceType}}."
+      },
+      "messages": {
+        "successConfirmed": "تم إنشاء الطلب وتأكيده! تم خصم المخزون تلقائيا وتسجيل الدخل.",
+        "successPending": "تم إنشاء الطلب على أنه معلق - لم يتم إجراء أي تغييرات على المخزون أو الدخل.",
+        "errorCreating": "حدث خطأ أثناء إنشاء الطلب"
+      },
+      "headerSubtitle": "إضافة المنتجات ومعلومات العملاء",
+      "steps": {
+        "products": "منتجات",
+        "customer": "عميل",
+        "details": "تفاصيل"
+      },
+      "navigation": {
+        "previous": "سابق",
+        "next": "التالي"
+      },
+      "stockLimit": {
+        "title": "المخزون غير كافٍ",
+        "descriptionWithStockIn": "لديك {{available}} من {{productName}} في المخزون. الكمية المطلوبة: {{attempted}}. للمتابعة، أضف مخزونًا أولاً.",
+        "descriptionNoAccess": "لديك {{available}} من {{productName}} في المخزون. الكمية المطلوبة: {{attempted}}. هذا هو الحد الأقصى المسموح للطلبات المؤكدة.",
+        "cancel": "إلغاء",
+        "close": "إغلاق",
+        "stockIn": "إدخال مخزون"
+      }
+    },
+    "orderDetails": {
+      "title": "تفاصيل الطلب #{{orderNumber}}",
+      "customer": {
+        "title": "معلومات العملاء"
+      },
+      "order": {
+        "title": "معلومات الطلب",
+        "payment": "قسط",
+        "method": "طريقة",
+        "date": "تاريخ",
+        "total": "المجموع"
+      },
+      "items": {
+        "title": "عناصر الطلب",
+        "subtotal": "المجموع الفرعي",
+        "discount": "تخفيض",
+        "taxAndFees": "الضرائب والرسوم",
+        "total": "المجموع"
+      },
+      "notes": {
+        "title": "ملاحظات خاصة"
+      },
+      "alerts": {
+        "validationErrors": "الرجاء إصلاح المشكلات التالية قبل الحفظ:",
+        "statusChangeBlocked": "تمت معالجة هذا الطلب ولا يمكن إعادته إلى الحالة \"ملزم\" أو \"معلق\" أو \"ملغى\".",
+        "stockOutCreated": "تم إنشاء سجل نفاذ المخزون لهذا الطلب."
+      },
+      "stockVoucherNote": "نفذ المخزون للطلب #{{orderNumber}}",
+      "stockMovementNote": "الطلب رقم {{orderNumber}} - الدفعة: {{batch}}",
+      "voucherLineNote": "الطلب #{{orderNumber}}"
+    },
+    "statuses": {
+      "pending": "قيد الانتظار",
+      "binding": "ملزم",
+      "confirmed": "مؤكد",
+      "processing": "يعالج",
+      "shipped": "تم الشحن",
+      "delivered": "تم التوصيل",
+      "cancelled": "تم الإلغاء"
+    },
+    "statusDropdown": {
+      "pending": {
+        "label": "قيد الانتظار",
+        "description": "إبقاء قابلة للتحرير، أي تأثير على المخزون"
+      },
+      "pendingReview": {
+        "label": "في انتظار المراجعة",
+        "description": "في انتظار المراجعة"
+      },
+      "confirmed": {
+        "label": "مؤكد",
+        "description": "⚠️ سيتم قفل الطلب وخصم المخزون تلقائيًا"
+      },
+      "acceptOrder": {
+        "label": "قبول الطلب",
+        "description": "قبول ومعالجة"
+      },
+      "processing": {
+        "label": "يعالج",
+        "description": "جاري تحضير الطلب"
+      },
+      "shipped": {
+        "label": "تم الشحن",
+        "description": "تم شحن الطلب إلى العميل"
+      },
+      "delivered": {
+        "label": "تم التوصيل",
+        "description": "اكتمل الطلب"
+      },
+      "cancelled": {
+        "label": "تم الإلغاء",
+        "description": "تم إلغاء الطلب"
+      },
+      "rejectOrder": {
+        "label": "رفض الطلب",
+        "description": "رفض هذا الأمر"
+      },
+      "alert": {
+        "locked": "تمت معالجة هذا الطلب ولا يمكن إعادته إلى \"معلق\" أو \"ملغى\"."
+      }
+    },
+    "storefrontReview": {
+      "title": "مراجعة طلب واجهة المتجر",
+      "notice": "تم تقديم هذا الطلب من خلال واجهة متجرك عبر الإنترنت ويتطلب المراجعة قبل المعالجة.",
+      "rejectConfirmation": "هل أنت متأكد أنك تريد رفض هذا الطلب؟ لا يمكن التراجع عن هذا الإجراء."
+    },
+    "statusConfirmation": {
+      "confirm": {
+        "title": "تأكيد الطلب؟",
+        "description": "سيؤدي هذا الإجراء إلى إنهاء الطلب وتحديث سجلات المخزون والتمويل. لن تتمكن من تعديل هذا الطلب بعد التأكيد.",
+        "impacts": {
+          "stockDeduction": "سيتم خصم المخزون تلقائيًا باستخدام طريقة FIFO",
+          "incomeTransaction": "سيتم إنشاء معاملة الدخل تلقائيا",
+          "statusLocked": "سيتم قفل حالة الطلب (لا يوجد إرجاع إلى المعلق)"
+        }
+      },
+      "update": {
+        "title": "هل تريد تحديث حالة الطلب؟",
+        "description": "سيؤدي تغيير الحالة إلى \"{{newStatus}}\" إلى قفل هذا الطلب ومنع المزيد من التعديلات.",
+        "descriptionGeneric": "هل أنت متأكد من أنك تريد تغيير حالة الطلب من \"{{currentStatus}}\" إلى \"{{newStatus}}\"؟",
+        "impacts": {
+          "noEdit": "لا يمكن تعديل الطلب بعد هذا التغيير",
+          "noRevert": "لا يمكن إرجاع الحالة إلى معلقة أو ملغاة"
+        }
+      },
+      "actionText": {
+        "confirmOrder": "تأكيد الطلب",
+        "updateStatus": "تحديث الحالة",
+        "processing": "يعالج...",
+        "acceptAndProceed": "قبول والمتابعة"
+      },
+      "impactsIntro": "هذا الإجراء سوف:"
+    },
+    "batchSelection": {
+      "title": "تخصيص الدفعة المطلوبة",
+      "description": "حدد دفعات مخزون محددة لكل منتج بهذا الترتيب. وهذا يضمن تتبعًا دقيقًا للمخزون والامتثال لـ FIFO.",
+      "confirmButton": "تأكيد المخصصات",
+      "processing": "يعالج...",
+      "cancelButton": "يلغي",
+      "validation": {
+        "fixIssues": "الرجاء إصلاح المشكلات التالية:",
+        "noBatchSelected": "{{productName}}: لم يتم تحديد تخصيص دفعة",
+        "allocationMismatch": "{{productName}}: تم تخصيص {{allocated}} ولكن تم طلب {{ordered}}",
+        "exceedsStock": "{{productName}}: كمية الدفعة تتجاوز المخزون المتاح"
+      },
+      "completionStatus": "تم تخصيص جميع المنتجات بشكل صحيح. على استعداد للمضي قدما."
+    },
+    "messages": {
+      "success": {
+        "orderUpdated": "تم تحديث الطلب بنجاح",
+        "orderDeleted": "تم حذف الطلب بنجاح",
+        "statusUpdated": "تم تحديث حالة الطلب بنجاح",
+        "statusUpdatedWithStock": "تم تأكيد الطلب! تم خصم المخزون وتسجيل الدخل.",
+        "stockOutCreated": "تم إنشاء سجل نفاذ المخزون بنجاح",
+        "exportCompleted": "اكتمل التصدير",
+        "exportAll": "تم تصدير جميع الطلبات إلى Excel",
+        "exportFiltered": "تم تصدير الطلبات التي تمت تصفيتها إلى Excel",
+        "title": "نجاح"
+      },
+      "error": {
+        "updatingOrder": "حدث خطأ أثناء تحديث الطلب",
+        "updatingStatus": "حدث خطأ أثناء تحديث حالة الطلب",
+        "deletingOrder": "حدث خطأ أثناء حذف الطلب",
+        "creatingStockOut": "خطأ في إنشاء سجل نفاد المخزون",
+        "exportFailed": "فشل التصدير",
+        "exportFailedDescription": "فشل تصدير الطلبات",
+        "insufficientInventory": "مخزون غير كاف",
+        "stockDeductionFailed": "فشل خصم المخزون",
+        "cannotChangeConfirmed": "لا يمكن تغيير الطلبات المؤكدة إلى الحالة المعلقة",
+        "cannotRevertStatus": "لا يمكن الرجوع مرة أخرى إلى \"ملزم\" أو \"معلق\" أو \"ملغى\" بعد معالجة الطلب",
+        "generic": "خطأ",
+        "requestedAvailableLine": "{{productName}}: مطلوب {{requested}}، متاح {{available}}",
+        "exportFailedFilteredDescription": "فشل تصدير الطلبات التي تمت تصفيتها"
+      },
+      "warning": {
+        "incomeRecordFailed": "تم تأكيد الطلب ولكن فشل في إنشاء سجل الدخل. الرجاء الإضافة يدويا.",
+        "title": "تحذير"
+      },
+      "permissions": {
+        "cannotCreate": "ليس لديك الإذن بإنشاء الأوامر.",
+        "cannotEdit": "ليس لديك إذن لتحديث الطلبات.",
+        "cannotDelete": "ليس لديك الإذن بحذف الطلبات.",
+        "cannotExport": "ليس لديك إذن بتصدير الطلبات.",
+        "permissionDenied": "تم رفض الإذن"
+      }
+    },
+    "exports": {
+      "allOrders": "جميع الطلبات",
+      "filteredOrders": "أوامر تمت تصفيتها"
+    },
+    "kpi": {
+      "totalOrders": "إجمالي الطلبات",
+      "confirmed": "مؤكد",
+      "pending": "قيد الانتظار",
+      "revenue": "ربح",
+      "clickableCard": "{{title}}: {{value}}. {{description}}. انقر للتصفية"
+    },
+    "cards": {
+      "orderCard": "اطلب بطاقة {{orderNumber}}",
+      "statusLabel": "الحالة: {{status}}",
+      "moreActions": "المزيد من الإجراءات",
+      "openMenu": "فتح القائمة",
+      "customerInfo": "معلومات العملاء",
+      "orderDetails": "تفاصيل الطلب",
+      "items": "أغراض",
+      "itemSingular": "غرض",
+      "itemPlural": "أغراض",
+      "total": "المجموع",
+      "delivery": "توصيل",
+      "pickup": "يلتقط",
+      "quickActions": "إجراءات سريعة",
+      "created": "مخلوق"
+    },
+    "sources": {
+      "storefront": "واجهة المتجر",
+      "direct": "مباشر",
+      "manual": "يدوي"
+    },
+    "paymentMethods": {
+      "cash": "نقدي",
+      "card": "بطاقة",
+      "online": "متصل",
+      "null": "غير محدد"
+    },
+    "deliveryMethods": {
+      "pickup": "يلتقط",
+      "delivery": "توصيل",
+      "null": "غير محدد"
+    },
+    "addContact": {
+      "title": "إضافة جهة اتصال جديدة للعملاء",
+      "description": "أنشئ جهة اتصال للعميل واستخدمها بهذا الترتيب",
+      "selectContact": "حدد جهة الاتصال",
+      "loadingContacts": "جارٍ تحميل جهات الاتصال...",
+      "searchPlaceholder": "بحث في جهات الاتصال...",
+      "contactsHeading": "اتصالات",
+      "fields": {
+        "customerName": "اسم العميل",
+        "customerNamePlaceholder": "أدخل اسم العميل",
+        "email": "بريد إلكتروني",
+        "emailPlaceholder": "customer@email.com",
+        "phone": "هاتف",
+        "phonePlaceholder": "رقم التليفون",
+        "city": "مدينة",
+        "cityPlaceholder": "المدينة (اختياري)"
+      },
+      "validation": {
+        "nameRequired": "اسم العميل مطلوب",
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "يرجى إدخال عنوان بريد إلكتروني صالح",
+        "phoneRequired": "رقم الهاتف مطلوب",
+        "contactMethodRequired": "مطلوب واحد على الأقل من البريد الإلكتروني أو الهاتف"
+      },
+      "errors": {
+        "loadingContacts": "حدث خطأ أثناء تحميل جهات الاتصال"
+      },
+      "empty": {
+        "noContactInfo": "لا توجد معلومات الاتصال",
+        "noContactsAvailable": "لا توجد جهات اتصال متاحة. أضف جهة اتصال جديدة أدناه.",
+        "noCustomerContacts": "لم يتم العثور على جهات اتصال العملاء. حاول البحث أو إضافة جهة اتصال جديدة."
+      },
+      "actions": {
+        "addNewContact": "إضافة جهة اتصال جديدة",
+        "addContact": "إضافة جهة اتصال",
+        "adding": "جارٍ الإضافة..."
+      }
+    },
+    "batchSelector": {
+      "title": "تخصيص الدفعة",
+      "orderQty": "كمية الطلب: {{quantity}}",
+      "loadingBatches": "جارٍ تحميل الدفعات...",
+      "fields": {
+        "batch": "حزمة",
+        "selectBatch": "حدد الدفعة",
+        "quantity": "كمية"
+      },
+      "empty": {
+        "noBatchNumber": "لا يوجد دفعة #",
+        "unknownWarehouse": "مستودع غير معروف",
+        "noBatchesAvailable": "لا توجد دفعات متاحة لهذا المنتج. يرجى التحقق من مستويات المخزون."
+      },
+      "availableLine": "متاح: {{quantity}} | {{warehouse}}",
+      "expiry": "الخبرة: {{date}}",
+      "max": "الحد الأقصى: {{quantity}}",
+      "actions": {
+        "remove": "يزيل",
+        "addBatch": "إضافة دفعة"
+      },
+      "allocatedLabel": "المخصصة:",
+      "remaining": "({{quantity}} المتبقي)",
+      "errors": {
+        "exceedsOrderQuantity": "الإجمالي المخصص ({{allocated}}) يتجاوز كمية الطلب ({{ordered}})",
+        "exceedsStock": "تتجاوز بعض كميات الدُفعات المخزون المتوفر",
+        "failedToLoadBatches": "فشل تحميل الدفعات: {{error}}"
+      }
+    },
+    "detailsPage": {
+      "backToOrders": "العودة إلى الطلبات",
+      "placedOn": "تم وضعه على {{date}}",
+      "notFoundTitle": "لم يتم العثور على الطلب",
+      "notFoundDescription": "الطلب الذي تبحث عنه غير موجود.",
+      "batchAllocationInfo": "سيكون تخصيص الدُفعة مطلوبًا لتتبع المخزون عند معالجة هذا الطلب."
+    },
+    "edit": {
+      "title": "تعديل الطلب {{orderNumber}}",
+      "description": "تحديث العملاء والتسليم والدفع والملاحظات",
+      "fields": {
+        "customerName": "اسم العميل",
+        "customerEmail": "البريد الإلكتروني للعميل",
+        "customerPhone": "هاتف العميل",
+        "address": "عنوان",
+        "city": "مدينة"
+      },
+      "actions": {
+        "save": "يحفظ",
+        "saving": "توفير..."
+      },
+      "validation": {
+        "customerNameRequired": "اسم العميل مطلوب",
+        "invalidEmail": "بريد إلكتروني غير صالح"
+      }
+    },
+    "invoice": {
+      "title": "فاتورة",
+      "printButton": "طباعة الفاتورة",
+      "farmLogoAlt": "شعار المزرعة",
+      "farmNameFallback": "اسم المزرعة",
+      "labels": {
+        "invoiceNumber": "فاتورة #",
+        "date": "تاريخ",
+        "status": "حالة",
+        "phone": "هاتف",
+        "email": "بريد إلكتروني",
+        "website": "موقع إلكتروني",
+        "paymentMethod": "طريقة الدفع",
+        "deliveryMethod": "طريقة التسليم",
+        "source": "مصدر"
+      },
+      "sections": {
+        "billTo": "مشروع قانون ل",
+        "orderDetails": "تفاصيل الطلب"
+      },
+      "table": {
+        "item": "غرض",
+        "qty": "الكمية",
+        "unitPrice": "سعر الوحدة",
+        "tax": "ضريبة",
+        "total": "المجموع"
+      },
+      "empty": {
+        "noCustomerInfo": "لم يتم توفير معلومات العملاء",
+        "noLineItems": "لم يتم تسجيل أي بنود لهذا الطلب.",
+        "unknownProduct": "منتج غير معروف"
+      },
+      "errors": {
+        "farmDataNotLoaded": "لم يتم تحميل بيانات المزرعة",
+        "printWindowBlocked": "لا يمكن فتح نافذة الطباعة. يرجى التحقق من مانع النوافذ المنبثقة لديك."
+      },
+      "thankYou": "شكرا لعملك!"
+    },
+    "map": {
+      "title": "الموقع على الخريطة",
+      "iframeTitle": "خريطة الموقع",
+      "coordinates": "الإحداثيات: {{latitude}}، {{longitude}}",
+      "address": "العنوان: {{address}}"
+    },
+    "badge": {
+      "unreadOrders": "الطلبات غير المقروءة",
+      "noUnreadOrders": "لا توجد أوامر غير مقروءة",
+      "viewAllOrders": "عرض جميع الطلبات",
+      "viewUnreadOrders": "عرض الطلبات غير المقروءة",
+      "enableOrderNotifications": "تمكين إشعارات الطلب"
+    },
+    "notifications": {
+      "newOrderReceived": "تم استلام الطلب الجديد!",
+      "orderFromCustomer": "الطلب من {{customerName}} - ${{amount}}"
+    },
+    "confirmation": {
+      "pageTitle": "تأكيد الطلب",
+      "notFoundTitle": "لم يتم العثور على الطلب",
+      "notFoundDescription": "الطلب الذي تبحث عنه غير موجود أو تمت إزالته.",
+      "backToStore": "العودة إلى المتجر",
+      "successTitle": "تم تقديم الطلب بنجاح!",
+      "successDescription": "شكرا لطلبك. سوف نتصل بك قريبا لتأكيد التفاصيل.",
+      "orderNumber": "رقم الطلب",
+      "deliveryFee": "رسوم التوصيل",
+      "deliveryInformation": "معلومات التسليم",
+      "pickupInformation": "معلومات الالتقاط",
+      "deliveryAddress": "عنوان التسليم:",
+      "deliveryContactMessage": "سوف نتصل بك لتحديد موعد التسليم.",
+      "pickupLocation": "موقع الاستلام:",
+      "pickupLocationDetails": "مزرعة الوادي الأخضر، 123 طريق المزرعة، فارمفيل، الولاية 12345",
+      "pickupContactMessage": "سوف نتصل بك عندما يكون طلبك جاهزا.",
+      "questionsMessage": "هل لديك أسئلة حول طلبك؟ اتصل بنا للحصول على المساعدة.",
+      "continueShopping": "مواصلة التسوق"
+    },
+    "publicManagement": {
+      "orderCardTitle": "الطلب {{orderNumber}}",
+      "deliveryDetails": "تفاصيل التسليم",
+      "farmPickup": "بيك اب المزرعة",
+      "homeDelivery": "توصيل الطلبات للمنازل",
+      "deliveryFee": "رسوم التوصيل",
+      "actions": {
+        "confirming": "جارٍ التأكيد...",
+        "cancelOrder": "إلغاء الطلب"
+      },
+      "messages": {
+        "orderConfirmedTitle": "تم تأكيد الطلب",
+        "orderConfirmedDescription": "تم تحديث كميات المخزون.",
+        "errorConfirmingOrder": "حدث خطأ أثناء تأكيد الطلب"
+      },
+      "empty": {
+        "noOrdersTitle": "لا توجد أوامر حتى الآن",
+        "noOrdersDescription": "ستظهر الطلبات من واجهة متجرك هنا."
+      }
+    }
+  }
+}

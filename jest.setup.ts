@@ -1,4 +1,7 @@
 // Jest setup file for shared test bootstrap hooks.
+jest.mock('@react-native-async-storage/async-storage', () =>
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock'),
+);
 jest.mock('react-native-maps', () => {
   const React = require('react');
   const { View } = require('react-native');

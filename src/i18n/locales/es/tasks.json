@@ -1,0 +1,833 @@
+{
+  "tasks": {
+    "title": "Tareas",
+    "description": "Gestión integral de tareas para las operaciones de tu finca",
+    "addNew": "Creá Tarea",
+    "backToTasks": "Volver a Tareas",
+    "offlineMode": "Modo Sin Conexión",
+    "syncing": "Sincronizando...",
+    "changesPendingSync": "Cambios pendientes de sincronizar",
+    
+    "actions": {
+      "add": "Agregá Tarea",
+      "create": "Creá Tarea",
+      "createNew": "Creá Nueva Tarea",
+      "edit": "Editá",
+      "editTask": "Editá Tarea",
+      "update": "Actualizá Tarea",
+      "delete": "Eliminá Tarea",
+      "deleteTask": "Eliminá Tarea",
+      "view": "Ver",
+      "viewDetails": "Ver Detalles",
+      "duplicate": "Duplicá",
+      "archive": "Archivá",
+      "unarchive": "Desarchivá",
+      "cancel": "Cancelá",
+      "save": "Guardá",
+      "saveDraft": "Guardá Borrador",
+      "saveAndAssign": "Guardá y Asigná",
+      "submit": "Enviá",
+      "reset": "Restablecé",
+      "filter": "Filtrá",
+      "filters": "Filtros",
+      "search": "Buscá",
+      "clearAllFilters": "Limpiá Todos los Filtros",
+      "refresh": "Actualizá",
+      "export": "Exportá",
+      "exportTasks": "Exportá Tareas",
+      "import": "Importá",
+      "importTasks": "Importá Tareas",
+      "manageTemplates": "Gestioná Plantillas",
+      "useTemplate": "Usá Plantilla",
+      "applyTemplate": "Aplicá Plantilla",
+      "close": "Cerrá",
+      "next": "Siguiente",
+      "previous": "Anterior",
+      "finish": "Terminá",
+      "processing": "Procesando...",
+      "admin": "Administración"
+    },
+    
+    "views": {
+      "list": "Lista",
+      "listView": "Vista de Lista",
+      "calendar": "Calendario",
+      "calendarView": "Vista de Calendario",
+      "kanban": "Kanban",
+      "kanbanBoard": "Tablero Kanban",
+      "grid": "Cuadrícula",
+      "table": "Tabla"
+    },
+    
+    "status": {
+      "draft": "Borrador",
+      "toDo": "Por Hacer",
+      "to_do": "Por Hacer",
+      "pending": "Pendiente",
+      "inProgress": "En Progreso",
+      "in_progress": "En Progreso",
+      "completed": "Completada",
+      "cancelled": "Cancelada",
+      "archived": "Archivada",
+      "all": "Todos los Estados",
+      "unknown": "Estado Desconocido"
+    },
+    
+    "priority": {
+      "low": "Baja",
+      "medium": "Media",
+      "high": "Alta",
+      "urgent": "Urgente",
+      "all": "Todas las Prioridades"
+    },
+    
+    "types": {
+      "plantingCycle": "Ciclo de Siembra",
+      "planting_cycle": "Ciclo de Siembra",
+      "equipment": "Equipo",
+      "animalHousing": "Alojamiento Animal",
+      "animal_housing": "Alojamiento Animal",
+      "animal": "Animal",
+      "livestock": "Ganado",
+      "maintenance": "Mantenimiento",
+      "harvest": "Cosecha",
+      "irrigation": "Riego",
+      "pest_control": "Control de Plagas",
+      "pestControl": "Control de Plagas",
+      "fertilizer": "Fertilizante",
+      "inspection": "Inspección",
+      "transport": "Transporte",
+      "storage": "Almacenamiento",
+      "sales": "Ventas",
+      "administrative": "Administrativa",
+      "other": "Otra",
+      "all": "Todos los Tipos"
+    },
+    
+    "categories": {
+      "soilPreparation": "Preparación del Suelo",
+      "planting": "Siembra",
+      "cultivation": "Cultivo",
+      "harvesting": "Cosecha",
+      "postHarvest": "Post-Cosecha",
+      "feeding": "Alimentación",
+      "breeding": "Reproducción",
+      "healthCheck": "Revisión de Salud",
+      "vaccination": "Vacunación",
+      "cleaning": "Limpieza",
+      "repair": "Reparación",
+      "inspection": "Inspección",
+      "routine": "Rutina",
+      "emergency": "Emergencia",
+      "scheduled": "Programada"
+    },
+    
+    "wizard": {
+      "title": {
+        "create": "Creá Nueva Tarea",
+        "edit": "Editá Tarea"
+      },
+      "subtitle": {
+        "create": "Configurá tu tarea con todos los detalles necesarios",
+        "edit": "Actualizá la información y configuración de la tarea"
+      },
+      "steps": {
+        "basicDetails": {
+          "title": "Detalles Básicos",
+          "description": "Nombre, tipo y descripción de la tarea",
+          "subtitle": "Definí la información principal de tu tarea"
+        },
+        "assignmentProgress": {
+          "title": "Asignación y Progreso",
+          "description": "Estado, prioridad y asignaciones",
+          "subtitle": "Establecé la prioridad, estado y asigná miembros del equipo"
+        },
+        "time": {
+          "title": "Tiempo",
+          "description": "Programación y seguimiento de tiempo",
+          "subtitle": "Configurá fechas, plazos y estimaciones de tiempo"
+        },
+        "costTracking": {
+          "title": "Seguimiento de Costos",
+          "description": "Costos de mano de obra, combustible y materiales",
+          "subtitle": "Rastreá gastos y costos de recursos"
+        }
+      },
+      "progress": "Paso {{current}} de {{total}}",
+      "completed": "Completado",
+      "optional": "Opcional"
+    },
+    
+    "form": {
+      "title": {
+        "create": "Creá Nueva Tarea",
+        "edit": "Editá Tarea"
+      },
+      "description": {
+        "create": "Completá los detalles para tu nueva tarea",
+        "edit": "Actualizá la información de la tarea"
+      },
+      "sections": {
+        "basicInfo": "Información Básica",
+        "basicDetails": "Detalles Básicos",
+        "assignmentProgress": "Asignación y Progreso",
+        "timeScheduling": "Seguimiento de Tiempo",
+        "costTracking": "Desglose de Costos",
+        "linkedAssets": "Activos Vinculados",
+        "checklist": "Lista de Verificación",
+        "attachments": "Archivos Adjuntos",
+        "additionalInfo": "Información Adicional"
+      },
+      "fields": {
+        "title": {
+          "label": "Nombre de la Tarea",
+          "placeholder": "Ingresá el nombre de la tarea",
+          "required": "El nombre de la tarea es obligatorio",
+          "helpText": "Dale a tu tarea un nombre claro y descriptivo"
+        },
+        "description": {
+          "label": "Descripción",
+          "placeholder": "Contexto adicional o instrucciones",
+          "helpText": "Proporcioná detalles sobre lo que necesita hacerse"
+        },
+        "taskType": {
+          "label": "Tipo de Tarea",
+          "placeholder": "Seleccioná el tipo de tarea",
+          "required": "El tipo de tarea es obligatorio",
+          "helpText": "Elegí la categoría que mejor se ajuste a esta tarea"
+        },
+        "taskCategory": {
+          "label": "Categoría de Tarea",
+          "placeholder": "Seleccioná categoría",
+          "required": "La categoría de tarea es obligatoria",
+          "helpText": "Categoría específica dentro del tipo de tarea"
+        },
+        "status": {
+          "label": "Estado",
+          "placeholder": "Seleccioná estado",
+          "required": "El estado es obligatorio",
+          "helpText": "Estado actual de la tarea"
+        },
+        "priority": {
+          "label": "Prioridad",
+          "placeholder": "Seleccioná prioridad",
+          "helpText": "Qué tan urgente o importante es esta tarea"
+        },
+        "taskColor": {
+          "label": "Color de la Tarea",
+          "helpText": "Elegí un color para ayudar a identificar esta tarea"
+        },
+        "assignedUsers": {
+          "label": "Asignada A",
+          "placeholder": "Seleccioná usuarios...",
+          "noUsersAvailable": "No hay usuarios disponibles para asignar",
+          "usersSelected": "{{count}} usuario(s) seleccionado(s)",
+          "helpText": "Miembros del equipo responsables de esta tarea"
+        },
+        "startDateTime": {
+          "label": "Fecha y Hora de Inicio",
+          "placeholder": "Seleccioná fecha de inicio",
+          "helpText": "Cuándo debería comenzar esta tarea"
+        },
+        "dueDatetime": {
+          "label": "Fecha y Hora de Vencimiento",
+          "placeholder": "Seleccioná fecha de vencimiento",
+          "helpText": "Cuándo debería completarse esta tarea"
+        },
+        "estimatedHours": {
+          "label": "Horas Estimadas",
+          "placeholder": "0",
+          "helpText": "Cuánto tiempo esperás que tome esta tarea"
+        },
+        "actualHours": {
+          "label": "Horas Reales",
+          "placeholder": "0",
+          "helpText": "Cuánto tiempo tomó realmente esta tarea"
+        },
+        "completedDate": {
+          "label": "Fecha de Finalización",
+          "placeholder": "Seleccioná fecha de finalización"
+        },
+        "laborCost": {
+          "label": "Costo de Mano de Obra",
+          "placeholder": "0.00",
+          "helpText": "Costo de la mano de obra para esta tarea"
+        },
+        "fuelCost": {
+          "label": "Costo de Combustible",
+          "placeholder": "0.00",
+          "helpText": "Gastos de combustible para equipo utilizado"
+        },
+        "materialCost": {
+          "label": "Costo de Materiales",
+          "placeholder": "0.00",
+          "helpText": "Costo de materiales y suministros"
+        },
+        "totalCost": {
+          "label": "Costo Total",
+          "calculated": "Calculado automáticamente",
+          "helpText": "Suma de todos los costos relacionados con la tarea"
+        },
+        "linkedAssets": {
+          "label": "Activos Vinculados",
+          "fields": "Campos",
+          "lots": "Lotes",
+          "equipment": "Equipo",
+          "warehouses": "Bodegas",
+          "livestock": "Ganado",
+          "selectFields": "Seleccioná campos",
+          "selectLots": "Seleccioná lotes",
+          "selectEquipment": "Seleccioná equipo",
+          "selectWarehouses": "Seleccioná bodegas",
+          "selectLivestock": "Seleccioná ganado",
+          "noFieldsAvailable": "No hay campos disponibles",
+          "noLotsAvailable": "No hay lotes disponibles",
+          "noEquipmentAvailable": "No hay equipo disponible",
+          "noWarehousesAvailable": "No hay bodegas disponibles",
+          "noLivestockAvailable": "No hay ganado disponible",
+          "helpText": "Vinculá activos relevantes de la finca a esta tarea"
+        },
+        "checklistItems": {
+          "label": "Lista de Verificación",
+          "addItem": "Agregá Elemento a la Lista",
+          "removeItem": "Eliminá Elemento",
+          "itemPlaceholder": "Ingresá elemento de la lista",
+          "noItems": "No hay elementos agregados a la lista aún",
+          "helpText": "Dividí la tarea en pasos más pequeños"
+        },
+        "attachments": {
+          "label": "Archivos Adjuntos",
+          "upload": "Subí Archivos",
+          "dropFiles": "Soltá archivos aquí o hacé clic para buscar",
+          "supportedFormats": "Archivos PDF, JPG, PNG, CSV soportados",
+          "maxFileSize": "Tamaño máximo de archivo: 10MB",
+          "noAttachments": "No hay archivos adjuntos agregados",
+          "helpText": "Adjuntá documentos, imágenes o archivos relevantes"
+        },
+        "repeatPattern": {
+          "label": "Patrón de Repetición",
+          "placeholder": "Seleccioná patrón de repetición",
+          "doesNotRepeat": "No se repite",
+          "daily": "Diariamente",
+          "weekly": "Semanalmente", 
+          "monthly": "Mensualmente",
+          "custom": "Personalizado",
+          "helpText": "Configurá tareas recurrentes si es necesario"
+        }
+      },
+      "validation": {
+        "titleRequired": "El nombre de la tarea es obligatorio",
+        "typeRequired": "El tipo de tarea es obligatorio",
+        "categoryRequired": "La categoría de tarea es obligatoria",
+        "statusRequired": "El estado es obligatorio",
+        "invalidDate": "Por favor ingresá una fecha válida",
+        "invalidTime": "Por favor ingresá una hora válida",
+        "invalidNumber": "Por favor ingresá un número válido",
+        "startBeforeEnd": "La fecha de inicio debe ser anterior a la fecha de vencimiento",
+        "estimatedHoursMin": "Las horas estimadas deben ser 0 o mayores",
+        "actualHoursMin": "Las horas reales deben ser 0 o mayores",
+        "costMin": "El costo debe ser 0 o mayor"
+      }
+    },
+    
+    "table": {
+      "headers": {
+        "title": "Tarea",
+        "type": "Tipo",
+        "category": "Categoría",
+        "status": "Estado",
+        "priority": "Prioridad",
+        "assignedTo": "Asignada A",
+        "dueDate": "Fecha de Vencimiento",
+        "estimatedHours": "Horas Est.",
+        "actualHours": "Horas Reales",
+        "progress": "Progreso",
+        "cost": "Costo",
+        "actions": "Acciones",
+        "createdBy": "Creada Por",
+        "createdDate": "Creada",
+        "updatedDate": "Actualizada"
+      },
+      "noData": "No se encontraron tareas",
+      "loading": "Cargando tareas...",
+      "pagination": {
+        "showing": "Mostrando {{start}} a {{end}} de {{total}} tareas",
+        "rowsPerPage": "Filas por página",
+        "page": "Página",
+        "of": "de",
+        "goToPage": "Ir a la página",
+        "previous": "Anterior",
+        "next": "Siguiente"
+      }
+    },
+    
+    "card": {
+      "overdue": "Vencida",
+      "dueToday": "Vence Hoy",
+      "dueSoon": "Vence Pronto",
+      "estimatedTime": "{{hours}}h estimadas",
+      "actualTime": "{{actual}}h / {{estimated}}h",
+      "totalCost": "Costo Total: ${{cost}}",
+      "assignedTo": "Asignada a {{count}} usuario(s)",
+      "noAssignment": "Sin Asignar",
+      "checklist": "Lista: {{completed}}/{{total}} completadas",
+      "noChecklist": "Sin lista de verificación",
+      "linkedAssets": "{{count}} activo(s) vinculado(s)",
+      "noLinkedAssets": "Sin activos vinculados"
+    },
+    
+    "kanban": {
+      "columns": {
+        "draft": "Borrador",
+        "toDo": "Por Hacer",
+        "inProgress": "En Progreso", 
+        "completed": "Completadas",
+        "cancelled": "Canceladas",
+        "archived": "Archivo"
+      },
+      "taskCount": "{{count}} tarea(s)",
+      "dropHere": "Soltá la tarea aquí",
+      "moveToColumn": "Mover a {{column}}",
+      "loading": "Cargando tareas...",
+      "empty": "No hay tareas en esta columna",
+      "dragToMove": "Arrastrá tareas entre columnas para actualizar el estado"
+    },
+    
+    "calendar": {
+      "month": "Mes",
+      "week": "Semana",
+      "day": "Día",
+      "agenda": "Agenda",
+      "today": "Hoy",
+      "noEvents": "No hay tareas programadas para este período",
+      "tasksDue": "{{count}} tarea(s) vencen",
+      "tasksOverdue": "{{count}} tarea(s) vencidas",
+      "viewTask": "Ver Tarea",
+      "createTask": "Creá Tarea",
+      "loading": "Cargando calendario...",
+      "moreTasks": "más",
+      "weekdays": {
+        "sun": "Dom",
+        "mon": "Lun", 
+        "tue": "Mar",
+        "wed": "Mié",
+        "thu": "Jue",
+        "fri": "Vie",
+        "sat": "Sáb"
+      },
+      "navigation": {
+        "previous": "Anterior",
+        "next": "Siguiente",
+        "today": "Hoy"
+      }
+    },
+    
+    "filters": {
+      "title": "Búsqueda y Filtros",
+      "filtersAndSearch": "Filtros y Búsqueda",
+      "search": {
+        "label": "Búsqueda",
+        "placeholder": "Buscá tareas...",
+        "noResults": "No hay tareas que coincidan con tus criterios de búsqueda",
+        "resultsCount": "{{count}} de {{total}} tareas"
+      },
+      "status": {
+        "label": "Estado",
+        "all": "Todos los Estados",
+        "selected": "{{count}} seleccionados"
+      },
+      "priority": {
+        "label": "Prioridad", 
+        "all": "Todas las Prioridades",
+        "selected": "{{count}} seleccionadas"
+      },
+      "type": {
+        "label": "Tipo",
+        "taskType": "Tipo de Tarea",
+        "all": "Todos los Tipos",
+        "selected": "{{count}} seleccionados"
+      },
+      "assignedTo": {
+        "label": "Asignada A",
+        "all": "Todos los Usuarios",
+        "unassigned": "Sin Asignar",
+        "selected": "{{count}} seleccionados",
+        "loading": "Cargando usuarios..."
+      },
+      "dateRange": {
+        "label": "Rango de Fecha de Vencimiento",
+        "from": "Desde",
+        "to": "Hasta",
+        "anytime": "Cualquier Momento",
+        "today": "Hoy",
+        "thisWeek": "Esta Semana",
+        "thisMonth": "Este Mes",
+        "overdue": "Vencidas",
+        "custom": "Rango Personalizado"
+      },
+      "clearAll": "Limpiar Todo",
+      "applyFilters": "Aplicar Filtros",
+      "activeFilters": "{{count}} filtro(s) aplicado(s)",
+      "noActiveFilters": "No hay filtros aplicados"
+    },
+    
+    "detail": {
+      "title": "Detalles de la Tarea",
+      "overview": "Resumen",
+      "description": "Descripción",
+      "noDescription": "No hay descripción proporcionada",
+      "basicInfo": "Información Básica",
+      "assignment": "Asignación",
+      "scheduling": "Programación",
+      "progress": "Progreso",
+      "costs": "Costos",
+      "assets": "Activos Vinculados",
+      "checklist": "Lista de Verificación",
+      "comments": "Comentarios",
+      "activity": "Actividad",
+      "allActivity": "Toda la actividad",
+      "attachments": "Archivos Adjuntos",
+      "history": "Historial",
+      "metadata": "Metadatos",
+      "fields": {
+        "taskName": "Nombre de la Tarea",
+        "taskType": "Tipo de Tarea",
+        "category": "Categoría",
+        "status": "Estado",
+        "priority": "Prioridad",
+        "assignedTo": "Asignada A",
+        "createdBy": "Creada Por",
+        "createdDate": "Fecha de Creación",
+        "updatedDate": "Fecha de Actualización",
+        "startDate": "Fecha de Inicio",
+        "dueDate": "Fecha de Vencimiento",
+        "completedDate": "Fecha de Finalización",
+        "estimatedHours": "Horas Estimadas",
+        "actualHours": "Horas Reales",
+        "laborCost": "Costo de Mano de Obra",
+        "fuelCost": "Costo de Combustible",
+        "materialCost": "Costo de Materiales",
+        "totalCost": "Costo Total",
+        "color": "Color de la Tarea",
+        "id": "ID de la Tarea"
+      },
+      "labels": {
+        "unassigned": "Sin Asignar",
+        "notSet": "No establecido",
+        "notSpecified": "No especificado",
+        "none": "Ninguno",
+        "unknown": "Desconocido",
+        "noAttachments": "Sin archivos adjuntos",
+        "noComments": "Sin comentarios aún",
+        "noActivity": "Sin actividad aún",
+        "noChecklist": "Sin elementos de lista de verificación"
+      },
+      "actions": {
+        "editTask": "Editá Tarea",
+        "deleteTask": "Eliminá Tarea",
+        "duplicateTask": "Duplicá Tarea",
+        "archiveTask": "Archivá Tarea",
+        "markComplete": "Marcar como Completada",
+        "markIncomplete": "Marcar como Incompleta",
+        "assignToMe": "Asignármela"
+      }
+    },
+    
+    "comments": {
+      "title": "Comentarios",
+      "addComment": "Agregá un comentario...",
+      "postComment": "Publicá Comentario",
+      "editComment": "Editá Comentario",
+      "deleteComment": "Eliminá Comentario",
+      "reply": "Respondé",
+      "showReplies": "Mostrá respuestas",
+      "hideReplies": "Ocultá respuestas",
+      "noComments": "No hay comentarios aún. ¡Sé el primero en comentar!",
+      "loading": "Cargando comentarios...",
+      "posting": "Publicando...",
+      "edited": "Editado",
+      "deleted": "Comentario eliminado",
+      "enterToSend": "Presioná Enter para enviar, Shift+Enter para nueva línea"
+    },
+    
+    "activity": {
+      "title": "Actividad",
+      "taskCreated": "{{user}} creó esta tarea",
+      "taskUpdated": "{{user}} actualizó esta tarea",
+      "statusChanged": "{{user}} cambió el estado de {{oldStatus}} a {{newStatus}}",
+      "priorityChanged": "{{user}} cambió la prioridad de {{oldPriority}} a {{newPriority}}",
+      "assignedUser": "{{user}} asignó a {{assignee}} a esta tarea",
+      "unassignedUser": "{{user}} desasignó a {{assignee}} de esta tarea",
+      "dueDateChanged": "{{user}} cambió la fecha de vencimiento a {{dueDate}}",
+      "taskCompleted": "{{user}} marcó esta tarea como completada",
+      "commentAdded": "{{user}} agregó un comentario",
+      "attachmentAdded": "{{user}} agregó un archivo adjunto",
+      "checklistUpdated": "{{user}} actualizó la lista de verificación",
+      "loading": "Cargando actividad...",
+      "noActivity": "No hay actividad aún.",
+      "timeAgo": "hace {{time}}"
+    },
+    
+    "templates": {
+      "title": "Plantillas de Tareas",
+      "subtitle": "Gestioná y usá plantillas de tareas",
+      "description": "Creá plantillas reutilizables para agilizar la creación de tareas",
+      "createTemplate": "Creá Plantilla",
+      "editTemplate": "Editá Plantilla",
+      "deleteTemplate": "Eliminá Plantilla",
+      "useTemplate": "Usá Plantilla",
+      "applyTemplate": "Aplicá Plantilla",
+      "selectTemplate": "Seleccioná Plantilla",
+      "noTemplate": "No hay plantilla seleccionada",
+      "templateApplied": "Plantilla aplicada exitosamente",
+      "management": {
+        "title": "Gestión de Plantillas",
+        "description": "Creá, editá y gestioná tus plantillas de tareas",
+        "noTemplates": "No hay plantillas creadas aún",
+        "createFirst": "Creá tu primera plantilla para comenzar"
+      },
+      "form": {
+        "templateName": {
+          "label": "Nombre de la Plantilla",
+          "placeholder": "Ingresá el nombre de la plantilla",
+          "required": "El nombre de la plantilla es obligatorio"
+        },
+        "templateDescription": {
+          "label": "Descripción de la Plantilla",
+          "placeholder": "Describí para qué es esta plantilla"
+        },
+        "isPublic": {
+          "label": "Hacer Pública",
+          "helpText": "Permitir que otros miembros del equipo usen esta plantilla"
+        }
+      },
+      "selector": {
+        "title": "Inicio Rápido con Plantilla",
+        "placeholder": "Elegí una plantilla para empezar",
+        "noTemplatesAvailable": "No hay plantillas disponibles",
+        "createNewTemplate": "Creá nueva plantilla",
+        "preview": "Vista Previa",
+        "apply": "Aplicá"
+      }
+    },
+    
+    "dashboard": {
+      "title": "Panel de Tareas", 
+      "subtitle": "Resumen de todas las actividades y métricas de tareas",
+      "summary": {
+        "totalTasks": "Total de Tareas",
+        "activeTasks": "Tareas Activas",
+        "completedTasks": "Tareas Completadas",
+        "overdueTasks": "Tareas Vencidas",
+        "tasksThisWeek": "Tareas Esta Semana",
+        "tasksThisMonth": "Tareas Este Mes",
+        "avgCompletionTime": "Tiempo Promedio de Finalización",
+        "totalCost": "Costo Total"
+      },
+      "charts": {
+        "tasksByStatus": "Tareas por Estado",
+        "tasksByPriority": "Tareas por Prioridad", 
+        "tasksByType": "Tareas por Tipo",
+        "completionTrend": "Tendencia de Finalización",
+        "costAnalysis": "Análisis de Costos",
+        "teamPerformance": "Rendimiento del Equipo"
+      },
+      "recentTasks": "Tareas Recientes",
+      "upcomingDeadlines": "Fechas Límite Próximas",
+      "loading": "Cargando panel...",
+      "noData": "No hay datos disponibles"
+    },
+    
+    "messages": {
+      "success": {
+        "taskCreated": "Tarea Creada",
+        "taskCreatedDescription": "Nueva tarea ha sido creada exitosamente.",
+        "taskUpdated": "Tarea Actualizada", 
+        "taskUpdatedDescription": "La tarea ha sido actualizada exitosamente.",
+        "taskDeleted": "Tarea Eliminada",
+        "taskDeletedDescription": "La tarea ha sido eliminada exitosamente.",
+        "taskCompleted": "Tarea Completada",
+        "taskCompletedDescription": "La tarea ha sido marcada como completada.",
+        "taskArchived": "Tarea Archivada",
+        "taskArchivedDescription": "La tarea ha sido archivada exitosamente.",
+        "taskDuplicated": "Tarea Duplicada",
+        "taskDuplicatedDescription": "La tarea ha sido duplicada exitosamente.",
+        "statusUpdated": "Estado Actualizado",
+        "statusUpdatedDescription": "El estado de la tarea ha sido actualizado.",
+        "assignmentUpdated": "Asignación Actualizada",
+        "assignmentUpdatedDescription": "La asignación de la tarea ha sido actualizada.",
+        "templateCreated": "Plantilla Creada",
+        "templateCreatedDescription": "La plantilla de tarea ha sido creada.",
+        "templateApplied": "Plantilla Aplicada",
+        "templateAppliedDescription": "La plantilla ha sido aplicada a la tarea.",
+        "commentAdded": "Comentario Agregado",
+        "commentAddedDescription": "Tu comentario ha sido publicado.",
+        "attachmentUploaded": "Archivo Adjunto Subido",
+        "attachmentUploadedDescription": "El archivo ha sido subido exitosamente.",
+        "checklistUpdated": "Lista de Verificación Actualizada",
+        "checklistUpdatedDescription": "La lista de verificación ha sido actualizada.",
+        "tasksExported": "Tareas Exportadas",
+        "tasksExportedDescription": "Las tareas han sido exportadas exitosamente.",
+        "offlineTaskSaved": "Tarea Guardada (Sin Conexión)",
+        "offlineTaskSavedDescription": "La tarea será sincronizada cuando se restaure la conexión."
+      },
+      "error": {
+        "generic": "Error",
+        "taskCreateFailed": "Error al crear la tarea",
+        "taskUpdateFailed": "Error al actualizar la tarea", 
+        "taskDeleteFailed": "Error al eliminar la tarea",
+        "taskLoadFailed": "Error al cargar la tarea",
+        "statusUpdateFailed": "Error al actualizar el estado",
+        "validationError": "Error de Validación",
+        "permissionDenied": "Permiso denegado",
+        "networkError": "Error de red ocurrido",
+        "templateLoadFailed": "Error al cargar plantillas",
+        "templateCreateFailed": "Error al crear plantilla",
+        "templateApplyFailed": "Error al aplicar plantilla",
+        "commentFailed": "Error al agregar comentario",
+        "uploadFailed": "Error al subir archivo",
+        "exportFailed": "Error al exportar tareas",
+        "importFailed": "Error al importar tareas",
+        "attachmentTooLarge": "Archivo muy grande",
+        "invalidFileType": "Tipo de archivo inválido",
+        "offlineError": "Error Sin Conexión",
+        "syncFailed": "Error de sincronización"
+      },
+      "permissions": {
+        "cannotCreate": "No tenés permiso para crear tareas.",
+        "cannotEdit": "No tenés permiso para editar tareas.",
+        "cannotDelete": "No tenés permiso para eliminar tareas.",
+        "cannotAssign": "No tenés permiso para asignar tareas.",
+        "cannotManageTemplates": "No tenés permiso para gestionar plantillas.",
+        "cannotExport": "No tenés permiso para exportar tareas.",
+        "cannotViewDetails": "No tenés permiso para ver detalles de tareas."
+      }
+    },
+    
+    "empty": {
+      "title": "No Se Encontraron Tareas",
+      "description": "Creá tu primera tarea para comenzar con la gestión de tareas.",
+      "action": "Creá Tarea",
+      "filtered": {
+        "title": "No Hay Tareas Que Coincidan Con Los Filtros",
+        "description": "Intentá ajustar tus criterios de búsqueda o filtros.",
+        "action": "Limpiar Filtros"
+      },
+      "calendar": {
+        "title": "No Hay Tareas Programadas",
+        "description": "No hay tareas programadas para este período de tiempo."
+      },
+      "templates": {
+        "title": "No Hay Plantillas Disponibles", 
+        "description": "Creá plantillas de tareas para agilizar tu flujo de trabajo."
+      }
+    },
+    
+    "loading": {
+      "tasks": "Cargando tareas...",
+      "taskDetails": "Cargando detalles de la tarea...",
+      "templates": "Cargando plantillas...",
+      "comments": "Cargando comentarios...",
+      "activity": "Cargando actividad...",
+      "dashboard": "Cargando panel...",
+      "saving": "Guardando...",
+      "deleting": "Eliminando...",
+      "uploading": "Subiendo..."
+    },
+    
+    "dialog": {
+      "delete": {
+        "title": "Eliminar Tarea",
+        "description": "¿Estás seguro de que querés eliminar \"{{taskName}}\"? Esta acción no se puede deshacer.",
+        "confirm": "Eliminar Tarea",
+        "cancel": "Cancelar"
+      },
+      "archive": {
+        "title": "Archivar Tarea",
+        "description": "¿Estás seguro de que querés archivar \"{{taskName}}\"?",
+        "confirm": "Archivar Tarea",
+        "cancel": "Cancelar"
+      },
+      "duplicate": {
+        "title": "Duplicar Tarea",
+        "description": "¿Creá una copia de \"{{taskName}}\"?",
+        "confirm": "Duplicar Tarea",
+        "cancel": "Cancelar"
+      },
+      "deleteTemplate": {
+        "title": "Eliminar Plantilla",
+        "description": "¿Estás seguro de que querés eliminar la plantilla \"{{templateName}}\"? Esta acción no se puede deshacer.",
+        "confirm": "Eliminar Plantilla",
+        "cancel": "Cancelar"
+      },
+      "unsavedChanges": {
+        "title": "Cambios No Guardados",
+        "description": "Tenés cambios sin guardar. ¿Querés guardarlos antes de salir?",
+        "save": "Guardar Cambios",
+        "discard": "Descartar Cambios",
+        "cancel": "Cancelar"
+      }
+    },
+    
+    "recurring": {
+      "title": "Configuración de Tarea Recurrente",
+      "pattern": "Patrón de Repetición",
+      "frequency": "Frecuencia",
+      "endDate": "Fecha de Finalización",
+      "occurrences": "Número de Ocurrencias",
+      "never": "Nunca",
+      "options": {
+        "daily": "Diariamente",
+        "weekly": "Semanalmente",
+        "monthly": "Mensualmente",
+        "yearly": "Anualmente",
+        "custom": "Personalizado"
+      },
+      "every": "Cada",
+      "days": "día(s)",
+      "weeks": "semana(s)",
+      "months": "mes(es)",
+      "years": "año(s)",
+      "on": "En",
+      "weekdays": {
+        "monday": "Lunes",
+        "tuesday": "Martes", 
+        "wednesday": "Miércoles",
+        "thursday": "Jueves",
+        "friday": "Viernes",
+        "saturday": "Sábado",
+        "sunday": "Domingo"
+      }
+    },
+    
+    "checklist": {
+      "title": "Lista de Verificación de la Tarea",
+      "addItem": "Agregá Elemento",
+      "removeItem": "Eliminá",
+      "itemPlaceholder": "Ingresá elemento de la lista",
+      "completed": "{{completed}} de {{total}} completadas",
+      "allCompleted": "Todos los elementos completados",
+      "toggleAll": "Alternar Todo",
+      "clearCompleted": "Limpiar Completadas",
+      "noItems": "No hay elementos agregados a la lista aún"
+    },
+    
+    "attachments": {
+      "title": "Archivos Adjuntos",
+      "add": "Agregá Archivo Adjunto",
+      "upload": "Subí Archivos",
+      "remove": "Eliminá",
+      "download": "Descargá",
+      "view": "Ver",
+      "noAttachments": "No hay archivos adjuntos agregados",
+      "dropFiles": "Soltá archivos aquí o hacé clic para buscar",
+      "supportedFormats": "Formatos soportados: PDF, JPG, JPEG, PNG, CSV",
+      "maxFileSize": "Tamaño máximo de archivo: 10MB",
+      "uploading": "Subiendo...",
+      "uploadComplete": "Subida completa",
+      "uploadFailed": "Error al subir",
+      "fileTooBig": "Archivo muy grande",
+      "invalidFormat": "Formato de archivo inválido"
+    }
+  }
+}

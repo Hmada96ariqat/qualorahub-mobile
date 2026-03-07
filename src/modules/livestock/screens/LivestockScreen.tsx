@@ -36,17 +36,18 @@ import {
   HeaderMenuButton,
   ListRow,
   ModuleTabs,
-  NotificationHeaderButton,
   PillTabs,
   PullToRefreshContainer,
   SearchBar,
   SectionHeader,
   Skeleton,
   StatStrip,
+  SystemHeaderActions,
   useFormValidation,
   useToast,
   type QuickAction,
 } from '../../../components';
+import { useAppI18n } from '../../../hooks/useAppI18n';
 import { palette, spacing, typography } from '../../../theme/tokens';
 import { toGeoJsonPolygon } from '../../../utils/geojson';
 import {
@@ -163,6 +164,7 @@ function SheetFooter({
 }
 
 export function LivestockScreen() {
+  const { t } = useAppI18n();
   const { showToast } = useToast();
   const animalFormScrollRef = useRef<ScrollViewRef | null>(null);
   const animalFormValidation = useFormValidation<'name' | 'species'>(animalFormScrollRef);
@@ -1460,14 +1462,19 @@ export function LivestockScreen() {
             <View style={styles.headerLead}>
               <HeaderMenuButton testID="livestock-header-menu" />
               <View style={styles.headerCopy}>
-                <Text style={styles.moduleHeaderTitle}>Livestock, Housing, and Weather</Text>
+                <Text style={styles.moduleHeaderTitle}>
+                  {t('system', 'headers.livestock.title', 'Livestock, Housing, and Weather')}
+                </Text>
                 <Text style={styles.moduleHeaderSubtitle}>
-                  Dense module shell for animals, housing lifecycle, and weather alert rules.
+                  {t(
+                    'system',
+                    'headers.livestock.subtitle',
+                    'Dense module shell for animals, housing lifecycle, and weather alert rules.',
+                  )}
                 </Text>
               </View>
             </View>
-            <View style={styles.headerActions}>
-              <NotificationHeaderButton testID="livestock-header-notifications" />
+            <SystemHeaderActions notificationTestID="livestock-header-notifications">
               <HeaderIconButton
                 icon="refresh"
                 onPress={() => void refresh()}
@@ -1479,7 +1486,7 @@ export function LivestockScreen() {
                 filled
                 testID={`livestock-${activeTab}-create`}
               />
-            </View>
+            </SystemHeaderActions>
           </View>
 
           <SearchBar

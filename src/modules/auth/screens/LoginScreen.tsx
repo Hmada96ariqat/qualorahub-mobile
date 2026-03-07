@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
-import type { ScrollView } from 'react-native';
+import { StyleSheet, View, type ScrollView } from 'react-native';
+import { useRouter } from 'expo-router';
 import {
   AppButton,
-  AppHeader,
   AppInput,
   AppPasswordInput,
   AppScreen,
@@ -14,9 +14,11 @@ import {
   useFormValidation,
 } from '../../../components';
 import { useAuth } from '../../../providers/AuthProvider';
-import { AuthRouteTabs } from '../components/AuthRouteTabs';
+import { spacing } from '../../../theme/tokens';
+import { AuthBrandHeader } from '../components/AuthBrandHeader';
 
 export function LoginScreen() {
+  const router = useRouter();
   const { signIn, sessionNotice, clearSessionNotice } = useAuth();
   const scrollViewRef = useRef<ScrollView | null>(null);
   const formValidation = useFormValidation<'email' | 'password'>(scrollViewRef);
@@ -57,16 +59,15 @@ export function LoginScreen() {
   }
 
   return (
-    <AppScreen scroll scrollViewRef={scrollViewRef}>
-      <AppHeader
-        title="QualoraHub Mobile"
-        subtitle="Sign in to continue"
-      />
+    <AppScreen
+      scroll
+      scrollViewRef={scrollViewRef}
+      contentContainerStyle={styles.screenContent}
+    >
+      <AuthBrandHeader subtitle="Sign in to continue" />
 
-      <AuthRouteTabs activeTab="login" />
-
-      <FormValidationProvider value={formValidation.providerValue}>
-        <SectionCard>
+      <SectionCard>
+        <FormValidationProvider value={formValidation.providerValue}>
           {sessionNotice ? (
             <ErrorState
               title="Session Notice"
@@ -123,8 +124,23 @@ export function LoginScreen() {
             disabled={submitting}
             testID="auth.login.submit"
           />
-        </SectionCard>
-      </FormValidationProvider>
+        </FormValidationProvider>
+
+        <View style={styles.authLinks}>
+          <AppButton
+            label="Forgot password?"
+            mode="text"
+            tone="neutral"
+            onPress={() => router.push('/(public)/forgot-password')}
+          />
+          <AppButton
+            label="Reset your password"
+            mode="text"
+            tone="neutral"
+            onPress={() => router.push('/(public)/reset-password')}
+          />
+        </View>
+      </SectionCard>
 
       <LoadingOverlay
         visible={submitting}
@@ -133,3 +149,17 @@ export function LoginScreen() {
     </AppScreen>
   );
 }
+
+const styles = StyleSheet.create({
+  screenContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    paddingHorizontal: spacing.xl,
+    paddingVertical: spacing.xl,
+    gap: spacing.lg,
+  },
+  authLinks: {
+    marginTop: spacing.xs,
+    gap: spacing.xs,
+  },
+});

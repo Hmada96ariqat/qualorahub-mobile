@@ -1,0 +1,50 @@
+{
+  "sidebar": {
+    "brand": {
+      "title": "Administrador de Finca",
+      "subtitle": "Suite Agrícola"
+    },
+    "search": {
+      "placeholder": "Buscar..."
+    },
+    "loading": "Cargando...",
+    "groups": {
+      "farm_operations": "Operaciones de la Finca",
+      "planting": "Siembra",
+      "store": "Tienda",
+      "inventory": "Inventario",
+      "livestock_management": "Gestión de Ganado",
+      "management": "Administración"
+    },
+    "items": {
+      "dashboard": "Panel de Control",
+      "fields_and_lots": "Campos y Lotes",
+      "fields": "Campos",
+      "lots": "Lotes",
+      "equipment": "Equipos",
+      "tasks": "Tareas",
+      "finance": "Finanzas",
+      "weather": "Clima",
+      "reports": "Reportes",
+      "crop_planning": "Planificación de Cultivos",
+      "production_cycles": "Ciclos de Producción",
+      "store_dashboard": "Panel de la Tienda",
+      "order_list": "Lista de Pedidos",
+      "orders": "Pedidos",
+      "storefront": "Tienda en Línea",
+      "products": "Productos",
+      "categories": "Categorías",
+      "taxes": "Impuestos",
+      "warehouses": "Almacenes",
+      "stock_adjustment": "Ajuste de Inventario",
+      "animal_housing": "Alojamiento Animal",
+      "animal_housing_unit": "Alojamiento Animal",
+      "animal_profile": "Perfil de Animales",
+      "livestock": "Ganado",
+      "users": "Usuarios",
+      "contacts": "Contactos",
+      "settings": "Configuración",
+      "farm_configuration": "Configuración de la Finca"
+    }
+  }
+}

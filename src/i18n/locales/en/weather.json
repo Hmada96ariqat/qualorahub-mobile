@@ -1,0 +1,209 @@
+{
+  "weather": {
+    "title": "Weather",
+    "subtitle": "Monitor weather conditions across your farm locations",
+    "liveData": "Live Data",
+    "lastUpdated": "Last updated",
+    "buttons": {
+      "refresh": "Refresh",
+      "alertRules": "Alert Rules"
+    },
+    "location": {
+      "noSelection": "No Location Selected",
+      "noSelectionDesc": "Select a location from the dropdown above to view weather data.",
+      "noFields": "No fields found. Weather locations are created from fields with boundaries.",
+      "selectLocation": "Select a location",
+      "unknown": "Unknown location"
+    },
+    "messages": {
+      "loadingWeather": "Loading weather data...",
+      "noDataAvailable": "No weather data available",
+      "selectLocationToView": "Select a location to view weather"
+    },
+    "time": {
+      "now": "Now"
+    },
+    "days": {
+      "today": "Today"
+    },
+    "conditions": {
+      "noData": "No Data",
+      "heavyRain": "Heavy Rain",
+      "lightRain": "Light Rain",
+      "freezing": "Freezing",
+      "cold": "Cold",
+      "cloudy": "Cloudy",
+      "hot": "Hot",
+      "sunny": "Sunny",
+      "partlyCloudy": "Partly Cloudy"
+    },
+    "comfort": {
+      "veryCold": "Very Cold",
+      "cool": "Cool",
+      "uncomfortable": "Uncomfortable",
+      "veryHot": "Very Hot",
+      "comfortable": "Comfortable"
+    },
+    "insights": {
+      "title": "Farming Insight",
+      "delaySpray": "Delay spraying operations",
+      "highWind": "High wind - avoid spraying",
+      "frostRisk": "Frost risk - protect crops",
+      "heatStress": "Heat stress - increase irrigation",
+      "dryConditions": "Dry conditions - check irrigation",
+      "idealConditions": "Ideal conditions for field work",
+      "monitorClosely": "Monitor conditions closely"
+    },
+    "metrics": {
+      "temperature": "Temperature",
+      "feelsLike": "Feels like",
+      "feelsLikeValue": "Feels like {{value}}{{unit}}",
+      "humidity": "Humidity",
+      "wind": "Wind",
+      "pressure": "Pressure",
+      "visibility": "Visibility",
+      "precipitation": "Precipitation",
+      "cloudCover": "Cloud Cover",
+      "uv": "UV Index"
+    },
+    "units": {
+      "celsius": "°C",
+      "fahrenheit": "°F",
+      "percent": "%",
+      "mph": "mph",
+      "kph": "km/h",
+      "inHg": "inHg",
+      "hPa": "hPa",
+      "mi": "mi",
+      "km": "km",
+      "mmPerHour": "mm/h",
+      "inPerHour": "in/h"
+    },
+    "forecast": {
+      "hourly": "Hourly Forecast",
+      "today": "Today's Forecast",
+      "hourlyConditions": "Hourly weather conditions",
+      "daily": "7-Day Forecast",
+      "sixDay": "6-Day Forecast",
+      "high": "High",
+      "low": "Low"
+    },
+    "alerts": {
+      "title": "Weather Alert Rules",
+      "description": "Create and manage automated weather alerts for your farm locations.",
+      "form": {
+        "title": {
+          "edit": "Edit Rule",
+          "create": "Create Rule"
+        },
+        "ruleName": {
+          "label": "Rule Name",
+          "placeholder": "Enter rule name"
+        },
+        "location": {
+          "label": "Location (Optional)",
+          "placeholder": "Select a location (optional)",
+          "none": "No specific location"
+        },
+        "condition": {
+          "label": "Weather Condition"
+        },
+        "operator": {
+          "label": "Operator"
+        },
+        "value": {
+          "label": "Value",
+          "placeholder": "Enter value"
+        },
+        "unit": {
+          "label": "Unit",
+          "placeholder": "e.g., °C, %, mph"
+        },
+        "customMessage": {
+          "label": "Custom Message (Optional)",
+          "placeholder": "Custom alert message"
+        },
+        "severity": {
+          "label": "Severity"
+        },
+        "notifications": {
+          "label": "Notifications",
+          "inApp": "In-App Notifications",
+          "email": "Email Notifications",
+          "sms": "SMS Notifications"
+        },
+        "actions": {
+          "save": "Save Rule"
+        }
+      },
+      "list": {
+        "activeRules": "Active Rules ({{count}})",
+        "createRule": "Create Rule",
+        "noRules": {
+          "title": "No Alert Rules",
+          "description": "Create your first weather alert rule to receive notifications when conditions meet your criteria.",
+          "action": "Create Your First Rule"
+        }
+      },
+      "details": {
+        "condition": "Condition",
+        "location": "Location",
+        "customMessage": "Custom Message",
+        "notifications": "Notifications"
+      },
+      "notifications": {
+        "inApp": "In-App",
+        "email": "Email",
+        "sms": "SMS"
+      },
+      "severity": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      },
+      "metrics": {
+        "temperature": "Temperature",
+        "humidity": "Humidity",
+        "windSpeed": "Wind Speed",
+        "precipitation": "Precipitation",
+        "frostRisk": "Frost Risk"
+      },
+      "operators": {
+        "greater_than": "Greater than",
+        "less_than": "Less than",
+        "equal_to": "Equal to",
+        "greater_equal": "Greater than or equal",
+        "less_equal": "Less than or equal"
+      },
+      "location": {
+        "unknown": "Unknown location",
+        "all": "All locations",
+        "test": "Test Location"
+      },
+      "actions": {
+        "test": "Test"
+      },
+      "status": {
+        "enabled": "enabled",
+        "disabled": "disabled"
+      },
+      "toasts": {
+        "farmIdMissing": "Farm ID not found. Please ensure your profile is properly set up.",
+        "ruleNameRequired": "Rule name is required",
+        "ruleUpdated": "Weather alert rule updated",
+        "ruleCreated": "Weather alert rule created",
+        "ruleDeleted": "Weather alert rule deleted",
+        "ruleSaveFailed": "Failed to save weather alert rule",
+        "ruleDeleteFailed": "Failed to delete weather alert rule",
+        "ruleUpdateFailed": "Failed to update weather alert rule",
+        "ruleToggle": "Weather alert rule {{state}}",
+        "weatherUnavailable": "Current weather data or user not available",
+        "testSentTitle": "Test Alert Sent",
+        "testSentDescription": "Weather alert test notification sent for \"{{name}}\"",
+        "testFailedTitle": "Test Failed",
+        "testFailedDescription": "Failed to send test alert",
+        "testError": "Failed to test weather alert"
+      }
+    }
+  }
+}

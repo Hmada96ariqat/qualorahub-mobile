@@ -1,0 +1,385 @@
+{
+  "common": {
+    "cancel": "إلغاء",
+    "create": "إنشاء",
+    "save": "حفظ",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "close": "إغلاق",
+    "view": "عرض",
+    "update": "تحديث",
+    "yes": "نعم",
+    "no": "لا",
+    "ok": "موافق",
+    "confirm": "تأكيد",
+    "loading": "جارٍ التحميل...",
+    "processing": "جارٍ المعالجة...",
+    "saving": "جارٍ الحفظ...",
+    "error": "خطأ",
+    "success": "نجاح",
+    "warning": "تحذير",
+    "info": "معلومات",
+    "permissionDenied": "تم رفض الإذن",
+    "search": "بحث",
+    "selectPerson": "اختر شخصًا",
+    "noneSelected": "لا يوجد محدد",
+    "searchPlaceholder": "ابحث عن {{item}}...",
+    "noPersonFound": "لم يتم العثور على أي شخص.",
+    "users": "المستخدمون",
+    "contacts": "جهات الاتصال",
+    "unknownUser": "مستخدم غير معروف",
+    "unknownContact": "جهة اتصال غير معروفة",
+    "filter": "تصفية",
+    "filters": "فلاتر",
+    "clearAll": "مسح الكل",
+    "advanced": "متقدم",
+    "simple": "بسيط",
+    "export": "تصدير",
+    "import": "استيراد",
+    "download": "تنزيل",
+    "upload": "رفع",
+    "add": "إضافة",
+    "remove": "إزالة",
+    "actions": "الإجراءات",
+    "status": "الحالة",
+    "date": "التاريخ",
+    "total": "الإجمالي",
+    "subtotal": "المجموع الفرعي",
+    "discount": "الخصم",
+    "tax": "الضريبة",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "address": "العنوان",
+    "city": "المدينة",
+    "notes": "ملاحظات",
+    "hectares": "هكتار",
+    "noDataFound": "لا توجد بيانات",
+    "loadingData": "جارٍ تحميل البيانات...",
+    "pleaseWait": "يرجى الانتظار...",
+    "optional": "اختياري",
+    "required": "مطلوب",
+    "selectOption": "اختر خياراً",
+    "createNew": "إنشاء جديد",
+    "noOptionsFound": "لم يتم العثور على خيارات.",
+    "all": "الكل",
+    "none": "لا شيء",
+    "notAvailable": "غير متوفر",
+    "deactivate": "تعطيل",
+    "reactivate": "إعادة التفعيل",
+    "activate": "تفعيل",
+    "resend": "إعادة الإرسال",
+    "revoke": "سحب",
+    "retry": "إعادة المحاولة",
+    "apply": "تطبيق",
+    "reference": "مرجع",
+    "expand": "توسيع",
+    "collapse": "طيّ",
+    "showing": "عرض",
+    "of": "من",
+    "noResults": "لا توجد نتائج",
+    "joinedOn": "تاريخ الانضمام",
+    "lastUpdated": "آخر تحديث",
+    "somethingWentWrong": "حدث خطأ ما",
+    "tryAgain": "حاول مرة أخرى",
+    "reset": "إعادة تعيين",
+    "clear": "مسح",
+    "previous": "السابق",
+    "back": "رجوع",
+    "next": "التالي",
+    "pageOf": "الصفحة {{current}} من {{total}}",
+    "archive": "أرشفة",
+    "restore": "استعادة",
+    "demo": {
+      "title": "جرّب بنفسك",
+      "shortLabel": "عرض",
+      "stepLabel": "الخطوة {{current}} من {{total}} — {{title}}",
+      "stepLabelCompact": "الخطوة {{current}} / {{total}}",
+      "getStarted": "ابدأ",
+      "next": "التالي",
+      "previous": "السابق",
+      "closeDemo": "إغلاق التجربة",
+      "steps": {
+        "welcome": "الترحيب",
+        "farmIdentity": "هوية المزرعة",
+        "cropSetup": "إعداد المحصول",
+        "startCycle": "بدء الدورة",
+        "planting": "الزراعة",
+        "maintenance": "الصيانة",
+        "wasteEvent": "حدث الهدر",
+        "harvest": "الحصاد",
+        "dashboard": "لوحة التحكم",
+        "yieldInsights": "رؤى الإنتاجية",
+        "costSummary": "ملخص التكاليف",
+        "wasteInsights": "رؤى الهدر",
+        "impact": "الأثر",
+        "complete": "مكتمل"
+      },
+      "shared": {
+        "demoFarmName": "مزرعة تجريبية"
+      },
+      "welcome": {
+        "title": "مرحبًا بك في تجربة QualoraHub",
+        "description": "اكتشف كيف يبسّط QualoraHub إدارة المزرعة. خلال دقائق قليلة ستحاكي دورة إنتاج كاملة للمحصول وترى رؤى فعلية.",
+        "cards": {
+          "cropManagement": {
+            "title": "إدارة المحاصيل",
+            "description": "قم بإعداد محصولك وتتبع دورة إنتاجه"
+          },
+          "wasteTracking": {
+            "title": "تتبع الهدر",
+            "description": "سجّل أحداث الهدر لاكتشاف الخسائر المخفية"
+          },
+          "smartInsights": {
+            "title": "رؤى ذكية",
+            "description": "اطّلع على رؤى قابلة للتنفيذ من بيانات مزرعتك"
+          }
+        },
+        "learnTitle": "ما الذي ستتعلمه:",
+        "learnItems": {
+          "productionCycles": "كيف تساعد دورات الإنتاج في تتبع التكاليف والإنتاجية",
+          "operations": "كيف تؤثر العمليات على أرباحك",
+          "wasteTracking": "كيف يكشف تتبع الهدر الخسائر المخفية",
+          "actionableInsights": "كيف تتحول البيانات إلى رؤى قابلة للتنفيذ"
+        }
+      },
+      "farmIdentity": {
+        "title": "سمِّ مزرعتك",
+        "description": "امنح مزرعتك التجريبية هوية. سيظهر هذا الاسم في لوحة التحكم الخاصة بك.",
+        "fieldLabel": "اسم المزرعة",
+        "placeholder": "مثال: مزرعة الوادي الأخضر",
+        "note": "💡 هذه تجربة فقط: تبقى بياناتك محليًا ولا يتم حفظها في أي مكان."
+      },
+      "cropSetup": {
+        "title": "اختر محصولك",
+        "description": "اختر نوع المحصول والصنف لدورة الإنتاج الخاصة بك.",
+        "cropTypeLabel": "نوع المحصول",
+        "cropTypePlaceholder": "اختر نوع المحصول",
+        "varietyLabel": "الصنف",
+        "varietyPlaceholder": "اختر الصنف",
+        "selectCropFirst": "اختر المحصول أولًا",
+        "note": "🌱 في هذه التجربة نفترض وجود حقل افتراضي واحد ودفعة إنتاج واحدة.",
+        "cropTypes": {
+          "coffee": "قهوة",
+          "tomato": "طماطم",
+          "corn": "ذرة",
+          "wheat": "قمح",
+          "rice": "أرز",
+          "potato": "بطاطس",
+          "lettuce": "خس"
+        },
+        "varieties": {
+          "arabica": "أرابيكا",
+          "robusta": "روبوستا",
+          "liberica": "ليبيريكا",
+          "roma": "روما",
+          "cherry": "شيري",
+          "beefsteak": "بيفستيك",
+          "heirloom": "تراثي",
+          "sweetCorn": "ذرة حلوة",
+          "dentCorn": "ذرة سنّية",
+          "flintCorn": "ذرة صوانية",
+          "hardRed": "أحمر صلب",
+          "softWhite": "أبيض لين",
+          "durum": "ديورم",
+          "basmati": "بسمتي",
+          "jasmine": "ياسمين",
+          "arborio": "أربوريو",
+          "russet": "روسِت",
+          "yukonGold": "يوكون جولد",
+          "redPotato": "بطاطس حمراء",
+          "romaine": "روماني",
+          "iceberg": "آيسبرغ",
+          "butterhead": "باترهيد"
+        }
+      },
+      "startCycle": {
+        "title": "تم بدء دورة الإنتاج!",
+        "description": "أصبح محصولك الآن نشطًا. لنتابع رحلته من الزراعة إلى الحصاد.",
+        "cycleDetails": "تفاصيل الدورة",
+        "activeBadge": "نشط",
+        "labels": {
+          "crop": "المحصول",
+          "startDate": "تاريخ البدء",
+          "location": "الموقع"
+        },
+        "defaultLocation": "الحقل 1، القطعة A",
+        "whyTitle": "لماذا دورات الإنتاج؟",
+        "whyDescription": "تساعدك دورات الإنتاج على تتبع التكاليف والإنتاجية والهدر والأداء لكل محصول من البداية حتى النهاية. هذه البيانات تدعم قرارات أفضل."
+      },
+      "planting": {
+        "title": "العملية 1: الزراعة",
+        "description": "سجّل عملية الزراعة الخاصة بك. هذه هي الخطوة الأولى في دورة الإنتاج.",
+        "methodLabel": "طريقة الزراعة",
+        "methodPlaceholder": "اختر طريقة الزراعة",
+        "methods": {
+          "directSeeding": "بذر مباشر",
+          "transplanting": "الشتل",
+          "seedlings": "شتلات",
+          "cuttings": "عُقل",
+          "grafting": "تطعيم"
+        },
+        "costLabel": "تكلفة الزراعة (اختياري)",
+        "costPlaceholder": "مثال: 500",
+        "costHint": "تشمل البذور والعمالة وتكاليف المعدات",
+        "note": "✅ سيتم تسجيل هذه العملية وستُحتسب ضمن التكلفة الإجمالية للدورة."
+      },
+      "maintenance": {
+        "title": "العملية 2: الصيانة",
+        "description": "سجّل تكاليف الري والتسميد لتتبع النفقات المستمرة.",
+        "irrigation": {
+          "title": "الري",
+          "costLabel": "تكلفة الري",
+          "costPlaceholder": "مثال: 200",
+          "costHint": "الماء، المعدات، العمالة"
+        },
+        "fertilization": {
+          "title": "التسميد",
+          "costLabel": "تكلفة التسميد",
+          "costPlaceholder": "مثال: 350",
+          "costHint": "الأسمدة، التطبيق، العمالة"
+        },
+        "note": "💡 في نظام حقيقي ستسجّل عمليات أكثر بكثير. هذه التجربة تعرض تدفقًا مبسطًا."
+      },
+      "wasteEvent": {
+        "title": "سجّل حدث هدر",
+        "description": "هذا مهم جدًا: تتبع الهدر يكشف الخسائر المخفية التي غالبًا لا تُلاحظ.",
+        "wasteTypeLabel": "نوع الهدر",
+        "wasteTypePlaceholder": "ما الذي تم هدره؟",
+        "quantityLabel": "الكمية (كجم)",
+        "quantityPlaceholder": "مثال: 25",
+        "reasonLabel": "السبب",
+        "reasonPlaceholder": "ما سبب هذا الهدر؟",
+        "wasteTypes": {
+          "inputWaste": "هدر مدخلات (مثال: فقدان الأسمدة)",
+          "cropDamage": "تلف المحصول (مثال: ضرر الآفات)"
+        },
+        "reasons": {
+          "spoilage": "تلف",
+          "overApplication": "إفراط في الاستخدام",
+          "weatherDamage": "ضرر الطقس",
+          "handlingError": "خطأ في المناولة",
+          "pestDisease": "آفات/أمراض"
+        },
+        "whyTitle": "لماذا هذا مهم",
+        "whyDescription": "تتبع الهدر يجعل الخسائر المخفية مرئية. هذا الهدر أصبح الآن مرتبطًا بدورة الإنتاج وسيظهر ضمن رؤاك."
+      },
+      "harvest": {
+        "title": "العملية 3: الحصاد",
+        "description": "حان وقت الحصاد! أدخل كمية الإنتاج لإكمال دورة الإنتاج.",
+        "quantityLabel": "الكمية المحصودة (كجم)",
+        "quantityPlaceholder": "مثال: 1500",
+        "quantityHint": "إجمالي إنتاج هذه الدورة",
+        "completeTitle": "اكتملت الدورة",
+        "completeDescription": "بعد الحصاد سنغلق الدورة ونعرض لك رؤى حول التكاليف والإنتاجية والهدر لهذه الفترة الإنتاجية."
+      },
+      "dashboardOverview": {
+        "title": "{{farmName}} — نظرة عامة على المزرعة",
+        "description": "لوحة تحكم مخصصة مع رؤى لحظية",
+        "cards": {
+          "totalYield": "إجمالي الإنتاج",
+          "totalCost": "إجمالي التكلفة",
+          "wasteLogged": "الهدر المسجّل"
+        }
+      },
+      "yieldInsights": {
+        "title": "رؤى الإنتاجية",
+        "description": "تتبع أداء الحصاد بمرور الوقت",
+        "chartCaption": "الإنتاجية عبر الوقت (بيانات تجريبية)"
+      },
+      "costSummary": {
+        "title": "ملخص التكلفة والإنتاج",
+        "description": "تفصيل تكاليف دورة الإنتاج",
+        "costLabels": {
+          "planting": "الزراعة",
+          "irrigation": "الري",
+          "fertilization": "التسميد"
+        },
+        "totalProductionCost": "إجمالي تكلفة الإنتاج",
+        "costPerKg": "التكلفة لكل كجم"
+      },
+      "wasteInsights": {
+        "title": "رؤى الهدر",
+        "description": "فهم خسائرك هو الخطوة الأولى لتقليلها",
+        "totalWasteLogged": "إجمالي الهدر المسجّل",
+        "wasteByReason": "الهدر حسب السبب",
+        "quote": "\"هذا الهدر غالبًا كان سيمر دون ملاحظة بدون التتبع\"",
+        "bullets": {
+          "reduceRepeatLosses": "تقليل الخسائر المتكررة",
+          "improvePlanning": "تحسين تخطيط المدخلات",
+          "increaseSustainability": "زيادة الاستدامة"
+        }
+      },
+      "impact": {
+        "title": "قوة الوضوح",
+        "withoutTracking": {
+          "title": "بدون تتبع",
+          "description": "هذا الهدر غير مرئي. تتراكم الخسائر بصمت، وتبقى التكاليف بلا تفسير، وتتكرر المشكلات نفسها موسمًا بعد موسم."
+        },
+        "withQualoraHub": {
+          "title": "مع QualoraHub",
+          "description": "كل خسارة تتحول إلى بيانات قابلة للتنفيذ. ترى الأنماط، وتحدد الأسباب الجذرية، وتتخذ قرارات مدروسة لتقليل الهدر مع الوقت."
+        },
+        "conclusion": "وضوح أفضل → قرارات أفضل → هدر أقل"
+      },
+      "completion": {
+        "title": "اكتملت التجربة!",
+        "description": "لقد عشت دورة إنتاج مبسطة. المزارع الحقيقية تتبع تفاصيل أكثر بكثير: عمليات متعددة، مدخلات تفصيلية، تصنيفات جودة، وأكثر.",
+        "createRealFarm": "أنشئ مزرعتي الحقيقية",
+        "exploreFeatures": "استكشف الميزات",
+        "note": "💡 جاهز لتحويل إدارة مزرعتك؟ سجّل الآن لتحصل على وصول كامل إلى جميع ميزات QualoraHub."
+      }
+    },
+
+    "statuses": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "archived": "مؤرشف",
+      "deactivated": "معطل"
+    },
+
+    "empty": {
+      "noItemsFound": "لم يتم العثور على عناصر",
+      "noDataAvailable": "لا توجد بيانات متاحة",
+      "emptyState": "لا يوجد محتوى لعرضه حالياً"
+    },
+
+    "connectivity": {
+      "online": "متصل",
+      "offline": "غير متصل",
+      "connecting": "جارٍ الاتصال...",
+      "connected": "تم الاتصال",
+      "disconnected": "تم قطع الاتصال"
+    },
+    
+    "auth": {
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "forgotPasswordTitle": "نسيت كلمة المرور؟",
+      "forgotPasswordDesc": "أدخل بريدك الإلكتروني وسنرسل لك رابطاً لإعادة تعيين كلمة المرور.",
+      "sendResetLink": "إرسال الرابط",
+      "checkEmail": "تحقق من بريدك الإلكتروني",
+      "checkEmailDesc": "لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى بريدك. ستنتهي صلاحية الرابط خلال 30 دقيقة.",
+      "tryDifferentEmail": "جرب بريداً إلكترونياً آخر",
+      "backToSignIn": "العودة لتسجيل الدخول",
+      "resetPasswordTitle": "كلمة مرور جديدة",
+      "resetPasswordDesc": "أدخل كلمة المرور الجديدة. تأكد من أنها آمنة.",
+      "newPassword": "كلمة المرور الجديدة",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "updatePassword": "تحديث كلمة المرور",
+      "passwordUpdated": "تم تحديث كلمة المرور!",
+      "passwordUpdatedDesc": "تم تحديث كلمة المرور بنجاح. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة.",
+      "linkExpired": "الرابط منتهي الصلاحية أو غير صالح",
+      "linkExpiredDesc": "هذا الرابط منتهي الصلاحية أو غير صالح. يرجى طلب رابط جديد.",
+      "requestNewLink": "طلب رابط جديد",
+      "passwordRequirements": "6 أحرف على الأقل مع حرف كبير ورقم",
+      "passwordsDoNotMatch": "كلمات المرور غير متطابقة",
+      "emailRequired": "البريد الإلكتروني مطلوب",
+      "invalidEmail": "أدخل بريداً إلكترونياً صالحاً",
+      "passwordRequired": "كلمة المرور مطلوبة",
+      "passwordTooShort": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
+      "passwordNeedsUppercase": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل",
+      "passwordNeedsNumber": "يجب أن تحتوي كلمة المرور على رقم واحد على الأقل",
+      "confirmPasswordRequired": "يرجى تأكيد كلمة المرور"
+    }
+  }
+}

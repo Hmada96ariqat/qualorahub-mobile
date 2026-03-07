@@ -1,0 +1,643 @@
+{
+  "orderList": {
+    "page": {
+      "title": "Gestión de Pedidos",
+      "subtitle": "Administra todos los pedidos de tus clientes y rastrea su estado",
+      "loading": "Cargando pedidos...",
+      "noOrdersFound": "No se encontraron pedidos",
+      "noOrdersMatchFilters": "No hay pedidos que coincidan con los filtros actuales",
+      "ordersCount": "Pedidos",
+      "ordersHeading": "Órdenes"
+    },
+    "actions": {
+      "createOrder": "Crear Pedido",
+      "exportAll": "Exportar Todo",
+      "exportFiltered": "Exportar Filtrados",
+      "filters": "Filtros",
+      "viewDetails": "Ver Detalles",
+      "saveChanges": "Guardar Cambios",
+      "call": "Llamar",
+      "email": "Correo",
+      "viewOnMap": "Ver en Mapa",
+      "removeItem": "Quitar Producto",
+      "acceptAndProceed": "Aceptar y Proceder",
+      "rejectOrder": "Rechazar Pedido",
+      "confirmReject": "Confirmar Rechazo",
+      "delete": "Borrar",
+      "edit": "Editar",
+      "editOrder": "Editar orden",
+      "view": "Vista",
+      "viewOrder": "Ver pedido"
+    },
+    "filters": {
+      "title": "Buscar y Filtrar",
+      "simple": "Simple",
+      "advanced": "Avanzado",
+      "clearAll": "Limpiar Todo",
+      "activeFilters": "Filtros Activos",
+      "search": {
+        "label": "Buscar",
+        "placeholder": "Pedido #, cliente..."
+      },
+      "status": {
+        "label": "Estado",
+        "placeholder": "Todos",
+        "all": "Todos"
+      },
+      "paymentMethod": {
+        "label": "Método de Pago",
+        "placeholder": "Todos los métodos de pago",
+        "all": "Todos los métodos de pago"
+      },
+      "deliveryMethod": {
+        "label": "Método de Entrega",
+        "placeholder": "Todos los métodos de entrega",
+        "all": "Todos los métodos de entrega"
+      },
+      "source": {
+        "label": "Origen del Pedido",
+        "placeholder": "Todos los orígenes",
+        "all": "Todos los orígenes",
+        "storefront": "🛒 Tienda en Línea",
+        "direct": "📝 Directo"
+      },
+      "dateRange": {
+        "label": "Rango de Fechas",
+        "placeholder": "Todo el tiempo",
+        "allTime": "Todo el tiempo",
+        "today": "Hoy",
+        "yesterday": "Ayer",
+        "last7Days": "Últimos 7 días",
+        "last30Days": "Últimos 30 días",
+        "thisWeek": "Esta semana",
+        "lastWeek": "Semana pasada",
+        "thisMonth": "Este mes",
+        "lastMonth": "Mes pasado",
+        "custom": "Rango personalizado",
+        "startDate": "Fecha de inicio",
+        "endDate": "Fecha de fin"
+      },
+      "amount": {
+        "minAmount": "Monto Mínimo ($)",
+        "maxAmount": "Monto Máximo ($)",
+        "minPlaceholder": "0",
+        "maxPlaceholder": "1000"
+      },
+      "city": {
+        "label": "Ciudad del Cliente",
+        "placeholder": "Todas las ciudades",
+        "all": "Todas las ciudades"
+      },
+      "badges": {
+        "search": "Búsqueda",
+        "status": "Estado",
+        "payment": "Pago",
+        "delivery": "Entrega",
+        "source": "Origen",
+        "city": "Ciudad"
+      },
+      "of": "de",
+      "openFilters": "Abrir filtros",
+      "removeFilter": "Quitar filtro"
+    },
+    "table": {
+      "headers": {
+        "orderNumber": "Pedido #",
+        "customer": "Cliente",
+        "date": "Fecha",
+        "status": "Estado",
+        "total": "Total",
+        "source": "Origen",
+        "actions": "Acciones"
+      }
+    },
+    "createOrder": {
+      "title": "Crear Nuevo Pedido",
+      "configuration": {
+        "title": "Configuración del Pedido",
+        "subtitle": "Selecciona el tipo de precio para este pedido"
+      },
+      "priceType": {
+        "label": "Tipo de Precio",
+        "sale": "Precio de Venta",
+        "wholesale": "Precio al Mayor",
+        "noPriceAvailable": "No hay precio {{priceType}} disponible"
+      },
+      "customer": {
+        "title": "Información del Cliente",
+        "contactLabel": "Contacto del Cliente",
+        "contactPlaceholder": "Selecciona o agrega contacto del cliente",
+        "contactRequired": "Por favor selecciona un contacto del cliente para continuar",
+        "selectedContactDetails": "Detalles del Contacto Seleccionado:",
+        "name": "Nombre",
+        "email": "Correo",
+        "phone": "Teléfono",
+        "city": "Ciudad",
+        "address": "Dirección",
+        "notSpecified": "No especificado",
+        "contactOptionalLabel": "Contacto con el cliente (opcional)"
+      },
+      "delivery": {
+        "label": "Método de Entrega",
+        "pickup": "Retiro en Tienda",
+        "delivery": "Entrega a Domicilio (+$5.00)"
+      },
+      "payment": {
+        "label": "Método de Pago",
+        "cash": "Efectivo",
+        "card": "Tarjeta",
+        "online": "En Línea"
+      },
+      "discount": {
+        "title": "Descuento del Pedido (Opcional)",
+        "typeLabel": "Tipo de Descuento",
+        "valueLabel": "Valor del Descuento",
+        "percentageLabel": "Porcentaje",
+        "amountLabel": "Monto ($)",
+        "noDiscount": "Sin descuento",
+        "percentage": "Porcentaje (%)",
+        "fixed": "Monto Fijo ($)",
+        "percentagePlaceholder": "10",
+        "fixedPlaceholder": "5.00",
+        "applied": "Descuento: ${{amount}}",
+        "discountAmount": "Descuento",
+        "errorExceedsPercentage": "El descuento porcentual no puede exceder el 100%",
+        "errorExceedsSubtotal": "El descuento fijo no puede exceder el subtotal"
+      },
+      "items": {
+        "title": "Productos del Pedido",
+        "browseProducts": "Explorar Productos",
+        "searchPlaceholder": "Buscar productos...",
+        "noItemsSelected": "No hay productos seleccionados",
+        "addProductPrompt": "Agrega al menos un producto para crear un pedido",
+        "addAtLeastOne": "Agrega al menos un producto para crear un pedido",
+        "noProducts": "No hay productos activos disponibles para la venta.",
+        "selectedItems": "Productos Seleccionados",
+        "unitPrice": "Precio Unitario",
+        "taxRate": "Tasa de Impuesto",
+        "itemPrice": "Precio del Producto",
+        "tax": "Impuesto",
+        "total": "Total",
+        "removeItem": "Eliminar Producto",
+        "sale": "Venta",
+        "notAvailable": "N/D",
+        "noPriceAvailable": "No hay precio {{priceType}} disponible",
+        "noActiveProducts": "No hay productos activos disponibles para la venta.",
+        "searchByNameSku": "Buscar productos por nombre, SKU...",
+        "noItemsAddedYet": "Aún no se han añadido elementos",
+        "addProductsToStart": "Agregue productos para comenzar",
+        "sku": "SKU: {{sku}}"
+      },
+      "summary": {
+        "subtotal": "Subtotal",
+        "discount": "Descuento",
+        "discountFixed": "Fijo",
+        "bindedTax": "Impuesto Aplicado",
+        "grandTotal": "Total General",
+        "title": "Resumen del pedido"
+      },
+      "status": {
+        "label": "Estado del Pedido",
+        "pending": "Pendiente (Sin cambios en inventario/ingresos)",
+        "confirmed": "Confirmado (Deducir inventario y registrar ingreso)",
+        "confirmedWarning": "Los pedidos confirmados deducirán automáticamente las cantidades de inventario y crearán un registro de transacción de ingreso."
+      },
+      "notes": {
+        "label": "Notas",
+        "placeholder": "Notas opcionales para el pedido",
+        "labelOptional": "Notas (opcional)",
+        "dialogPlaceholder": "Agregue cualquier nota adicional sobre este pedido..."
+      },
+      "buttons": {
+        "create": "Crear Pedido",
+        "creating": "Creando...",
+        "cancel": "Cancelar"
+      },
+      "validation": {
+        "selectContact": "Por favor selecciona un contacto del cliente",
+        "addItems": "Por favor agrega al menos un producto al pedido",
+        "priceNotAvailable": "Precio No Disponible",
+        "noPriceForType": "Este producto no tiene un precio {{priceType}} configurado."
+      },
+      "messages": {
+        "successConfirmed": "¡Pedido creado y confirmado! El inventario se ha deducido automáticamente y el ingreso se ha registrado.",
+        "successPending": "Pedido creado como pendiente - no se realizaron cambios en inventario o ingresos.",
+        "errorCreating": "Error al crear el pedido"
+      },
+      "headerSubtitle": "Agregar productos e información del cliente.",
+      "steps": {
+        "products": "Productos",
+        "customer": "Cliente",
+        "details": "Detalles"
+      },
+      "navigation": {
+        "previous": "Anterior",
+        "next": "Próximo"
+      },
+      "stockLimit": {
+        "title": "Stock insuficiente",
+        "descriptionWithStockIn": "Tienes {{available}} de {{productName}} en inventario. Solicitado: {{attempted}}. Para continuar, primero agrega stock.",
+        "descriptionNoAccess": "Tienes {{available}} de {{productName}} en inventario. Solicitado: {{attempted}}. Este es el máximo permitido para pedidos confirmados.",
+        "cancel": "Cancelar",
+        "close": "Cerrar",
+        "stockIn": "Ingresar stock"
+      }
+    },
+    "orderDetails": {
+      "title": "Detalles del Pedido #{{orderNumber}}",
+      "customer": {
+        "title": "Información del Cliente"
+      },
+      "order": {
+        "title": "Información del Pedido",
+        "payment": "Pago",
+        "method": "Método",
+        "date": "Fecha",
+        "total": "Total"
+      },
+      "items": {
+        "title": "Productos del Pedido",
+        "subtotal": "Subtotal",
+        "discount": "Descuento",
+        "taxAndFees": "Impuestos y Cargos",
+        "total": "Total"
+      },
+      "notes": {
+        "title": "Notas Especiales"
+      },
+      "alerts": {
+        "validationErrors": "Por favor corrige los siguientes problemas antes de guardar:",
+        "statusChangeBlocked": "Este pedido ha sido procesado y no se puede cambiar de vuelta a estado Pendiente, En Espera o Cancelado.",
+        "stockOutCreated": "Se ha creado un registro de salida de inventario para este pedido."
+      },
+      "stockVoucherNote": "Stock agotado para el pedido #{{orderNumber}}",
+      "stockMovementNote": "Orden #{{orderNumber}} - Lote: {{batch}}",
+      "voucherLineNote": "Orden #{{orderNumber}}"
+    },
+    "statuses": {
+      "pending": "Pendiente",
+      "binding": "En Espera",
+      "confirmed": "Confirmado",
+      "processing": "Procesando",
+      "shipped": "Enviado",
+      "delivered": "Entregado",
+      "cancelled": "Cancelado"
+    },
+    "statusDropdown": {
+      "pending": {
+        "label": "Pendiente",
+        "description": "Mantener editable, sin impacto en inventario"
+      },
+      "pendingReview": {
+        "label": "Pendiente de Revisión",
+        "description": "En espera de revisión"
+      },
+      "confirmed": {
+        "label": "Confirmado",
+        "description": "⚠️ Bloqueará el pedido y deducirá inventario"
+      },
+      "acceptOrder": {
+        "label": "Aceptar Pedido",
+        "description": "Aceptar y procesar"
+      },
+      "processing": {
+        "label": "Procesando",
+        "description": "Pedido en preparación"
+      },
+      "shipped": {
+        "label": "Enviado",
+        "description": "Pedido enviado al cliente"
+      },
+      "delivered": {
+        "label": "Entregado",
+        "description": "Pedido completado"
+      },
+      "cancelled": {
+        "label": "Cancelado",
+        "description": "Pedido cancelado"
+      },
+      "rejectOrder": {
+        "label": "Rechazar Pedido",
+        "description": "Rechazar este pedido"
+      },
+      "alert": {
+        "locked": "Este pedido ha sido procesado y no se puede revertir a estado Pendiente o Cancelado."
+      }
+    },
+    "storefrontReview": {
+      "title": "Revisión de Pedido de Tienda en Línea",
+      "notice": "Este pedido fue realizado a través de tu tienda en línea y requiere revisión antes de procesarlo.",
+      "rejectConfirmation": "¿Estás seguro de que quieres rechazar este pedido? Esta acción no se puede deshacer."
+    },
+    "statusConfirmation": {
+      "confirm": {
+        "title": "¿Confirmar Pedido?",
+        "description": "Esta acción finalizará el pedido y actualizará los registros de inventario y finanzas. No podrás editar este pedido después de confirmarlo.",
+        "impacts": {
+          "stockDeduction": "El inventario se deducirá automáticamente usando el método FIFO",
+          "incomeTransaction": "Se creará automáticamente una transacción de ingreso",
+          "statusLocked": "El estado del pedido se bloqueará (no se puede volver a pendiente)"
+        }
+      },
+      "update": {
+        "title": "¿Actualizar Estado del Pedido?",
+        "description": "Cambiar el estado a \"{{newStatus}}\" bloqueará este pedido y evitará modificaciones futuras.",
+        "descriptionGeneric": "¿Estás seguro de que quieres cambiar el estado del pedido de \"{{currentStatus}}\" a \"{{newStatus}}\"?",
+        "impacts": {
+          "noEdit": "El pedido no se podrá editar después de este cambio",
+          "noRevert": "El estado no se puede revertir a pendiente o cancelado"
+        }
+      },
+      "actionText": {
+        "confirmOrder": "Confirmar Pedido",
+        "updateStatus": "Actualizar Estado",
+        "processing": "Procesando...",
+        "acceptAndProceed": "Aceptar y Proceder"
+      },
+      "impactsIntro": "Esta acción:"
+    },
+    "batchSelection": {
+      "title": "Asignación de Lote Requerida",
+      "description": "Selecciona lotes de inventario específicos para cada producto en este pedido. Esto asegura un seguimiento preciso del inventario y el cumplimiento del método FIFO.",
+      "confirmButton": "Confirmar Asignaciones",
+      "processing": "Procesando...",
+      "cancelButton": "Cancelar",
+      "validation": {
+        "fixIssues": "Por favor corrige los siguientes problemas:",
+        "noBatchSelected": "{{productName}}: No se ha seleccionado ninguna asignación de lote",
+        "allocationMismatch": "{{productName}}: asignado {{allocated}} pero pedido {{ordered}}",
+        "exceedsStock": "{{productName}}: la cantidad del lote excede el inventario disponible"
+      },
+      "completionStatus": "Todos los productos han sido asignados correctamente. Listo para proceder."
+    },
+    "messages": {
+      "success": {
+        "orderUpdated": "Pedido actualizado exitosamente",
+        "orderDeleted": "Pedido eliminado exitosamente",
+        "statusUpdated": "Estado del pedido actualizado exitosamente",
+        "statusUpdatedWithStock": "¡Pedido confirmado! Inventario deducido e ingreso registrado.",
+        "stockOutCreated": "Registro de salida de inventario creado exitosamente",
+        "exportCompleted": "Exportación completada",
+        "exportAll": "Todos los pedidos han sido exportados a Excel",
+        "exportFiltered": "Los pedidos filtrados han sido exportados a Excel",
+        "title": "Éxito"
+      },
+      "error": {
+        "updatingOrder": "Error al actualizar el pedido",
+        "updatingStatus": "Error al actualizar el estado del pedido",
+        "deletingOrder": "Error al eliminar el pedido",
+        "creatingStockOut": "Error al crear el registro de salida de inventario",
+        "exportFailed": "Falló la exportación",
+        "exportFailedDescription": "Error al exportar los pedidos",
+        "insufficientInventory": "Inventario insuficiente",
+        "stockDeductionFailed": "Falló la deducción de inventario",
+        "cannotChangeConfirmed": "No se pueden cambiar los pedidos confirmados de vuelta a estado pendiente",
+        "cannotRevertStatus": "No se puede cambiar de vuelta a En Espera, Pendiente o Cancelado después de que el pedido ha sido procesado",
+        "generic": "Error",
+        "requestedAvailableLine": "{{productName}}: solicitado {{requested}}, disponible {{available}}",
+        "exportFailedFilteredDescription": "No se pudieron exportar pedidos filtrados"
+      },
+      "warning": {
+        "incomeRecordFailed": "Pedido confirmado pero falló al crear el registro de ingreso. Por favor agrégalo manualmente.",
+        "title": "Advertencia"
+      },
+      "permissions": {
+        "cannotCreate": "No tienes permiso para crear pedidos.",
+        "cannotEdit": "No tienes permiso para actualizar pedidos.",
+        "cannotDelete": "No tienes permiso para eliminar pedidos.",
+        "cannotExport": "No tienes permiso para exportar pedidos.",
+        "permissionDenied": "Permiso denegado"
+      }
+    },
+    "exports": {
+      "allOrders": "Todos los pedidos",
+      "filteredOrders": "Pedidos filtrados"
+    },
+    "kpi": {
+      "totalOrders": "Órdenes totales",
+      "confirmed": "Confirmado",
+      "pending": "Pendiente",
+      "revenue": "Ganancia",
+      "clickableCard": "{{title}}: {{value}}. {{description}}. Haga clic para filtrar"
+    },
+    "cards": {
+      "orderCard": "Solicitar tarjeta {{orderNumber}}",
+      "statusLabel": "Estado: {{status}}",
+      "moreActions": "Más acciones",
+      "openMenu": "abrir menú",
+      "customerInfo": "Información del cliente",
+      "orderDetails": "Detalles del pedido",
+      "items": "Elementos",
+      "itemSingular": "artículo",
+      "itemPlural": "elementos",
+      "total": "Total",
+      "delivery": "Entrega",
+      "pickup": "Levantar",
+      "quickActions": "Acciones rápidas",
+      "created": "Creado"
+    },
+    "sources": {
+      "storefront": "Escaparate",
+      "direct": "Directo",
+      "manual": "Manual"
+    },
+    "paymentMethods": {
+      "cash": "Dinero",
+      "card": "Tarjeta",
+      "online": "En línea",
+      "null": "No especificado"
+    },
+    "deliveryMethods": {
+      "pickup": "Levantar",
+      "delivery": "Entrega",
+      "null": "No especificado"
+    },
+    "addContact": {
+      "title": "Agregar nuevo contacto de cliente",
+      "description": "Cree un contacto de cliente y utilícelo en este pedido.",
+      "selectContact": "Seleccionar contacto",
+      "loadingContacts": "Cargando contactos...",
+      "searchPlaceholder": "Buscar contactos...",
+      "contactsHeading": "Contactos",
+      "fields": {
+        "customerName": "Nombre del cliente",
+        "customerNamePlaceholder": "Introduzca el nombre del cliente",
+        "email": "Correo electrónico",
+        "emailPlaceholder": "cliente@correo electrónico.com",
+        "phone": "Teléfono",
+        "phonePlaceholder": "Número de teléfono",
+        "city": "Ciudad",
+        "cityPlaceholder": "Ciudad (opcional)"
+      },
+      "validation": {
+        "nameRequired": "El nombre del cliente es obligatorio.",
+        "emailRequired": "Se requiere correo electrónico",
+        "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
+        "phoneRequired": "Se requiere número de teléfono",
+        "contactMethodRequired": "Se requiere al menos uno de correo electrónico o teléfono."
+      },
+      "errors": {
+        "loadingContacts": "Error al cargar contactos"
+      },
+      "empty": {
+        "noContactInfo": "Sin información de contacto",
+        "noContactsAvailable": "No hay contactos disponibles. Agregue un nuevo contacto a continuación.",
+        "noCustomerContacts": "No se encontraron contactos de clientes. Intente buscar o agregar un nuevo contacto."
+      },
+      "actions": {
+        "addNewContact": "Agregar nuevo contacto",
+        "addContact": "Agregar contacto",
+        "adding": "Añadiendo..."
+      }
+    },
+    "batchSelector": {
+      "title": "Asignación de lotes",
+      "orderQty": "Cantidad de pedido: {{quantity}}",
+      "loadingBatches": "Cargando lotes...",
+      "fields": {
+        "batch": "Lote",
+        "selectBatch": "Seleccionar lote",
+        "quantity": "Cantidad"
+      },
+      "empty": {
+        "noBatchNumber": "Sin lote #",
+        "unknownWarehouse": "Almacén desconocido",
+        "noBatchesAvailable": "No hay lotes disponibles para este producto. Por favor verifique los niveles de inventario."
+      },
+      "availableLine": "Disponible: {{quantity}} | {{warehouse}}",
+      "expiry": "Exp.: {{date}}",
+      "max": "Máx.: {{quantity}}",
+      "actions": {
+        "remove": "Eliminar",
+        "addBatch": "Agregar lote"
+      },
+      "allocatedLabel": "Asignado:",
+      "remaining": "({{quantity}} restante)",
+      "errors": {
+        "exceedsOrderQuantity": "El total asignado ({{allocated}}) excede la cantidad del pedido ({{ordered}})",
+        "exceedsStock": "Algunas cantidades de lotes exceden el stock disponible",
+        "failedToLoadBatches": "No se pudieron cargar lotes: {{error}}"
+      }
+    },
+    "detailsPage": {
+      "backToOrders": "Volver a Pedidos",
+      "placedOn": "Colocado el {{date}}",
+      "notFoundTitle": "Orden no encontrada",
+      "notFoundDescription": "El orden que buscas no existe.",
+      "batchAllocationInfo": "Se requeriría la asignación de lotes para el seguimiento del inventario al procesar este pedido."
+    },
+    "edit": {
+      "title": "Editar orden {{orderNumber}}",
+      "description": "Actualizar cliente, entrega, pago y notas.",
+      "fields": {
+        "customerName": "Nombre del cliente",
+        "customerEmail": "Correo electrónico del cliente",
+        "customerPhone": "Teléfono del cliente",
+        "address": "DIRECCIÓN",
+        "city": "Ciudad"
+      },
+      "actions": {
+        "save": "Ahorrar",
+        "saving": "Ahorro..."
+      },
+      "validation": {
+        "customerNameRequired": "El nombre del cliente es obligatorio.",
+        "invalidEmail": "Correo electrónico no válido"
+      }
+    },
+    "invoice": {
+      "title": "Factura",
+      "printButton": "Imprimir factura",
+      "farmLogoAlt": "Logotipo de la granja",
+      "farmNameFallback": "Nombre de la granja",
+      "labels": {
+        "invoiceNumber": "Factura #",
+        "date": "Fecha",
+        "status": "Estado",
+        "phone": "Teléfono",
+        "email": "Correo electrónico",
+        "website": "Sitio web",
+        "paymentMethod": "Método de pago",
+        "deliveryMethod": "Método de entrega",
+        "source": "Fuente"
+      },
+      "sections": {
+        "billTo": "Cobrar a",
+        "orderDetails": "Detalles del pedido"
+      },
+      "table": {
+        "item": "Artículo",
+        "qty": "Cantidad",
+        "unitPrice": "Precio unitario",
+        "tax": "Impuesto",
+        "total": "Total"
+      },
+      "empty": {
+        "noCustomerInfo": "No se proporciona información del cliente",
+        "noLineItems": "No hay artículos de línea registrados para este pedido.",
+        "unknownProduct": "Producto desconocido"
+      },
+      "errors": {
+        "farmDataNotLoaded": "Datos de la granja no cargados",
+        "printWindowBlocked": "No se pudo abrir la ventana de impresión. Por favor revisa tu bloqueador de ventanas emergentes."
+      },
+      "thankYou": "¡Gracias por tu negocio!"
+    },
+    "map": {
+      "title": "Ubicación en el mapa",
+      "iframeTitle": "Mapa de ubicación",
+      "coordinates": "Coordenadas: {{latitude}}, {{longitude}}",
+      "address": "Dirección: {{address}}"
+    },
+    "badge": {
+      "unreadOrders": "Órdenes no leídas",
+      "noUnreadOrders": "No hay pedidos no leídos",
+      "viewAllOrders": "Ver todos los pedidos",
+      "viewUnreadOrders": "Ver pedidos no leídos",
+      "enableOrderNotifications": "Habilitar notificaciones de pedidos"
+    },
+    "notifications": {
+      "newOrderReceived": "¡Nuevo pedido recibido!",
+      "orderFromCustomer": "Pedido desde {{customerName}} - ${{amount}}"
+    },
+    "confirmation": {
+      "pageTitle": "Confirmación de pedido",
+      "notFoundTitle": "Orden no encontrada",
+      "notFoundDescription": "El pedido que buscas no existe o ha sido eliminado.",
+      "backToStore": "Volver a la tienda",
+      "successTitle": "¡Pedido realizado con éxito!",
+      "successDescription": "Gracias por tu pedido. Nos comunicaremos contigo pronto para confirmar los detalles.",
+      "orderNumber": "Número de orden",
+      "deliveryFee": "Tarifa de entrega",
+      "deliveryInformation": "Información de entrega",
+      "pickupInformation": "Información de recogida",
+      "deliveryAddress": "Dirección de entrega:",
+      "deliveryContactMessage": "Nos comunicaremos contigo para programar la entrega.",
+      "pickupLocation": "Lugar de recogida:",
+      "pickupLocationDetails": "Granja Green Valley, 123 Farm Road, Farmville, Estado 12345",
+      "pickupContactMessage": "Nos comunicaremos contigo cuando tu pedido esté listo.",
+      "questionsMessage": "¿Tiene preguntas sobre su pedido? Contáctenos para obtener ayuda.",
+      "continueShopping": "Continuar comprando"
+    },
+    "publicManagement": {
+      "orderCardTitle": "Orden {{orderNumber}}",
+      "deliveryDetails": "Detalles de entrega",
+      "farmPickup": "Recogida en la granja",
+      "homeDelivery": "Entrega a domicilio",
+      "deliveryFee": "Tarifa de entrega",
+      "actions": {
+        "confirming": "Confirmando...",
+        "cancelOrder": "Cancelar pedido"
+      },
+      "messages": {
+        "orderConfirmedTitle": "Pedido confirmado",
+        "orderConfirmedDescription": "Se han actualizado las cantidades de existencias.",
+        "errorConfirmingOrder": "Error al confirmar el pedido"
+      },
+      "empty": {
+        "noOrdersTitle": "Aún no hay pedidos",
+        "noOrdersDescription": "Los pedidos de su tienda aparecerán aquí."
+      }
+    }
+  }
+}

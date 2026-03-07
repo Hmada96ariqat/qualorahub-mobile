@@ -144,6 +144,7 @@ export type InventoryProduct = {
   id: string;
   name: string;
   description: string | null;
+  generalUse?: string | null;
   categoryId: string | null;
   taxId: string | null;
   supplierId: string | null;
@@ -199,6 +200,25 @@ export type InventoryContactOption = {
 export type InventoryCropOption = {
   id: string;
   name: string;
+};
+
+export type ProductTypeMeta = {
+  id: string;
+  name: string | null;
+  productType: string | null;
+};
+
+export type CropGuidanceRow = {
+  id: string | null;
+  productId: string;
+  cropId: string | null;
+  regionScope: string | null;
+  targetOrganismsText: string | null;
+  doseText: string | null;
+  doseUnit: string | null;
+  phiDays: number | null;
+  notes: string | null;
+  referenceUrls: unknown;
 };
 
 export type CreateCategoryRequest = CreateCategoryRequestContract;
@@ -335,6 +355,7 @@ function parseProduct(payload: unknown): InventoryProduct | null {
     id,
     name: readString(payload, 'name'),
     description: readNullableString(payload, 'description'),
+    generalUse: readNullableString(payload, 'general_use'),
     categoryId: readNullableString(payload, 'category_id'),
     taxId: readNullableString(payload, 'tax_id'),
     supplierId: readNullableString(payload, 'supplier_id'),
@@ -395,6 +416,37 @@ function parseStockAdjustmentProduct(payload: unknown): StockAdjustmentProduct |
     unit: readNullableString(payload, 'unit'),
     hasExpiry: readBoolean(payload, 'has_expiry'),
     status: readString(payload, 'status', 'active'),
+  };
+}
+
+function parseProductTypeMeta(payload: unknown): ProductTypeMeta | null {
+  if (!isRecord(payload)) return null;
+  const id = readString(payload, 'id');
+  if (!id) return null;
+
+  return {
+    id,
+    name: readNullableString(payload, 'name'),
+    productType: readNullableString(payload, 'product_type'),
+  };
+}
+
+function parseCropGuidanceRow(payload: unknown): CropGuidanceRow | null {
+  if (!isRecord(payload)) return null;
+  const productId = readString(payload, 'product_id');
+  if (!productId) return null;
+
+  return {
+    id: readNullableString(payload, 'id'),
+    productId,
+    cropId: readNullableString(payload, 'crop_id'),
+    regionScope: readNullableString(payload, 'region_scope'),
+    targetOrganismsText: readNullableString(payload, 'target_organisms_text'),
+    doseText: readNullableString(payload, 'dose_text'),
+    doseUnit: readNullableString(payload, 'dose_unit'),
+    phiDays: readNullableNumber(payload.phi_days),
+    notes: readNullableString(payload, 'notes'),
+    referenceUrls: payload.reference_urls,
   };
 }
 
@@ -682,6 +734,60 @@ export async function createInventoryContact(
 export async function listCropsForGuidance(token: string): Promise<InventoryCropOption[]> {
   const { data } = await apiClient.get<ListCropsForGuidanceResponse>('/crops/guidance', { token });
   return parseRows(data, parseCropOption);
+}
+
+function normalizeIdList(values: string[]): string[] {
+  return Array.from(
+    new Set(
+      (Array.isArray(values) ? values : [])
+        .map((value) => String(value ?? '').trim())
+        .filter((value) => value.length > 0),
+    ),
+  );
+}
+
+export async function listProductTypeMetaByIds(
+  token: string,
+  productIds: string[],
+): Promise<ProductTypeMeta[]> {
+  const normalizedIds = normalizeIdList(productIds);
+  if (normalizedIds.length === 0) {
+    return [];
+  }
+
+  const { data } = await apiClient.post<unknown, { productIds: string[] }>('/products/meta', {
+    token,
+    body: {
+      productIds: normalizedIds,
+    },
+  });
+
+  return parseRows(data, parseProductTypeMeta);
+}
+
+export async function listCropGuidanceByCropAndProducts(
+  token: string,
+  cropId: string,
+  productIds: string[],
+): Promise<CropGuidanceRow[]> {
+  const normalizedCropId = cropId.trim();
+  const normalizedIds = normalizeIdList(productIds);
+  if (!normalizedCropId || normalizedIds.length === 0) {
+    return [];
+  }
+
+  const { data } = await apiClient.post<unknown, { cropId: string; productIds: string[] }>(
+    '/products/crop-guidance/by-crop',
+    {
+      token,
+      body: {
+        cropId: normalizedCropId,
+        productIds: normalizedIds,
+      },
+    },
+  );
+
+  return parseRows(data, parseCropGuidanceRow);
 }
 
 export async function createProduct(

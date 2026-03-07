@@ -1,0 +1,506 @@
+{
+  "fields": {
+    "title": "Campos y Lotes",
+    "subtitle": "Administre los campos y lotes de su finca",
+    "offlineMode": "Modo sin conexión",
+    "dataPendingSync": "Datos pendientes de sincronización",
+    
+    "tabs": {
+      "fields": "Campos",
+      "fieldFarm": "Campo (Finca)",
+      "lots": "Lotes"
+    },
+    
+    "filters": {
+      "title": "Buscar",
+      "allStatuses": "Todos los Estados"
+    },
+    
+    "toolbar": {
+      "searchPlaceholder": "Buscar campos...",
+      "viewDeactivated": "Ver Desactivados",
+      "addField": "Agregar Campo",
+      "export": "Exportar"
+    },
+    
+    "cards": {
+      "area": "Área",
+      "location": "Ubicación",
+      "created": "Creado",
+      "soil": "Suelo",
+      "irrigation": "Riego",
+      "hectares": "hectáreas",
+      "cycle": "Ciclo",
+      "activeCycle": "Ciclo activo",
+      "noActiveCycle": "Sin ciclo de producción activo",
+      "details": "Resumen del campo",
+      "lotOverview": "Resumen del lote",
+      "startDate": "Fecha de inicio",
+      "daysIn_one": "{{count}} día en curso",
+      "daysIn_other": "{{count}} días en curso"
+    },
+
+    "table": {
+      "name": "Nombre",
+      "area": "Área",
+      "status": "Estado",
+      "actions": "Acciones"
+    },
+    
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "archived": "Archivado",
+      "deactivated": "Desactivado",
+      "fallow": "En Barbecho",
+      "maintenance": "Mantenimiento"
+    },
+    
+    "actions": {
+      "edit": "Editar",
+      "view": "Ver",
+      "deactivate": "Desactivar",
+      "reactivate": "Reactivar",
+      "archive": "Archivar"
+    },
+
+    "view": {
+      "noFieldBoundary": "El límite del campo no está disponible para este lote.",
+      "noLotBoundary": "No se ha dibujado límite para este lote."
+    },
+
+    "empty": {
+      "noFields": "No se encontraron campos",
+      "noFieldsDescription": "Cree su primer campo para comenzar a administrar las áreas de su finca",
+      "createFirstField": "Crear Primer Campo",
+      "noMatchingFields": "No hay campos que coincidan con su búsqueda",
+      "noMatchingFieldsDescription": "Intente ajustar su término de búsqueda o limpie la búsqueda",
+      "clearSearch": "Limpiar Búsqueda"
+    },
+    
+    "loading": {
+      "loadingFields": "Cargando campos...",
+      "processing": "Procesando..."
+    },
+    
+    "error": {
+      "failedToLoad": "Error al cargar los campos",
+      "failedToDeactivate": "Error al desactivar el campo. Por favor, intente de nuevo.",
+      "failedToReactivate": "Error al reactivar el campo",
+      "authenticationError": "Por favor, inicie sesión para guardar los datos del campo"
+    },
+    
+    "success": {
+      "fieldDeactivated": "Campo Desactivado",
+      "fieldDeactivatedDescription": "{{fieldName}} ha sido desactivado exitosamente.",
+      "fieldReactivated": "El campo ha sido reactivado exitosamente. Ahora puede regresar para ver el estado actualizado.",
+      "fieldCreated": "Campo (Finca) creado exitosamente",
+      "fieldUpdated": "El campo ha sido actualizado exitosamente."
+    },
+    
+    "form": {
+      "addFieldTitle": "Agregar Campo (Finca)",
+      "addFieldDescription": "Cree un nuevo campo para organizar las áreas de su finca",
+      "editFieldTitle": "Editar Campo (Finca)",
+      "editFieldDescription": "Actualizar información del campo",
+      
+      "tabs": {
+        "basicInfo": "Información Básica",
+        "details": "Detalles",
+        "mapping": "Mapeo"
+      },
+      
+      "basic": {
+        "fieldNameLabel": "Nombre del Campo",
+        "fieldNameRequired": "El nombre del campo es requerido",
+        "fieldNamePlaceholder": "Ingrese el nombre del campo",
+        "locationLabel": "Ubicación",
+        "locationPlaceholder": "Ingrese la ubicación",
+        "areaLabel": "Área",
+        "areaRequired": "El área debe ser positiva",
+        "areaPlaceholder": "0.00",
+        "areaUnitLabel": "Unidad de Área",
+        "statusLabel": "Estado",
+        "selectStatus": "Seleccione el estado",
+        "selectUnit": "Seleccione la unidad"
+      },
+      
+      "details": {
+        "soilTypeLabel": "Tipo de Suelo",
+        "soilTypePlaceholder": "Seleccione el tipo de suelo",
+        "irrigationTypeLabel": "Tipo de Riego",
+        "irrigationTypePlaceholder": "Seleccione el tipo de riego",
+        "soilConditionsLabel": "Condiciones del Suelo",
+        "soilConditionsPlaceholder": "Describa las condiciones del suelo, drenaje, pH, etc.",
+        "notesLabel": "Notas",
+        "notesPlaceholder": "Notas adicionales sobre este campo..."
+      },
+      
+      "mapping": {
+        "fieldBoundariesLabel": "Límites del Campo",
+        "fieldBoundariesRequired": "Los límites del campo son requeridos (dibuje en el mapa o ingrese el área manualmente)",
+        "fieldBoundariesDescription": "Dibuje los límites de su campo en el mapa (requerido)",
+        "calculatedAreaLabel": "Área Calculada",
+        "manualAreaEntryLabel": "Ingreso Manual de Área",
+        "manualAreaPlaceholder": "Ingrese el área manualmente",
+        "drawingModeActive": "Modo de dibujo activo",
+        "drawingModeActiveDescription": "Haga clic en el mapa para comenzar a dibujar los límites de su campo. Haga doble clic o haga clic en el primer punto para completar.",
+        "startDrawing": "Comenzar a Dibujar",
+        "stopDrawing": "Detener Dibujo",
+        "howToDrawYourField": "Cómo Dibujar Su Campo",
+        "clickPointsToCreateBoundary": "Haga clic en puntos del mapa para crear un límite",
+        "clickAnywhereToStartDrawing": "Haga clic en cualquier lugar para comenzar a dibujar",
+        "clickMultiplePoints": "Haga clic en múltiples puntos del mapa",
+        "completeShapeByClickingFirstPoint": "Complete la forma haciendo clic en el primer punto",
+        "adjustPointsByDragging": "Ajuste los puntos arrastrándolos",
+        "searchAddressPlaceholder": "Buscar dirección (ej: 123 Calle Principal, Madrid)",
+        "searchAddressPlaceholderLoading": "Cargando...",
+        "startTypingToSeeSuggestions": "Comience a escribir para ver sugerencias, luego seleccione del menú desplegable",
+        "loadingMap": "Cargando mapa..."
+      },
+      
+      "buttons": {
+        "cancel": "Cancelar",
+        "createField": "Crear Campo",
+        "updateField": "Actualizar Campo",
+        "saveChanges": "Guardar Cambios",
+        "creating": "Creando...",
+        "updating": "Actualizando...",
+        "saving": "Guardando..."
+      },
+      
+      "validation": {
+        "fieldNameRequired": "El nombre del campo es requerido",
+        "areaMustBePositive": "El área debe ser un número positivo",
+        "fieldBoundariesRequired": "Los límites del campo son requeridos",
+        "duplicateFieldName": "Ya existe un campo con este nombre. Por favor, elija un nombre diferente.",
+        "formError": "Por favor, corrija los campos resaltados"
+      }
+    },
+    
+    "archived": {
+      "title": "Campos Archivados",
+      "description": "Ver y administrar campos y lotes desactivados",
+      "backToFields": "Volver a Campos",
+      "back": "Volver",
+      "searchPlaceholder": "Buscar campos archivados...",
+      "searchMobilePlaceholder": "Buscar campos...",
+      "infoTitle": "Acerca de los Campos Archivados",
+      "infoDescription": "Estos campos están inactivos. Cuando reactive un campo, sus lotes permanecerán inactivos. Necesitará reactivar los lotes manualmente si es necesario.",
+      "noArchivedFields": "No hay campos archivados",
+      "noArchivedFieldsDescription": "Aún no tiene campos archivados.",
+      "noMatchingArchived": "No hay campos archivados que coincidan con su búsqueda.",
+      
+      "table": {
+        "name": "Nombre",
+        "areaHa": "Área (Ha)",
+        "location": "Ubicación",
+        "inactiveLots": "Lotes Inactivos",
+        "deactivated": "Desactivado",
+        "actions": "Acciones"
+      },
+      
+      "row": {
+        "notSpecified": "No especificado",
+        "lot": "lote",
+        "lots": "lotes"
+      }
+    },
+    
+    "lots": {
+      "addLot": "Agregar Lote",
+      "title": "Lotes",
+      "singularTitle": "Lote",
+      "searchPlaceholder": "Buscar lotes...",
+      "searchLots": "Buscar lotes...",
+      "loadingLots": "Cargando lotes...",
+      "filterLots": "Filtrar Lotes",
+      "filterDescription": "Filtrar lotes por estado y otros criterios",
+      "noLotsFound": "No se encontraron lotes",
+      "createFirstLot": "Crear Primer Lote",
+      "createFirstLotDescription": "Cree su primer lote para comenzar a administrar las áreas de su finca",
+      "noMatchingLots": "No hay lotes que coincidan con su búsqueda",
+      "noMatchingDescription": "Intente ajustar su término de búsqueda o limpie la búsqueda para ver todos los lotes",
+      "clearSearch": "Limpiar Búsqueda",
+      "allLotsFiltered": "Todos los lotes están filtrados",
+      "allLotsFilteredDescription": "{{count}} lotes disponibles, pero ninguno coincide con los filtros actuales",
+      
+      "filters": {
+        "title": "Buscar",
+        "allStatuses": "Todos los Estados"
+      },
+      
+      "table": {
+        "name": "Nombre",
+        "type": "Tipo",
+        "field": "Campo",
+        "status": "Estado",
+        "created": "Creado",
+        "actions": "Acciones",
+        "details": "Detalles"
+      },
+
+      "permissions": {
+        "addDenied": "No tiene permiso para agregar lotes.",
+        "editDenied": "No tiene permiso para editar lotes.",
+        "deleteDenied": "No tiene permiso para desactivar lotes."
+      },
+
+      "status": {
+        "all": "Todos los Estados",
+        "active": "Activo",
+        "inactive": "Inactivo",
+        "preparing": "Preparando"
+      },
+
+      "success": {
+        "updated": "Lote actualizado correctamente"
+      },
+      
+      "form": {
+        "addTitle": "Agregar Nuevo Lote",
+        "addDescription": "Cree un nuevo lote para su campo",
+        "editTitle": "Editar Lote",
+        "editDescription": "Actualizar información del lote",
+        "steps": {
+          "basic": "Información Básica",
+          "boundary": "Límite del Lote",
+          "notes": "Notas"
+        },
+        "boundaryHintTitle": "Dibujar límite del lote",
+        "boundaryHint": "Dibuje el lote dentro del límite del campo resaltado.",
+        "areaPercent": "El área del lote es",
+        "areaPercentOf": "del campo",
+        "boundaryReady": "Límite capturado",
+        "clearBoundary": "Borrar límite",
+        "fieldRequiredTitle": "Campo requerido",
+        "fieldRequiredMessage": "Seleccione un campo para continuar.",
+        "fieldBoundaries": "Límites del Campo",
+        "acres": "Acres",
+        
+        "lotNameLabel": "Nombre del Lote",
+        "lotNameRequired": "El nombre del lote es requerido",
+        "lotNamePlaceholder": "Ingrese el nombre del lote",
+        
+        "fieldLabel": "Campo",
+        "fieldRequired": "El campo es requerido",
+        "fieldPlaceholder": "Seleccione un campo",
+        
+        "lotTypeLabel": "Tipo de Lote",
+        "lotTypeRequired": "El tipo de lote es requerido",
+        "lotTypePlaceholder": "Seleccione el tipo de lote",
+        "specifyOtherLotType": "Especifique Otro Tipo de Lote",
+        "specifyOtherPlaceholder": "Especifique otro tipo de lote",
+        
+        "cropRotationLabel": "Plan de Rotación de Cultivos",
+        "cropRotationRequired": "El plan de rotación de cultivos es requerido",
+        "cropRotationPlaceholder": "Seleccione el plan de rotación",
+        "specifyOtherRotation": "Especifique Otro Plan de Rotación",
+        "specifyRotationPlaceholder": "Especifique otro plan de rotación",
+        
+        "lightProfileLabel": "Perfil de Luz",
+        "lightProfileRequired": "El perfil de luz es requerido",
+        "lightProfilePlaceholder": "Seleccione el perfil de luz",
+        
+        "weatherAlertsLabel": "Activar Alertas del Clima",
+        
+        "notesLabel": "Notas",
+        "notesPlaceholder": "Notas adicionales sobre este lote",
+        
+        "calculatedArea": "Área Calculada",
+        "drawPolygonInstructions": "Dibuje un polígono en el mapa para calcular el área automáticamente",
+        "manualAreaEntry": "Ingreso Manual de Área",
+        "enterAreaAcres": "Ingrese el área en acres",
+        "manualAreaNote": "Si no puede dibujar en el mapa, puede ingresar el área manualmente",
+        
+        "buttons": {
+          "cancel": "Cancelar",
+          "createLot": "Crear Lote",
+          "updateLot": "Actualizar Lote",
+          "saving": "Guardando..."
+        }
+      },
+
+      "drawing": {
+        "mapFailedToLoad": "Error al cargar el mapa",
+        "mapFailedToLoadDescription": "Las capas de Google Maps no se cargaron. Suele deberse a cuota/facturación de la API o restricciones de red.",
+        "outsideBoundary": "Fuera del límite",
+        "outsideBoundaryDescription": "El lote debe permanecer dentro del límite del campo.",
+        "lotOverlapsExisting": "El lote se superpone con un lote existente",
+        "lotOverlapsExistingReverted": "No puede superponerse con \"{{lotName}}\". Se revirtió al límite anterior.",
+        "lotMustBeInsideField": "El lote debe estar dentro del campo",
+        "lotMustBeInsideFieldDescription": "Dibuje el límite del lote solo dentro del campo resaltado.",
+        "lotOverlapsExistingDrawInGreen": "Este límite se superpone con \"{{lotName}}\". Dibuje solo en el área vacía (verde).",
+        "areaAlreadyOccupied": "Área ya ocupada",
+        "areaAlreadyOccupiedDescription": "Esta área ya está en uso por \"{{name}}\". Dibuje solo en el área vacía (verde).",
+        "startPointMarkerTitle": "Punto de inicio — haga clic cerca para cerrar el polígono",
+        "instructionClickToStart": "Haga clic dentro del campo para comenzar a dibujar el límite del lote",
+        "instructionPoint1": "Haga clic para agregar más puntos (1 punto agregado)",
+        "instructionPoint2": "Haga clic para agregar más puntos (2 puntos agregados)",
+        "instructionPointN": "{{count}} puntos — Haga clic cerca del marcador verde de inicio para cerrar, o use el botón de abajo",
+        "completeDrawingButton": "Completar dibujo ({{count}} puntos)",
+        "mapUnavailable": "Mapa no disponible",
+        "loadingMap": "Cargando mapa...",
+        "selectFieldWithBoundaries": "Seleccione un campo con límites para dibujar un lote.",
+        "existingLotName": "Lote existente"
+      },
+
+      "types": {
+        "openLot": "Lote Abierto",
+        "greenhouse": "Invernadero",
+        "shadeHouse": "Casa de Sombra",
+        "tunnelPolytunnel": "Túnel/Politúnel",
+        "nursery": "Vivero",
+        "growAreaPlantingArea": "Área de Cultivo/Área de Siembra",
+        "orchard": "Huerto",
+        "vineyard": "Viñedo",
+        "livestockBarn": "Establo",
+        "livestockPastureGrazing": "Pastoreo/Pasto para Ganado",
+        "storagePadWarehouse": "Bodega/Almacén",
+        "other": "Otro"
+      },
+      
+      "rotationPlans": {
+        "monoculture": "Monocultivo",
+        "twoFieldRotation": "Rotación de Dos Campos",
+        "threeFieldRotation": "Rotación de Tres Campos",
+        "fourFieldRotation": "Rotación de Cuatro Campos",
+        "coverCropping": "Cultivo de Cobertura",
+        "fallowPeriods": "Períodos de Barbecho",
+        "intercropping": "Cultivo Intercalado",
+        "other": "Otro"
+      },
+      
+      "lightProfiles": {
+        "fullSun": "Sol Pleno",
+        "partialSun": "Sol Parcial",
+        "partialShade": "Sombra Parcial",
+        "dappledShade": "Sombra Moteada",
+        "fullShade": "Sombra Completa",
+        "indoorControlledLight": "Luz Controlada Interior"
+      },
+      
+      "confirmations": {
+        "deleteTitle": "Desactivar Lote",
+        "deleteDescription": "¿Está seguro de que desea desactivar \"{{lotName}}\"? Puede reactivarlo más tarde en Lotes desactivados.",
+        "deleteConfirm": "Desactivar",
+        "deleteCancel": "Cancelar"
+      }
+    },
+    
+    "units": {
+      "acres": "Acres",
+      "hectares": "Hectáreas (Ha)",
+      "manzana": "Manzana (Mz)",
+      "squareMeters": "Metros Cuadrados",
+      "squareFeet": "Pies Cuadrados",
+      "hectare": "hectárea",
+      "acre": "acre",
+      "ha": "Ha",
+      "ac": "ac",
+      "sqm": "m²",
+      "sqft": "ft²"
+    },
+    
+    "irrigation": {
+      "none": "Ninguno",
+      "drip": "Goteo",
+      "sprinkler": "Aspersión",
+      "pivot": "Pivote",
+      "surface": "Superficial",
+      "subsurface": "Subsuperficial",
+      "rainfed": "Temporal",
+      "reservoir": "Embalse",
+      "river": "Río",
+      "municipal": "Municipal",
+      "rainwater": "Agua de Lluvia",
+      "flood": "Inundación",
+      "centerPivot": "Pivote Central",
+      "other": "Otro"
+    },
+    
+    "soil": {
+      "clay": "Arcilla",
+      "loam": "Franco",
+      "sand": "Arena",
+      "silt": "Limo",
+      "peat": "Turba",
+      "chalk": "Creta",
+      "saline": "Salino",
+      "sandy": "Arenoso",
+      "mixed": "Mixto",
+      "other": "Otro"
+    },
+    
+    "map": {
+      "startDrawing": "Comenzar a Dibujar",
+      "clickToDraw": "Clic para dibujar",
+      "deleteShape": "Eliminar forma",
+      "fullScreen": "Pantalla completa",
+      "exitFullScreen": "Salir de pantalla completa",
+      "clickToStart": "Clic para comenzar, doble clic para finalizar",
+      "dragPoints": "Arrastre los puntos para ajustar",
+      "drawingInstructions": "Haga clic para comenzar a dibujar, doble clic para finalizar el límite",
+      "adjustInstructions": "Arrastre los puntos para ajustar la forma del límite",
+      
+      "unitSelector": "Selector de unidades",
+      "calculatedArea": "Área calculada",
+      "manualAreaEntry": "Ingreso manual de área",
+      "enterAreaManually": "Ingrese el área manualmente",
+      
+      "errors": {
+        "mapFailedToLoad": "Error al cargar el mapa",
+        "locationPermissionDenied": "Permiso de ubicación denegado",
+        "drawingError": "Ocurrió un error al dibujar",
+        "polygonMustBeClosed": "El polígono debe estar cerrado",
+        "noSelfIntersections": "No se permiten auto-intersecciones",
+        "minimumThreePoints": "Se requieren mínimo tres puntos",
+        "mapNotAvailable": "Mapa no disponible",
+        "apiKeyError": "Error en la clave API del mapa",
+        "offlineState": "Mapa no disponible en modo sin conexión"
+      },
+      
+      "tools": {
+        "drawing": "Herramienta de dibujo",
+        "selection": "Herramienta de selección",
+        "measurement": "Herramienta de medición",
+        "zoom": "Herramienta de zoom"
+      },
+      
+      "aria": {
+        "editButton": "Editar límite del mapa",
+        "deleteButton": "Eliminar límite del mapa",
+        "viewButton": "Ver en el mapa",
+        "zoomIn": "Acercar",
+        "zoomOut": "Alejar",
+        "startDrawingButton": "Comenzar a dibujar límite",
+        "fullscreenButton": "Alternar vista de mapa en pantalla completa"
+      }
+    },
+    
+    "validation": {
+      "required": "Este campo es requerido",
+      "nameRequired": "El nombre es requerido",
+      "areaRequired": "El área es requerida",
+      "fieldRequired": "El campo es requerido",
+      "boundariesRequired": "Los límites son requeridos",
+      "mustBePositive": "Debe ser un número positivo",
+      "mustBeGreaterThanZero": "Debe ser mayor que cero",
+      "maxLength": "Máximo {{max}} caracteres permitidos",
+      "invalidEmail": "Formato de correo electrónico inválido",
+      "invalidNumber": "Formato de número inválido",
+      "invalidDate": "Formato de fecha inválido",
+      "duplicateName": "Este nombre ya está en uso",
+      "invalidArea": "Valor de área inválido",
+      "manualAreaRequired": "El ingreso manual de área es requerido",
+      "polygonRequired": "Los límites del polígono son requeridos",
+      "minimumArea": "El área mínima es {{min}}",
+      "maximumArea": "El área máxima es {{max}}",
+      "invalidGeometry": "Datos de geometría inválidos",
+      "unsavedChanges": "Tiene cambios sin guardar",
+      "confirmDiscard": "¿Está seguro de que desea descartar sus cambios?",
+      "keepEditing": "Seguir editando",
+      "discardChanges": "Sí, descartar"
+    }
+  }
+}

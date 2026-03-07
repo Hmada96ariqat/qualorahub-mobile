@@ -1,0 +1,209 @@
+{
+  "weather": {
+    "title": "الطقس",
+    "subtitle": "مراقبة أحوال الطقس عبر مواقع المزرعة",
+    "liveData": "بيانات مباشرة",
+    "lastUpdated": "آخر تحديث",
+    "buttons": {
+      "refresh": "تحديث",
+      "alertRules": "قواعد التنبيهات"
+    },
+    "location": {
+      "noSelection": "لم يتم اختيار موقع",
+      "noSelectionDesc": "اختر موقعًا من القائمة أعلاه لعرض بيانات الطقس.",
+      "noFields": "لم يتم العثور على حقول. يتم إنشاء مواقع الطقس من الحقول التي تحتوي على حدود.",
+      "selectLocation": "اختر موقعًا",
+      "unknown": "موقع غير معروف"
+    },
+    "messages": {
+      "loadingWeather": "جارٍ تحميل بيانات الطقس...",
+      "noDataAvailable": "لا توجد بيانات طقس متاحة",
+      "selectLocationToView": "اختر موقعًا لعرض الطقس"
+    },
+    "time": {
+      "now": "الآن"
+    },
+    "days": {
+      "today": "اليوم"
+    },
+    "conditions": {
+      "noData": "لا توجد بيانات",
+      "heavyRain": "أمطار غزيرة",
+      "lightRain": "أمطار خفيفة",
+      "freezing": "تجمد",
+      "cold": "بارد",
+      "cloudy": "غائم",
+      "hot": "حار",
+      "sunny": "مشمس",
+      "partlyCloudy": "غائم جزئيًا"
+    },
+    "comfort": {
+      "veryCold": "بارد جدًا",
+      "cool": "مائل للبرودة",
+      "uncomfortable": "غير مريح",
+      "veryHot": "حار جدًا",
+      "comfortable": "مريح"
+    },
+    "insights": {
+      "title": "إرشاد زراعي",
+      "delaySpray": "تأجيل عمليات الرش",
+      "highWind": "رياح قوية — يُنصح بتجنب الرش",
+      "frostRisk": "خطر الصقيع — حماية المحاصيل",
+      "heatStress": "إجهاد حراري — زيادة الري",
+      "dryConditions": "ظروف جافة — التحقق من الري",
+      "idealConditions": "ظروف مثالية للعمل الحقلي",
+      "monitorClosely": "مراقبة الظروف عن كثب"
+    },
+    "metrics": {
+      "temperature": "درجة الحرارة",
+      "feelsLike": "المحسوسة",
+      "feelsLikeValue": "المحسوسة {{value}}{{unit}}",
+      "humidity": "الرطوبة",
+      "wind": "الرياح",
+      "pressure": "الضغط الجوي",
+      "visibility": "مدى الرؤية",
+      "precipitation": "الهطول",
+      "cloudCover": "الغطاء السحابي",
+      "uv": "مؤشر الأشعة فوق البنفسجية"
+    },
+    "units": {
+      "celsius": "°C",
+      "fahrenheit": "°F",
+      "percent": "%",
+      "mph": "mph",
+      "kph": "km/h",
+      "inHg": "inHg",
+      "hPa": "hPa",
+      "mi": "mi",
+      "km": "km",
+      "mmPerHour": "mm/h",
+      "inPerHour": "in/h"
+    },
+    "forecast": {
+      "hourly": "التوقعات بالساعة",
+      "today": "توقعات اليوم",
+      "hourlyConditions": "أحوال الطقس بالساعة",
+      "daily": "توقعات 7 أيام",
+      "sixDay": "توقعات 6 أيام",
+      "high": "العظمى",
+      "low": "الصغرى"
+    },
+    "alerts": {
+      "title": "قواعد تنبيهات الطقس",
+      "description": "أنشئ وأدر تنبيهات طقس تلقائية لمواقع المزرعة.",
+      "form": {
+        "title": {
+          "edit": "تعديل القاعدة",
+          "create": "إنشاء قاعدة"
+        },
+        "ruleName": {
+          "label": "اسم القاعدة",
+          "placeholder": "أدخل اسم القاعدة"
+        },
+        "location": {
+          "label": "الموقع (اختياري)",
+          "placeholder": "اختر موقعًا (اختياري)",
+          "none": "بدون موقع محدد"
+        },
+        "condition": {
+          "label": "شرط الطقس"
+        },
+        "operator": {
+          "label": "المعامل"
+        },
+        "value": {
+          "label": "القيمة",
+          "placeholder": "أدخل قيمة"
+        },
+        "unit": {
+          "label": "الوحدة",
+          "placeholder": "مثال: °C، %، mph"
+        },
+        "customMessage": {
+          "label": "رسالة مخصصة (اختياري)",
+          "placeholder": "رسالة تنبيه مخصصة"
+        },
+        "severity": {
+          "label": "الخطورة"
+        },
+        "notifications": {
+          "label": "الإشعارات",
+          "inApp": "إشعارات داخل التطبيق",
+          "email": "إشعارات البريد الإلكتروني",
+          "sms": "إشعارات الرسائل النصية"
+        },
+        "actions": {
+          "save": "حفظ القاعدة"
+        }
+      },
+      "list": {
+        "activeRules": "القواعد النشطة ({{count}})",
+        "createRule": "إنشاء قاعدة",
+        "noRules": {
+          "title": "لا توجد قواعد تنبيه",
+          "description": "أنشئ أول قاعدة تنبيه للطقس لتلقي الإشعارات عند تحقق الشروط.",
+          "action": "أنشئ أول قاعدة"
+        }
+      },
+      "details": {
+        "condition": "الشرط",
+        "location": "الموقع",
+        "customMessage": "رسالة مخصصة",
+        "notifications": "الإشعارات"
+      },
+      "notifications": {
+        "inApp": "داخل التطبيق",
+        "email": "البريد الإلكتروني",
+        "sms": "رسائل نصية"
+      },
+      "severity": {
+        "low": "منخفض",
+        "medium": "متوسط",
+        "high": "عالي"
+      },
+      "metrics": {
+        "temperature": "درجة الحرارة",
+        "humidity": "الرطوبة",
+        "windSpeed": "سرعة الرياح",
+        "precipitation": "الهطول",
+        "frostRisk": "خطر الصقيع"
+      },
+      "operators": {
+        "greater_than": "أكبر من",
+        "less_than": "أقل من",
+        "equal_to": "يساوي",
+        "greater_equal": "أكبر من أو يساوي",
+        "less_equal": "أقل من أو يساوي"
+      },
+      "location": {
+        "unknown": "موقع غير معروف",
+        "all": "كل المواقع",
+        "test": "موقع الاختبار"
+      },
+      "actions": {
+        "test": "اختبار"
+      },
+      "status": {
+        "enabled": "مفعلة",
+        "disabled": "معطلة"
+      },
+      "toasts": {
+        "farmIdMissing": "لم يتم العثور على معرّف المزرعة. يُرجى التأكد من إعداد الملف الشخصي بشكل صحيح.",
+        "ruleNameRequired": "اسم القاعدة مطلوب",
+        "ruleUpdated": "تم تحديث قاعدة تنبيه الطقس",
+        "ruleCreated": "تم إنشاء قاعدة تنبيه الطقس",
+        "ruleDeleted": "تم حذف قاعدة تنبيه الطقس",
+        "ruleSaveFailed": "تعذر حفظ قاعدة تنبيه الطقس",
+        "ruleDeleteFailed": "تعذر حذف قاعدة تنبيه الطقس",
+        "ruleUpdateFailed": "تعذر تحديث قاعدة تنبيه الطقس",
+        "ruleToggle": "قاعدة تنبيه الطقس {{state}}",
+        "weatherUnavailable": "بيانات الطقس الحالية أو المستخدم غير متاح",
+        "testSentTitle": "تم إرسال تنبيه تجريبي",
+        "testSentDescription": "تم إرسال إشعار اختبار للتنبيه \"{{name}}\"",
+        "testFailedTitle": "فشل الاختبار",
+        "testFailedDescription": "تعذر إرسال التنبيه التجريبي",
+        "testError": "تعذر اختبار تنبيه الطقس"
+      }
+    }
+  }
+}
