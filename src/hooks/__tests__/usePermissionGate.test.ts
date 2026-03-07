@@ -24,9 +24,19 @@ describe('usePermissionGate helpers', () => {
   it('resolves livestock aliases to livestock-related sub-menu keys', () => {
     expect(resolvePermissionKeys('livestock')).toEqual([
       'livestock',
+      'animal-housing-unit',
       'animal-housing',
       'animal-profile',
       'weather',
+      'stock-count',
+    ]);
+  });
+
+  it('resolves crops aliases to crop-related sub-menu keys', () => {
+    expect(resolvePermissionKeys('crops')).toEqual([
+      'crops',
+      'crop-planning',
+      'production-cycles',
     ]);
   });
 

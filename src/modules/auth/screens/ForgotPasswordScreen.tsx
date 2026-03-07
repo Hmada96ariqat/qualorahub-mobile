@@ -13,12 +13,14 @@ import {
   SectionCard,
   useFormValidation,
 } from '../../../components';
+import { useRateLimitGuard } from '../../../hooks/useRateLimitGuard';
 import { spacing } from '../../../theme/tokens';
 import { forgotPassword } from '../api';
 import { AuthBrandHeader } from '../components/AuthBrandHeader';
 
 export function ForgotPasswordScreen() {
   const router = useRouter();
+  const rateLimitGuard = useRateLimitGuard();
   const scrollViewRef = useRef<ScrollView | null>(null);
   const formValidation = useFormValidation<'email'>(scrollViewRef);
   const [email, setEmail] = useState('');
@@ -44,8 +46,12 @@ export function ForgotPasswordScreen() {
     }
 
     try {
-      await forgotPassword({ email: email.trim() });
-      setSuccess(true);
+      const result = await rateLimitGuard.guard(() => forgotPassword({ email: email.trim() }));
+      if (result.ok) {
+        setSuccess(true);
+      } else {
+        setError(result.error);
+      }
     } catch (e) {
       const message = e instanceof Error ? e.message : 'Failed to submit reset request';
       setError(message);
@@ -90,18 +96,20 @@ export function ForgotPasswordScreen() {
             />
           </FormField>
 
-          {error ? (
+          {(error || rateLimitGuard.message) ? (
             <ErrorState
-              title="Request Failed"
-              message={error}
+              title={rateLimitGuard.isLimited ? 'Rate Limited' : 'Request Failed'}
+              message={rateLimitGuard.message ?? error ?? ''}
             />
           ) : null}
 
           <AppButton
-            label="Send Reset Link"
+            label={rateLimitGuard.isLimited
+              ? `Try again in ${rateLimitGuard.retryAfterSec}s`
+              : 'Send Reset Link'}
             onPress={onSubmit}
             loading={submitting}
-            disabled={submitting}
+            disabled={submitting || rateLimitGuard.isLimited}
             testID="auth.forgot.submit"
           />
         </FormValidationProvider>

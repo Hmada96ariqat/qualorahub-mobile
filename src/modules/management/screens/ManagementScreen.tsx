@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, Text, View, type ScrollView } from 'react-native';
-import type { ManagedInvite, ManagedRole, ManagedUser } from '../../../api/modules/management';
+import type { ManagedInvite, ManagedRole, ManagedUser, RolePermissionInput } from '../../../api/modules/management';
 import {
   ActionSheet,
   AlertStrip,
@@ -42,8 +42,10 @@ import {
   type AccessState,
   type InviteFormValues,
   type RoleFormValues,
+  type RolePermissionFormValue,
   type UserFormValues,
 } from '../contracts';
+import { PermissionMatrixEditor } from '../components/PermissionMatrixEditor';
 import {
   toInviteDisplayName,
   toInviteRowSubtitle,
@@ -136,16 +138,16 @@ export function ManagementScreen() {
     deleteInvite,
   } = useManagementModule();
 
-  const roleName = accessSnapshot.context?.role ?? null;
   const accessState = useMemo(
     () =>
       resolveAccessState({
-        roleName,
+        roleType: accessSnapshot.rbac?.type ?? accessSnapshot.context?.role ?? null,
+        rbacPermissions: accessSnapshot.rbac?.permissions,
         moduleKey: 'users',
         menuAllowed: hasMenuAccess('users'),
         entitlementsSnapshot: accessSnapshot.entitlements,
       }),
-    [roleName, hasMenuAccess, accessSnapshot.entitlements],
+    [accessSnapshot.rbac?.type, accessSnapshot.rbac?.permissions, accessSnapshot.context?.role, hasMenuAccess, accessSnapshot.entitlements],
   );
   const canWriteUsers = isWritable(accessState);
 
@@ -330,16 +332,27 @@ export function ManagementScreen() {
       return;
     }
 
+    // Serialize permissions to the API format: { module, values: { can_view, ... } }
+    const permissionsPayload: RolePermissionInput[] = roleFormValues.permissions.map((perm) => ({
+      module: perm.module,
+      values: {
+        can_view: perm.canView,
+        can_add: perm.canAdd,
+        can_edit: perm.canEdit,
+        can_delete: perm.canDelete,
+      },
+    }));
+
     try {
       if (roleFormMode === 'create') {
-        await createRole({ name });
+        await createRole({ name, permissions: permissionsPayload });
         showNotice({
           title: 'Role Created',
           message: `Role "${name}" was added.`,
           tone: 'success',
         });
       } else if (editingRole) {
-        await updateRole(editingRole.id, { name });
+        await updateRole(editingRole.id, { name, permissions: permissionsPayload });
         showNotice({
           title: 'Role Updated',
           message: `Role "${name}" was updated.`,
@@ -881,11 +894,24 @@ export function ManagementScreen() {
                 value={roleFormValues.name}
                 onChangeText={(value) => {
                   roleValidation.clearFieldError('name');
-                  setRoleFormValues({ name: value });
+                  setRoleFormValues((prev) => ({ ...prev, name: value }));
                 }}
                 placeholder="Role name"
               />
             </FormField>
+          </DetailSectionCard>
+
+          <DetailSectionCard
+            title="Permissions"
+            description="Set what each role can view, add, edit, or delete across modules."
+          >
+            <PermissionMatrixEditor
+              permissions={roleFormValues.permissions}
+              onChange={(nextPermissions: RolePermissionFormValue[]) =>
+                setRoleFormValues((prev) => ({ ...prev, permissions: nextPermissions }))
+              }
+              disabled={isMutating}
+            />
           </DetailSectionCard>
         </FormValidationProvider>
       </BottomSheet>

@@ -136,12 +136,26 @@ export type StorefrontSettingsRecord = {
   updatedAt: string;
 };
 
+export type RolePermissionValues = {
+  can_view: boolean;
+  can_add: boolean;
+  can_edit: boolean;
+  can_delete: boolean;
+};
+
+export type RolePermissionInput = {
+  module: string;
+  values: RolePermissionValues;
+};
+
 export type CreateManagedRoleRequest = {
   name: string;
+  permissions?: RolePermissionInput[];
 };
 
 export type UpdateManagedRoleRequest = {
-  name: string;
+  name?: string;
+  permissions?: RolePermissionInput[];
 };
 
 export type CreateManagedInviteRequest = {

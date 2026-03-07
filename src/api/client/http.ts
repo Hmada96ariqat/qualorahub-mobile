@@ -27,11 +27,18 @@ export type UnauthorizedEvent = {
 };
 
 let unauthorizedHandler: ((event: UnauthorizedEvent) => void) | undefined;
+let forbiddenHandler: ((event: UnauthorizedEvent) => void) | undefined;
 
 export function setUnauthorizedHandler(
   handler: ((event: UnauthorizedEvent) => void) | undefined,
 ): void {
   unauthorizedHandler = handler;
+}
+
+export function setForbiddenHandler(
+  handler: ((event: UnauthorizedEvent) => void) | undefined,
+): void {
+  forbiddenHandler = handler;
 }
 
 function createTraceId(): string {
@@ -107,6 +114,15 @@ export async function apiClientRequest<TResponse, TBody = unknown>(
       !path.startsWith('/auth/refresh')
     ) {
       unauthorizedHandler?.({
+        path,
+        traceId: responseTraceId,
+        status: res.status,
+      });
+    }
+
+    // Phase 3 (BUG 3): On 403, trigger RBAC refresh so stale permissions get updated
+    if (res.status === 403) {
+      forbiddenHandler?.({
         path,
         traceId: responseTraceId,
         status: res.status,

@@ -199,6 +199,7 @@ describe('ManagementScreen integration', () => {
       signOut: async () => undefined,
       clearSessionNotice: () => undefined,
       hasMenuAccess: () => true,
+      refreshAccessSnapshot: jest.fn().mockResolvedValue(undefined),
     });
   });
 
@@ -229,9 +230,14 @@ describe('ManagementScreen integration', () => {
     fireEvent.press(getAllByText('Create Role').slice(-1)[0]);
 
     await waitFor(() =>
-      expect(createRoleMock).toHaveBeenCalledWith({
-        name: 'Supervisor',
-      }),
+      expect(createRoleMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          name: 'Supervisor',
+          permissions: expect.arrayContaining([
+            expect.objectContaining({ module: 'dashboard' }),
+          ]),
+        }),
+      ),
     );
   });
 

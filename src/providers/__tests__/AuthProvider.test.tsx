@@ -46,6 +46,21 @@ jest.mock('../../api/modules/subscriptions', () => {
 
 jest.mock('../../api/client', () => ({
   setUnauthorizedHandler: jest.fn(),
+  setForbiddenHandler: jest.fn(),
+  ApiError: class ApiError extends Error {
+    status: number;
+    code?: string;
+    details?: unknown;
+    traceId?: string;
+    constructor(init: { status: number; message: string; code?: string; details?: unknown; traceId?: string }) {
+      super(init.message);
+      this.name = 'ApiError';
+      this.status = init.status;
+      this.code = init.code;
+      this.details = init.details;
+      this.traceId = init.traceId;
+    }
+  },
 }));
 
 function makeSession(offsetSeconds: number): AuthSession {

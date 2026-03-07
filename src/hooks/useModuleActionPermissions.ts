@@ -148,15 +148,11 @@ export function useModuleActionPermissions(menuKey: string) {
 
     const derived = deriveFromRbacPermissions(accessSnapshot.rbac?.permissions, menuKey);
     if (!derived.matched) {
-      // OpenAPI still emits weak RBAC permission typing; fallback to module-level access.
+      // Deny-by-default: if no RBAC permission record exists for this module,
+      // deny all actions. This aligns with the web's RbacContext.can() behavior.
       return {
         loading: false,
-        permissions: {
-          view: true,
-          add: true,
-          edit: true,
-          delete: true,
-        },
+        permissions: DENIED_PERMISSIONS,
       };
     }
 

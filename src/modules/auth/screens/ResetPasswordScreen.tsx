@@ -14,12 +14,14 @@ import {
   SectionCard,
   useFormValidation,
 } from '../../../components';
+import { useRateLimitGuard } from '../../../hooks/useRateLimitGuard';
 import { spacing } from '../../../theme/tokens';
 import { resetPassword } from '../api';
 import { AuthBrandHeader } from '../components/AuthBrandHeader';
 
 export function ResetPasswordScreen() {
   const router = useRouter();
+  const rateLimitGuard = useRateLimitGuard();
   const scrollViewRef = useRef<ScrollView | null>(null);
   const formValidation = useFormValidation<'token' | 'password'>(scrollViewRef);
   const [token, setToken] = useState('');
@@ -51,11 +53,17 @@ export function ResetPasswordScreen() {
     }
 
     try {
-      await resetPassword({
-        token: token.trim(),
-        password,
-      });
-      setSuccess(true);
+      const result = await rateLimitGuard.guard(() =>
+        resetPassword({
+          token: token.trim(),
+          password,
+        }),
+      );
+      if (result.ok) {
+        setSuccess(true);
+      } else {
+        setError(result.error);
+      }
     } catch (e) {
       const message = e instanceof Error ? e.message : 'Failed to reset password';
       setError(message);
@@ -114,18 +122,20 @@ export function ResetPasswordScreen() {
             />
           </FormField>
 
-          {error ? (
+          {(error || rateLimitGuard.message) ? (
             <ErrorState
-              title="Reset Failed"
-              message={error}
+              title={rateLimitGuard.isLimited ? 'Rate Limited' : 'Reset Failed'}
+              message={rateLimitGuard.message ?? error ?? ''}
             />
           ) : null}
 
           <AppButton
-            label="Reset your password"
+            label={rateLimitGuard.isLimited
+              ? `Try again in ${rateLimitGuard.retryAfterSec}s`
+              : 'Reset your password'}
             onPress={onSubmit}
             loading={submitting}
-            disabled={submitting}
+            disabled={submitting || rateLimitGuard.isLimited}
             testID="auth.reset.submit"
           />
         </FormValidationProvider>

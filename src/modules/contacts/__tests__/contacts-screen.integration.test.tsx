@@ -140,6 +140,7 @@ describe('ContactsScreen integration', () => {
       signOut: async () => undefined,
       clearSessionNotice: () => undefined,
       hasMenuAccess: () => true,
+      refreshAccessSnapshot: jest.fn().mockResolvedValue(undefined),
     });
   });
 

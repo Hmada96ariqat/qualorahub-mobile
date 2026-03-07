@@ -54,13 +54,14 @@ export function AccountScreen() {
       (['users', 'contacts', 'notifications'] as ManagementModuleKey[]).map((moduleKey) => ({
         moduleKey,
         state: resolveAccessState({
-          roleName: accessSnapshot.context?.role ?? null,
+          roleType: accessSnapshot.rbac?.type ?? accessSnapshot.context?.role ?? null,
+          rbacPermissions: accessSnapshot.rbac?.permissions,
           moduleKey,
           menuAllowed: hasMenuAccess(moduleKey),
           entitlementsSnapshot: accessSnapshot.entitlements,
         }),
       })),
-    [accessSnapshot.context?.role, accessSnapshot.entitlements, hasMenuAccess],
+    [accessSnapshot.rbac?.type, accessSnapshot.rbac?.permissions, accessSnapshot.context?.role, accessSnapshot.entitlements, hasMenuAccess],
   );
 
   const entitlement = accessSnapshot.entitlements;
