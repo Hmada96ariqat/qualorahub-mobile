@@ -90,12 +90,13 @@ export function NotificationsScreen() {
   const accessState = useMemo(
     () =>
       resolveAccessState({
-        roleName: accessSnapshot.context?.role ?? null,
+        roleType: accessSnapshot.rbac?.type ?? accessSnapshot.context?.role ?? null,
+        rbacPermissions: accessSnapshot.rbac?.permissions,
         moduleKey: 'notifications',
         menuAllowed: hasMenuAccess('notifications'),
         entitlementsSnapshot: accessSnapshot.entitlements,
       }),
-    [accessSnapshot.context?.role, accessSnapshot.entitlements, hasMenuAccess],
+    [accessSnapshot.rbac?.type, accessSnapshot.rbac?.permissions, accessSnapshot.context?.role, accessSnapshot.entitlements, hasMenuAccess],
   );
   const canWriteNotifications = isWritable(accessState);
 

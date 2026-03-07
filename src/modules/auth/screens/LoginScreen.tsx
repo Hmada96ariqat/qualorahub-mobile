@@ -14,12 +14,14 @@ import {
   useFormValidation,
 } from '../../../components';
 import { useAuth } from '../../../providers/AuthProvider';
+import { useRateLimitGuard } from '../../../hooks/useRateLimitGuard';
 import { spacing } from '../../../theme/tokens';
 import { AuthBrandHeader } from '../components/AuthBrandHeader';
 
 export function LoginScreen() {
   const router = useRouter();
   const { signIn, sessionNotice, clearSessionNotice } = useAuth();
+  const rateLimitGuard = useRateLimitGuard();
   const scrollViewRef = useRef<ScrollView | null>(null);
   const formValidation = useFormValidation<'email' | 'password'>(scrollViewRef);
   const [email, setEmail] = useState('');
@@ -49,7 +51,10 @@ export function LoginScreen() {
 
     try {
       clearSessionNotice();
-      await signIn(email.trim(), password);
+      const result = await rateLimitGuard.guard(() => signIn(email.trim(), password));
+      if (!result.ok) {
+        setError(result.error);
+      }
     } catch (e) {
       const message = e instanceof Error ? e.message : 'Login failed';
       setError(message);
@@ -110,18 +115,20 @@ export function LoginScreen() {
             />
           </FormField>
 
-          {error ? (
+          {(error || rateLimitGuard.message) ? (
             <ErrorState
-              title="Login Failed"
-              message={error}
+              title={rateLimitGuard.isLimited ? 'Rate Limited' : 'Login Failed'}
+              message={rateLimitGuard.message ?? error ?? ''}
             />
           ) : null}
 
           <AppButton
-            label="Sign In"
+            label={rateLimitGuard.isLimited
+              ? `Try again in ${rateLimitGuard.retryAfterSec}s`
+              : 'Sign In'}
             onPress={onSubmit}
             loading={submitting}
-            disabled={submitting}
+            disabled={submitting || rateLimitGuard.isLimited}
             testID="auth.login.submit"
           />
         </FormValidationProvider>

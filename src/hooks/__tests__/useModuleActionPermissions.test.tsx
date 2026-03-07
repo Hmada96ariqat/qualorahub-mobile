@@ -85,4 +85,48 @@ describe('useModuleActionPermissions', () => {
       JSON.stringify({ view: true, add: true, edit: false, delete: false }),
     );
   });
+
+  it('denies all permissions when no RBAC record matches the module (deny-by-default)', () => {
+    useAuthMock.mockReturnValue({
+      accessLoading: false,
+      accessSnapshot: {
+        rbac: {
+          type: 'manager',
+          permissions: [
+            {
+              module_key: 'tasks',
+              can_view: true,
+              can_add: true,
+              can_edit: true,
+              can_delete: true,
+            },
+          ],
+        },
+      },
+      hasMenuAccess: () => true,
+    } as never);
+
+    const { getByTestId } = render(<Harness menuKey="fields" />);
+    expect(getByTestId('value').props.children).toBe(
+      JSON.stringify({ view: false, add: false, edit: false, delete: false }),
+    );
+  });
+
+  it('denies all permissions when RBAC permissions array is empty for non-admin', () => {
+    useAuthMock.mockReturnValue({
+      accessLoading: false,
+      accessSnapshot: {
+        rbac: {
+          type: 'operator',
+          permissions: [],
+        },
+      },
+      hasMenuAccess: () => true,
+    } as never);
+
+    const { getByTestId } = render(<Harness menuKey="fields" />);
+    expect(getByTestId('value').props.children).toBe(
+      JSON.stringify({ view: false, add: false, edit: false, delete: false }),
+    );
+  });
 });

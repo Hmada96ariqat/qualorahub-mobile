@@ -7,6 +7,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { AppState, type AppStateStatus } from 'react-native';
 import type { AuthSession } from '../types/auth';
 import type { AuthRbacSnapshotResponse, AuthContextSnapshot } from '../api/modules/auth';
 import { login, logout, refresh } from '../modules/auth/api';
@@ -19,13 +20,14 @@ import {
   type EntitlementsSnapshot,
   type MenuAccessSnapshot,
 } from '../api/modules/subscriptions';
-import { setUnauthorizedHandler } from '../api/client';
+import { setUnauthorizedHandler, setForbiddenHandler } from '../api/client';
 import {
   clearStoredSession,
   readStoredSession,
   writeStoredSession,
 } from '../modules/auth/storage';
 import { isExpired, willExpireSoon } from '../modules/auth/session';
+import { ApiError } from '../api/client';
 
 export type AuthAccessSnapshot = {
   context: AuthContextSnapshot | null;
@@ -44,6 +46,8 @@ type AuthContextValue = {
   signOut: () => Promise<void>;
   clearSessionNotice: () => void;
   hasMenuAccess: (menuKey: string) => boolean;
+  /** Manually trigger a refresh of RBAC, entitlements, and menus (e.g. pull-to-refresh). */
+  refreshAccessSnapshot: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -75,6 +79,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [sessionNotice, setSessionNotice] = useState<string | null>(null);
   const refreshPromiseRef = useRef<Promise<AuthSession | null> | null>(null);
   const unauthorizedLockRef = useRef(false);
+  const sessionRef = useRef<AuthSession | null>(null);
+
+  // Keep sessionRef in sync so AppState callback always has the latest session
+  useEffect(() => {
+    sessionRef.current = session;
+  }, [session]);
 
   const hydrateAccessSnapshot = useCallback(async (accessToken: string): Promise<void> => {
     setAccessLoading(true);
@@ -135,7 +145,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           await writeStoredSession(next);
           await hydrateAccessSnapshot(next.accessToken);
           return next;
-        } catch {
+        } catch (error) {
+          // Phase 6: Handle session invalidation — AUTH_REFRESH_TOKEN_REVOKED
+          if (error instanceof ApiError) {
+            if (error.code === 'AUTH_REFRESH_TOKEN_REVOKED') {
+              await forceSignOut(
+                'Your permissions have been updated. Please log in again to continue.',
+              );
+              return null;
+            }
+            if (error.code === 'AUTH_PASSWORD_RESET_REQUIRED') {
+              await forceSignOut(
+                'A password reset is required. Please reset your password to continue.',
+              );
+              return null;
+            }
+          }
           await forceSignOut('Session expired. Please sign in again.');
           return null;
         } finally {
@@ -148,6 +173,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     [forceSignOut, hydrateAccessSnapshot],
   );
 
+  // Manually refresh access snapshot (for pull-to-refresh, after admin actions, etc.)
+  const refreshAccessSnapshot = useCallback(async (): Promise<void> => {
+    const current = sessionRef.current;
+    if (!current) return;
+    await hydrateAccessSnapshot(current.accessToken);
+  }, [hydrateAccessSnapshot]);
+
+  // Bootstrap: restore session from storage
   useEffect(() => {
     let active = true;
 
@@ -179,6 +212,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
   }, [forceSignOut, hydrateAccessSnapshot, refreshSessionIfNeeded]);
 
+  // Periodic token refresh (30s interval)
   useEffect(() => {
     if (!session) return;
 
@@ -189,8 +223,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => clearInterval(interval);
   }, [session, refreshSessionIfNeeded]);
 
+  // Phase 3 (BUG 3): Refresh permissions when app comes to foreground
   useEffect(() => {
-    setUnauthorizedHandler(() => {
+    function handleAppStateChange(nextState: AppStateStatus) {
+      if (nextState === 'active' && sessionRef.current) {
+        void hydrateAccessSnapshot(sessionRef.current.accessToken);
+      }
+    }
+
+    const subscription = AppState.addEventListener('change', handleAppStateChange);
+    return () => subscription.remove();
+  }, [hydrateAccessSnapshot]);
+
+  // 401 handler — force sign out
+  useEffect(() => {
+    setUnauthorizedHandler((event) => {
       if (unauthorizedLockRef.current) return;
       unauthorizedLockRef.current = true;
 
@@ -203,6 +250,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUnauthorizedHandler(undefined);
     };
   }, [forceSignOut]);
+
+  // Phase 3 (BUG 3): On 403, refresh RBAC & entitlements so stale permissions get updated
+  useEffect(() => {
+    setForbiddenHandler(() => {
+      const current = sessionRef.current;
+      if (current) {
+        void hydrateAccessSnapshot(current.accessToken);
+      }
+    });
+
+    return () => {
+      setForbiddenHandler(undefined);
+    };
+  }, [hydrateAccessSnapshot]);
 
   async function signIn(email: string, password: string): Promise<void> {
     const next = await login({ email, password });
@@ -258,8 +319,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       signOut,
       clearSessionNotice,
       hasMenuAccess,
+      refreshAccessSnapshot,
     }),
-    [session, loading, accessLoading, accessSnapshot, accessContractState, sessionNotice],
+    [session, loading, accessLoading, accessSnapshot, accessContractState, sessionNotice, refreshAccessSnapshot],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

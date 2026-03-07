@@ -22,37 +22,71 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 }
 
+/**
+ * Legacy path aliases — maps old/alternative menu paths to canonical paths.
+ * Aligns with the web's menuPath.ts normalization.
+ */
+const LEGACY_PATH_ALIASES: Record<string, string> = {
+  'order-list': 'orders',
+  'equipments': 'equipment',
+  'production-cycle': 'production-cycles',
+  'animal-housing': 'animal-housing-unit',
+  'housing-unit': 'animal-housing-unit',
+};
+
+/**
+ * Normalizes a menu path following the web's canonical path matching approach.
+ * Strips query params/hash, lowercases, ensures consistent format.
+ */
 export function normalizeMenuAccessKey(value: string): string | null {
   const trimmed = value.trim().toLowerCase();
   if (!trimmed) return null;
   if (trimmed === '*') return '*';
 
+  // Strip query params and hash
   const withoutQuery = trimmed.split(/[?#]/, 1)[0] ?? '';
-  const normalized = withoutQuery
+
+  // Normalize separators: spaces/underscores to hyphens, collapse slashes
+  let normalized = withoutQuery
     .replace(/[\s_]+/g, '-')
     .replace(/\/{2,}/g, '/')
     .replace(/^\/+|\/+$/g, '');
 
+  // Resolve legacy aliases
+  if (LEGACY_PATH_ALIASES[normalized]) {
+    normalized = LEGACY_PATH_ALIASES[normalized];
+  }
+
   return normalized.length > 0 ? normalized : null;
 }
 
-function addMenuKeyVariants(value: string, keys: Set<string>): void {
-  const normalized = normalizeMenuAccessKey(value);
-  if (!normalized) return;
+/**
+ * Checks if a route path matches a menu path using the web's canonical matching logic.
+ * Supports exact match and prefix match (for sub-routes).
+ */
+export function doesRouteMatchMenu(routePath: string, menuPath: string): boolean {
+  const normalizedRoute = normalizeMenuAccessKey(routePath);
+  const normalizedMenu = normalizeMenuAccessKey(menuPath);
 
-  keys.add(normalized);
-  if (normalized === '*') return;
+  if (!normalizedRoute || !normalizedMenu) return false;
+  if (normalizedRoute === normalizedMenu) return true;
 
-  const segments = normalized.split('/').filter((segment) => segment.length > 0);
-  if (segments.length > 1) {
-    keys.add(segments[0]);
-    keys.add(segments[segments.length - 1]);
-  }
+  // Dashboard is an exact match only
+  if (normalizedMenu === 'dashboard') return normalizedRoute === 'dashboard';
+
+  // Sub-route matching: /fields/123 matches /fields
+  return normalizedRoute.startsWith(normalizedMenu + '/') || normalizedRoute === normalizedMenu;
 }
 
+/**
+ * Extracts menu keys from the menus API response using canonical path normalization.
+ * Reads specific known fields from menu items (menu_path, menu_name, module_name)
+ * rather than scraping all string fields heuristically.
+ */
 function collectMenuKeys(value: unknown, keys: Set<string>): void {
   if (typeof value === 'string') {
-    addMenuKeyVariants(value, keys);
+    const normalized = normalizeMenuAccessKey(value);
+    if (normalized) keys.add(normalized);
     return;
   }
 
@@ -63,32 +97,44 @@ function collectMenuKeys(value: unknown, keys: Set<string>): void {
 
   if (!isRecord(value)) return;
 
-  const candidates = [
-    value.key,
-    value.menuKey,
-    value.menu_key,
-    value.slug,
-    value.path,
-    value.menuPath,
+  // Read canonical fields from menu items (matches backend's menu response schema)
+  const menuPathCandidates = [
     value.menu_path,
-    value.name,
-    value.menuName,
-    value.menu_name,
-    value.route,
-    value.module,
-    value.moduleKey,
-    value.module_key,
-    value.moduleName,
-    value.module_name,
+    value.menuPath,
+    value.path,
   ];
-  for (const candidate of candidates) {
+  for (const candidate of menuPathCandidates) {
     if (typeof candidate === 'string' && candidate.length > 0) {
-      addMenuKeyVariants(candidate, keys);
+      const normalized = normalizeMenuAccessKey(candidate);
+      if (normalized) keys.add(normalized);
     }
   }
 
-  for (const nested of Object.values(value)) {
-    if (nested !== value) collectMenuKeys(nested, keys);
+  // Also read module/menu name fields as they may serve as the key
+  const nameCandidates = [
+    value.module_name,
+    value.moduleName,
+    value.menu_name,
+    value.menuName,
+    value.name,
+    value.module,
+    value.key,
+    value.menuKey,
+    value.menu_key,
+    value.moduleKey,
+    value.module_key,
+  ];
+  for (const candidate of nameCandidates) {
+    if (typeof candidate === 'string' && candidate.length > 0) {
+      const normalized = normalizeMenuAccessKey(candidate);
+      if (normalized) keys.add(normalized);
+    }
+  }
+
+  // Recurse into children/submenus
+  const children = value.children ?? value.submenus ?? value.items;
+  if (Array.isArray(children)) {
+    for (const child of children) collectMenuKeys(child, keys);
   }
 }
 
@@ -116,7 +162,7 @@ export async function getMyMenus(token: string): Promise<MenuAccessSnapshot> {
   return data;
 }
 
-// TODO(openapi-blocker: QH-OAPI-002): Replace this parser with typed menu snapshot selectors.
+// Extracts all accessible menu keys from the menus snapshot using canonical path matching.
 export function extractMenuKeys(snapshot: MenuAccessSnapshot | null): Set<string> {
   const keys = new Set<string>();
   collectMenuKeys(snapshot, keys);
